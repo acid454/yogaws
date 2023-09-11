@@ -66,6 +66,11 @@ class BaseTask:
     sounds: list = field(default_factory=lambda: [])    #ToDo: will be reworked
 
 @dataclass
+class BaseSet(PropertiesContainer):
+    caption: str = None
+    asanas: list = field(default_factory=lambda: [])
+
+@dataclass
 class BaseWorkout(PropertiesContainer):
     name: str = "noname"
     caption: str = "Без названия"

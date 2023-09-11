@@ -16,7 +16,7 @@ class GorkaBase(BaseAsana):
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.tasks.append(BaseTask(
             caption=self.caption,
-            property=self.get_prop("tm_main"),
+            property=self.tm_main,
             metronome=MetronomeWork()
         ))
 
@@ -26,6 +26,6 @@ class GorkaNormal(GorkaBase):
         self.properties.insert(0, IntProperty(caption="подготовка", short="tm_prepare", default=4))
         self.tasks.append(BaseTask(
             caption=self.caption + " (подготовка)",
-            property=self.get_prop("tm_prepare"),
+            property=self.tm_prepare,
             metronome=MetronomeRest()
         ))

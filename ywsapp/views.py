@@ -7,6 +7,7 @@ WORKOUTS = None
 GLOBAL_PATHS = [
     ["yoga", "workouts"],
     ["yoga", "asanas"],
+    ["yoga", "sets"],
     ["yoga", "common"]
 ]
 

@@ -17,7 +17,7 @@ class Uttanasana(BaseAsana):
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.tasks.append(BaseTask(
             caption=self.caption,
-            property=self.get_prop("tm_main"),
+            property=self.tm_main,
             metronome=MetronomeWork()
         ))
 
@@ -27,6 +27,6 @@ class Uttanasana_ruki_v_zamke(BaseAsana):
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.tasks.append(BaseTask(
             caption=self.caption,
-            property=self.get_prop("tm_main"),
+            property=self.tm_main,
             metronome=MetronomeWork()
         ))
