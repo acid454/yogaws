@@ -13,11 +13,23 @@ BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 
 
 @dataclass
-class BaseAsana:
+class PropertiesContainer:
+    properties: list = field(default_factory=lambda: [])
+    
+    # Use property's short name as attribute of workout
+    def __getattr__(self, name):
+        for _p in self.properties:
+            if _p.short == name:
+                return _p
+        return None
+
+
+@dataclass
+class BaseAsana(PropertiesContainer):
     name: str = None
     caption: str = None
     tasks: list = field(default_factory=lambda: [])
-    properties: list = field(default_factory=lambda: [])
+    #properties: list = field(default_factory=lambda: [])
 
 @dataclass
 class BaseProperty:
@@ -54,18 +66,12 @@ class BaseTask:
     sounds: list = field(default_factory=lambda: [])    #ToDo: will be reworked
 
 @dataclass
-class BaseWorkout:
+class BaseWorkout(PropertiesContainer):
     name: str = "noname"
     caption: str = "Без названия"
     description: str = "Без описания"
-    properties: list = field(default_factory=lambda: [])
+    #properties: list = field(default_factory=lambda: [])
     asanas: list = field(default_factory=lambda: [])
-
-    def get_prop(self, short: str) -> BaseProperty:
-        for _p in self.properties:
-            if _p.short == short:
-                return _p
-        return None
 
     def view(self):
         return jsons.dump(self)

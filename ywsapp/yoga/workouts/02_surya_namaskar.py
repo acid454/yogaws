@@ -19,7 +19,7 @@ class DefaultWorkout(BaseWorkout):
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
         
     def view(self):
-        for _ in range(self.get_prop("cnt").value):
+        for _ in range(self.cnt.value):
             self.asanas.append("test_asana")
         return super().view()
 
