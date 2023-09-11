@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--- https://freefrontend.com/css-sidebar-menus/ -->
+<html>
+<head>
+
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'ywsapp/css/w3.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/workouts_list.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
+
+<script>
+function save_workout_local_storage(workout_nm)
+{
+    const collection = document.getElementsByClassName("prop_input");
+    for (var i = 0; i < collection.length; i++) {
+        localStorage.setItem(collection[i].id, collection[i].value);
+    }
+    window.location.href = "/active.html?" + workout_nm;
+}
+</script>
+
+</head>
+<body>
+
+
+<div id="workouts_list" class="w3-sidebar w3-bar-block w3-light-grey" style="width:27%">
+  <!-- <div class="w3-container w3-dark-grey">
+    <h4>Выберите тренировку</h4>
+  </div> -->
+
+  <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
+
+</div>
+
+<div style="margin-left:27%">
+    <div class="w3-container">
+        <h2 id="caption" hidden="hidden"></h2>
+        <form id="frm_active" action="/active.html?" method="GET" hidden="hidden">
+        <ol id="asanas_list" style="--length: 0" role="list"></ol>
+        </form>
+        
+        <div id="runit" hidden="hidden" class="run_button">
+            <a id="active" onclick="">&#x1F662 Run it! &#x1F661</a>
+        </div>
+        
+        
+        <div id="select_log" class="container">
+            <div style="display: inline-block; position: relative;">
+                <img src="{% static 'ywsapp/res/chakra.png' %}" class="fit">
+                <div id="text_begin" class="begining_text"   hidden="hidden"><b>Выберите тренировку</b></div>
+                <div id="text_complete" class="completion_text" hidden="hidden"><b>Успешное завершение<br>тренировки</b></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+
+<script>
+    function select_workout(nm) {
+        console.log("Loading " + nm);
+        document.getElementById('select_log').hidden = true;
+        //document.getElementById("active").href += nm;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/workouts/' + nm, false);
+        xhr.send();
+        if (xhr.status != 200) {
+            console.log("Fail to load workout " + nm + " with status " + xhr.status);
+            return;
+        }
+        
+        const workout = JSON.parse(xhr.responseText)
+        var list = document.getElementById('asanas_list');
+        console.log(list)
+        
+        document.getElementById('caption').textContent = workout.caption;
+        
+        list.style = "--length: " + workout.asanas.length;
+        list.innerHTML = '';
+        for (i = 0; i < workout.asanas.length; i++) {
+            var node = document.createElement('li');
+            
+            var header = document.createElement('h3');
+            header.textContent = workout.asanas[i].caption;
+            
+            if (workout.asanas[i].properties != null) {
+                var prop_table = document.createElement('table');
+                
+                for (const [prop_name, prop_descr] of Object.entries(workout.asanas[i].properties)) {
+                    
+                    var tbl_r = document.createElement('tr');
+                    var tbl_d = document.createElement('td');
+                    
+                    tbl_d.textContent = prop_descr.caption;
+                    tbl_r.appendChild(tbl_d);
+                    
+                    tbl_d = document.createElement('td');
+                    var inp = document.createElement('input');
+                    inp.type = "number";
+                    inp.value = prop_descr.default;
+                    inp.id = "asana" + i + "_" + prop_name;
+                    inp.className = "prop_input";
+                    tbl_d.appendChild( inp );
+                    tbl_r.appendChild(tbl_d);
+                    prop_table.appendChild(tbl_r);
+                }
+            }
+            
+        
+            node.appendChild(header);
+            node.appendChild(prop_table);
+            node.id = "asana_element_" + i;
+            node.style = "--i: " + i;
+            list.appendChild(node);
+        }
+        
+        document.getElementById('active').setAttribute('onclick','save_workout_local_storage("' + workout.name + '");');
+        document.getElementById('caption').hidden = false;
+        document.getElementById('frm_active').hidden = false;
+        document.getElementById('runit').hidden = false;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/list_workouts', false);
+    xhr.send();
+    if (xhr.status == 200) {
+        const workouts_list = JSON.parse(xhr.responseText)
+        var list = document.getElementById('workouts_list');
+
+        console.log(list)
+        
+        console.log(workouts_list)
+        for (i = 0; i < workouts_list.length; i++) {
+            var anker = document.createElement('a');
+            anker.id = "workout_element_" + i;
+
+            anker.href = "#";// + 
+            anker.setAttribute('onclick', 'select_workout("' + workouts_list[i].name + '");');
+            anker.text = workouts_list[i].caption;
+            anker.className = "w3-bar-item w3-button";
+            
+            list.appendChild(anker);
+        }
+    }
+    
+    if (window.location.href.split('?').length == 2)
+        document.getElementById('text_complete').hidden = false;
+    else
+        document.getElementById('text_begin').hidden = false;
+    
+</script>
+
+</html>
