@@ -68,7 +68,7 @@ function save_workout_local_storage(workout_nm)
         document.getElementById('select_log').hidden = true;
         //document.getElementById("active").href += nm;
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/workouts/' + nm, false);
+        xhr.open('GET', '/view_workout?workout_name=' + nm, false);
         xhr.send();
         if (xhr.status != 200) {
             console.log("Fail to load workout " + nm + " with status " + xhr.status);

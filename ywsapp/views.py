@@ -21,7 +21,6 @@ def index(request):
 def list_workouts(request):
     global WORKOUTS
 
-    #return JsonResponse({"valid":False}, status = 200)   -- work fine
     if WORKOUTS is None:
         import os
         import sys
@@ -39,5 +38,12 @@ def list_workouts(request):
         
         import pprint
         pprint.PrettyPrinter(indent=4).pprint(result)
-        #print(result)
-        return JsonResponse(result, safe = False, status = 200)
+        WORKOUTS = result
+    return JsonResponse(WORKOUTS, safe = False, status = 200)
+
+def view_workout(request):
+    workout_name = request.GET.get('workout_name')
+    for w in WORKOUTS:
+        if w['name'] == workout_name:
+            return JsonResponse(w, safe = False, status = 200)
+    return JsonResponse({}, safe = False, status = 200)
