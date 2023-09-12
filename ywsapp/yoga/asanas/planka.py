@@ -19,14 +19,14 @@ class Planka(BaseAsana):
         
         self.tasks.append(BaseTask(
             caption=self.caption + "(подготовка)",
-            property=self.get_prop("tm_prepare"),
+            property=self.tm_prepare,
             metronome=MetronomeRest(),
             images=["planka1", "planka2"]
         ))
 
         self.tasks.append(BaseTask(
             caption=self.caption,
-            property=self.get_prop("tm_main"),
+            property=self.tm_main,
             metronome=MetronomeWork(),
             images=["planka1", "planka2"]
         ))
