@@ -16,11 +16,12 @@ class DefaultWorkout(BaseWorkout):
     def __init__(self):
         BaseWorkout.__init__(self,
                              name = "surya_namaskar",
-                             caption = "Сурья Намаскар")
+                             caption = "Сурья Намаскар",
+                             description = "Сурья Намаскар и несколько основных асан")
     
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
-        self.asanas.append(Tadasana())
-        self.asanas.append(SuryaNamaskar())
+        self.wrap_asana(Tadasana())
+        self.sets.append(SuryaNamaskar())
 
 def do_load_workouts():
     return [DefaultWorkout]

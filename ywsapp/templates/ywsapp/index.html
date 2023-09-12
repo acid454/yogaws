@@ -63,11 +63,46 @@ function save_workout_local_storage(workout_nm)
 </body>
 
 <script>
+    function do_show_element(e, list, idx) {
+        let node = document.createElement('li');
+        let header = document.createElement('h3');
+        
+        header.textContent = e.caption;
+        if (e.properties != null) {
+            var prop_table = document.createElement('table');
+                
+            for (const [prop_name, prop_descr] of Object.entries(e.properties)) {
+                
+                var tbl_r = document.createElement('tr');
+                var tbl_d = document.createElement('td');
+                
+                tbl_d.textContent = prop_descr.caption;
+                tbl_r.appendChild(tbl_d);
+                
+                tbl_d = document.createElement('td');
+                var inp = document.createElement('input');
+                inp.type = "number";
+                inp.value = prop_descr.default;
+                inp.id = "asana" + i + "_" + prop_name;
+                inp.className = "prop_input";
+                tbl_d.appendChild( inp );
+                tbl_r.appendChild(tbl_d);
+                prop_table.appendChild(tbl_r);
+            }
+        }
+
+        node.appendChild(header);
+        node.appendChild(prop_table);
+        node.id = "asana_element_" + idx;
+        node.style = "--i: " + idx;
+        list.appendChild(node);
+    }
+
     function select_workout(nm) {
         console.log("Loading " + nm);
         document.getElementById('select_log').hidden = true;
         //document.getElementById("active").href += nm;
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', '/view_workout?workout_name=' + nm, false);
         xhr.send();
         if (xhr.status != 200) {
@@ -76,50 +111,22 @@ function save_workout_local_storage(workout_nm)
         }
         
         const workout = JSON.parse(xhr.responseText)
-        var list = document.getElementById('asanas_list');
-        console.log(list)
-        
         document.getElementById('caption').textContent = workout.caption;
+
+        let list = document.getElementById('asanas_list');
+        let idx = 0;
         
-        list.style = "--length: " + workout.asanas.length;
         list.innerHTML = '';
-        for (i = 0; i < workout.asanas.length; i++) {
-            var node = document.createElement('li');
-            
-            var header = document.createElement('h3');
-            header.textContent = workout.asanas[i].caption;
-            
-            if (workout.asanas[i].properties != null) {
-                var prop_table = document.createElement('table');
-                
-                for (const [prop_name, prop_descr] of Object.entries(workout.asanas[i].properties)) {
-                    
-                    var tbl_r = document.createElement('tr');
-                    var tbl_d = document.createElement('td');
-                    
-                    tbl_d.textContent = prop_descr.caption;
-                    tbl_r.appendChild(tbl_d);
-                    
-                    tbl_d = document.createElement('td');
-                    var inp = document.createElement('input');
-                    inp.type = "number";
-                    inp.value = prop_descr.default;
-                    inp.id = "asana" + i + "_" + prop_name;
-                    inp.className = "prop_input";
-                    tbl_d.appendChild( inp );
-                    tbl_r.appendChild(tbl_d);
-                    prop_table.appendChild(tbl_r);
-                }
+        for (i = 0; i < workout.sets.length; i++) {
+            if (workout.sets[i].visible)
+                do_show_element(workout.sets[i], list, idx++)
+            else {
+                for (j = 0; j < workout.sets[i].asanas.length; j++)
+                    do_show_element(workout.sets[i].asanas[j], list, idx++)
             }
-            
-        
-            node.appendChild(header);
-            node.appendChild(prop_table);
-            node.id = "asana_element_" + i;
-            node.style = "--i: " + i;
-            list.appendChild(node);
         }
         
+        list.style = "--length: " + idx;
         document.getElementById('active').setAttribute('onclick','save_workout_local_storage("' + workout.name + '");');
         document.getElementById('caption').hidden = false;
         document.getElementById('frm_active').hidden = false;

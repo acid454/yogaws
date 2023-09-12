@@ -55,6 +55,7 @@
         workout = JSON.parse(xhr.responseText)
     
     
+	var current_set_idx = 0;
 	var current_asana_idx = 0;
 	var current_task_idx = 0;
     var current_task_time_start = new Date().getTime();
@@ -66,48 +67,64 @@
     var task_audio = new Audio();
    
 
+	function get_current_task(inc_task = false) {
+		if (current_set_idx >= workout.sets.length) {
+			/* All sets complete, so workout is complete*/
+			window.location.href = "/index-sidenav.html?" + workout.name;
+			return;
+		}
+
+		if (current_asana_idx >= workout.sets[current_set_idx].asanas.length) {
+			current_set_idx++;
+			current_asana_idx = 0;
+			current_task_idx = 0;
+			return get_current_task();
+		}
+
+		//while (workout.sets[current_set_idx].asanas[current_asana_idx].tasks.length == 0)
+		//	current_asana_idx++;
+
+		if (inc_task)
+			current_task_idx++;
+
+		if (current_task_idx >= workout.sets[current_set_idx].asanas[current_asana_idx].tasks.length) {
+			current_asana_idx++;
+			current_task_idx = 0;
+			return get_current_task();
+		}
+
+		return workout.sets[current_set_idx].asanas[current_asana_idx].tasks[current_task_idx];
+	}
+
     function process() {
 		let task_changed = false;
 		let now = new Date().getTime();
 		let current_task_time = Math.round((now - current_task_time_start) / 1000);
 		
 		
-		if (current_asana_idx >= workout.asanas.length)
-			return;
 
-		
-		while (workout.asanas[current_asana_idx].tasks.length == 0)
-			current_asana_idx++;
-
-		if ((current_task_time >= workout.asanas[current_asana_idx].tasks[current_task_idx].property.value) || first_load) {
+		current_task = get_current_task();
+		if ((current_task_time >= current_task.property.value) || first_load) {
 			if (!first_load) {
-				let bell = workout.asanas[current_asana_idx].tasks[current_task_idx].metronome.bell;
+				let bell = current_task.metronome.bell;
 				if (bell in bells)
 					bells[bell].play();
 				
-				current_task_idx++;
+				current_task = get_current_task(inc_task = true);
 			}
 			
 			first_load = false;
-			if (current_task_idx >= workout.asanas[current_asana_idx].tasks.length) {
-				current_asana_idx++;
-				current_task_idx = 0;
-				if (current_asana_idx >= workout.asanas.length) {
-					window.location.href = "/index-sidenav.html?" + workout.name;
-				}
-			}
 			
-			name_div.innerText = workout.asanas[current_asana_idx].tasks[current_task_idx].caption;
+			name_div.innerText = current_task.caption;
 			current_task_time_start = new Date().getTime();
 			task_changed = true;
 		} else {
-			let tick_id = workout.asanas[current_asana_idx].tasks[current_task_idx].metronome.tick;
-			console.log(tick_id)
+			let tick_id = current_task.metronome.tick;
 			if (tick_id in ticks)
 				ticks[tick_id].play();
 		}
 		
-		var snds = workout.asanas[current_asana_idx].tasks[current_task_idx].sounds[current_task_time];
+		var snds = current_task.sounds[current_task_time];
 		if (snds !== undefined) {
 			console.log(snds);
 			task_audio.src = "/data/sounds_merged/" + snds + ".mp3";
@@ -115,8 +132,8 @@
 		}
 		
 		if (((current_task_time % 4) == 0) || task_changed) {
-			current_task_image = (current_task_image + 1) % workout.asanas[current_asana_idx].tasks[current_task_idx].images.length;
-			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + workout.asanas[current_asana_idx].tasks[current_task_idx].images[current_task_image] + '.png'
+			current_task_image = (current_task_image + 1) % current_task.images.length;
+			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + current_task.images[current_task_image] + '.png'
 		}
 		
 		var seconds = current_task_time % 60;

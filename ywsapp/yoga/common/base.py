@@ -68,6 +68,7 @@ class BaseTask:
 @dataclass
 class BaseSet(PropertiesContainer):
     caption: str = None
+    visible: bool = True
     asanas: list = field(default_factory=lambda: [])
 
 @dataclass
@@ -76,7 +77,11 @@ class BaseWorkout(PropertiesContainer):
     caption: str = "Без названия"
     description: str = "Без описания"
     #properties: list = field(default_factory=lambda: [])
-    asanas: list = field(default_factory=lambda: [])
+    sets: list = field(default_factory=lambda: [])
+
+    # Добавляем сет, не отображаемый в интерфейсе, с одной асаной
+    def wrap_asana(self, asana):
+        self.sets.append(BaseSet(visible=False, asanas=[asana]))
 
     def view(self):
         return jsons.dump(self)
