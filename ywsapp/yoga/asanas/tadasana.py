@@ -19,5 +19,6 @@ class Tadasana(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork()
+            metronome=MetronomeWork(),
+            images=["tadasana01", "tadasana02"]
         ))

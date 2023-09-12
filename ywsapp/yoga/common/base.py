@@ -54,8 +54,8 @@ class BaseProperty:
 
 @dataclass
 class MetronomeSounds:
-    tick: int = 0
-    bell: int = 0
+    tick: str = "tick_rest"
+    bell: str = "task_complete_norm"
 
 @dataclass
 class BaseTask:
