@@ -17,7 +17,8 @@ class GorkaBase(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork()
+            metronome=MetronomeWork(),
+            images=["gorka1", "gorka2", "gorka3", "gorka4"]
         ))
 
 class GorkaNormal(GorkaBase):

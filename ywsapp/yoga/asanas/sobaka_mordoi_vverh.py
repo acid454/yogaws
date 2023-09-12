@@ -20,5 +20,6 @@ class SobakaMordoiVverh(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork()
+            metronome=MetronomeWork(),
+            images=["sobaka_mordoi_vverh1", "sobaka_mordoi_vverh2"]
         ))

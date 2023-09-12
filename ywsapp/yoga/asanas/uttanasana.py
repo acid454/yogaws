@@ -18,7 +18,8 @@ class Uttanasana(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork()
+            metronome=MetronomeWork(),
+            images=["uttanasana1", "uttanasana2", "uttanasana3"]
         ))
 
 class Uttanasana_ruki_v_zamke(BaseAsana):
@@ -28,5 +29,6 @@ class Uttanasana_ruki_v_zamke(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork()
+            metronome=MetronomeWork(),
+            images=["uttanasana_zamok1", "uttanasana_zamok2 ", "uttanasana4_zamok"]
         ))
