@@ -9,9 +9,7 @@
 from dataclasses import dataclass, field
 from base import BaseWorkout, BaseSet
 from properties import IntProperty
-from tadasana import Tadasana
-from planka import Planka
-from gorka import GorkaNormal
+from asanas import Asanas
 
 
 @dataclass
@@ -23,9 +21,9 @@ class DefaultWorkout(BaseWorkout):
         IntProperty(caption="test int prop1")])
     
     sets: list = field(default_factory=lambda: [
-        BaseSet(visible=False, asanas=[Tadasana()]),
-        BaseSet(visible=False, asanas=[Planka()]),
-        BaseSet(visible=False, asanas=[GorkaNormal()])])
+        BaseSet(visible=False, asanas=[Asanas.tadasana.Tadasana()]),
+        BaseSet(visible=False, asanas=[Asanas.planka.Planka()]),
+        BaseSet(visible=False, asanas=[Asanas.gorka.GorkaNormal()])])
     
 
 def do_load_workouts():

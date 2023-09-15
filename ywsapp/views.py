@@ -5,10 +5,10 @@ from django.template import loader
 
 WORKOUTS = None
 GLOBAL_PATHS = [
-    ["yoga", "workouts"],
-    ["yoga", "asanas"],
+    ["yoga", "workouts"],       # Note: workouts must be [0]
     ["yoga", "sets"],
-    ["yoga", "common"]
+    ["yoga", "common"],
+    ["yoga"]
 ]
 
 
@@ -44,13 +44,15 @@ def _update_workouts():
     WORKOUTS = result
 
 def list_workouts(request):
-    if WORKOUTS is None: _update_workouts()
+    if WORKOUTS is None:
+        _update_workouts()
     return JsonResponse(WORKOUTS, safe = False, status = 200)
 
 def view_workout(request):
     workout_name = request.GET.get('workout_name')
 
-    if WORKOUTS is None: _update_workouts()
+    if WORKOUTS is None:
+        _update_workouts()
     for w in WORKOUTS:
         if w['name'] == workout_name:
             return JsonResponse(w, safe = False, status = 200)

@@ -8,7 +8,7 @@
 
 from base import BaseWorkout
 from properties import IntProperty
-from tadasana import Tadasana
+from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 
 
@@ -20,7 +20,7 @@ class DefaultWorkout(BaseWorkout):
                              description = "Сурья Намаскар и несколько основных асан")
     
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
-        self.wrap_asana(Tadasana())
+        self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar())
 
 def do_load_workouts():
