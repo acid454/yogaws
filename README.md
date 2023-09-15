@@ -16,14 +16,13 @@ http://127.0.0.1:8000/
 -- View: представление
           python-классы, выстраивающие тренировку на базе модели
 
-----------------------------------------
-Base asana:
-- caption
-- tasks
-- properties
+--------------------------------------------
+VSCode:
+**- Shift+Tab - unintend multiple lines -**
 
-Property:
-- type ("int", "string")
-- caption
-- default
-- value
+Python:
+-- https://tproger.ru/translations/asterisks-in-python-what-they-are-and-how-to-use-them
+
+JavaScript:
+=== - оператор строгого равенства
+let - Variables declared by let are only available inside the block where they're defined
