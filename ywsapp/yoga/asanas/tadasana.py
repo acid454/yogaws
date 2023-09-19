@@ -14,26 +14,22 @@ from metronomes import MetronomeWork, MetronomeRest
 class Tadasana(BaseAsana):
     def __init__(self):
         BaseAsana.__init__(self, name="tadasana", caption="Тадасана")
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=25))
 
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=["tadasana01", "tadasana02"],
-            snd_pools = [
-                SoundPool(name="start", files=[
-                    "name_tadasana",
-                    "begin_nachinaete_s_poloshenija_stoja",
-                    "begin_vstaem_na_kovrik",
-                    "begin_tadasana"
-                ]),
-                SoundPool(name="float", files=[
-                    "descr_tadasana_on_begin",
-                    None
-                ]),
-                SoundPool(name="end", files=[
-                    "_hlopok_", "poehali"
-                ])
-            ]
-        ))
+            images=["tadasana01", "tadasana02"]))
+        
+        self.pool("start").append("name_tadasana")
+        self.pool("start").append("begin_nachinaete_s_poloshenija_stoja")
+        self.pool("start").append("begin_vstaem_na_kovrik")
+        self.pool("start").append("begin_tadasana")
+        self.pool("start").append("begin_vstaem_rovno_ruki_vdol'_tulovisha")
+
+        self.pool("float").append("descr_tadasana_on_begin")
+        self.pool("float").append(None)
+
+        self.pool("end").append("_hlopok_")
+        self.pool("end").append("poehali")
