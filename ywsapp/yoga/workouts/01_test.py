@@ -23,7 +23,8 @@ class DefaultWorkout(BaseWorkout):
     sets: list = field(default_factory=lambda: [
         BaseSet(visible=False, asanas=[Asanas.tadasana.Tadasana()]),
         BaseSet(visible=False, asanas=[Asanas.planka.Planka()]),
-        BaseSet(visible=False, asanas=[Asanas.gorka.GorkaNormal()])])
+        BaseSet(visible=False, asanas=[Asanas.gorka.GorkaNormal()]),
+        BaseSet(visible=False, asanas=[Asanas.shavasana.Shavasana()])])
     
 
 def do_load_workouts():

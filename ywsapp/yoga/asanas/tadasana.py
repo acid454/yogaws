@@ -6,7 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import BaseAsana, BaseTask
+from base import BaseAsana, BaseTask, SoundPool
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 
@@ -20,5 +20,20 @@ class Tadasana(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=["tadasana01", "tadasana02"]
+            images=["tadasana01", "tadasana02"],
+            snd_pools = [
+                SoundPool(name="start", files=[
+                    "name_tadasana",
+                    "begin_nachinaete_s_poloshenija_stoja",
+                    "begin_vstaem_na_kovrik",
+                    "begin_tadasana"
+                ]),
+                SoundPool(name="float", files=[
+                    "descr_tadasana_on_begin",
+                    None
+                ]),
+                SoundPool(name="end", files=[
+                    "_hlopok_", "poehali"
+                ])
+            ]
         ))

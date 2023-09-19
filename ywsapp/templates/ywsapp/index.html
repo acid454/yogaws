@@ -98,15 +98,15 @@ function save_workout_local_storage(workout_nm)
         list.appendChild(node);
     }
 
-    function select_workout(nm) {
-        console.log("Loading " + nm);
+    function select_workout(_id) {
+        console.log("Loading workout id " + _id);
         document.getElementById('select_log').hidden = true;
         //document.getElementById("active").href += nm;
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/view_workout?workout_name=' + nm, false);
+        xhr.open('GET', '/view_workout?id=' + _id, false);
         xhr.send();
         if (xhr.status != 200) {
-            console.log("Fail to load workout " + nm + " with status " + xhr.status);
+            console.log("Fail to load workout " + _id + " with status " + xhr.status);
             return;
         }
         
@@ -127,7 +127,7 @@ function save_workout_local_storage(workout_nm)
         }
         
         list.style = "--length: " + idx;
-        document.getElementById('active').setAttribute('onclick','save_workout_local_storage("' + workout.name + '");');
+        document.getElementById('active').setAttribute('onclick','save_workout_local_storage("' + workout.id + '");');
         document.getElementById('caption').hidden = false;
         document.getElementById('frm_active').hidden = false;
         document.getElementById('runit').hidden = false;
@@ -148,7 +148,7 @@ function save_workout_local_storage(workout_nm)
             anker.id = "workout_element_" + i;
 
             anker.href = "#";// + 
-            anker.setAttribute('onclick', 'select_workout("' + workouts_list[i].name + '");');
+            anker.setAttribute('onclick', 'select_workout("' + workouts_list[i].id + '");');
             anker.text = workouts_list[i].caption;
             anker.className = "w3-bar-item w3-button";
             

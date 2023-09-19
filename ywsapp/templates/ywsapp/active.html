@@ -48,8 +48,8 @@
 	for (var i = 0; i < localStorage.length; i++)
 		properties += '&' + localStorage.key(i) + '=' + localStorage.getItem(localStorage.key(i));
 	
-	console.log( '/view_workout?workout_name=' + window.location.href.split('?')[1] )
-    xhr.open('GET', '/view_workout?workout_name=' + window.location.href.split('?')[1], false);
+	console.log( '/view_workout?id=' + window.location.href.split('?')[1] )
+    xhr.open('GET', '/view_workout?id=' + window.location.href.split('?')[1], false);
     xhr.send();
     if (xhr.status == 200)
         workout = JSON.parse(xhr.responseText)
@@ -99,8 +99,7 @@
     function process() {
 		let task_changed = false;
 		let now = new Date().getTime();
-		let current_task_time = Math.round((now - current_task_time_start) / 1000);
-		
+		let current_task_time = Math.floor((now - current_task_time_start) / 1000);
 		
 
 		current_task = get_current_task();
@@ -127,9 +126,10 @@
 		var snds = current_task.sounds[current_task_time];
 		if (snds !== undefined) {
 			console.log(snds);
-			task_audio.src = "/data/sounds_merged/" + snds + ".mp3";
+			task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
 			task_audio.play();
 		}
+		console.log(current_task_time)
 		
 		if (((current_task_time % 4) == 0) || task_changed) {
 			current_task_image = (current_task_image + 1) % current_task.images.length;
@@ -143,9 +143,11 @@
 		if (minutes < 10) minutes = "0" + minutes;
 		timer_div.textContent = minutes + ":" + seconds;
 		//timer_div.textContent = current_task_time;
+
+		return task_changed;
     }
     
-    process();
+    while (process());
     setInterval(process, 1000);
 </script>
 

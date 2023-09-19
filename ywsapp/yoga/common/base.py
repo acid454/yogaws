@@ -8,8 +8,7 @@
 
 import os, jsons
 from dataclasses import dataclass, field
-
-BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from speech_manager import SpeechManager
 
 
 @dataclass
@@ -23,13 +22,21 @@ class PropertiesContainer:
                 return _p
         return None
 
-
 @dataclass
 class BaseAsana(PropertiesContainer):
     name: str = None
     caption: str = None
     tasks: list = field(default_factory=lambda: [])
-    #properties: list = field(default_factory=lambda: [])
+    
+    def build(self, workout):
+        while any(list(map(lambda x: x.build(workout), self.tasks))):
+            pass
+        return False
+
+    # Удобно брать пул последней таски
+    def pool(self, name):
+        return self.tasks[-1].pool(name)
+
 
 @dataclass
 class BaseProperty:
@@ -49,8 +56,20 @@ class BaseProperty:
     def value(self, v):
         self._value = v
 
-#@dataclass
-#class SoundsContainer:
+@dataclass
+class SoundPool:
+    name: str = None
+    files: list = field(default_factory=lambda: [])
+    seq: int = 0
+
+    def append(self, x):
+        self.files.append(x)
+    
+    def remove(self, x):
+        try:
+            self.files.remove(x)
+        except:
+            pass
 
 @dataclass
 class MetronomeSounds:
@@ -63,7 +82,19 @@ class BaseTask:
     property: BaseProperty = None       # instead of value
     metronome: MetronomeSounds = field(default_factory=lambda: MetronomeSounds())
     images: list = field(default_factory=lambda: [])
-    sounds: list = field(default_factory=lambda: [])    #ToDo: will be reworked
+    snd_pools: list = field(default_factory=lambda: [])
+    sounds: dict = field(default_factory=lambda: {})
+
+    def pool(self, name):
+        for p in self.snd_pools:
+            if p.name == name:
+                return p
+        self.snd_pools.append(SoundPool(name=name))
+        return self.snd_pools[-1]
+
+    def build(self, workout):
+        print("Build method for task '%s' - empty"%(self.caption))
+        return False
 
 @dataclass
 class BaseSet(PropertiesContainer):
@@ -71,11 +102,17 @@ class BaseSet(PropertiesContainer):
     visible: bool = True
     asanas: list = field(default_factory=lambda: [])
 
+    def build(self, workout):
+        while any(list(map(lambda x: x.build(workout), self.asanas))):
+            pass
+        return False
+
 @dataclass
 class BaseWorkout(PropertiesContainer):
     name: str = "noname"
     caption: str = "Без названия"
     description: str = "Без описания"
+    id: str = None
     #properties: list = field(default_factory=lambda: [])
     sets: list = field(default_factory=lambda: [])
 
@@ -83,6 +120,9 @@ class BaseWorkout(PropertiesContainer):
     def wrap_asana(self, asana):
         self.sets.append(BaseSet(visible=False, asanas=[asana]))
 
-    def view(self):
+    def build(self, _id):
+        self.id = _id
+        while any(list(map(lambda x: x.build(self), self.sets))):
+            pass
         return jsons.dump(self)
 	
