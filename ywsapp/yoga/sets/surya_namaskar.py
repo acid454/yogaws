@@ -17,6 +17,7 @@ from asanas import Asanas
 class SuryaNamaskar(BaseSet):
     def __init__(self):
         super().__init__(caption="Сурья Намаскар", asanas=[
+            Asanas.vitjashenie_vverh.VitjashenieVverh(),
             Asanas.uttanasana.Uttanasana(),
             Asanas.gorka.GorkaBase(),
             Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh()
