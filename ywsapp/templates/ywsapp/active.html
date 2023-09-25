@@ -123,12 +123,19 @@
 				ticks[tick_id].play();
 		}
 		
-		var snds = current_task.sounds[current_task_time];
-		if (snds !== undefined) {
-			console.log(snds);
+		let min_key = Infinity
+		for (let k in current_task.sounds) {
+			if (current_task.sounds[k].processed === undefined)
+				min_key = Math.min(parseInt(k), min_key)
+		}
+
+		if (min_key !== Infinity) {
+			let snds = current_task.sounds[min_key];
+			current_task.sounds[min_key]['processed'] = true
 			task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
 			task_audio.play();
 		}
+
 		console.log(current_task_time)
 		
 		if (((current_task_time % 4) == 0) || task_changed) {

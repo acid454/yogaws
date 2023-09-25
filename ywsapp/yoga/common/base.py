@@ -93,7 +93,7 @@ class BaseTask:
         return self.snd_pools[-1]
 
     def build(self, workout):
-        print("Build method for task '%s' - empty"%(self.caption))
+        #print("Build method for task '%s' - empty"%(self.caption))
         return False
 
 @dataclass
