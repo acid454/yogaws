@@ -28,8 +28,8 @@ class BaseAsana(PropertiesContainer):
     caption: str = None
     tasks: list = field(default_factory=lambda: [])
     
-    def build(self, workout):
-        while any(list(map(lambda x: x.build(workout), self.tasks))):
+    def build(self, workout, _set):
+        while any(list(map(lambda x: x.build(workout, _set), self.tasks))):
             pass
         return False
 
@@ -92,7 +92,7 @@ class BaseTask:
         self.snd_pools.append(SoundPool(name=name))
         return self.snd_pools[-1]
 
-    def build(self, workout):
+    def build(self, workout, _set):
         #print("Build method for task '%s' - empty"%(self.caption))
         return False
 
@@ -103,7 +103,7 @@ class BaseSet(PropertiesContainer):
     asanas: list = field(default_factory=lambda: [])
 
     def build(self, workout):
-        while any(list(map(lambda x: x.build(workout), self.asanas))):
+        while any(list(map(lambda x: x.build(workout, self), self.asanas))):
             pass
         return False
 
@@ -120,9 +120,28 @@ class BaseWorkout(PropertiesContainer):
     def wrap_asana(self, asana):
         self.sets.append(BaseSet(visible=False, asanas=[asana]))
 
+    # Возвращаем предыдущий таск или асану (в зависимости от того, что передано через this)
+    #  (возможно, в предыдущей асане или даже сете)
+    def prev_item(self, this):
+        prev_asana = None
+        prev_task = None
+
+        for s in self.sets:
+            for a in s.asanas:
+                if a == this:
+                    return prev_asana
+                prev_asana = a
+                for t in a.tasks:
+                    if t == this:
+                        return prev_task
+                    prev_task = t
+
     def build(self, _id):
         self.id = _id
         while any(list(map(lambda x: x.build(self), self.sets))):
             pass
         return jsons.dump(self)
-	
+
+@dataclass
+class AsanaLegForward(BaseAsana):
+    side: str = None

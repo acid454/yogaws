@@ -28,11 +28,12 @@ class Shavasana(BaseAsana):
         self.pool("start").append("descr_shavasana4")
         self.pool("start").append("descr_shavasana5")
     
-    def build(self, workout):
-        BaseAsana.build(self, workout)
+    def build(self, workout, _set):
+        super().build(workout, _set)
 
         # {% if not glob.get('last_before_shavasana') %}
-        end_pool = workout.sets[-2].asanas[-1].tasks[-1].pool("end")
+        #end_pool = workout.sets[-2].asanas[-1].tasks[-1].pool("end")
+        end_pool = workout.prev_item(self).pool("end")
         end_pool.remove("i_dvishemsia_dalshe1")
         end_pool.remove("i_dvishemsia_dalshe2")
         end_pool.remove("i_dvishemsia_dalshe3")
