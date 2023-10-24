@@ -19,7 +19,11 @@ class SuryaNamaskar(BaseSet):
         super().__init__(caption="Сурья Намаскар", asanas=[
             Asanas.vitjashenie_vverh.VitjashenieVverh(),
             Asanas.uttanasana.Uttanasana(),
+            Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(),
             Asanas.gorka.GorkaBase(),
-            Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh()
+            Asanas.virabhadrasana.VirabhadrasanaLeft(),
+            Asanas.gorka.GorkaBase(),
+            Asanas.virabhadrasana.VirabhadrasanaRight()
+            
         ])
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))

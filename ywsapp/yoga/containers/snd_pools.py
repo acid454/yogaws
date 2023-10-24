@@ -41,3 +41,35 @@ SND_EXHALE = [
     "exhale7",
     "exhale8"
 ]
+
+SND_LEG_RIGHT_FORWARD = [
+    "leg_right_forward1",
+    "leg_right_forward2",
+    "leg_right_forward3",
+    "leg_right_forward4",
+    "leg_right_forward5",
+    "leg_right_forward6_vinesli"
+]
+
+SND_MENIAJEM_NOGI = [
+    "meniajem_nogi1",
+    "meniajem_nogi2",
+    "meniajem_nogi3",
+    "meniajem_nogi4",
+    "meniajem_nogi5",
+    "chereduem_nashi_nogi1",
+    "chereduem_nashi_nogi2",
+    "chereduem_nashi_nogi3",
+    "smena_nog"
+]
+
+SND_S_VIDOHOM_VNIZ = [
+    "i_vniz",
+    "i_s_vidohom_vniz",
+    "i_s_vidohom_opustilis'_vniz1",
+    "i_s_vidohom_opustilis'_vniz2",
+    "i_s_vidohom_opustilis'_vniz3",
+    "s_vidohom_uhodim_vniz1",
+    "s_vidohom_uhodim_vniz2",
+    "s_vidohom_uhodim_vniz3"
+]
