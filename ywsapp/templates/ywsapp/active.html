@@ -129,15 +129,13 @@
 				min_key = Math.min(parseInt(k), min_key)
 		}
 
-		if (min_key !== Infinity) {
+		if ((min_key !== Infinity) && (current_task_time >= min_key)) {
 			let snds = current_task.sounds[min_key];
 			current_task.sounds[min_key]['processed'] = true
 			task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
 			task_audio.play();
 		}
 
-		console.log(current_task_time)
-		
 		if (((current_task_time % 4) == 0) || task_changed) {
 			current_task_image = (current_task_image + 1) % current_task.images.length;
 			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + current_task.images[current_task_image] + '.png'
