@@ -59,13 +59,28 @@ class UttanasanaBase(BaseAsana):
                 ]))
 
 class Uttanasana(UttanasanaBase):
-    def __init__(self):
+    def __init__(self, **kwargs):
         UttanasanaBase.__init__(self, name="uttanasana", caption="Уттанасана")
+        self.update_props(kwargs)
         self.tasks[-1].images = ["uttanasana1", "uttanasana2", "uttanasana3"]
         self.tasks[-1].pool("start").append("upr_vitiagivanie_vniz5")
         self.tasks[-1].pool("start").append("upr_vitiagivanie_vniz7")
         self.tasks[-1].pool("continue").append("descr_vitjashenie_vniz1")
 
+class UttanasanaWithCompensation(Uttanasana):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.properties.append(IntProperty(caption="время компенсации", short="tm_compensation", default=10))
+        self.update_props(kwargs)
+
+        self.tasks.append(BaseTask(
+            caption=self.caption + "\nкомпенсация",
+            property=self.tm_compensation,
+            metronome=MetronomeWork(),
+            images=["vigibaemsia_vpered1", "vigibaemsia_vpered2"]
+        ))
+        self.pool("start").append("upr_podnimaem_golovu_vugibaemsia")
+        self.pool("start").append("upr_podnimaem_golovu_ottolknulis'_ot_nog")
 
 class Uttanasana_ruki_v_zamke(UttanasanaBase):
     def __init__(self):

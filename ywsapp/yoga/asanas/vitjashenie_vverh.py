@@ -12,9 +12,10 @@ from metronomes import MetronomeWork
 
 
 class VitjashenieVverh(BaseAsana):
-    def __init__(self):
-        BaseAsana.__init__(self, name="tadasana", caption="Вытягивание вверх")
+    def __init__(self, **kwargs):
+        BaseAsana.__init__(self, name="vitjashenie_vverh", caption="Вытягивание вверх")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=25))
+        self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
             caption=self.caption,

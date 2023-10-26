@@ -96,13 +96,15 @@ class VirabhadrasanaBase(AsanaLegForward):
         self.tasks[0].pool("name").append("name_virabhadrasana5")
 
 class VirabhadrasanaLeft(VirabhadrasanaBase):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__('left', "Вирабхадрасана (левая нога)")
+        self.update_props(kwargs)
         self.tasks[0].images = ["virabhadrasana_left1", "virabhadrasana_left2", "virabhadrasana_left3", "virabhadrasana_left4"]
         self.tasks[1].images = self.tasks[0].images
 
 class VirabhadrasanaRight(VirabhadrasanaBase):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__('right', "Вирабхадрасана (правая нога)")
+        self.update_props(kwargs)
         self.tasks[0].images = ["virabhadrasana_right1", "virabhadrasana_right2", "virabhadrasana_right3", "virabhadrasana_right4"]
         self.tasks[1].images = self.tasks[0].images

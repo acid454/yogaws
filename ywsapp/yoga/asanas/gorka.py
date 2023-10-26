@@ -12,9 +12,11 @@ from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import SND_RASSLABILIS, SND_EXHALE, SND_ZAKONCHILI_DALSHE
 
 class GorkaBase(BaseAsana):
-    def __init__(self, transition_type=None):
+    def __init__(self, transition_type=None, **kwargs):
         BaseAsana.__init__(self, name="gorka", caption="Горка")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
+        self.update_props(kwargs)
+        
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,

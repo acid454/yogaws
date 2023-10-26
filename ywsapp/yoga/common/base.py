@@ -37,6 +37,12 @@ class BaseAsana(PropertiesContainer):
     def pool(self, name):
         return self.tasks[-1].pool(name)
 
+    # Меняем default-значения properties, перечисленных в keys kwargs
+    def update_props(self, kwargs):
+        for k in kwargs:
+            self.__getattr__(k).default = kwargs[k]
+
+
 
 @dataclass
 class BaseProperty:

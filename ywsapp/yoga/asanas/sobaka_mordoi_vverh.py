@@ -11,9 +11,10 @@ from properties import IntProperty
 from metronomes import MetronomeWork
 
 class SobakaMordoiVverh(BaseAsana):
-    def __init__(self, transition_type=None):
+    def __init__(self, transition_type=None, **kwargs):
         BaseAsana.__init__(self, name="sobaka_mordoi_vverh", caption="собака мордой вверх")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
+        self.update_props(kwargs)
 
         # ToDo: transition time
         
