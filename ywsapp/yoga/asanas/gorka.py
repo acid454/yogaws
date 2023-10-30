@@ -16,7 +16,7 @@ class GorkaBase(BaseAsana):
         BaseAsana.__init__(self, name="gorka", caption="Горка")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.update_props(kwargs)
-        
+
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
@@ -62,16 +62,13 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common12")
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
-
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i) 
         
 
 class GorkaNormal(GorkaBase):
     def __init__(self):
         GorkaBase.__init__(self)
         self.properties.insert(0, IntProperty(caption="подготовка", short="tm_prepare", default=4))
-        self.tasks.append(BaseTask(
+        self.tasks.insert(0, BaseTask(
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
             metronome=MetronomeRest()
@@ -81,4 +78,6 @@ class GorkaNormal(GorkaBase):
         self.pool("start").append("descr_gorka5")
         #<snd pool="{{pool}}" file="descr_gorka3"/>
         #<snd pool="{{pool}}" file="descr_gorka2"/>
-        
+
+        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE:
+            self.pool("end").append(i)
