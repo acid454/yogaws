@@ -15,6 +15,7 @@ class NizniiUpor(BaseAsana):
     def __init__(self, **kwargs):
         BaseAsana.__init__(self, name="niznii_upor", caption="Нижний упор")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=15))
+        self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
