@@ -51,12 +51,13 @@ class SpeechManager:
         for f in files:
             if f is None:
                 result.append(SoundElement())
-            elif self.mp3_files[f].length < time:
+            elif self.mp3_files[f].length <= time:
                 result.append(self.mp3_files[f])
         #print("Selecting from files: %s"%(list(map(lambda x: x.file, result))))
         
         # ToDo: implement use count here
-        if len(result) == 0: return SoundElement()
+        if len(result) == 0:
+            return SoundElement()
         return result[random.randrange(len(result))]
 
 
@@ -66,9 +67,12 @@ class SpeechManager:
 
         float_time_idx = 0
         for pool_nm in ["start", "name", "continue", "end"]:
-            #print("Processing pool '%s'..."%(pool_nm))
+            #print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
             s = self.select_random_sound(t.pool(pool_nm).files, t.property.value - cur_time_idx)
-            if s.length == 0: continue
+            if s.length == 0:
+                if None not in t.pool(pool_nm).files and len(t.pool(pool_nm).files) > 0:
+                    print(f"WARNING! No sounds selected for task {t.caption}")
+                continue
             remain_task_time -= s.length
             if pool_nm == "end":
                 cur_time_idx = t.property.value - s.length
@@ -79,10 +83,12 @@ class SpeechManager:
                 float_time_idx = cur_time_idx
         
         #print("Processing float: remain task time %d, idx %d", remain_task_time, float_time_idx)
-        s = self.select_random_sound(t.pool("float").files, remain_task_time)
-        if s.length > 0:
-            float_time_idx += random.randrange(remain_task_time - s.length)
-            t.sounds[float_time_idx] = s
+        if remain_task_time > 0:
+            s = self.select_random_sound(t.pool("float").files, remain_task_time)
+            if s.length > 0:
+                if remain_task_time > s.length:
+                    float_time_idx += random.randrange(remain_task_time - s.length)
+                t.sounds[float_time_idx] = s
         #print("Task %s sounds: %s"%(t.caption, str(t.sounds)))
         #print()
 

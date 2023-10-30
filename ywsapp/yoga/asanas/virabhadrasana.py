@@ -32,21 +32,21 @@ class VirabhadrasanaBase(AsanaLegForward):
         ))
 
         # virabhadrasana_snds goes here - all this goes to main fixation task
-        self.pool("start").append("enter_virabhadrasana1")
-        self.pool("start").append("enter_virabhadrasana2")
-        self.pool("start").append("enter_virabhadrasana3")
-        self.pool("start").append("enter_virabhadrasana4")
+        self.pool("continue").append("enter_virabhadrasana1")
+        self.pool("continue").append("enter_virabhadrasana2")
+        self.pool("continue").append("enter_virabhadrasana3")
+        self.pool("continue").append("enter_virabhadrasana4")
         self.pool("float").append("descr_virabhadrasana1")
-        self.pool("start").append("descr_virabhadrasana3")
+        self.pool("continue").append("descr_virabhadrasana3")
         self.pool("float").append("descr_virabhadrasana4")
         self.pool("float").append("descr_virabhadrasana5")
         self.pool("float").append("descr_virabhadrasana6")
-        self.pool("start").append("descr_virabhadrasana7")
+        self.pool("continue").append("descr_virabhadrasana7")
         self.pool("float").append("descr_virabhadrasana8")
         self.pool("float").append("descr_virabhadrasana9")
-        self.pool("start").append("descr_virabhadrasana10")
+        self.pool("continue").append("descr_virabhadrasana10")
         self.pool("float").append("descr_virabhadrasana11")
-        self.pool("start").append("descr_virabhadrasana12")
+        self.pool("continue").append("descr_virabhadrasana12")
         self.pool("float").append("descr_virabhadrasana13")
         self.pool("float").append("descr_virabhadrasana14")
 
@@ -69,8 +69,6 @@ class VirabhadrasanaBase(AsanaLegForward):
                 # different leg forward
                 for snd in SND_MENIAJEM_NOGI:
                     self.tasks[0].pool("start").append(snd)
-            if type(prev_asana) is not type(self):
-                self.build_snd_name()
         else:
             # prev asana was not leg-forwarded
             if self.side == 'left':
@@ -83,6 +81,9 @@ class VirabhadrasanaBase(AsanaLegForward):
             else:
                 for snd in SND_LEG_RIGHT_FORWARD:
                     self.tasks[0].pool("start").append(snd)
+        
+        if type(prev_asana) is not type(self):
+            self.build_snd_name()
    
     def build_snd_swap_hands(self):
         self.tasks[0].pool("start").append("ladoni_ruk_menijautsia_mestami")

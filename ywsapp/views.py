@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
+import jsons
 
 
 WORKOUTS = None
@@ -65,10 +66,10 @@ def _update_workouts():
 def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
-    result = list(map(lambda k: WORKOUTS[k]().build(k), WORKOUTS.keys()))
+    result = list(map(lambda k: jsons.dump(WORKOUTS[k]().build(k)), WORKOUTS.keys()))
 
-    import pprint
-    pprint.PrettyPrinter(indent=4).pprint(result)
+    #import pprint
+    #pprint.PrettyPrinter(indent=4).pprint(result)
     return JsonResponse(result, safe = False, status = 200)
 
 
@@ -80,9 +81,11 @@ def view_workout(request):
 
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
-        result = WORKOUTS[workout_id]()
+        result = WORKOUTS[workout_id]().build(workout_id)
+        #print(result)
         SpeechManager().generate_sounds(result)
-        result = result.build(workout_id)
+        result = jsons.dump(result)
+
         
         #import pprint
         #pprint.PrettyPrinter(indent=4).pprint(result)

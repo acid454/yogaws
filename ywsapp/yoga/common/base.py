@@ -6,7 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-import os, jsons
+import os #, jsons
 from dataclasses import dataclass, field
 from speech_manager import SpeechManager
 
@@ -146,7 +146,7 @@ class BaseWorkout(PropertiesContainer):
         self.id = _id
         while any(list(map(lambda x: x.build(self), self.sets))):
             pass
-        return jsons.dump(self)
+        return self
 
 @dataclass
 class AsanaLegForward(BaseAsana):
