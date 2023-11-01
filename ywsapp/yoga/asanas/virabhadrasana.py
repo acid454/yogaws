@@ -16,6 +16,7 @@ from snd_pools import *
 class VirabhadrasanaBase(AsanaLegForward):
     def __init__(self, _side, _caption):
         super().__init__(name="virabhadrasana_%s"%(_side), caption=_caption)
+        self.side = _side
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=4))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
 

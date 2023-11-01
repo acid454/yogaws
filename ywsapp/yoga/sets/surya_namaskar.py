@@ -22,6 +22,7 @@ class SuryaNamaskar(BaseSet):
     
     def build(self, workout):
         for i in range(self.cnt.value):
+            # Construct new one asana classes every time
             self.asanas += [
                 Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 9 if self.slow_timings else 4),
                 Asanas.vitjashenie_vpered.VitjashenieVpered(tm_main = 9 if self.slow_timings else 5),
