@@ -30,6 +30,9 @@ Python:
     #  It's responsible for creating and returning a new instance of the class.
 
 
+List generators + f-strings:
+images=[f"most{x}" for x in range(7)]
+
 JavaScript:
 === - оператор строгого равенства
 let - Variables declared by let are only available inside the block where they're defined

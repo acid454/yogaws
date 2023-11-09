@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  snd_container.py
+#  snd_pools.py
 #  
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
@@ -72,4 +72,23 @@ SND_S_VIDOHOM_VNIZ = [
     "s_vidohom_uhodim_vniz1",
     "s_vidohom_uhodim_vniz2",
     "s_vidohom_uhodim_vniz3"
+]
+
+SND_OPUSTILIS_NA_KOLENI = [
+    "i_opustilis'_na_koleni",
+    "opustilis'_na_koleni",
+    "vihodite_v_poloshenie_stoja_na_chetveren'kah",
+    "ushli_na_chetveren'ki"
+]
+
+SND_SELI = [
+    "seli",
+    "sadimsia1",
+    "sadimsia2"
+]
+
+SND_NA_DRUGUJU_STORONU = [
+    "i_na_druguju_storonu",
+    "i_delaem_na_druguju_storonu",
+    "povtoriaem_simmetrichno"
 ]

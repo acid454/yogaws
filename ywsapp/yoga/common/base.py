@@ -40,7 +40,9 @@ class BaseAsana(PropertiesContainer):
     # Меняем default-значения properties, перечисленных в keys kwargs
     def update_props(self, kwargs):
         for k in kwargs:
-            self.__getattr__(k).default = kwargs[k]
+            p = self.__getattr__(k)
+            if p is not None:
+                p.default = kwargs[k]
 
 
 
@@ -76,6 +78,9 @@ class SoundPool:
             self.files.remove(x)
         except:
             pass
+    
+    def clear(self):
+        self.files.clear()
 
 @dataclass
 class MetronomeSounds:
@@ -142,6 +147,23 @@ class BaseWorkout(PropertiesContainer):
                         return prev_task
                     prev_task = t
 
+    # Аналогично возвращаем следующий таск или асану
+    def next_item(self, this):
+        ret_nxt_asana = False
+        ret_nxt_task = False
+
+        for s in self.sets:
+            for a in s.asanas:
+                if a == this:
+                    ret_nxt_asana = True
+                if ret_nxt_asana:
+                    return a
+                for t in a.tasks:
+                    if t == this:
+                        ret_nxt_task = True
+                    if ret_nxt_task:
+                        return t
+
     def build(self, _id):
         self.id = _id
         while any(list(map(lambda x: x.build(self), self.sets))):
@@ -151,3 +173,7 @@ class BaseWorkout(PropertiesContainer):
 @dataclass
 class AsanaLegForward(BaseAsana):
     side: str = None
+
+@dataclass
+class AsanaLegsStayUp(BaseAsana):
+    pass

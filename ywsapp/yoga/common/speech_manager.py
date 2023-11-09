@@ -67,7 +67,7 @@ class SpeechManager:
 
         float_time_idx = 0
         for pool_nm in ["start", "name", "continue", "end"]:
-            #print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
+            print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
             s = self.select_random_sound(t.pool(pool_nm).files, t.property.value - cur_time_idx)
             if s.length == 0:
                 if None not in t.pool(pool_nm).files and len(t.pool(pool_nm).files) > 0:

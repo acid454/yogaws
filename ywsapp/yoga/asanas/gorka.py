@@ -65,13 +65,16 @@ class GorkaBase(BaseAsana):
         
 
 class GorkaNormal(GorkaBase):
-    def __init__(self):
+    def __init__(self, **kwargs):
         GorkaBase.__init__(self)
         self.properties.insert(0, IntProperty(caption="подготовка", short="tm_prepare", default=4))
+        self.update_props(kwargs)
+
         self.tasks.insert(0, BaseTask(
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
-            metronome=MetronomeRest()
+            metronome=MetronomeRest(),
+            images=self.tasks[0].images
         ))
 
         self.pool("start").append("descr_gorka4")

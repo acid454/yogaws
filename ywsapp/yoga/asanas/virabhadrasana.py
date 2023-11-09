@@ -58,7 +58,7 @@ class VirabhadrasanaBase(AsanaLegForward):
 
     def build(self, workout, _set):
         # are we in suria? if yes - delete preparation
-        if type(_set) is  SuryaNamaskar:
+        if type(_set) is SuryaNamaskar:
             del self.tasks[0]
         
         prev_asana = workout.prev_item(self)

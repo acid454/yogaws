@@ -13,10 +13,11 @@ from snd_pools import SND_ZAKONCHILI_DALSHE
 
 
 class Planka(BaseAsana):
-    def __init__(self):
-        BaseAsana.__init__(self, name="planka", caption="Планка")
+    def __init__(self, **kwargs):
+        super().__init__(name="planka", caption="Планка")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=4))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
+        self.update_props(kwargs)
         
         self.tasks.append(BaseTask(
             caption=self.caption + " (подготовка)",
