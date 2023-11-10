@@ -30,8 +30,11 @@ Python:
     #  It's responsible for creating and returning a new instance of the class.
 
 
-List generators + f-strings:
+-- List generators + f-strings:
 images=[f"most{x}" for x in range(7)]
+
+-- Slice list to copy:
+name_pool = self.tasks[0].pool("name")[:]
 
 JavaScript:
 === - оператор строгого равенства
