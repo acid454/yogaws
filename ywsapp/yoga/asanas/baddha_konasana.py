@@ -29,6 +29,7 @@ class BaddhaKonasana(BaseAsana):
         ))
         self.pool("start").append("name_baddha_konasana1")
         self.pool("start").append("name_baddha_konasana2")
+        self.pool("continue").append("descr_baddha_konasana_tjanemsia_vpered")
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(прогиб вперёд)",
@@ -61,7 +62,7 @@ class BaddhaKonasana(BaseAsana):
             property=self.tm_squared,
             metronome=MetronomeWork(),
             images=self.tasks[-1].images))
-        self.pool("float").append("descr_baddha_konasana_shevelim_kolenijami")
+        self.pool("start").append("descr_baddha_konasana_shevelim_kolenijami")
         self.pool("float").append("common3")
         self.pool("float").append("descr_baddha_konasana_pokachatsia")
         self.pool("float").append("common7")
