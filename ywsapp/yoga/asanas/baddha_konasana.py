@@ -54,7 +54,7 @@ class BaddhaKonasana(BaseAsana):
             images=["baddha_konasana1", "baddha_konasana2"]
         ))
         self.pool("start").append("nogi_blishe")
-        self.pool("start").append("enter_baddha_konasana")    # overlapse
+        self.pool("start").append("enter_baddha_konasana_overlapse")    # overlapse
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(шевелим коленями)",

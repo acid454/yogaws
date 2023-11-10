@@ -29,7 +29,7 @@ class Scorpion(BaseAsana):
         #????????? Why SND_OPUSTILIS_NA_KOLENI doubled, in say, yoga home training?
         for i in SND_OPUSTILIS_NA_KOLENI:
             self.pool("start").append(i)
-        self.pool("start").append("enter_scorpion_left")  # overlapse
+        self.pool("start").append("enter_scorpion_left_overlapse")  # overlapse
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(правая рука)",

@@ -51,8 +51,15 @@ class SpeechManager:
         for f in files:
             if f is None:
                 result.append(SoundElement())
-            elif self.mp3_files[f].length <= time:
-                result.append(self.mp3_files[f])
+            else:
+                can_overlapse = False
+                if f.endswith('_overlapse'):
+                    can_overlapse = True
+                    f = f[:-len('_overlapse')]
+                    print(f"Was overlapsed: {f}")
+                
+                if self.mp3_files[f].length <= time or can_overlapse:
+                    result.append(self.mp3_files[f])
         #print("Selecting from files: %s"%(list(map(lambda x: x.file, result))))
         
         # ToDo: implement use count here
@@ -67,7 +74,7 @@ class SpeechManager:
 
         float_time_idx = 0
         for pool_nm in ["start", "name", "continue", "end"]:
-            print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
+            #print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
             s = self.select_random_sound(t.pool(pool_nm).files, t.property.value - cur_time_idx)
             if s.length == 0:
                 if None not in t.pool(pool_nm).files and len(t.pool(pool_nm).files) > 0:

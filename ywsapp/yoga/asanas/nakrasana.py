@@ -31,10 +31,10 @@ class Nakrasana(BaseAsana):
         self.pool("start").append("upr_skrutka_leza2")
         self.pool("start").append("upr_skrutki_leza")
         self.pool("continue").append("enter_nakrasana_left1")
-        self.pool("continue").append("enter_nakrasana_left2") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left3") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left4") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left5") # overlapse="1"/>
+        self.pool("continue").append("enter_nakrasana_left2_overlapse") # overlapse="1"/>
+        self.pool("continue").append("enter_nakrasana_left3_overlapse") # overlapse="1"/>
+        self.pool("continue").append("enter_nakrasana_left4_overlapse") # overlapse="1"/>
+        self.pool("continue").append("enter_nakrasana_left5_overlapse") # overlapse="1"/>
 
 
         self.tasks.append(BaseTask(
