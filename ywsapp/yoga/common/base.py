@@ -81,6 +81,10 @@ class SoundPool:
     
     def clear(self):
         self.files.clear()
+    
+    def migrate(self, src):
+        self.files = src.files
+        src.files = []
 
 @dataclass
 class MetronomeSounds:
