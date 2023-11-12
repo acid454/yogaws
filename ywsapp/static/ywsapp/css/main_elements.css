@@ -5,6 +5,13 @@
   width: 70%;
 }
 
+.form_login {
+  display: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
 .run_button {
   position: absolute;
   bottom: 16px;
@@ -27,3 +34,18 @@
   color: black;
   font-size: 20px;
 }
+
+/* https://www.w3schools.com/howto/howto_css_round_buttons.asp */
+.sign_in_button {
+  background-color: #1fb3b8;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+.sign_in_button1 {border-radius: 2px;}

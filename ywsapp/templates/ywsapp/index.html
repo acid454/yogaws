@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="{% static 'ywsapp/css/workouts_list.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
+
 
 <script>
 function save_workout_local_storage(workout_nm)
@@ -19,6 +22,29 @@ function save_workout_local_storage(workout_nm)
         localStorage.setItem(collection[i].id, collection[i].value);
     }
     window.location.href = "/active?" + workout_nm;
+}
+
+function show_login_form()
+{
+    document.getElementById("frm_login").style.display = "block";
+    document.getElementById("btn_show_login").style.display = "none";
+}
+
+function login_form_submit()
+{
+    document.getElementById('frm_login').submit()
+}
+
+function show_snackbar(text) {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+  x.textContent = text;
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 </script>
 
@@ -34,23 +60,30 @@ function save_workout_local_storage(workout_nm)
   <br>
   <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
   <hr>
-    <button class="sign_in_button sign_in_button1 center" href="/test">ВОЙТИ</button>
+    {% if user.is_authenticated %}
+        <p>Добро пожаловать {{ user.username }} !!!</p>
+        <a href="/logout">выход</a>
+    {% else %}
+        {% load crispy_forms_tags %}
+        <button id="btn_show_login" class="center" onclick="show_login_form()">ВОЙТИ</button>
+        <form id="frm_login" method="post" class="form_login">
+            {% csrf_token %}
+            {{ form_login|crispy }}
+            <button type="button" onclick="login_form_submit()">вход/регистрация</button>
+        </form>
+    {% endif %}
   <hr>
 
 </div>
+
 
 <div style="margin-left:27%">
     <div class="w3-container">
         <h2 id="caption" hidden="hidden"></h2>
         <form id="frm_active" action="/active.html?" method="GET" hidden="hidden">
-        <ol id="asanas_list" style="--length: 0" role="list"></ol>
+            <ol id="asanas_list" style="--length: 0" role="list"></ol>
         </form>
-        
-        <div id="runit" hidden="hidden" class="run_button">
-            <a id="active" onclick="">&#x1F662 Run it! &#x1F661</a>
-        </div>
-        
-        
+
         <div id="select_log" class="container">
             <div style="display: inline-block; position: relative;">
                 <img src="{% static 'ywsapp/res/chakra.png' %}" class="fit">
@@ -58,6 +91,24 @@ function save_workout_local_storage(workout_nm)
                 <div id="text_complete" class="completion_text" hidden="hidden"><b>Успешное завершение<br>тренировки</b></div>
             </div>
         </div>
+        
+        <!-- The Modal (contains the Sign Up form) -->
+        <div id="registration_popup" class="popup">
+            <div class="popup-content">
+                <h1 style="color:green;">Добро пожаловать!</h1>
+                <form method="POST" class="form-group">
+                    {% csrf_token %}
+                    {{ form_register|crispy }}
+                    <button type="submit" class="btn btn-success">Создать аккаунт</button>
+                    <button type="button" class="btn btn-success" onclick="location.href = '/'">Продолжить анонимно</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="runit" hidden="hidden" class="run_button">
+            <a id="active" onclick="">&#x1F662 Run it! &#x1F661</a>
+        </div>
+        
 
     </div>
 </div>
@@ -164,7 +215,13 @@ function save_workout_local_storage(workout_nm)
         document.getElementById('text_complete').hidden = false;
     else
         document.getElementById('text_begin').hidden = false;
-    
+        
 </script>
+
+{%if show_registration_form %}
+<script>
+document.getElementById('registration_popup').style.display='block';
+</script>
+{% endif %}
 
 </html>

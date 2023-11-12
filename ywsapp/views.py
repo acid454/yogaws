@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
+from .forms import UserLoginForm, NewUserForm
+from django.contrib.auth import authenticate, login, logout
 import jsons
 
 
@@ -17,13 +19,48 @@ GLOBAL_PATHS = [
 
 # Create your views here.
 def index(request):
-    #return HttpResponse("Hello, world. You're at the polls index.")
-    #template = loader.get_template("index.html")
-    return render(request, 'ywsapp/index.html', {})
+    show_registration_form = False
+    if request.method == "POST":
+        if "password" in request.POST.keys():
+            # Processing login form
+            form = UserLoginForm(request, data=request.POST)
+            if form.is_valid():
+                print("Login valid: " + str(request))
+                username = request.POST['username']
+                password = request.POST['password']
+                user = authenticate(request, username =username, password = password)
+
+                if user is not None:
+                    login(request,user)
+                #snack_message = "Login successful."
+            else:
+                #snack_message = "Unsuccessful registration."
+                print("Unsuccessful registration.")
+                show_registration_form = True
+        else:
+            # Processing registration form
+            form = NewUserForm(request.POST)
+            if form.is_valid():
+                print("Registration data OK")
+                user = form.save()
+                login(request, user)
+            else:
+                print("Registration is invalid...")
+    return render(request, 'ywsapp/index.html', {
+        "form_login":UserLoginForm(),
+        "form_register": NewUserForm(),
+        "show_registration_form": show_registration_form
+    })
 
 def active(request):
     return render(request, 'ywsapp/active.html', {})
 
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
+# --------========= WORKOUTS MANAGE ==========-------------------------
 def _update_workouts():
     global WORKOUTS
 

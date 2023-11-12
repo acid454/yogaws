@@ -39,3 +39,7 @@ name_pool = self.tasks[0].pool("name")[:]
 JavaScript:
 === - оператор строгого равенства
 let - Variables declared by let are only available inside the block where they're defined
+
+
+
+-- Bootstrap is a web framework built to help you design responsive websites faster. It contains a ton of custom css/javascript and jquery code that you can use to style and layout your website.
