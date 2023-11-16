@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <!--- https://freefrontend.com/css-sidebar-menus/ -->
+<!--- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_portfolio&stacked=h -->
+<!--- https://www.w3schools.com/html/html_layout.asp -->
 <html>
 <head>
 
@@ -53,10 +55,6 @@ function show_snackbar(text) {
 
 
 <div id="workouts_list" class="w3-sidebar w3-bar-block w3-light-grey" style="width:27%">
-  <!-- <div class="w3-container w3-dark-grey">
-    <h4>Выберите тренировку</h4>
-  </div> -->
-
   <br>
   <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
   <hr>
@@ -86,8 +84,12 @@ function show_snackbar(text) {
 
         <div id="select_log" class="container">
             <div style="display: inline-block; position: relative;">
-                <img src="{% static 'ywsapp/res/chakra.png' %}" class="fit">
-                <div id="text_begin" class="begining_text"   hidden="hidden"><b>Выберите тренировку</b></div>
+                <img id="background_img" class="imgmain">
+                <div id="text_begin" class="begining_text" hidden="hidden">
+                    <hr>
+                    <b>Выберите тренировку</b>
+                    <hr>
+                </div>
                 <div id="text_complete" class="completion_text" hidden="hidden"><b>Успешное завершение<br>тренировки</b></div>
             </div>
         </div>
@@ -215,7 +217,13 @@ function show_snackbar(text) {
         document.getElementById('text_complete').hidden = false;
     else
         document.getElementById('text_begin').hidden = false;
-        
+    
+    background_img_id = sessionStorage.getItem('background_img_id');
+    if (background_img_id == null) {
+        background_img_id = "{{main_bg_image}}";
+        sessionStorage.setItem('background_img_id', background_img_id);
+    }
+    document.getElementById('background_img').src = "{% static 'ywsapp/res/mainbg/' %}" + background_img_id;
 </script>
 
 {%if show_registration_form %}

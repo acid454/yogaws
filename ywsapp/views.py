@@ -4,6 +4,8 @@ from django.template import loader
 from .forms import UserLoginForm, NewUserForm
 from django.contrib.auth import authenticate, login, logout
 import jsons
+import random
+import os
 
 
 WORKOUTS = None
@@ -16,10 +18,17 @@ GLOBAL_PATHS = [
     ["yoga"]
 ]
 
+BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+                                            'static', 'ywsapp', 'res', 'mainbg'))
+
 
 # Create your views here.
 def index(request):
     show_registration_form = False
+
+    # Handle background image
+    background_image = (BACKGROUND_IMAGES[random.randrange(len(BACKGROUND_IMAGES))])
+    
     if request.method == "POST":
         if "password" in request.POST.keys():
             # Processing login form
@@ -49,7 +58,8 @@ def index(request):
     return render(request, 'ywsapp/index.html', {
         "form_login":UserLoginForm(),
         "form_register": NewUserForm(),
-        "show_registration_form": show_registration_form
+        "show_registration_form": show_registration_form,
+        "main_bg_image":background_image
     })
 
 def active(request):
