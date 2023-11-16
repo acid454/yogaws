@@ -78,7 +78,7 @@ class SpeechManager:
             s = self.select_random_sound(t.pool(pool_nm).files, t.property.value - cur_time_idx)
             if s.length == 0:
                 if None not in t.pool(pool_nm).files and len(t.pool(pool_nm).files) > 0:
-                    print(f"WARNING! No sounds selected for task {t.caption}")
+                    print(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
                 continue
             remain_task_time -= s.length
             if pool_nm == "end":
