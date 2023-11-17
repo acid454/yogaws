@@ -6,18 +6,17 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import AsanaLegForward, BaseTask, SoundPool
+from base import BaseTask
+from parshvaconasana_base import BaseParshvaconasana
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
-from surya_namaskar import SuryaNamaskar
 from snd_pools import *
 
 # Class for main virabhadrasana (with preparation)
-class VirabhadrasanaBase(AsanaLegForward):
+class VirabhadrasanaBase(BaseParshvaconasana):
     def __init__(self, _side, _caption):
-        super().__init__(name="virabhadrasana_%s"%(_side), caption=_caption)
-        self.side = _side
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=4))
+        super().__init__(name="virabhadrasana_%s"%(_side), caption=_caption, side = _side, prepare_tm_for_swap_hands = 4)
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
 
         self.tasks.append(BaseTask(
@@ -52,43 +51,8 @@ class VirabhadrasanaBase(AsanaLegForward):
         self.pool("float").append("descr_virabhadrasana14")
 
         #!!!!!!! TODO: short sounds
-
         for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:
             self.pool("end").append(i) 
-
-    def build(self, workout, _set):
-        # are we in suria? if yes - delete preparation
-        if type(_set) is SuryaNamaskar:
-            del self.tasks[0]
-        
-        prev_asana = workout.prev_item(self)
-        if type(prev_asana) is AsanaLegForward:
-            if prev_asana.side == self.side:
-                # this and prev asana is same legs (same side), but different hands
-                self.build_snd_swap_hands()
-            else:
-                # different leg forward
-                for snd in SND_MENIAJEM_NOGI:
-                    self.tasks[0].pool("start").append(snd)
-        else:
-            # prev asana was not leg-forwarded
-            if self.side == 'left':
-                self.tasks[0].pool("start").append("leg_left_forward1")
-                self.tasks[0].pool("start").append("leg_left_forward2")
-                self.tasks[0].pool("start").append("leg_left_forward3")
-                self.tasks[0].pool("start").append("leg_left_forward4")
-                self.tasks[0].pool("start").append("leg_left_forward5")
-                self.tasks[0].pool("start").append("leg_left_forward6")
-            else:
-                for snd in SND_LEG_RIGHT_FORWARD:
-                    self.tasks[0].pool("start").append(snd)
-        
-        if type(prev_asana) is not type(self):
-            self.build_snd_name()
-   
-    def build_snd_swap_hands(self):
-        self.tasks[0].pool("start").append("ladoni_ruk_menijautsia_mestami")
-        self.tasks[0].pool("start").append("obratnaja_ei")  #?? not everytime
     
     def build_snd_name(self):
         self.tasks[0].pool("name").append("name_virabhadrasana1")
@@ -101,12 +65,10 @@ class VirabhadrasanaLeft(VirabhadrasanaBase):
     def __init__(self, **kwargs):
         super().__init__('left', "Вирабхадрасана (левая нога)")
         self.update_props(kwargs)
-        self.tasks[0].images = ["virabhadrasana_left1", "virabhadrasana_left2", "virabhadrasana_left3", "virabhadrasana_left4"]
-        self.tasks[1].images = self.tasks[0].images
+        self.update_all_tasks_images([f"virabhadrasana_left{x}" for x in range(1,5)])
 
 class VirabhadrasanaRight(VirabhadrasanaBase):
     def __init__(self, **kwargs):
         super().__init__('right', "Вирабхадрасана (правая нога)")
         self.update_props(kwargs)
-        self.tasks[0].images = ["virabhadrasana_right1", "virabhadrasana_right2", "virabhadrasana_right3", "virabhadrasana_right4"]
-        self.tasks[1].images = self.tasks[0].images
+        self.update_all_tasks_images([f"virabhadrasana_right{x}" for x in range(1,5)])

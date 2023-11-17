@@ -43,3 +43,22 @@ class Seli(BaseAsana):
         
         for i in SND_SELI:
             self.pool("start").append(i)
+
+class PodnimaemsiaVvreh(BaseAsana):
+    def __init__(self, **kwargs):
+        super().__init__(name="podnimaemsia_vvreh", caption="Поднимаемся вверх")
+        self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=6))
+        self.update_props(kwargs)
+
+        self.tasks.append(BaseTask(
+            caption=self.caption,
+            property=self.tm_main,
+            metronome=MetronomeRest(),
+            images=["tadasana01", "tadasana02"]))
+        
+        self.pool("start").append("upr_podnimaemsia_vverh1")
+        self.pool("start").append("upr_podnimaemsia_vverh2")
+        self.pool("start").append("i_skrugliaja_spinu_vverh1")
+        self.pool("start").append("i_skrugliaja_spinu_vverh2")
+        self.pool("start").append("podnimaemsia1")
+        self.pool("start").append("podnimaemsia2")

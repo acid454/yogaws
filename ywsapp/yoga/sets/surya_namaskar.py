@@ -15,9 +15,10 @@ from asanas import Asanas
 
 
 class SuryaNamaskar(BaseSet):
-    def __init__(self, slow_timings = True):
-        super().__init__(caption="Сурья Намаскар")
+    def __init__(self, slow_timings = True, **kwargs):
+        super().__init__(caption="Сурья Намаскар (%s)"%("обычная" if slow_timings else "быстрая"))
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
+        self.update_props(kwargs)
         self.slow_timings = slow_timings
     
     def build(self, workout):
@@ -38,7 +39,11 @@ class SuryaNamaskar(BaseSet):
                 Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 16 if self.slow_timings else 12),
                 Asanas.gorka.GorkaBase(tm_main = 11 if self.slow_timings else 4),
                 Asanas.nogi_k_rukam.Prizhok_k_Rukam(),
-                Asanas.uttanasana.Uttanasana(tm_main = 9 if self.slow_timings else 4)
+                Asanas.uttanasana.Uttanasana(tm_main = 9 if self.slow_timings else 4),
+                Asanas.short_poses.PodnimaemsiaVvreh()
             ]
+        
+        # ToDo: Remove PodnimaemsiaVvreh only if next is Gorka
+        #del self.asanas[-1]
         super().build(workout)
 

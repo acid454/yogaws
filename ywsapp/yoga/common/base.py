@@ -6,10 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-import os #, jsons
 from dataclasses import dataclass, field
-from speech_manager import SpeechManager
-
 
 @dataclass
 class PropertiesContainer:
@@ -21,6 +18,13 @@ class PropertiesContainer:
             if _p.short == name:
                 return _p
         return None
+    
+    # Меняем default-значения properties, перечисленных в keys kwargs
+    def update_props(self, kwargs):
+        for k in kwargs:
+            p = self.__getattr__(k)
+            if p is not None:
+                p.default = kwargs[k]
 
 @dataclass
 class BaseAsana(PropertiesContainer):
@@ -37,14 +41,9 @@ class BaseAsana(PropertiesContainer):
     def pool(self, name):
         return self.tasks[-1].pool(name)
 
-    # Меняем default-значения properties, перечисленных в keys kwargs
-    def update_props(self, kwargs):
-        for k in kwargs:
-            p = self.__getattr__(k)
-            if p is not None:
-                p.default = kwargs[k]
-
-
+    def update_all_tasks_images(self, imgs):
+        for t in self.tasks:
+            t.images = imgs
 
 @dataclass
 class BaseProperty:
