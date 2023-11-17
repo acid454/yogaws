@@ -73,6 +73,7 @@ class UttanasanaWithCompensation(Uttanasana):
         self.properties.append(IntProperty(caption="время компенсации", short="tm_compensation", default=10))
         self.update_props(kwargs)
 
+        self.pool("end").clear()
         self.tasks.append(BaseTask(
             caption=self.caption + "\nкомпенсация",
             property=self.tm_compensation,
