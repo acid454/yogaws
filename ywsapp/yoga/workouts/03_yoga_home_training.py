@@ -7,17 +7,15 @@
 #  
 
 from base import BaseWorkout
-from properties import IntProperty
 from asanas import Asanas
-from surya_namaskar import SuryaNamaskar
 
 
 class DefaultWorkout(BaseWorkout):
     def __init__(self):
         BaseWorkout.__init__(self,
-                             name = "surya_namaskar",
+                             name = "yoga_home_traning",
                              caption = "Домашняя тренировка\nдля всех начинающих",
-                             description = "Сурья Намаскар и несколько основных асан")
+                             description = "Непродолжительный комплекс для любого начального уровня подготовки. Прекращение физической деградации.")
     
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
