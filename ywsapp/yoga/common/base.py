@@ -6,6 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+import datetime
 from dataclasses import dataclass, field
 
 @dataclass
@@ -107,7 +108,6 @@ class BaseTask:
         return self.snd_pools[-1]
 
     def build(self, workout, _set):
-        #print("Build method for task '%s' - empty"%(self.caption))
         return False
 
 @dataclass
@@ -171,6 +171,15 @@ class BaseWorkout(PropertiesContainer):
         self.id = _id
         while any(list(map(lambda x: x.build(self), self.sets))):
             pass
+        
+        total_time = 0
+        for s in self.sets:
+            for a in s.asanas:
+                for t in a.tasks:
+                    total_time += t.property.value
+        self.total_time = str(datetime.timedelta(seconds=total_time))
+        if self.total_time.startswith("0:"):
+            self.total_time = self.total_time[2:]
         return self
 
 @dataclass

@@ -14,9 +14,16 @@
 }
 
 .run_button {
-  position: absolute;
+  position: fixed;
   bottom: 16px;
   right: 20px;
+}
+
+.total_time {
+  position: fixed;
+  bottom: 16px;
+  left: 27%;
+  margin-left: 10px;
 }
 
 .begining_text {
