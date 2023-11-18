@@ -16,11 +16,11 @@ from snd_pools import *
 class ParivrittaBase(BaseParshvaconasana):
     def __init__(self, _side, _caption):
         super().__init__(name="parivritta_%s"%(_side), caption=_caption, side=_side)
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=16))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=12))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=30))
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nподготовка",
+            caption=self.caption + "подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest()
         ))

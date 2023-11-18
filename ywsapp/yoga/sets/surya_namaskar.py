@@ -43,7 +43,10 @@ class SuryaNamaskar(BaseSet):
                 Asanas.short_poses.PodnimaemsiaVvreh()
             ]
         
-        # ToDo: Remove PodnimaemsiaVvreh only if next is Gorka
-        #del self.asanas[-1]
+        # Remove PodnimaemsiaVvreh if next asana is Gorka
+        next_asana = workout.next_item(self.asanas[-1])
+        print(next_asana)
+        if type(next_asana) is Asanas.gorka.GorkaBase:
+            del self.asanas[-1]
         super().build(workout)
 
