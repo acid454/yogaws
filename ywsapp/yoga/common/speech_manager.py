@@ -56,7 +56,7 @@ class SpeechManager:
                 if f.endswith('_overlapse'):
                     can_overlapse = True
                     f = f[:-len('_overlapse')]
-                    print(f"Was overlapsed: {f}")
+                    #print(f"Was overlapsed: {f}")
                 
                 if self.mp3_files[f].length <= time or can_overlapse:
                     result.append(self.mp3_files[f])
@@ -65,7 +65,22 @@ class SpeechManager:
         # ToDo: implement use count here
         if len(result) == 0:
             return SoundElement()
-        return result[random.randrange(len(result))]
+        
+        # Select one of results, depending on usage count. Less usage - more probability to be selected.
+        #  Detect max usage count - that is the lowest prob. Than detect prob = max - usage + 1 for each elem,
+        #  and calcualte summ of all. Take random of that sum, and for each elem substaract prob from that rand.
+        #  If result <= 0 - that is our elem.
+        max_usage = max(map(lambda x: x.used, result))
+        rev = list(map(lambda x: max_usage - x.used + 1, result))
+        #print("Selecting from usages: %s, max: %d, rev sum: %d"%(list(map(lambda x: x.used, result)), max_usage, sum(rev)))
+        rand = random.randint(1, sum(rev))
+        for x in range(len(rev)):
+            rand -= rev[x]
+            if rand <= 0:
+                #print(f"Selected item #{x} with use count {result[x].used}")
+                #print()
+                result[x].used += 1
+                return result[x]
 
 
     def do_generate_task_sounds(self, w, t):
@@ -89,7 +104,7 @@ class SpeechManager:
             if pool_nm != "end":
                 float_time_idx = cur_time_idx
         
-        #print("Processing float: remain task time %d, idx %d", remain_task_time, float_time_idx)
+        #print(f"Processing float: remain task time {remain_task_time}, idx {float_time_idx}")
         if remain_task_time > 0:
             s = self.select_random_sound(t.pool("float").files, remain_task_time)
             if s.length > 0:
