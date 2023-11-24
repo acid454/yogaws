@@ -8,7 +8,6 @@
 
 from base import AsanaLegForward
 from dataclasses import dataclass
-from surya_namaskar import SuryaNamaskar
 from snd_pools import *
 
 
@@ -17,6 +16,7 @@ class BaseParshvaconasana(AsanaLegForward):
     prepare_tm_for_swap_hands: int = 8
 
     def build(self, workout, _set):
+        from surya_namaskar import SuryaNamaskar
         # are we in suria? if yes - delete preparation
         if type(_set) is SuryaNamaskar:
             del self.tasks[0]
