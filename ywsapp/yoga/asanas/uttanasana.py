@@ -19,44 +19,41 @@ class UttanasanaBase(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeWork(),
-            snd_pools = [
-                SoundPool(name="start", files=[
-                    "i_uhodim_vniz",
-                    "s_vidohom_uhodim_vniz1",
-                    "s_vidohom_uhodim_vniz2",
-                    "s_vidohom_uhodim_vniz3",
-                    "i_s_vidohom_opustilis'_vniz1",
-                    "i_s_vidohom_opustilis'_vniz2",
-                    "i_s_vidohom_opustilis'_vniz3",
-                    "upr_vitiagivanie_vniz1",
-                    "upr_vitiagivanie_vniz2",
-                    "upr_vitiagivanie_vniz3",
-                    "upr_vitiagivanie_vniz4" ]),
-                SoundPool(name="name", files = [
-                     "name_uttanasana1",
-                     "name_uttanasana2",
-                     "name_uttanasana3",
-                     "name_uttanasana4"]),
-                SoundPool(name="continue", files = [
-                     "descr_vitjashenie_vniz2",
-                     "descr_vitjashenie_vniz6",
-                     "na_skol'ko_eto_poluchaetsia"]),
-                SoundPool(name="float", files = [
-                    "descr_uttanasana1",
-                    "descr_uttanasana2",
-                    "descr_vitjashenie_vniz3",
-                    "descr_vitjashenie_vniz4",
-                    "descr_vitjashenie_vniz5",
-                    "common_dlya_spinu_i_pozvonochnika",
-                    "common_telo_prosedajet",
-                    "common_potianut'_pojasnichnue_mishzi_zameret'",
-                    "common_tianemsia_2x",
-                    "common_i_postojat'_podushat'",
-                    "common7"]),
-                SoundPool(name="end", files = [
-                    "_horosho1", "_horosho2"] + SND_ZAKONCHILI_DALSHE)
-                ]))
+            metronome=MetronomeWork()))
+        self.pool("start").append("i_uhodim_vniz")
+        self.pool("start").append("s_vidohom_uhodim_vniz1")
+        self.pool("start").append("s_vidohom_uhodim_vniz2")
+        self.pool("start").append("s_vidohom_uhodim_vniz3")
+        self.pool("start").append("i_s_vidohom_opustilis'_vniz1")
+        self.pool("start").append("i_s_vidohom_opustilis'_vniz2")
+        self.pool("start").append("i_s_vidohom_opustilis'_vniz3")
+        self.pool("start").append("upr_vitiagivanie_vniz1")
+        self.pool("start").append("upr_vitiagivanie_vniz2")
+        self.pool("start").append("upr_vitiagivanie_vniz3")
+        self.pool("start").append("upr_vitiagivanie_vniz4")
+        self.pool("name").append("name_uttanasana1")
+        self.pool("name").append("name_uttanasana2")
+        self.pool("name").append("name_uttanasana3")
+        self.pool("name").append("name_uttanasana4")
+        self.pool("continue").append("descr_vitjashenie_vniz2")
+        self.pool("continue").append("descr_vitjashenie_vniz6")
+        self.pool("continue").append("na_skol'ko_eto_poluchaetsia")
+        self.pool("float").append("descr_uttanasana1")
+        self.pool("float").append("descr_uttanasana2")
+        self.pool("float").append("descr_vitjashenie_vniz3")
+        self.pool("float").append("descr_vitjashenie_vniz4")
+        self.pool("float").append("descr_vitjashenie_vniz5")
+        self.pool("float").append("common_dlya_spinu_i_pozvonochnika")
+        self.pool("float").append("common_telo_prosedajet")
+        self.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
+        self.pool("float").append("common_tianemsia_2x")
+        self.pool("float").append("common_i_postojat'_podushat'")
+        self.pool("float").append("common7")
+        self.pool("end").append("otlichno")
+        self.pool("end").append("_horosho1")
+        self.pool("end").append("_horosho2")
+        for i in SND_ZAKONCHILI_DALSHE:
+            self.pool("end").append(i)
 
 class Uttanasana(UttanasanaBase):
     def __init__(self, **kwargs):

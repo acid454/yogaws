@@ -43,26 +43,23 @@ class SpeechManager:
             self.mp3_files[fl[:-4]] = SoundElement(
                     file = fl,
                     length = math.ceil(MP3(os.path.join(mp3_path, fl)).info.length))
-        #print("MP3:")
-        #print(self.mp3_files)
 
-    def select_random_sound(self, files, time):
+    def select_random_sound(self, pool_items, time, can_be_empty):
         result = []
-        for f in files:
-            if f is None:
-                result.append(SoundElement())
-            else:
-                can_overlapse = False
-                if f.endswith('_overlapse'):
-                    can_overlapse = True
-                    f = f[:-len('_overlapse')]
-                    #print(f"Was overlapsed: {f}")
-                
-                if self.mp3_files[f].length <= time or can_overlapse:
-                    result.append(self.mp3_files[f])
+        if can_be_empty:
+            result.append(SoundElement())
+        for item in pool_items:
+            fl_name = item['file']
+            can_overlapse = False
+            if fl_name.endswith('_overlapse'):
+                can_overlapse = True
+                fl_name = fl_name[:-len('_overlapse')]
+                #print(f"Was overlapsed: {f}")
+            
+            if self.mp3_files[fl_name].length <= time or can_overlapse:
+                result.append(self.mp3_files[fl_name])
         #print("Selecting from files: %s"%(list(map(lambda x: x.file, result))))
         
-        # ToDo: implement use count here
         if len(result) == 0:
             return SoundElement()
         
@@ -89,10 +86,11 @@ class SpeechManager:
 
         float_time_idx = 0
         for pool_nm in ["start", "name", "continue", "end"]:
-            #print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).files)} in pool.")
-            s = self.select_random_sound(t.pool(pool_nm).files, t.property.value - cur_time_idx)
+            #print(f"Processing task {t.caption}, pool {pool_nm}. {len(t.pool(pool_nm).items)} in pool.")
+            emtp = t.pool(pool_nm).can_be_empty
+            s = self.select_random_sound(t.pool(pool_nm).items, t.property.value - cur_time_idx, emtp)
             if s.length == 0:
-                if None not in t.pool(pool_nm).files and len(t.pool(pool_nm).files) > 0:
+                if not emtp and len(t.pool(pool_nm).items) > 0:
                     print(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
                 continue
             remain_task_time -= s.length
@@ -106,9 +104,12 @@ class SpeechManager:
         
         #print(f"Processing float: remain task time {remain_task_time}, idx {float_time_idx}")
         if remain_task_time > 0:
-            s = self.select_random_sound(t.pool("float").files, remain_task_time)
+            empt = t.pool("float").can_be_empty
+            s = self.select_random_sound(t.pool("float").items, remain_task_time, empt)
             if s.length > 0:
                 if remain_task_time > s.length:
+                    
+
                     float_time_idx += random.randrange(remain_task_time - s.length)
                 t.sounds[float_time_idx] = s
         #print("Task %s sounds: %s"%(t.caption, str(t.sounds)))

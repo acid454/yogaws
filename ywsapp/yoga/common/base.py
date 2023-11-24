@@ -67,24 +67,30 @@ class BaseProperty:
 @dataclass
 class SoundPool:
     name: str = None
-    files: list = field(default_factory=lambda: [])
+    items: list = field(default_factory=lambda: [])
     seq: int = 0
+    can_be_empty: bool = False
 
-    def append(self, x):
-        self.files.append(x)
+    def append(self, x, **kwargs):
+        if x is None:
+            self.can_be_empty = True
+            return
+        itm = kwargs
+        itm['file'] = x
+        self.items.append(itm)
     
     def remove(self, x):
         try:
-            self.files.remove(x)
+            self.items.remove(x)
         except:
             pass
     
     def clear(self):
-        self.files.clear()
+        self.items.clear()
     
     def migrate(self, src):
-        self.files = src.files
-        src.files = []
+        self.items = src.items
+        src.items = []
 
 @dataclass
 class MetronomeSounds:
