@@ -8,7 +8,7 @@
 
 import os, random, math
 from mutagen.mp3 import MP3
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -57,7 +57,9 @@ class SpeechManager:
                 #print(f"Was overlapsed: {f}")
             
             if self.mp3_files[fl_name].length <= time or can_overlapse:
-                result.append(self.mp3_files[fl_name])
+                r = replace(self.mp3_files[fl_name])
+                r.pool_item = item
+                result.append(r)
         #print("Selecting from files: %s"%(list(map(lambda x: x.file, result))))
         
         if len(result) == 0:
@@ -108,9 +110,8 @@ class SpeechManager:
             s = self.select_random_sound(t.pool("float").items, remain_task_time, empt)
             if s.length > 0:
                 if remain_task_time > s.length:
-                    
-
-                    float_time_idx += random.randrange(remain_task_time - s.length)
+                    if not s.pool_item.get('float_on_start'):
+                        float_time_idx += random.randrange(remain_task_time - s.length)
                 t.sounds[float_time_idx] = s
         #print("Task %s sounds: %s"%(t.caption, str(t.sounds)))
         #print()
