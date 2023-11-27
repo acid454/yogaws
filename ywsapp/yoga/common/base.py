@@ -80,10 +80,12 @@ class SoundPool:
         self.items.append(itm)
     
     def remove(self, x):
-        try:
-            self.items.remove(x)
-        except:
-            pass
+        for i in self.items:
+            try:
+                if i['file'] == x:
+                    self.items.remove(i)
+            except:
+                pass
     
     def clear(self):
         self.items.clear()
