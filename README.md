@@ -4,6 +4,7 @@ http://127.0.0.1:8000/
 
 
 ### ToDo: aftermath callback, чтобы отработать озвучку {% if not glob.get('last_before_shavasana') %}
+### ToDo: async io для загрузки mp3
 
 ### ToDo: реализовать дескрипторы
   https://realpython.com/python-getter-setter/
@@ -43,3 +44,12 @@ let - Variables declared by let are only available inside the block where they'r
 
 
 -- Bootstrap is a web framework built to help you design responsive websites faster. It contains a ton of custom css/javascript and jquery code that you can use to style and layout your website.
+
+
+-----------------------------------------------------------
+INSTALL on Debian:
+PiP: sudo apt install python3-pip
+sudo apt install python3-django
+sudo apt install python3-django-crispy-forms
+sudo apt-get install python3-mutagen
+
