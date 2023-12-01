@@ -15,38 +15,44 @@ from asanas import Asanas
 
 
 class SuryaNamaskar(BaseSet):
-    def __init__(self, slow_timings = True, **kwargs):
-        super().__init__(caption="Сурья Намаскар (%s)"%("обычная" if slow_timings else "быстрая"))
+    SURYA_TIMINGS = [
+        {'asana':Asanas.vitjashenie_vverh.VitjashenieVverh, 'slow':9, 'fast':4, 'extra_slow':11},
+        {'asana':Asanas.vitjashenie_vpered.VitjashenieVpered, 'slow':9, 'fast':5, 'extra_slow':11 },
+        {'asana':Asanas.uttanasana.UttanasanaWithCompensation, 'slow':(9,6), 'fast':(4,4), 'extra_slow':(30,20)},
+        {'asana':Asanas.niznii_upor.NizniiUpor, 'slow':6, 'fast':4, 'extra_slow':12},
+        {'asana':Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh, 'slow':11, 'fast':7, 'extra_slow':35},
+        {'asana':Asanas.gorka.GorkaBase, 'slow':11, 'fast':7, 'extra_slow':16},
+        {'asana':Asanas.virabhadrasana.VirabhadrasanaLeft, 'slow':16, 'fast':12, 'extra_slow':50},
+        {'asana':Asanas.gorka.GorkaBase, 'slow':9, 'fast':4, 'extra_slow':16},
+        {'asana':Asanas.virabhadrasana.VirabhadrasanaRight, 'slow':16, 'fast':12, 'extra_slow':50},
+        {'asana':Asanas.gorka.GorkaBase, 'slow':11, 'fast':4, 'extra_slow':30},
+        {'asana':Asanas.nogi_k_rukam.Prizhok_k_Rukam},
+        {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':4, 'extra_slow':35},
+        {'asana':Asanas.short_poses.PodnimaemsiaVvreh}
+    ]
+    def __init__(self, timings = 'slow', **kwargs):
+        super().__init__(caption="Сурья Намаскар")
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
         self.update_props(kwargs)
-        self.slow_timings = slow_timings
+        self.timings = timings
     
     def build(self, workout):
         for i in range(self.cnt.value):
             # Construct new one asana classes every time
-            self.asanas += [
-                Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 9 if self.slow_timings else 4),
-                Asanas.vitjashenie_vpered.VitjashenieVpered(tm_main = 9 if self.slow_timings else 5),
-                Asanas.uttanasana.UttanasanaWithCompensation(
-                    tm_main = 9 if self.slow_timings else 4,
-                    tm_compensation = 6 if self.slow_timings else 4
-                ),
-                Asanas.niznii_upor.NizniiUpor(tm_main = 6 if self.slow_timings else 4),
-                Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 11 if self.slow_timings else 7),
-                Asanas.gorka.GorkaBase(tm_main = 11 if self.slow_timings else 7),
-                Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 16 if self.slow_timings else 12),
-                Asanas.gorka.GorkaBase(tm_main = 9 if self.slow_timings else 4),
-                Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 16 if self.slow_timings else 12),
-                Asanas.gorka.GorkaBase(tm_main = 11 if self.slow_timings else 4),
-                Asanas.nogi_k_rukam.Prizhok_k_Rukam(),
-                Asanas.uttanasana.Uttanasana(tm_main = 9 if self.slow_timings else 4),
-                Asanas.short_poses.PodnimaemsiaVvreh()
-            ]
+            for itm in SuryaNamaskar.SURYA_TIMINGS:
+                #print("SURYA construct %s"%(itm['asana']))
+                if self.timings in itm.keys():
+                    tm = itm[self.timings]
+                    if type(tm) == int:
+                        self.asanas.append(itm['asana'](tm_main = tm))
+                    else:
+                        self.asanas.append(itm['asana'](tm_main = tm[0], tm_compensation = tm[1]))
+                else:
+                    self.asanas.append(itm['asana']())
         
-        # Remove PodnimaemsiaVvreh if next asana is Gorka
+        # Remove PodnimaemsiaVvreh if next asana is Gorka, or Planka
         next_asana = workout.next_item(self.asanas[-1])
-        print(next_asana)
-        if type(next_asana) is Asanas.gorka.GorkaBase:
+        if type(next_asana) in [Asanas.gorka.GorkaBase, Asanas.planka.Planka]:
             del self.asanas[-1]
         super().build(workout)
 

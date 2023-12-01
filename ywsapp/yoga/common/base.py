@@ -165,14 +165,14 @@ class BaseWorkout(PropertiesContainer):
 
         for s in self.sets:
             for a in s.asanas:
-                if a == this:
+                if a is this:
                     ret_nxt_asana = True
-                if ret_nxt_asana:
+                elif ret_nxt_asana:
                     return a
                 for t in a.tasks:
-                    if t == this:
+                    if t is this:
                         ret_nxt_task = True
-                    if ret_nxt_task:
+                    elif ret_nxt_task:
                         return t
 
     def build(self, _id):
