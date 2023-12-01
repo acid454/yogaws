@@ -34,9 +34,6 @@ class GorkaBase(BaseAsana):
             self.pool("start").append("cherez_niz")
         else:
             self.pool("name").append("name_sobaka_mordoi_vniz")
-            self.pool("start").append("descr_gorka4")
-            self.pool("start").append("descr_gorka5")
-
         
         self.gorka_name_snd()
 
@@ -47,8 +44,10 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("stoim_derzhim")
         self.pool("float").append("common1")
         self.pool("float").append("descr_gorka1")
-        self.pool("float").append("descr_gorka2")
+        self.pool("float").append("descr_gorka2", float_on_start = True)
         self.pool("float").append("descr_gorka3")
+        self.pool("float").append("descr_gorka4", float_on_start = True)
+        self.pool("float").append("descr_gorka5", float_on_start = True)
         self.pool("float").append("descr_gorka6")
         self.pool("float").append("descr_gorka7")
         self.pool("float").append("common5_v_vitalkivanii")
