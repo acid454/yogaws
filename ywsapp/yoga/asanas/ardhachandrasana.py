@@ -11,66 +11,27 @@ from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
 from snd_pools import *
 
-class Ardhachandrasana(BaseAsana):
-    def __init__(self, **kwargs):
-        super().__init__(name="ardhachandrasana", caption="Ардха Чандрасана")
+class ArdhachandrasanaBase(BaseAsana):
+    def __init__(self, _side):
+        self.side = _side
+        side_text = 'левая' if _side == 'left' else 'правая'
+        super().__init__(name="ardhachandrasana", caption="Ардха Чандрасана\n(%s сторона)"%(side_text))
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=25))
-        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=13))
-        self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
-        self.update_props(kwargs)
+        #self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nлевая нога, подготовка",
+            caption=self.caption + "\nподготовка",
             property=self.tm_prepare,
-            metronome=MetronomeRest(),
-            images=[f"ardhachandrasana_left{x}" for x in range(1,4)]
+            metronome=MetronomeRest()
         ))
-        self.pool("name").append("name_ardhachandrasana1")
-        self.pool("name").append("name_ardhachandrasana2")
-        self.pool("name").append("name_ardhachandrasana3")
-        self.pool("continue").append("leg_left_opornaja")
-        self.pool("float").append("enter_ardhachandrasana_left1")
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nлевая нога",
+            caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=self.tasks[-1].images
+            images=self.tasks[-1].images        # This is reference to prev task's images
         ))
-        self.ardhachandrasana_common_sounds()
-
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nправая нога, подготовка",
-            property=self.tm_swap,
-            metronome=MetronomeRest(),
-            images=[f"ardhachandrasana_right{x}" for x in range(1,4)]
-        ))
-        self.pool("start").append("i_meniaem")
-        for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd)
-        self.pool("continue").append("enter_ardhachandrasana_right1")
-        self.pool("continue").append("enter_ardhachandrasana_right2")
-        self.pool("continue").append("enter_ardhachandrasana_right3")
-
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nправая нога",
-            property=self.tm_main,
-            metronome=MetronomeWork(),
-            images=self.tasks[-1].images
-        ))
-        self.ardhachandrasana_common_sounds()
-        
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nвыход",
-            property=self.tm_exit,
-            metronome=MetronomeRest(),
-            images=self.tasks[-1].images
-        ))
-        for snd in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(snd)
-
-    def ardhachandrasana_common_sounds(self):
         self.pool("float").append("descr_ardhachandrasana_zameret'")
         self.pool("float").append("common3")
         self.pool("float").append("common4")
@@ -90,3 +51,45 @@ class Ardhachandrasana(BaseAsana):
         self.pool("end").append("i_s_vidohom_opustili_ruku")
         self.pool("end").append("provernuli_ruku_opustili_vniz")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
+
+    def build(self, workout, _set):
+        super().build(workout, _set)
+        prev_asana = workout.prev_item(self)
+        if issubclass(type(prev_asana), ArdhachandrasanaBase):
+            if self.side == prev_asana.side:
+                return
+            t = self.task(self.tm_prepare)
+            t.pool("start").clear()
+            for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
+                    t.pool("start").append(i)
+            return
+        
+        with self.task(self.tm_prepare) as t:
+            t.pool("name").append("name_ardhachandrasana1")
+            t.pool("name").append("name_ardhachandrasana2")
+            t.pool("name").append("name_ardhachandrasana3")
+
+class ArdhachandrasanaLeft(ArdhachandrasanaBase):
+    def __init__(self, **kwargs):
+        super().__init__(_side = 'left')
+        self.update_props(kwargs)
+
+        with self.task(self.tm_prepare) as t:
+            t.images += [f"ardhachandrasana_left{x}" for x in range(1,4)]
+            t.pool('continue').append("leg_left_opornaja")
+            t.pool('float').append('enter_ardhachandrasana_left1', float_on_start = True)
+
+class ArdhachandrasanaRight(ArdhachandrasanaBase):
+    def __init__(self, **kwargs):
+        super().__init__(_side='right')
+        self.update_props(kwargs)
+
+        with self.task(self.tm_prepare) as t:
+            t.images += [f"ardhachandrasana_right{x}" for x in range(1,4)]
+            # ToDo: need 'leg right opornaja' sound
+            #t.pool('continue').append("leg_left_opornaja")
+            for snd in SND_LEG_RIGHT_FORWARD:
+                self.tasks[0].pool("continue").append(snd)
+            t.pool('float').append('enter_ardhachandrasana_right1', float_on_start = True)
+            t.pool('float').append('enter_ardhachandrasana_right2', float_on_start = True)
+            t.pool('float').append('enter_ardhachandrasana_right3', float_on_start = True)

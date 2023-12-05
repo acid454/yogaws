@@ -29,7 +29,12 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.most.Most())
         
         self.wrap_asana(Asanas.plug.Plug())
-        self.wrap_asana(Asanas.navasana.Navasana())
+        #self.wrap_asana(Asanas.navasana.Navasana())
+        self.wrap_asana(Asanas.bakasana.Bakasana(side = 'left'))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
+        self.wrap_asana(Asanas.bakasana.Bakasana(side = 'right'))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
+                
         self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
         
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())

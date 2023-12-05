@@ -22,7 +22,12 @@ class BaseParshvaconasana(AsanaLegForward):
             del self.tasks[0]
         
         prev_asana = workout.prev_item(self)
-        if type(prev_asana) is AsanaLegForward:
+        #print(self)
+        #print()
+        #print(prev_asana)
+        #print(issubclass(type(prev_asana), AsanaLegForward))
+        #print("-"*120)
+        if issubclass(type(prev_asana), AsanaLegForward):
             if prev_asana.side == self.side:
                 # this and prev asana is same legs (same side), but different hands
                 self.build_snd_swap_hands()
@@ -43,9 +48,7 @@ class BaseParshvaconasana(AsanaLegForward):
             else:
                 for snd in SND_LEG_RIGHT_FORWARD:
                     self.tasks[0].pool("start").append(snd)
-        
-        if type(prev_asana) is not type(self):
-            self.build_snd_name()
+        self.build_snd_name(prev_asana)
 
     def build_snd_swap_hands(self):
         self.tasks[0].pool("start").append("ladoni_ruk_menijautsia_mestami")

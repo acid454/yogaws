@@ -54,7 +54,9 @@ class VirabhadrasanaBase(BaseParshvaconasana):
         for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:
             self.pool("end").append(i) 
     
-    def build_snd_name(self):
+    def build_snd_name(self, prev_asana):
+        if issubclass(type(prev_asana), VirabhadrasanaBase):
+            return
         self.tasks[0].pool("name").append("name_virabhadrasana1")
         self.tasks[0].pool("name").append("name_virabhadrasana2")
         self.tasks[0].pool("name").append("name_virabhadrasana3")

@@ -83,7 +83,9 @@ class ParivrittaBase(BaseParshvaconasana):
                 self.tm_prepare.default = 8
         # Others - default 16
 
-    def build_snd_name(self):
+    def build_snd_name(self, prev_asana):
+        if issubclass(type(prev_asana), ParivrittaBase):
+            return
         self.tasks[0].pool("name").append("name_parivritta_pashvakonasana1")
         self.tasks[0].pool("name").append("name_parivritta_pashvakonasana2")
 
@@ -94,8 +96,8 @@ class ParivrittaLeft(ParivrittaBase):
         self.update_props(kwargs)
         self.update_all_tasks_images([f"parivritta_parshvakonasana_left{x}" for x in range(1,5)])
     
-    def build_snd_name(self):
-        super().build_snd_name()
+    def build_snd_name(self, prev_asana):
+        super().build_snd_name(prev_asana)
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_left1")
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_left2")
         self.tasks[0].pool("continue").append("enter_parivritta_parshvakonasana_left")
@@ -107,8 +109,8 @@ class ParivrittaRight(ParivrittaBase):
         self.update_props(kwargs)
         self.update_all_tasks_images([f"parivritta_parshvakonasana_right{x}" for x in range(1,5)])
     
-    def build_snd_name(self):
-        super().build_snd_name()
+    def build_snd_name(self, prev_asana):
+        super().build_snd_name(prev_asana)
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right1")
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right2")
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right3")

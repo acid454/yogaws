@@ -45,6 +45,12 @@ class BaseAsana(PropertiesContainer):
     def update_all_tasks_images(self, imgs):
         for t in self.tasks:
             t.images = imgs
+    
+    def task(self, property):
+        for t in self.tasks:
+            if t.property is property:
+                return t
+
 
 @dataclass
 class BaseProperty:
@@ -117,6 +123,12 @@ class BaseTask:
 
     def build(self, workout, _set):
         return False
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, type, value, traceback):
+        pass
 
 @dataclass
 class BaseSet(PropertiesContainer):

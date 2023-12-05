@@ -11,67 +11,26 @@ from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
 from snd_pools import *
 
-class Kapotasana(BaseAsana):
-    def __init__(self, **kwargs):
-        super().__init__(name="kapotasana", caption="Капотасана")
+class KapotasanaBase(BaseAsana):
+    def __init__(self, _side):
+        self.side = _side
+        side_text = 'левая' if _side == 'left' else 'правая'
+        super().__init__(name="kapotasana", caption="Капотасана\n(%s сторона)"%(side_text))
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=25))
-        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=13))
-        #self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
-        self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nлевая нога, подготовка",
+            caption=self.caption + "\nподготовка",
             property=self.tm_prepare,
-            metronome=MetronomeRest(),
-            images=["kapotasana_left1"]
+            metronome=MetronomeRest()
         ))
-        self.pool("name").append("name_kapotasana1")
-        self.pool("name").append("name_kapotasana2")
-        self.pool("name").append("name_kapotasana3")
-        self.pool("continue").append("left_side1")
-        self.pool("continue").append("left_side2")
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nлевая нога",
+            caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=self.tasks[-1].images
+            images=self.tasks[-1].images            # We made a ref to prev task's images
         ))
-        self.kapotasana_common_sounds()
-        self.pool("end").append("vernulis'1")
-        self.pool("end").append("vernulis'2")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
-        
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nправая нога, подготовка",
-            property=self.tm_swap,
-            metronome=MetronomeRest(),
-            images=["kapotasana_right1"]
-        ))
-        for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(i)
-
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nправая нога",
-            property=self.tm_main,
-            metronome=MetronomeWork(),
-            images=self.tasks[-1].images
-        ))
-        self.kapotasana_common_sounds()
-        """
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\nвыход",
-            property=self.tm_exit,
-            metronome=MetronomeRest(),
-            images=self.tasks[-1].images
-        ))
-        for snd in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(snd)
-        """
-
-    def kapotasana_common_sounds(self):
         self.pool("float").append("descr_kapotasana")
         self.pool("float").append("common9")
         self.pool("float").append("common12")
@@ -83,3 +42,42 @@ class Kapotasana(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common8")
         self.pool("float").append("common10")
+    
+    def build(self, workout, _set):
+        prev_asana = workout.prev_item(self)
+        if issubclass(type(prev_asana), KapotasanaBase):
+            if self.side == prev_asana.side:
+                return
+            t = self.task(self.tm_prepare)
+            t.pool("start").clear()
+            for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
+                    t.pool("start").append(i)
+            return
+        
+        with self.task(self.tm_prepare) as t:
+            t.pool("name").append("name_kapotasana1")
+            t.pool("name").append("name_kapotasana2")
+            t.pool("name").append("name_kapotasana3")
+
+class KapotasanaLeft(KapotasanaBase):
+    def __init__(self, **kwargs):
+        super().__init__(_side = 'left')
+        self.update_props(kwargs)
+
+        with self.task(self.tm_prepare) as t:
+            t.images += ["kapotasana_left1"]
+            t.pool("continue").append("left_side1")
+            t.pool("continue").append("left_side2")
+
+class KapotasanaRight(KapotasanaBase):
+    def __init__(self, **kwargs):
+        super().__init__(_side = 'right')
+        self.update_props(kwargs)
+
+        with self.task(self.tm_prepare) as t:
+            t.images += ["kapotasana_right1"]
+            for snd in SND_LEG_RIGHT_FORWARD:
+                t.pool("start").append(snd)
+
+            
+        

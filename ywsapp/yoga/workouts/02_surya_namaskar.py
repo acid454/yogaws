@@ -7,7 +7,6 @@
 #  
 
 from base import BaseWorkout
-from properties import IntProperty
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 

@@ -66,7 +66,9 @@ class PadottanasanaBase(BaseParshvaconasana):
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i) 
 
-    def build_snd_name(self):
+    def build_snd_name(self, prev_asana):
+        if issubclass(type(prev_asana), PadottanasanaBase):
+            return
         self.tasks[0].pool("name").append("name_padottanasana1")
         self.tasks[0].pool("name").append("name_padottanasana2")
         self.tasks[0].pool("name").append("name_padottanasana3")
