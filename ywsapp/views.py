@@ -96,19 +96,10 @@ def _update_workouts():
     workout_files = list(filter(lambda x: x.endswith(".py"), workout_files))
     
     for f in workout_files:
+        #if f != "01_test.py": continue
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
             WORKOUTS[hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()] = w
-        #WORKOUTS += list(map(lambda x: {'id': w, 'class': x}, workouts))
-        #print(WORKOUTS)
-        #result += list(map(lambda x: x().build(), local_workouts))
-
-    #-------------------------------------------------------------------
-    # Some preparations, that must be called once. Must be refactor 
-    
-    
-    #-------------------------------------------------------------------
-
 
 def list_workouts(request):
     if WORKOUTS is None:
