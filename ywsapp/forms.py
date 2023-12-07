@@ -17,10 +17,10 @@ class NewUserForm(UserCreationForm):
             self.fields[k].help_text = ""
         
         #print(dir(self.fields['username']))
-        self.fields['username'].initial = "test1"
-        self.fields['email'].initial = "test1@mail.com"
-        self.fields['password1'].initial = "test1"
-        self.fields['password2'].initial = "test1"
+        #self.fields['username'].initial = "test1"
+        #self.fields['email'].initial = "test1@mail.com"
+        #self.fields['password1'].initial = "test1"
+        #self.fields['password2'].initial = "test1"
 
     class Meta:
         model = User
