@@ -20,6 +20,9 @@ class DefaultWorkout(BaseWorkout):
     
         self.wrap_asana(Asanas.tadasana.Tadasana())
         
+        self.wrap_asana(Asanas.bakasana.Bakasana(side='left'))
+        self.wrap_asana(Asanas.bakasana.Bakasana(side='right'))
+
         self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Left())
         self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right())
 
