@@ -19,6 +19,13 @@
 
 </body>
 
+<script src="{% static 'ywsapp/res/NoSleep.min.js' %}"></script>
+<script>
+	var noSleep = new NoSleep();
+	noSleep.enable(); // keep the screen on!
+	//noSleep.disable(); // let the screen turn off.
+</script>
+
 <script>
     var xhr = new XMLHttpRequest();
     var workout = null;
