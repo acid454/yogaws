@@ -16,7 +16,7 @@ class Kukkutasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="kukkutasana", caption="Куккутасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=20))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=27))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(

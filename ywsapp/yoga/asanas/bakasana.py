@@ -15,12 +15,12 @@ from snd_pools import *
 class Bakasana(BaseAsana):
     def __init__(self, side = 'middle', **kwargs):
         if side == 'left':
-            caption_side = '\n(левая сторона)'
+            _caption = 'Паршва Бакасана\n(левая сторона)'
         elif side == 'right':
-            caption_side = '\n(правая сторона)'
+            _caption = 'Паршва Бакасана\n(правая сторона)'
         else:
-            caption_side = ''
-        super().__init__(name="bakasana", caption="Бакасана%s"%(caption_side))
+            _caption = 'Бакасана'
+        super().__init__(name="bakasana", caption=_caption)
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=16))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))

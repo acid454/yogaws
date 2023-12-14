@@ -44,6 +44,7 @@ class KapotasanaBase(BaseAsana):
         self.pool("float").append("common10")
     
     def build(self, workout, _set):
+        super().build(workout, _set)
         prev_asana = workout.prev_item(self)
         if issubclass(type(prev_asana), KapotasanaBase):
             if self.side == prev_asana.side:
