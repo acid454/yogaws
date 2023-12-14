@@ -8,7 +8,7 @@
 
 from base import BaseAsana, BaseTask
 from properties import IntProperty
-from metronomes import MetronomeRest
+from metronomes import MetronomeShavasana
 from snd_pools import SND_ZAKONCHILI_DALSHE
 
 
@@ -19,7 +19,7 @@ class Shavasana(BaseAsana):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
-            metronome=MetronomeRest(),
+            metronome=MetronomeShavasana(),
             images=["shavasana1", "shavasana2", "shavasana3", "shavasana4", "shavasana5"]
         ))
         self.pool("start").append("descr_shavasana1")

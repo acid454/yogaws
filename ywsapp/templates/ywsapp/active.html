@@ -77,7 +77,6 @@
 	function get_current_task(inc_task = false) {
 		if (current_set_idx >= workout.sets.length) {
 			/* All sets complete, so workout is complete*/
-			window.location.href = "/index-sidenav.html?" + workout.name;
 			return;
 		}
 
@@ -110,6 +109,9 @@
 		
 
 		current_task = get_current_task();
+		if (current_task === undefined)
+			return;
+
 		if ((current_task_time >= current_task.property.value) || first_load) {
 			if (!first_load) {
 				let bell = current_task.metronome.bell;
@@ -117,6 +119,16 @@
 					bells[bell].play();
 				
 				current_task = get_current_task(inc_task = true);
+				if (current_task === undefined) {
+					if (bell in bells)
+						bells[bell].addEventListener('ended', function() {
+    						// Audio has ended when this function is executed.
+							window.location.href = "/?" + workout.id;
+						}, false);
+					else
+						window.location.href = "/?" + workout.id;
+					return false;
+				}
 			}
 			
 			first_load = false;

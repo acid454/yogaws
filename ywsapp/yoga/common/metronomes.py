@@ -20,3 +20,8 @@ class MetronomeRest(MetronomeSounds):
 class MetronomeWork(MetronomeSounds):
     tick: str = "tick_work"
     bell: str = "task_complete_norm"
+
+@dataclass
+class MetronomeShavasana(MetronomeSounds):
+    tick: str = "none"
+    bell: str = "workout_complete"
