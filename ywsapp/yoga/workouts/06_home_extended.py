@@ -27,9 +27,14 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 55, tm_prepare = 5))
 
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 40))
-        self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
+        #self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
+        self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 40))
+        self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Left())
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 40))
-        self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
+        #self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
+        self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 40))
+        self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right())
 
         self.wrap_asana(Asanas.short_poses.OpustilisNaKoleni())
         self.wrap_asana(Asanas.bakasana.Bakasana())
