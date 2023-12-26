@@ -23,7 +23,7 @@ function save_workout_local_storage(workout_nm)
     for (var i = 0; i < collection.length; i++) {
         localStorage.setItem(collection[i].id, collection[i].value);
     }
-    window.location.href = "/active?" + workout_nm;
+    window.location.href = "/active?id=" + workout_nm;
 }
 
 function show_login_form()
@@ -37,16 +37,10 @@ function login_form_submit()
     document.getElementById('frm_login').submit()
 }
 
-function show_snackbar(text) {
-  // Get the snackbar DIV
-  var x = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
-  x.className = "show";
-  x.textContent = text;
-
-  // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+function show_snackbar() {
+   var x = document.getElementById("snackbar");
+   x.className = "show";
+   setTimeout( function(){ x.className = x.className.replace("show", ""); }, 7000 );
 }
 </script>
 
@@ -115,7 +109,8 @@ function show_snackbar(text) {
             <h4><div id="total_time_value">TOTAL TIME</div></h4>
         </div>
         
-
+        <!-- The actual snackbar -->
+        <div id="snackbar" hidden="hidden"><pre style="text-align: left;">{{ snack_text }}</pre></div>
     </div>
 </div>
 
@@ -219,10 +214,11 @@ function show_snackbar(text) {
         }
     }
     
-    if (window.location.href.split('?').length == 2)
-        document.getElementById('text_complete').hidden = false;
-    else
-        document.getElementById('text_begin').hidden = false;
+    {% if workout_complete %}
+    document.getElementById('text_complete').hidden = false;
+    {% else %}
+    document.getElementById('text_begin').hidden = false;
+    {% endif %}
     
     background_img_id = sessionStorage.getItem('background_img_id');
     if (background_img_id == null) {
@@ -230,6 +226,10 @@ function show_snackbar(text) {
         sessionStorage.setItem('background_img_id', background_img_id);
     }
     document.getElementById('background_img').src = "{% static 'ywsapp/res/mainbg/' %}" + background_img_id;
+    
+    {% if snack_text is not None %}
+    setTimeout( function(){ show_snackbar(); }, 500 );
+    {% endif %}
 </script>
 
 {%if show_registration_form %}

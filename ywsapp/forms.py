@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField
-from django.contrib.auth.models import User
+from . import models
 
 
 #
@@ -19,11 +19,9 @@ class NewUserForm(UserCreationForm):
         #print(dir(self.fields['username']))
         #self.fields['username'].initial = "test1"
         #self.fields['email'].initial = "test1@mail.com"
-        #self.fields['password1'].initial = "test1"
-        #self.fields['password2'].initial = "test1"
 
-    class Meta:
-        model = User
+    class Meta(UserCreationForm.Meta):
+        model = models.User
         fields = ["username", "email", "password1", "password2"]
     
     def save(self, commit=True):

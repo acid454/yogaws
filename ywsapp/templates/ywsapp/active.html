@@ -55,8 +55,8 @@
 	for (var i = 0; i < localStorage.length; i++)
 		properties += '&' + localStorage.key(i) + '=' + localStorage.getItem(localStorage.key(i));
 	
-	console.log( '/view_workout?id=' + window.location.href.split('?')[1] )
-    xhr.open('GET', '/view_workout?id=' + window.location.href.split('?')[1], false);
+	console.log( '/view_workout?id={{ workout_id }}' )
+    xhr.open('GET', '/view_workout?id={{ workout_id }}', false);
     xhr.send();
     if (xhr.status == 200)
         workout = JSON.parse(xhr.responseText)
@@ -123,10 +123,10 @@
 					if (bell in bells)
 						bells[bell].addEventListener('ended', function() {
     						// Audio has ended when this function is executed.
-							window.location.href = "/?" + workout.id;
+							window.location.href = "/?wuid={{active_wuid}}";
 						}, false);
 					else
-						window.location.href = "/?" + workout.id;
+						window.location.href = "/?wuid={{active_wuid}}";
 					return false;
 				}
 			}

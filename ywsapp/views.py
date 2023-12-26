@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
+from django.utils import timezone
 from .forms import UserLoginForm, NewUserForm
 from django.contrib.auth import authenticate, login, logout
 import jsons
@@ -25,10 +26,15 @@ BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__fi
 # Create your views here.
 def index(request):
     show_registration_form = False
+    snack_text = None
 
     # Handle background image
     background_image = (BACKGROUND_IMAGES[random.randrange(len(BACKGROUND_IMAGES))])
     
+    #print(dir(request))
+    #print(dir(request.user), request.user.is_authenticated)
+    #print(dir(request.session))
+
     if request.method == "POST":
         if "password" in request.POST.keys():
             # Processing login form
@@ -41,29 +47,46 @@ def index(request):
 
                 if user is not None:
                     login(request,user)
-                #snack_message = "Login successful."
             else:
-                #snack_message = "Unsuccessful registration."
-                print("Unsuccessful registration.")
                 show_registration_form = True
         else:
             # Processing registration form
             form = NewUserForm(request.POST)
             if form.is_valid():
-                print("Registration data OK")
                 user = form.save()
                 login(request, user)
             else:
-                print("Registration is invalid...")
+                snack_text = form.errors.as_text()
+    
+    # Check, if this is completed workout
+    active_wuid = request.GET.get('wuid')
+    session_wuid = request.session.get('active_wuid', None)
+    request.session['active_wuid'] = None
+    workout_complete = (active_wuid is not None) and (active_wuid == session_wuid)
+    if workout_complete and request.user.is_authenticated:
+        request.user.complete_workouts += 1
+        request.user.last_workout_id = request.session['workout_id']
+        request.user.last_workout_date = timezone.now()
+        request.user.save()
+
     return render(request, 'ywsapp/index.html', {
         "form_login":UserLoginForm(),
         "form_register": NewUserForm(),
         "show_registration_form": show_registration_form,
-        "main_bg_image":background_image
+        "main_bg_image":background_image,
+        "workout_complete":workout_complete,
+        "snack_text": snack_text
     })
 
 def active(request):
-    return render(request, 'ywsapp/active.html', {})
+    # Request active page -- so, start a new workout. Cache WS's id here, to check it in index page when done
+    import uuid
+    request.session['active_wuid'] = uuid.uuid4().hex
+    request.session['workout_id'] = request.GET.get('id')
+    return render(request, 'ywsapp/active.html', {
+        "workout_id": request.GET.get('id'),
+        "active_wuid": request.session['active_wuid']
+    })
 
 def logout_view(request):
     logout(request)
