@@ -71,7 +71,21 @@
     var timer_div = document.getElementById('timer');
     var name_div = document.getElementById('asana_name');
     var asana_img = document.getElementById('asana_image');
-    var task_audio = new Audio();
+    //var task_audio = new Audio();
+
+
+	// Preload all audio filed for this workout
+	for (let _s = 0; _s <  workout.sets.length; _s++) {
+		for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
+			for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
+				let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
+				for (let _k = 0; _k < _keys.length; _k++) {
+					let _sound = workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]];
+					_sound.audio = new Audio("{% static 'ywsapp/res/sounds_merged/' %}" + _sound.file);
+				}
+			}
+		}
+	}
    
 
 	function get_current_task(inc_task = false) {
@@ -151,8 +165,9 @@
 		if ((min_key !== Infinity) && (current_task_time >= min_key)) {
 			let snds = current_task.sounds[min_key];
 			current_task.sounds[min_key]['processed'] = true
-			task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
-			task_audio.play();
+			//task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
+			//task_audio.play();
+			current_task.sounds[min_key]['audio'].play();
 		}
 
 		if (((current_task_time % 4) == 0) || task_changed) {
