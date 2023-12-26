@@ -16,7 +16,7 @@ class Utkatasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="most", caption="Уткатасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=35))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(

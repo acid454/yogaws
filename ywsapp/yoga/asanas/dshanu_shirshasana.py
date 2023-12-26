@@ -17,7 +17,7 @@ class DshanuShirshasana(BaseAsana):
         super().__init__(name="dshanu_shirshasana", caption="Джану Ширшасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=85))
-        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=13))
+        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=15))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
         self.update_props(kwargs)
 

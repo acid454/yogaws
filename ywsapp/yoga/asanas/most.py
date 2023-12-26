@@ -15,7 +15,7 @@ from snd_pools import *
 class Most(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="most", caption="Чакрасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=14))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=17))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=35))
         self.properties.append(IntProperty(caption="выход, компенсация", short="tm_exit", default=8))
         self.update_props(kwargs)
