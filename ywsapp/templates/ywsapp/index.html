@@ -6,6 +6,8 @@
 <head>
 
 {% load static %}
+{% load humanize %}
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{% static 'ywsapp/css/w3.css' %}">
@@ -42,6 +44,14 @@ function show_snackbar() {
    x.className = "show";
    setTimeout( function(){ x.className = x.className.replace("show", ""); }, 7000 );
 }
+
+function show_user_info() {
+    document.getElementById('user_info_popup').style.display='block';
+}
+
+function hide_user_info() {
+    document.getElementById('user_info_popup').style.display='none';
+}
 </script>
 
 </head>
@@ -53,7 +63,7 @@ function show_snackbar() {
   <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
   <hr>
     {% if user.is_authenticated %}
-        <p>Добро пожаловать {{ user.username }} !!!</p>
+        <p>Добро пожаловать <a onclick="show_user_info()"><b>{{ user.username }}</b></a></p>
         <a href="/logout">выход</a>
     {% else %}
         {% load crispy_forms_tags %}
@@ -95,6 +105,7 @@ function show_snackbar() {
                 <form method="POST" class="form-group">
                     {% csrf_token %}
                     {{ form_register|crispy }}
+                    <hr>
                     <button type="submit" class="btn btn-success">Создать аккаунт</button>
                     <button type="button" class="btn btn-success" onclick="location.href = '/'">Продолжить анонимно</button>
                 </form>
@@ -104,6 +115,21 @@ function show_snackbar() {
         <div id="runit" hidden="hidden" class="run_button">
             <a id="active" onclick="">&#x1F662 Run it! &#x1F661</a>
         </div>
+
+        {% if user.is_authenticated %}
+        <!-- The Modal (contains the User info data) -->
+        <div id="user_info_popup" class="popup">
+            <div class="popup-content">
+                <h1 style="color:rgb(124, 10, 177);">{{ user.get_username }}</h1>
+                <hr>
+                Всего тренировок: <b>{{ user.complete_workouts }}</b><br>
+                Зарегестрирован: {{ user.date_joined }}<br>
+                Последняя тренировка: {{ user.last_workout_date|naturaltime }}<br>
+                <hr>
+                <a class="w3-bar-item w3-button" onclick="hide_user_info()">OK</a>
+            </div>
+        </div>
+        {% endif %}
 
         <div id="total_time" hidden="hidden" class="total_time">
             <h4><div id="total_time_value">TOTAL TIME</div></h4>
@@ -232,10 +258,12 @@ function show_snackbar() {
     {% endif %}
 </script>
 
-{%if show_registration_form %}
+
 <script>
+{%if show_registration_form %}
 document.getElementById('registration_popup').style.display='block';
-</script>
 {% endif %}
+</script>
+
 
 </html>
