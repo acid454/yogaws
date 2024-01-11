@@ -149,6 +149,7 @@
 			
 			name_div.innerText = current_task.caption;
 			current_task_time_start = new Date().getTime();
+			current_task_time = 0;
 			task_changed = true;
 		} else {
 			let tick_id = current_task.metronome.tick;
@@ -162,12 +163,14 @@
 				min_key = Math.min(parseInt(k), min_key)
 		}
 
+		//console.log("minimal key: " + min_key + ", current_task_time: " + current_task_time)
 		if ((min_key !== Infinity) && (current_task_time >= min_key)) {
 			let snds = current_task.sounds[min_key];
 			current_task.sounds[min_key]['processed'] = true
 			//task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
 			//task_audio.play();
 			current_task.sounds[min_key]['audio'].play();
+			//console.log("-- play new sound")
 		}
 
 		if (((current_task_time % 4) == 0) || task_changed) {
