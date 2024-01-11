@@ -26,7 +26,7 @@ class Utkatasana(BaseAsana):
             images=["utkatasana1"]
         ))
         self.pool("start").append("name_utkatasana")
-        self.pool("continue").append("enter_utkatasana_overlapse")
+        self.pool("continue").append("enter_utkatasana", overlapse = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
