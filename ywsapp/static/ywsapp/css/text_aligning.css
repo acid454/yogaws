@@ -27,8 +27,18 @@
 
 .bottom-right {
   position: absolute;
+  color: orange;
   bottom: 16px;
   right: 20px;
+}
+
+.text-center {
+  position: absolute;
+  color: orange;
+  background-color: rgba(61, 125, 179, 0.685);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fit {

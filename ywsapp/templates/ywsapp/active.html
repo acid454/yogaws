@@ -5,13 +5,42 @@
 {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
+
+<script>
+var workout_on_pause = false;
+function start_stop_workout() {
+	workout_on_pause = !workout_on_pause;
+	let pause_text = document.getElementById('pause_text');
+	if (!workout_on_pause)
+		pause_text.style.display = 'none';
+	else {
+		pause_text.style.display = 'block';
+		for (let _s = 0; _s <  workout.sets.length; _s++) {
+			for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
+				for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
+					let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
+					for (let _k = 0; _k < _keys.length; _k++) {
+						let _sound = workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]];
+						if (!_sound.audio.paused)
+							_sound.audio.pause();
+					}
+				}
+			}
+		}
+	}
+}
+</script>
 </head>
+
 
 <body>
 
 	<div class="container">
 		<div style="display: inline-block; position: relative;">
-			<img id="asana_image" src="" class="fit">
+			<div id="pause_text" class="text-center" onclick="start_stop_workout()" hidden="hidden">
+				<hr><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПАУЗА&nbsp;&nbsp;&nbsp;&nbsp;</b><hr>
+			</div>
+			<img id="asana_image" src="" class="fit" onclick="start_stop_workout()">
 			<div id="asana_name" class="top-right">Top Right</div>
 			<div id="timer" class="bottom-right">Bottom Right</div>
 		</div>
@@ -27,7 +56,7 @@
 </script>
 
 <script>
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     var workout = null;
 
 	var ticks = {};
@@ -65,13 +94,13 @@
 	var current_set_idx = 0;
 	var current_asana_idx = 0;
 	var current_task_idx = 0;
-    var current_task_time_start = new Date().getTime();
+    //var current_task_time_start = new Date().getTime();
+	var current_task_time = 0;
     var current_task_image = 0;
     var first_load = true;
     var timer_div = document.getElementById('timer');
     var name_div = document.getElementById('asana_name');
     var asana_img = document.getElementById('asana_image');
-    //var task_audio = new Audio();
 
 
 	// Preload all audio filed for this workout
@@ -118,10 +147,14 @@
 
     function process() {
 		let task_changed = false;
-		let now = new Date().getTime();
-		let current_task_time = Math.floor((now - current_task_time_start) / 1000);
+		//let now = new Date().getTime();
+		//let current_task_time = Math.floor((now - current_task_time_start) / 1000);
 		
 
+		//console.log("### current_task_time: " + current_task_time)
+		if (workout_on_pause)
+			return;
+		
 		current_task = get_current_task();
 		if (current_task === undefined)
 			return;
@@ -148,7 +181,7 @@
 			first_load = false;
 			
 			name_div.innerText = current_task.caption;
-			current_task_time_start = new Date().getTime();
+			//current_task_time_start = new Date().getTime();
 			current_task_time = 0;
 			task_changed = true;
 		} else {
@@ -186,10 +219,12 @@
 		timer_div.textContent = minutes + ":" + seconds;
 		//timer_div.textContent = current_task_time;
 
-		return task_changed;
+		//return task_changed;
+		if (!task_changed)
+			current_task_time++;
     }
     
-    while (process());
+    process();	// First process to start immediately
     setInterval(process, 1000);
 </script>
 
