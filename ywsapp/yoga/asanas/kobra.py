@@ -16,7 +16,7 @@ class Kobra(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="kobra", caption="Кобра")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=5))
-        self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=25))
+        self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=25))
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(

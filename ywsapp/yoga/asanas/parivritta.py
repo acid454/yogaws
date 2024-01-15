@@ -20,7 +20,7 @@ class ParivrittaBase(BaseParshvaconasana):
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=30))
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "подготовка",
+            caption=self.caption + "\nподготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest()
         ))
