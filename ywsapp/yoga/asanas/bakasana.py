@@ -21,9 +21,9 @@ class Bakasana(BaseAsana):
         else:
             _caption = 'Бакасана'
         super().__init__(name="bakasana", caption=_caption)
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=16))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
-        self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=57))
+        self.properties.append(IntProperty(caption="выход", short="tm_exit", default=3))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(
@@ -66,7 +66,6 @@ class Bakasana(BaseAsana):
             images=self.tasks[-1].images
         ))
         self.pool("start").append("otlichno")
-        self.pool("start").append("i_s_vidohom_na_ladoni_ruk")
         for i in SND_EXHALE + SND_RASSLABILIS:
             self.pool("start").append(i)
 

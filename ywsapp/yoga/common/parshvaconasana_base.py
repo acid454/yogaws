@@ -16,17 +16,13 @@ class BaseParshvaconasana(AsanaLegForward):
     prepare_tm_for_swap_hands: int = 8
 
     def build(self, workout, _set):
+        super().build(workout, _set)
         from surya_namaskar import SuryaNamaskar
         # are we in suria? if yes - delete preparation
         if type(_set) is SuryaNamaskar:
             del self.tasks[0]
         
         prev_asana = workout.prev_item(self)
-        #print(self)
-        #print()
-        #print(prev_asana)
-        #print(issubclass(type(prev_asana), AsanaLegForward))
-        #print("-"*120)
         if issubclass(type(prev_asana), AsanaLegForward):
             if prev_asana.side == self.side:
                 # this and prev asana is same legs (same side), but different hands

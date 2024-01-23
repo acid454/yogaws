@@ -15,7 +15,7 @@ from snd_pools import *
 class Ushtrasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="ushtrasana", caption="Уштрасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=45))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
         self.update_props(kwargs)
