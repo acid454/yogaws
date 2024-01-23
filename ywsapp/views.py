@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.utils import timezone
+from django.contrib.auth import get_user
 from .forms import UserLoginForm, NewUserForm
+from .models import UserWorkoutProps
 from django.contrib.auth import authenticate, login, logout
+import json
 import jsons
 import random
 import os
@@ -143,7 +146,12 @@ def view_workout(request):
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
         result = WORKOUTS[workout_id]().build(workout_id)
-        #print(result)
+
+        if (request.user.is_authenticated):
+            recs = UserWorkoutProps.objects.filter(user = get_user(request))
+            for r in recs:
+                result.apply_prop(r.prop_id, r.value)
+
         SpeechManager().generate_sounds(result)
         result = jsons.dump(result)
 
@@ -152,3 +160,49 @@ def view_workout(request):
         #pprint.PrettyPrinter(indent=4).pprint(result)
         return JsonResponse( result, safe = False, status = 200)
     return JsonResponse({}, safe = False, status = 200)  # Not 200 here
+
+
+# ToDo: cache requests
+def modify_workout_params(request):
+    if (request.method != "POST") or (not request.user.is_authenticated):
+        return JsonResponse({}, safe = False, status = 200)
+    
+    try:
+        params = json.loads(request.body.decode('utf-8'))
+    except:
+        return JsonResponse({}, safe = False, status = 400)
+    
+    #print(params)
+    try:
+        for workout_id in WORKOUTS.keys():
+            w = WORKOUTS[workout_id]().build(workout_id)
+            p = w.find_property_by_id(params['property_id'])
+            if p is not None:
+                break
+        
+        if p is None:
+            return JsonResponse({}, safe = False, status = 404)
+        
+        #print(dir(request.user.id), request.user.is_authenticated)
+        #print(get_user(request))
+        try:
+            v = int(params['value'])
+            if (v < p.value_min) or (v > p.value_max):
+                raise Exception()
+        except:
+            return JsonResponse({}, safe = False, status = 406)
+        
+        try:
+            rec = UserWorkoutProps.objects.get(user = get_user(request), prop_id = params['property_id'])
+        except:
+            rec = UserWorkoutProps(user = get_user(request), prop_id = params['property_id'])
+        
+        rec.value = v
+        rec.save()
+        return JsonResponse({}, safe = False, status = 200)
+    except:
+        pass
+
+    return JsonResponse({}, safe = False, status = 200) # Not 200 here
+
+    

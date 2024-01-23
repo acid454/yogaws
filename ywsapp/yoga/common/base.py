@@ -26,16 +26,28 @@ class PropertiesContainer:
             p = self.__getattr__(k)
             if p is not None:
                 p.default = kwargs[k]
+    
+    # Возвращаем экземпляр property по id (для загрузки/сохранения значений)
+    def get_prop_by_id(self, _id):
+        for p in self.properties:
+            if p.id == _id:
+                return p
+        return None
 
 @dataclass
 class BaseAsana(PropertiesContainer):
     name: str = None
     caption: str = None
     tasks: list = field(default_factory=lambda: [])
+    id: str = None
     
     def build(self, workout, _set):
         while any(list(map(lambda x: x.build(workout, _set), self.tasks))):
             pass
+        
+        self.id = "%s.%03d"%(self.__class__.__name__, _set.asanas.index(self))
+        for prp in self.properties:
+            prp.gen_id(workout.name, _set.id, self.id )
         return False
 
     # Удобно брать пул последней таски
@@ -59,6 +71,7 @@ class BaseProperty:
     short: str = None
     default = None
     _value = None
+    id: str = None  # ID для хранения в БД. Генерируется build-методом асаны или таски.
 
     #
     # Используем property, если value is None - возвращаем default
@@ -69,6 +82,14 @@ class BaseProperty:
     @value.setter
     def value(self, v):
         self._value = v
+
+    def gen_id(self, workout, _set, asana):
+        self.id = "{workout_id}.{set_id}.{asana_id}.{short}".format(
+            workout_id = workout,
+            set_id = _set,
+            asana_id = asana,
+            short = self.short
+        )
 
 @dataclass
 class SoundPool:
@@ -135,8 +156,10 @@ class BaseSet(PropertiesContainer):
     caption: str = None
     visible: bool = True
     asanas: list = field(default_factory=lambda: [])
+    id: str = None
 
     def build(self, workout):
+        self.id = "set%03d"%(workout.sets.index(self))
         while any(list(map(lambda x: x.build(workout, self), self.asanas))):
             pass
         return False
@@ -187,6 +210,15 @@ class BaseWorkout(PropertiesContainer):
                     elif ret_nxt_task:
                         return t
 
+    # Возвращаем property по id
+    def find_property_by_id(self, prop_id):
+        for s in self.sets:
+            for a in s.asanas:
+                p = a.get_prop_by_id(prop_id)
+                if p is not None:
+                    return p
+        return None
+
     def build(self, _id):
         self.id = _id
         while any(list(map(lambda x: x.build(self), self.sets))):
@@ -201,6 +233,14 @@ class BaseWorkout(PropertiesContainer):
         if self.total_time.startswith("0:"):
             self.total_time = self.total_time[2:]
         return self
+    
+    # Находим и применяем значение property
+    def apply_prop(self, prop_id, prop_value):
+        prop = self.find_property_by_id(prop_id)
+        if prop is None:
+            return
+        prop.value = prop_value
+
 
 @dataclass
 class AsanaLegForward(BaseAsana):

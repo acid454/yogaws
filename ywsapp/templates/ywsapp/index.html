@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/input_number.css' %}">
 
 
 <script>
@@ -145,29 +146,82 @@ function hide_user_info() {
 </body>
 
 <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     function do_show_element(e, list, idx) {
         let node = document.createElement('li');
         let header = document.createElement('h3');
         
         header.textContent = e.caption;
+        
         if (e.properties != null) {
             var prop_table = document.createElement('table');
+            
+            console.log(Object.entries(e.properties))
+            for (const [prop_idx, prop_descr] of Object.entries(e.properties)) {
+                console.log(prop_descr)
                 
-            for (const [prop_name, prop_descr] of Object.entries(e.properties)) {
+                let tbl_r = document.createElement('tr');
+                let tbl_d = document.createElement('td');
                 
-                var tbl_r = document.createElement('tr');
-                var tbl_d = document.createElement('td');
-                
-                tbl_d.textContent = prop_descr.caption;
+                tbl_d.textContent = prop_descr.caption + "\xa0\xa0";
                 tbl_r.appendChild(tbl_d);
-                
                 tbl_d = document.createElement('td');
-                var inp = document.createElement('input');
+
+                let num_div = document.createElement('div');
+                num_div.className = "number";
+
+                let btn_minus = document.createElement('button');
+                btn_minus.className = "number-minus";
+                btn_minus.type = "button";
+                btn_minus.addEventListener("click", function (ev) { this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change')); } )
+                btn_minus.textContent = "-";
+
+                let btn_plus = document.createElement('button');
+                btn_plus.className = "number-plus";
+                btn_plus.type = "button";
+                btn_plus.addEventListener("click", function (ev) { this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change')); } )
+                btn_plus.textContent = "+";
+                
+                let inp = document.createElement('input');
                 inp.type = "number";
-                inp.value = prop_descr.default;
-                inp.id = "asana" + i + "_" + prop_name;
+                inp.value = prop_descr.value;
+                inp.id = prop_descr.id;
                 inp.className = "prop_input";
-                tbl_d.appendChild( inp );
+                inp.addEventListener("change", function (ev) {
+                    let params = {
+                        "property_id": ev.target.id,
+                        "value": event.target.value
+                    }
+
+                    let xhr = new XMLHttpRequest; 
+                    xhr.open("POST", "/modify_workout_params", true); 
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken')); 
+                    xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+                    xhr.send(JSON.stringify(params)) // Make sure to stringify
+                    //xhr.onload = function() {
+                    //    console.log(`xhr status code: ${xhr.status}`)
+                    //}
+                });
+
+                num_div.appendChild( btn_minus );
+                num_div.appendChild( inp );
+                num_div.appendChild( btn_plus );
+                tbl_d.appendChild( num_div );
                 tbl_r.appendChild(tbl_d);
                 prop_table.appendChild(tbl_r);
             }
@@ -181,7 +235,7 @@ function hide_user_info() {
     }
 
     function select_workout(_id) {
-        console.log("Loading workout id " + _id);
+        //console.log("Loading workout id " + _id);
         document.getElementById('select_log').hidden = true;
         //document.getElementById("active").href += nm;
         let xhr = new XMLHttpRequest();
@@ -217,16 +271,13 @@ function hide_user_info() {
         document.getElementById('total_time_value').textContent = workout.total_time;
     }
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', '/list_workouts', false);
     xhr.send();
     if (xhr.status == 200) {
         const workouts_list = JSON.parse(xhr.responseText)
         var list = document.getElementById('workouts_list');
 
-        console.log(list)
-        
-        console.log(workouts_list)
         for (i = 0; i < workouts_list.length; i++) {
             var anker = document.createElement('a');
             anker.id = "workout_element_" + i;

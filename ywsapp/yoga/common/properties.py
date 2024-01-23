@@ -12,4 +12,6 @@ from base import BaseProperty
 @dataclass
 class IntProperty(BaseProperty):
     type: str = "int"
-    default: int  = 0
+    default: int = 0
+    value_min: int = 3
+    value_max: int = 6000
