@@ -31,8 +31,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 40))
         self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right())
 
-        self.wrap_asana(Asanas.bakasana.Bakasana(side='left'))
-        self.wrap_asana(Asanas.bakasana.Bakasana(side='right'))
+        self.wrap_asana(Asanas.bakasana.Bakasana())
+        #self.wrap_asana(Asanas.bakasana.Bakasana(side='left'))
+        #self.wrap_asana(Asanas.bakasana.Bakasana(side='right'))
 
         #self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Left())
         #self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right())

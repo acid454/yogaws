@@ -23,7 +23,8 @@ class OpustilisNaKoleni(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=["opustilis_na_koleni1", "opustilis_na_koleni2"]))
+            images=["opustilis_na_koleni1", "opustilis_na_koleni2"]
+        ))
         
         for i in SND_OPUSTILIS_NA_KOLENI:
             self.pool("start").append(i)
@@ -39,7 +40,8 @@ class Seli(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=["seli1", "seli2", "seli3"]))
+            images=["seli1", "seli2", "seli3"]
+        ))
         
         for i in SND_SELI:
             self.pool("start").append(i)
@@ -54,7 +56,8 @@ class PodnimaemsiaVvreh(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=["tadasana01", "tadasana02"]))
+            images=["tadasana01", "tadasana02"]
+        ))
         
         self.pool("start").append("upr_podnimaemsia_vverh1")
         self.pool("start").append("upr_podnimaemsia_vverh2")
@@ -62,3 +65,19 @@ class PodnimaemsiaVvreh(BaseAsana):
         self.pool("start").append("i_skrugliaja_spinu_vverh2")
         self.pool("start").append("podnimaemsia1")
         self.pool("start").append("podnimaemsia2")
+
+class LoshimsiaNaSpinu(BaseAsana):
+    def __init__(self, **kwargs):
+        super().__init__(name="loshimsia_na_spinu", caption="Ложимся на спину")
+        self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=4))
+        self.update_props(kwargs)
+
+        self.tasks.append(BaseTask(
+            caption=self.caption,
+            property=self.tm_main,
+            metronome=MetronomeRest(),
+            images=[f"shavasana{x}" for x in range(1,6)]
+        ))
+        
+        self.pool("start").append("i_loshimsia_na_spinu")
+        self.pool("start").append("ukladivaemsia_v_poloshenie_lezha_na_spine")
