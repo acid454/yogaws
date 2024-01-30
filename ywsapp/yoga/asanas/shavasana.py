@@ -20,7 +20,7 @@ class Shavasana(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeShavasana(),
-            images=["shavasana1", "shavasana2", "shavasana3", "shavasana4", "shavasana5"]
+            images=[f"shavasana{x}" for x in range(1,6)]
         ))
         self.pool("start").append("descr_shavasana1")
         self.pool("start").append("descr_shavasana2")
