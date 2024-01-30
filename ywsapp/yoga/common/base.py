@@ -154,9 +154,14 @@ class BaseTask:
 @dataclass
 class BaseSet(PropertiesContainer):
     caption: str = None
-    visible: bool = True
+    visible: bool = True        # Видно ли название самого сета (вместо входящих в него асан)
     asanas: list = field(default_factory=lambda: [])
     id: str = None
+
+    def update_props(self, kwargs):
+        PropertiesContainer.update_props(self, kwargs)
+        if 'subcaption' in kwargs.keys():
+            self.caption += kwargs['subcaption']
 
     def build(self, workout):
         self.id = "set%03d"%(workout.sets.index(self))
