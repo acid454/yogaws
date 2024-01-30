@@ -10,9 +10,11 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 <link rel="stylesheet" href="{% static 'ywsapp/css/w3.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/workouts_list.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}?v=1.0">
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
@@ -47,7 +49,9 @@ function show_snackbar() {
 }
 
 function show_user_info() {
-    document.getElementById('user_info_popup').style.display='block';
+    document.getElementById('main_workout_list_display').hidden = true;
+    document.getElementById('main_centered_display').false = true;
+    document.getElementById('user_info_popup').style.display = 'block';
 }
 
 function hide_user_info() {
@@ -81,42 +85,27 @@ function hide_user_info() {
 
 
 <div style="margin-left:27%">
-    <div class="w3-container">
-        <h2 id="caption" hidden="hidden"></h2>
-        <form id="frm_active" action="/active.html?" method="GET" hidden="hidden">
+    <div id="main_workout_list_display" class="w3-container" hidden="hidden">
+        <h2 id="caption"></h2>
+        <form id="frm_active" action="/active.html?" method="GET">
             <ol id="asanas_list" style="--length: 0" role="list"></ol>
         </form>
-
-        <div id="select_log" class="container">
-            <div style="display: inline-block; position: relative;">
-                <img id="background_img" class="imgmain">
-                <div id="text_begin" class="begining_text" hidden="hidden">
-                    <hr>
-                    <b>Выберите тренировку</b>
-                    <hr>
-                </div>
-                <div id="text_complete" class="completion_text" hidden="hidden"><b>Успешное завершение<br>тренировки</b></div>
-            </div>
+        <div id="total_time" class="total_time">
+            <h4><div id="total_time_value">TOTAL TIME</div></h4>
+        </div>
+        <div id="runit" class="run_button">
+            <a id="runit_href" onclick=""><img class="run_image" src="{% static 'ywsapp/res/start-lotus.png' %}" alt="logo"></a>
+        </div>
+    </div>
+    <!--- ************************************************************************************************************************************** -->
+    <div id="main_centered_display" class="w3-container main_centered_div">
+        <div id="text_begin" class="text_begining" hidden="hidden">
+            <hr><b>&nbsp;&nbsp;Выберите тренировку&nbsp;&nbsp;</b><hr>
+        </div>
+        <div id="text_complete" class="text_completion" hidden="hidden">
+            <hr>&nbsp;&nbsp;Успешное завершение&nbsp;&nbsp;<br>тренировки<hr>
         </div>
         
-        <!-- The Modal (contains the Sign Up form) -->
-        <div id="registration_popup" class="popup">
-            <div class="popup-content">
-                <h1 style="color:green;">Добро пожаловать!</h1>
-                <form method="POST" class="form-group">
-                    {% csrf_token %}
-                    {{ form_register|crispy }}
-                    <hr>
-                    <button type="submit" class="btn btn-success">Создать аккаунт</button>
-                    <button type="button" class="btn btn-success" onclick="location.href = '/'">Продолжить анонимно</button>
-                </form>
-            </div>
-        </div>
-        
-        <div id="runit" hidden="hidden" class="run_button">
-            <a id="active" onclick="">&#x1F662 Run it! &#x1F661</a>
-        </div>
-
         {% if user.is_authenticated %}
         <!-- The Modal (contains the User info data) -->
         <div id="user_info_popup" class="popup">
@@ -132,10 +121,20 @@ function hide_user_info() {
         </div>
         {% endif %}
 
-        <div id="total_time" hidden="hidden" class="total_time">
-            <h4><div id="total_time_value">TOTAL TIME</div></h4>
+        <!-- The Modal (contains the Sign Up form) -->
+        <div id="registration_popup" class="popup">
+            <div class="popup-content">
+                <h1 style="color:green;">Добро пожаловать!</h1>
+                <form method="POST" class="form-group">
+                    {% csrf_token %}
+                    {{ form_register|crispy }}
+                    <hr>
+                    <button type="submit" class="btn btn-success">Создать аккаунт</button>
+                    <button type="button" class="btn btn-success" onclick="location.href = '/'">Продолжить анонимно</button>
+                </form>
+            </div>
         </div>
-        
+
         <!-- The actual snackbar -->
         <div id="snackbar" hidden="hidden"><pre style="text-align: left;">{{ snack_text }}</pre></div>
     </div>
@@ -171,10 +170,7 @@ function hide_user_info() {
         if (e.properties != null) {
             var prop_table = document.createElement('table');
             
-            console.log(Object.entries(e.properties))
             for (const [prop_idx, prop_descr] of Object.entries(e.properties)) {
-                console.log(prop_descr)
-                
                 let tbl_r = document.createElement('tr');
                 let tbl_d = document.createElement('td');
                 
@@ -236,7 +232,7 @@ function hide_user_info() {
 
     function select_workout(_id) {
         //console.log("Loading workout id " + _id);
-        document.getElementById('select_log').hidden = true;
+        document.getElementById('main_centered_display').style.display='none';
         //document.getElementById("active").href += nm;
         let xhr = new XMLHttpRequest();
         xhr.open('GET', '/view_workout?id=' + _id, false);
@@ -253,6 +249,7 @@ function hide_user_info() {
         let idx = 0;
         
         list.innerHTML = '';
+        console.log(workout)
         for (i = 0; i < workout.sets.length; i++) {
             if (workout.sets[i].visible)
                 do_show_element(workout.sets[i], list, idx++)
@@ -263,12 +260,13 @@ function hide_user_info() {
         }
         
         list.style = "--length: " + idx;
-        document.getElementById('active').setAttribute('onclick','save_workout_local_storage("' + workout.id + '");');
-        document.getElementById('caption').hidden = false;
-        document.getElementById('frm_active').hidden = false;
-        document.getElementById('runit').hidden = false;
-        document.getElementById('total_time').hidden = false;
-        document.getElementById('total_time_value').textContent = workout.total_time;
+        document.getElementById('runit_href').setAttribute('onclick','save_workout_local_storage("' + workout.id + '");');
+        document.getElementById('main_workout_list_display').hidden = false;
+        /* document.getElementById('caption').hidden = false; */
+        /* document.getElementById('frm_active').hidden = false; */
+        /* document.getElementById('runit').hidden = false;
+        document.getElementById('total_time').hidden = false; */
+        document.getElementById('total_time_value').textContent = workout.total_time; 
     }
 
     let xhr = new XMLHttpRequest();
@@ -302,11 +300,13 @@ function hide_user_info() {
         background_img_id = "{{main_bg_image}}";
         sessionStorage.setItem('background_img_id', background_img_id);
     }
-    document.getElementById('background_img').src = "{% static 'ywsapp/res/mainbg/' %}" + background_img_id;
+    //document.getElementById('background_img').src = "{% static 'ywsapp/res/mainbg/' %}" + background_img_id;
     
     {% if snack_text is not None %}
     setTimeout( function(){ show_snackbar(); }, 500 );
     {% endif %}
+
+    document.getElementById('main_centered_display').style.backgroundImage = "url('{% static 'ywsapp/res/mainbg/mainbg5.png' %}')";
 </script>
 
 

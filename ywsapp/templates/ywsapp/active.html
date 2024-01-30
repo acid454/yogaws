@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
 
+
 <script>
 var workout_on_pause = false;
 function start_stop_workout() {
@@ -226,6 +227,7 @@ function start_stop_workout() {
     
     process();	// First process to start immediately
     setInterval(process, 1000);
+	document.body.style.backgroundImage = "url('{% static 'ywsapp/res/activebg/' %}" + "{{active_bg_image}}" + "')";
 </script>
 
 </html>

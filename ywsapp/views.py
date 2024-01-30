@@ -22,8 +22,10 @@ GLOBAL_PATHS = [
     ["yoga"]
 ]
 
-BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+MAIN_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
                                             'static', 'ywsapp', 'res', 'mainbg'))
+ACTIVE_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+                                            'static', 'ywsapp', 'res', 'activebg'))
 
 
 # Create your views here.
@@ -32,7 +34,7 @@ def index(request):
     snack_text = None
 
     # Handle background image
-    background_image = (BACKGROUND_IMAGES[random.randrange(len(BACKGROUND_IMAGES))])
+    background_image = (MAIN_BACKGROUND_IMAGES[random.randrange(len(MAIN_BACKGROUND_IMAGES))])
     
     #print(dir(request))
     #print(dir(request.user), request.user.is_authenticated)
@@ -86,9 +88,14 @@ def active(request):
     import uuid
     request.session['active_wuid'] = uuid.uuid4().hex
     request.session['workout_id'] = request.GET.get('id')
+
+    # Handle background image
+    background_image = (ACTIVE_BACKGROUND_IMAGES[random.randrange(len(ACTIVE_BACKGROUND_IMAGES))])
+
     return render(request, 'ywsapp/active.html', {
         "workout_id": request.GET.get('id'),
-        "active_wuid": request.session['active_wuid']
+        "active_wuid": request.session['active_wuid'],
+        "active_bg_image":background_image,
     })
 
 def logout_view(request):

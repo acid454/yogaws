@@ -6,6 +6,16 @@
   width: 70%;
 }
 
+.main_centered_div {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover;
+}
+
 .form_login {
   display: none;
   margin-left: auto;
@@ -19,6 +29,12 @@
   right: 20px;
 }
 
+.run_image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
 .total_time {
   position: fixed;
   bottom: 16px;
@@ -26,25 +42,24 @@
   margin-left: 10px;
 }
 
-.begining_text {
+.text_begining {
   position: absolute;
-  color: #e61aa6;
-  font-size: 24px;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background-color: #f6f6f6;
+  color: #bd1ae6;
+  font-size: 37px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: rgba(246, 246, 246, 0.6);
+  box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.2), 0 20px 20px 20px rgba(0, 0, 0, 0.19);
 }
 
-
-.completion_text {
+.text_completion {
   position: absolute;
   bottom: 16px;
   right: 20px;
-  color: black;
+  text-align: center;
+  color: #b41f1f;
   font-size: 20px;
+  background-color: rgba(61, 192, 105, 0.6);
+  box-shadow: 0 8px 8px 8px rgba(0, 0, 0, 0.2), 0 20px 20px 20px rgba(0, 0, 0, 0.19);
 }
 
 /* https://www.w3schools.com/howto/howto_css_round_buttons.asp */
