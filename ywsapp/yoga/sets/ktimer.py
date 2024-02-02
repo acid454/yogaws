@@ -20,14 +20,17 @@ class KTimer(BaseSet):
         self.update_props(kwargs)
     
     def build(self, workout):
+        # Note here: KTimer must not be first in workout
+        prev_asana = workout.prev_item(self).asanas[-1]
+        if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
+            self.asanas.append(Asanas.short_poses.LoshimsiaNaSpinu())
+            self.asanas[0].set_name("tts_audio_convert_65b2b1efcd6ba243709482")
+            self.asanas[0].set_bell("activity_start")
+            
         for i in range(self.cnt.value):
             # Construct new one asana classes every time
             self.asanas.append(Asanas.breath.Breath(_inhale = True, action_text = "фиксация", tm_main = self.tm_action.value))
             self.asanas.append(Asanas.breath.Breath(_inhale = False, action_text = "расслабление", tm_main = self.tm_relax.value))
-        
-        prev_asana = workout.prev_item(self.asanas[0])
-        if type(prev_asana) not in [Asanas.breath.Breath]:
-            self.asanas[0].pool("start").append("tts_audio_convert_65b2b1efcd6ba243709482")
         
         super().build(workout)
 
@@ -41,6 +44,12 @@ class KTimerX3(BaseSet):
         self.update_props(kwargs)
     
     def build(self, workout):
+        prev_asana = workout.prev_item(self).asanas[-1]
+        if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
+            self.asanas.append(Asanas.short_poses.LoshimsiaNaSpinu())
+            self.asanas[0].set_name("tts_audio_convert_65b2b1efcd6ba243709482")
+            self.asanas[0].set_bell("activity_start")
+        
         for c in [(self.cnt_normal.value, 2, 2), (self.cnt_slow.value, 5, 2), (self.cnt_fast.value, 1, 1)]:
             k = KTimer(visible = False, subcaption=" (быстрый)", tm_action=c[1], tm_relax=c[2], cnt=c[0])
             workout.sets.insert(workout.sets.index(self)+1, k)

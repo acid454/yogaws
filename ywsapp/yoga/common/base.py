@@ -185,10 +185,14 @@ class BaseWorkout(PropertiesContainer):
     # Возвращаем предыдущий таск или асану (в зависимости от того, что передано через this)
     #  (возможно, в предыдущей асане или даже сете)
     def prev_item(self, this):
+        prev_set = None
         prev_asana = None
         prev_task = None
 
         for s in self.sets:
+            if s == this:
+                return prev_set
+            prev_set = s
             for a in s.asanas:
                 if a == this:
                     return prev_asana
