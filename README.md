@@ -2,6 +2,8 @@
 python3 manage.py runserver
 http://127.0.0.1:8000/
 
+sessionStorage.removeItem('background_img_id')
+
 
 ### ToDo: aftermath callback, чтобы отработать озвучку {% if not glob.get('last_before_shavasana') %}
 ### ToDo: async io для загрузки mp3

@@ -42,6 +42,11 @@ function login_form_submit()
     document.getElementById('frm_login').submit()
 }
 
+function start_user_register() {
+    document.getElementById('text_begin').style.display = 'none';
+    document.getElementById('registration_popup').style.display = 'block';
+}
+
 function show_snackbar() {
    var x = document.getElementById("snackbar");
    x.className = "show";
@@ -79,7 +84,8 @@ function hide_user_info() {
         <form id="frm_login" method="post" class="form_login">
             {% csrf_token %}
             {{ form_login|crispy }}
-            <button type="button" onclick="login_form_submit()">вход/регистрация</button>
+            <button type="submit" onclick="login_form_submit()">вход</button>
+            <button type="button" onclick="start_user_register()">регистрация</button>
         </form>
     {% endif %}
   <hr>
@@ -111,7 +117,7 @@ function hide_user_info() {
         
         {% if user.is_authenticated %}
         <!-- The Modal (contains the User info data) -->
-        <div id="user_info_popup" class="popup">
+        <div id="user_info_popup" class="popup" hidden="hidden">
             <div class="popup-content">
                 <h1 style="color:rgb(124, 10, 177);">{{ user.get_username }}</h1>
                 <hr>
@@ -297,14 +303,12 @@ function hide_user_info() {
         background_img_id = "{{main_bg_image}}";
         sessionStorage.setItem('background_img_id', background_img_id);
     }
-    //document.getElementById('background_img').src = "{% static 'ywsapp/res/mainbg/' %}" + background_img_id;
+    document.getElementById('main_centered_display').style.backgroundImage = "url('{% static 'ywsapp/res/mainbg/' %}" + background_img_id + "')";
+    document.getElementById('main_workout_list_display').style.display = 'none';
     
     {% if snack_text is not None %}
     setTimeout( function(){ show_snackbar(); }, 500 );
     {% endif %}
-
-    document.getElementById('main_centered_display').style.backgroundImage = "url('{% static 'ywsapp/res/mainbg/mainbg5.png' %}')";
-    document.getElementById('main_workout_list_display').style.display = 'none';
 </script>
 
 
