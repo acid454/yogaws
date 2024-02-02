@@ -49,13 +49,16 @@ function show_snackbar() {
 }
 
 function show_user_info() {
-    document.getElementById('main_workout_list_display').hidden = true;
-    document.getElementById('main_centered_display').false = true;
+    document.getElementById('main_workout_list_display').style.display = 'none';
+    document.getElementById('main_centered_display').style.display = '';
+
+    document.getElementById('text_begin').style.display = 'none';
     document.getElementById('user_info_popup').style.display = 'block';
 }
 
 function hide_user_info() {
-    document.getElementById('user_info_popup').style.display='none';
+    document.getElementById('user_info_popup').style.display = 'none';
+    document.getElementById('text_begin').style.display = '';
 }
 </script>
 
@@ -68,7 +71,7 @@ function hide_user_info() {
   <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
   <hr>
     {% if user.is_authenticated %}
-        <p>Добро пожаловать <a onclick="show_user_info()"><b>{{ user.username }}</b></a></p>
+        <p>Добро пожаловать <a id="user_name" onclick="show_user_info()"><b>{{ user.username }}</b></a></p>
         <a href="/logout">выход</a>
     {% else %}
         {% load crispy_forms_tags %}
@@ -85,7 +88,7 @@ function hide_user_info() {
 
 
 <div style="margin-left:27%">
-    <div id="main_workout_list_display" class="w3-container" hidden="hidden">
+    <div id="main_workout_list_display" class="w3-container">
         <h2 id="caption"></h2>
         <form id="frm_active" action="/active.html?" method="GET">
             <ol id="asanas_list" style="--length: 0" role="list"></ol>
@@ -231,9 +234,7 @@ function hide_user_info() {
     }
 
     function select_workout(_id) {
-        //console.log("Loading workout id " + _id);
         document.getElementById('main_centered_display').style.display='none';
-        //document.getElementById("active").href += nm;
         let xhr = new XMLHttpRequest();
         xhr.open('GET', '/view_workout?id=' + _id, false);
         xhr.send();
@@ -261,12 +262,8 @@ function hide_user_info() {
         
         list.style = "--length: " + idx;
         document.getElementById('runit_href').setAttribute('onclick','save_workout_local_storage("' + workout.id + '");');
-        document.getElementById('main_workout_list_display').hidden = false;
-        /* document.getElementById('caption').hidden = false; */
-        /* document.getElementById('frm_active').hidden = false; */
-        /* document.getElementById('runit').hidden = false;
-        document.getElementById('total_time').hidden = false; */
         document.getElementById('total_time_value').textContent = workout.total_time; 
+        document.getElementById('main_workout_list_display').style.display = '';
     }
 
     let xhr = new XMLHttpRequest();
@@ -307,6 +304,7 @@ function hide_user_info() {
     {% endif %}
 
     document.getElementById('main_centered_display').style.backgroundImage = "url('{% static 'ywsapp/res/mainbg/mainbg5.png' %}')";
+    document.getElementById('main_workout_list_display').style.display = 'none';
 </script>
 
 
