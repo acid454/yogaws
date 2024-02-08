@@ -116,14 +116,11 @@ def _update_workouts():
     random.seed()
     import hashlib
     #-------------------------------------------------------------------
-
-
+   
     WORKOUTS = {}
     base_dir = os.path.dirname(os.path.abspath(__file__))
     for path in GLOBAL_PATHS:
         sys.path.append(os.path.join(base_dir, *path))
-
-    
 
     workout_files = os.listdir(os.path.join(base_dir, *(GLOBAL_PATHS[0])))
     workout_files = list(filter(lambda x: x.endswith(".py"), workout_files))
@@ -132,12 +129,27 @@ def _update_workouts():
         #if f != "01_test.py": continue
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
-            WORKOUTS[hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()] = w
+            wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
+            WORKOUTS[wid] = { 'class':w().build(wid), 'filenm':f }
 
 def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
-    result = list(map(lambda k: jsons.dump(WORKOUTS[k]().build(k)), WORKOUTS.keys()))
+    wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
+    wrks = map(lambda x: jsons.dump(x['class']), wrks)
+    
+    result = {}
+    for w in wrks:
+        if w['group'] in result.keys():
+            result[w['group']].append(w)
+        else:
+            result[w['group']] = [w]
+
+    
+    
+    #result = list(map(lambda k: ( WORKOUTS[k]['class']().build(k), WORKOUTS.keys()))
+    #result = sorted( result, key = lambda k: k.FILENAME )
+    #result = list(map(lambda x: jsons.dump(x), result))
 
     #import pprint
     #pprint.PrettyPrinter(indent=4).pprint(result)
@@ -152,7 +164,7 @@ def view_workout(request):
 
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
-        result = WORKOUTS[workout_id]().build(workout_id)
+        result = WORKOUTS[workout_id]['class']
 
         if (request.user.is_authenticated):
             recs = UserWorkoutProps.objects.filter(user = get_user(request))
@@ -161,7 +173,6 @@ def view_workout(request):
 
         SpeechManager().generate_sounds(result)
         result = jsons.dump(result)
-
         
         #import pprint
         #pprint.PrettyPrinter(indent=4).pprint(result)
@@ -182,7 +193,7 @@ def modify_workout_params(request):
     #print(params)
     try:
         for workout_id in WORKOUTS.keys():
-            w = WORKOUTS[workout_id]().build(workout_id)
+            w = WORKOUTS[workout_id]['class'] #().build(workout_id)
             p = w.find_property_by_id(params['property_id'])
             if p is not None:
                 break

@@ -177,6 +177,7 @@ class BaseWorkout(PropertiesContainer):
     id: str = None
     #properties: list = field(default_factory=lambda: [])
     sets: list = field(default_factory=lambda: [])
+    group: str = None
 
     # Добавляем сет, не отображаемый в интерфейсе, с одной асаной
     def wrap_asana(self, asana):

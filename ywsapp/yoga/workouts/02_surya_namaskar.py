@@ -6,18 +6,21 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
+from ktimer import KTimerX3
 
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "surya_namaskar",
-                             caption = "Сурья Намаскар 20 минут",
-                             description = "Сурья Намаскар и несколько основных асан")
+    name: str = "surya_namaskar"
+    caption: str = "Сурья Намаскар 20 минут"
+    description: str = "Сурья Намаскар и несколько основных асан"
+    group: str = "Сурья Намаскар"
     
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(cnt = 3))
 
@@ -41,10 +44,11 @@ class DefaultWorkout(BaseWorkout):
         
         #self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.most.Most())
-
         self.wrap_asana(Asanas.plug.Plug())
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
 
+        self.sets.append(KTimerX3())
+
+        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 def do_load_workouts():

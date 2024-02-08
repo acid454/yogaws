@@ -16,6 +16,7 @@ class DefaultWorkout(BaseWorkout):
     name: str = "morning_20"
     caption: str = "20 утренних минут"
     description: str = "Мягкая разминка по утрам"
+    group: str = "Утренние и вечерние"
     
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())

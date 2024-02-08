@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/input_number.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/collapsible.css' %}">
 
 
 <script>
@@ -279,17 +280,32 @@ function hide_user_info() {
         const workouts_list = JSON.parse(xhr.responseText)
         var list = document.getElementById('workouts_list');
 
-        for (i = 0; i < workouts_list.length; i++) {
-            var anker = document.createElement('a');
-            anker.id = "workout_element_" + i;
+        for (const k in workouts_list) {
+            let group_tag_button = document.createElement('button');
+            group_tag_button.className = "collapsible";
+            group_tag_button.textContent = k;
 
-            anker.href = "#";// + 
-            anker.setAttribute('onclick', 'select_workout("' + workouts_list[i].id + '");');
-            anker.text = workouts_list[i].caption;
-            anker.className = "w3-bar-item w3-button";
-            
-            list.appendChild(anker);
+            let group_div = document.createElement('div');
+            if (k != "null") {
+                list.appendChild(group_tag_button);
+                group_div.className = "collapsible_content";
+            }
+            list.appendChild(group_div);
+
+            for (i = 0; i < workouts_list[k].length; i++) {
+                var anker = document.createElement('a');
+                anker.id = "workout_element_" + i;
+
+                anker.href = "#";
+                anker.setAttribute('onclick', 'select_workout("' + workouts_list[k][i].id + '");');
+                anker.text = workouts_list[k][i].caption;
+                anker.className = "w3-bar-item w3-button";
+                
+                group_div.appendChild(anker);
+            }
         }
+
+        list.appendChild(document.createElement('hr'));
     }
     
     {% if workout_complete %}
@@ -309,6 +325,22 @@ function hide_user_info() {
     {% if snack_text is not None %}
     setTimeout( function(){ show_snackbar(); }, 500 );
     {% endif %}
+
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("collapsible_content_active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
 </script>
 
 

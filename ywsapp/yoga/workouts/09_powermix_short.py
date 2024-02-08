@@ -16,6 +16,7 @@ class DefaultWorkout(BaseWorkout):
     name: str = "powermix_short"
     caption: str = "Утренняя спокойно-силовая v2"
     description: str = "Медленная силовая утренняя тренровка"
+    group: str = "Утренние и вечерние"
     
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())

@@ -6,18 +6,20 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "surya7_medium",
-                             caption = "7 сурий средняя",
-                             description = "Разогреться и расслабиться")
+    name: str = "surya7_medium"
+    caption: str = "7 сурий средняя"
+    description: str = "Разогреться и расслабиться"
+    group: str = "Сурья Намаскар"
     
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(slow_timings = True, cnt = 3))
         self.sets.append(SuryaNamaskar(slow_timings = False, cnt = 4))

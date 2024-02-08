@@ -6,18 +6,20 @@
 #  Copyright 2023 Repnikov Dmitry <acid454@yoga7>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 from ktimer import KTimerX3
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "surya3_slow",
-                             caption = "Сурьи медленная",
-                             description = "Увеличенные интервалы Сурья Намаскар")
+    name: str = "surya3_slow"
+    caption: str = "Сурьи медленная"
+    description: str = "Увеличенные интервалы Сурья Намаскар"
+    group: str = "Сурья Намаскар"
     
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(timings='extra_slow', cnt = 3))
         
