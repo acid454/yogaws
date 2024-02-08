@@ -13,10 +13,10 @@ from snd_pools import SND_ZAKONCHILI_DALSHE
 
 
 class BaddhaKonasana(BaseAsana):
-    def __init__(self, with_knees = True, **kwargs):
+    def __init__(self, with_knees = False, **kwargs):
         super().__init__(name="baddha_konasana", caption="Баддха Конасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
-        self.properties.append(IntProperty(caption="прогиб вперёд", short="tm_progib", default=50))
+        self.properties.append(IntProperty(caption="прогиб вперёд", short="tm_progib", default= 50 if with_knees else 110 ))
         if with_knees:
             self.properties.append(IntProperty(caption="переход", short="tm_legs_change", default=5))
             self.properties.append(IntProperty(caption="ноги к себе", short="tm_squared", default=50))
