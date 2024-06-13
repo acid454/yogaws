@@ -7,6 +7,7 @@ class User(AbstractUser):
     complete_workouts = models.PositiveIntegerField(default=0)
     last_workout_id = models.TextField(default="-")
     last_workout_date = models.DateTimeField(default=datetime.now)
+    kegel_timer = models.BooleanField(default=False)
 
 class UserWorkoutProps(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

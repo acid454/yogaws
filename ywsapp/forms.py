@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField
 from . import models
+from django.utils.translation import ugettext_lazy as _
 
 
 #
@@ -52,3 +53,9 @@ class UserLoginForm(AuthenticationForm):
             'id': 'password',
         }
     ))
+
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ("kegel_timer", )
+    kegel_timer = forms.BooleanField(label="Включить упражнения Кегеля (если есть в тренировке)", required=False)

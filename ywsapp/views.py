@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.utils import timezone
 from django.contrib.auth import get_user
-from .forms import UserLoginForm, NewUserForm
+from .forms import UserLoginForm, NewUserForm, UserInfoForm
 from .models import UserWorkoutProps
 from django.contrib.auth import authenticate, login, logout
 import json
@@ -54,6 +54,14 @@ def index(request):
                     login(request,user)
             else:
                 show_registration_form = True
+        elif 'submit_user_info' in request.POST.keys():
+            # Processing user info form
+            form = UserInfoForm(request.POST)
+            if form.is_valid():
+                request.user.kegel_timer = form.cleaned_data['kegel_timer']
+                request.user.save()
+            else:
+                snack_text = form.errors.as_text()
         else:
             # Processing registration form
             form = NewUserForm(request.POST)
@@ -77,6 +85,7 @@ def index(request):
     return render(request, 'ywsapp/index.html', {
         "form_login":UserLoginForm(),
         "form_register": NewUserForm(),
+        "form_user_info": UserInfoForm(instance= request.user if request.user.is_authenticated else None),
         "show_registration_form": show_registration_form,
         "main_bg_image":background_image,
         "workout_complete":workout_complete,
@@ -130,13 +139,13 @@ def _update_workouts():
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
             wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
-            WORKOUTS[wid] = { 'class':w().build(wid), 'filenm':f }
+            WORKOUTS[wid] = { 'class':w, 'filenm':f, 'wid':wid }
 
 def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
     wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
-    wrks = map(lambda x: jsons.dump(x['class']), wrks)
+    wrks = map(lambda x: jsons.dump(x['class']().build(x['wid']) ), wrks)
     
     result = {}
     for w in wrks:
@@ -144,7 +153,6 @@ def list_workouts(request):
             result[w['group']].append(w)
         else:
             result[w['group']] = [w]
-
     
     
     #result = list(map(lambda k: ( WORKOUTS[k]['class']().build(k), WORKOUTS.keys()))
@@ -164,7 +172,7 @@ def view_workout(request):
 
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
-        result = WORKOUTS[workout_id]['class']
+        result = WORKOUTS[workout_id]['class']().build(workout_id)
 
         if (request.user.is_authenticated):
             recs = UserWorkoutProps.objects.filter(user = get_user(request))
