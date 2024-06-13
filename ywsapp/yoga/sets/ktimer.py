@@ -6,7 +6,7 @@
 #  Copyright 2024 Repnikov Dmitry <acid454@yoga7>
 #  
 
-from base import BaseSet, BaseWorkout
+from base import BaseSet
 from properties import IntProperty
 from asanas import Asanas
 
@@ -44,6 +44,10 @@ class KTimerX3(BaseSet):
         self.update_props(kwargs)
     
     def build(self, workout):
+        if workout.user is None or (not workout.user.kegel_timer):
+            workout.sets.remove(self)
+            return
+
         prev_asana = workout.prev_item(self).asanas[-1]
         if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
             self.asanas.append(Asanas.short_poses.LoshimsiaNaSpinu())

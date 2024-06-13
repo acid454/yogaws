@@ -229,10 +229,12 @@ class BaseWorkout(PropertiesContainer):
                     return p
         return None
 
-    def build(self, _id):
+    def build(self, _user, _id):
         self.id = _id
+        self.user = _user
         while any(list(map(lambda x: x.build(self), self.sets))):
             pass
+        del self.user
         
         total_time = 0
         for s in self.sets:

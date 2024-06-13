@@ -145,7 +145,7 @@ def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
     wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
-    wrks = map(lambda x: jsons.dump(x['class']().build(x['wid']) ), wrks)
+    wrks = map(lambda x: jsons.dump(x['class']().build(None, x['wid']) ), wrks)
     
     result = {}
     for w in wrks:
@@ -172,10 +172,12 @@ def view_workout(request):
 
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
-        result = WORKOUTS[workout_id]['class']().build(workout_id)
+        
+        this_user =  get_user(request) if request.user.is_authenticated else None
+        result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
 
-        if (request.user.is_authenticated):
-            recs = UserWorkoutProps.objects.filter(user = get_user(request))
+        if this_user:
+            recs = UserWorkoutProps.objects.filter(user = this_user)
             for r in recs:
                 result.apply_prop(r.prop_id, r.value)
 
