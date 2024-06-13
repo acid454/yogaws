@@ -77,8 +77,8 @@ function hide_user_info() {
   <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
   <hr>
     {% if user.is_authenticated %}
-        <p>Добро пожаловать <a id="user_name" onclick="show_user_info()"><b>{{ user.username }}</b></a></p>
-        <a href="/logout">выход</a>
+        <p align="center">Добро пожаловать <a id="user_name" onclick="show_user_info()"><b>{{ user.username }}</b></a><br>
+        <a href="/logout">выход</a></p>
     {% else %}
         {% load crispy_forms_tags %}
         <button id="btn_show_login" class="center" onclick="show_login_form()">ВОЙТИ</button>
@@ -126,7 +126,12 @@ function hide_user_info() {
                 Зарегестрирован: {{ user.date_joined }}<br>
                 Последняя тренировка: {{ user.last_workout_date|naturaltime }}<br>
                 <hr>
-                <a class="w3-bar-item w3-button" onclick="hide_user_info()">OK</a>
+                <form id="frm_uinfo" method="POST" class="form-group">
+                    {% csrf_token %}
+                    {{ form_user_info|crispy }}
+                    <br>
+                    <button type="submit" class="btn btn-success" onclick="hide_user_info()" name="submit_user_info">OK</button>
+                </form>
             </div>
         </div>
         {% endif %}
