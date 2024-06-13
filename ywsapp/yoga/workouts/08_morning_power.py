@@ -9,7 +9,7 @@
 from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
-
+from ktimer import KTimerX3
 
 @dataclass
 class DefaultWorkout(BaseWorkout):
@@ -44,6 +44,8 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
+
+        self.sets.append(KTimerX3())
 
         self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())

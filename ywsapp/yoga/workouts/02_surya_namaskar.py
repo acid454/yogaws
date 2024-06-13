@@ -36,8 +36,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.prasarita_padottanasana.PrasaritaPadottanasana(with_hands = False))
 
         #self.wrap_asana(Asanas.nogi_k_rukam.Nogi_k_Rukam())
-        self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaLeft())
-        self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaRight())
+        #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaLeft())
+        #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaRight())
+        self.wrap_asana(Asanas.marichiasana.Marichiasana())
 
         self.wrap_asana(Asanas.bakasana.Bakasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
@@ -46,9 +47,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.most.Most())
         self.wrap_asana(Asanas.plug.Plug())
 
-        self.sets.append(KTimerX3())
+        #self.sets.append(KTimerX3())
 
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
+        #self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 def do_load_workouts():
