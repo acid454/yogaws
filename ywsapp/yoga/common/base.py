@@ -62,7 +62,18 @@ class BaseAsana(PropertiesContainer):
         for t in self.tasks:
             if t.property is property:
                 return t
-
+    
+    # Используется, если после этого перехода идёт таймерное утпражнение типа циклов дыхания (которые без названия)
+    def set_name_sound(self, name):
+        self.pool("name").clear()
+        self.pool("name").append(name)
+    
+    # Используется для перехода на активность
+    def set_bell(self, bell):
+        self.tasks[-1].metronome.bell = bell
+    
+    def set_images(self, images):
+        self.tasks[-1].images = images
 
 @dataclass
 class BaseProperty:

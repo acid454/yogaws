@@ -24,7 +24,7 @@ class KTimer(BaseSet):
         prev_asana = workout.prev_item(self).asanas[-1]
         if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
             self.asanas.append(Asanas.short_poses.LoshimsiaNaSpinu())
-            self.asanas[0].set_name("tts_audio_convert_65b2b1efcd6ba243709482")
+            self.asanas[0].set_name_sound("tts_audio_convert_65b2b1efcd6ba243709482")
             self.asanas[0].set_bell("activity_start")
             
         for i in range(self.cnt.value):
@@ -51,7 +51,7 @@ class KTimerX3(BaseSet):
         prev_asana = workout.prev_item(self).asanas[-1]
         if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
             self.asanas.append(Asanas.short_poses.LoshimsiaNaSpinu())
-            self.asanas[0].set_name("tts_audio_convert_65b2b1efcd6ba243709482")
+            self.asanas[0].set_name_sound("tts_audio_convert_65b2b1efcd6ba243709482")
             self.asanas[0].set_bell("activity_start")
         
         for c in [(self.cnt_normal.value, 2, 2), (self.cnt_slow.value, 5, 2), (self.cnt_fast.value, 1, 1)]:

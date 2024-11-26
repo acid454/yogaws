@@ -81,12 +81,3 @@ class LoshimsiaNaSpinu(BaseAsana):
         
         self.pool("start").append("i_loshimsia_na_spinu")
         self.pool("start").append("ukladivaemsia_v_poloshenie_lezha_na_spine")
-    
-    # Используется, если после этого перехода идёт таймерное утпражнение типа циклов дыхания (которые без названия)
-    def set_name(self, name):
-        self.pool("name").clear()
-        self.pool("name").append(name)
-    
-    # Используется для перехода на активность
-    def set_bell(self, bell):
-        self.tasks[-1].metronome.bell = bell
