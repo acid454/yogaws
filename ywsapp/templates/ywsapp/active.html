@@ -60,26 +60,15 @@ function start_stop_workout() {
     let xhr = new XMLHttpRequest();
     var workout = null;
 
-	var ticks = {};
-	var bells = {};
-    xhr.open('GET', "{% static 'ywsapp/res/wavs/ticks.json' %}", false);
+	var wavs = {};
+    xhr.open('GET', "{% static 'ywsapp/res/wavs/wavs.json' %}", false);
     xhr.send();
     if (xhr.status == 200) {
 		let resp = JSON.parse(xhr.responseText)
 		Object.keys(resp).forEach(function (elem) {
-			ticks[elem] = new Audio("{% static 'ywsapp/res/wavs/' %}" + resp[elem])
+			wavs[elem] = new Audio("{% static 'ywsapp/res/wavs/' %}" + resp[elem])
 		})
 	}
-
-	xhr.open('GET', "{% static 'ywsapp/res/wavs/bells.json' %}", false);
-    xhr.send();
-    if (xhr.status == 200) {
-		let resp = JSON.parse(xhr.responseText)
-		Object.keys(resp).forEach(function (elem) {
-			bells[elem] = new Audio("{% static 'ywsapp/res/wavs/' %}" + resp[elem])
-		})
-	}
-	
 	
 	properties = "";
 	for (var i = 0; i < localStorage.length; i++)
@@ -163,13 +152,13 @@ function start_stop_workout() {
 		if ((current_task_time >= current_task.property.value) || first_load) {
 			if (!first_load) {
 				let bell = current_task.metronome.bell;
-				if (bell in bells)
-					bells[bell].play();
+				if (bell in wavs)
+					wavs[bell].play();
 				
 				current_task = get_current_task(inc_task = true);
 				if (current_task === undefined) {
-					if (bell in bells)
-						bells[bell].addEventListener('ended', function() {
+					if (bell in wavs)
+						wavs[bell].addEventListener('ended', function() {
     						// Audio has ended when this function is executed.
 							window.location.href = "/?wuid={{active_wuid}}";
 						}, false);
@@ -187,8 +176,8 @@ function start_stop_workout() {
 			task_changed = true;
 		} else {
 			let tick_id = current_task.metronome.tick;
-			if (tick_id in ticks)
-				ticks[tick_id].play();
+			if (tick_id in wavs)
+				wavs[tick_id].play();
 		}
 		
 		let min_key = Infinity
