@@ -10,6 +10,7 @@ SND_ZAKONCHILI_DALSHE = [
     "i_zakanchivaem",
     "i_zakonchili",
     "zakanchivaem_s_nei",
+    "zakanchivaem_s_nei_i_dal'she",
     # {% if not glob.get('last_before_shavasana') %}
     "i_dvishemsia_dalshe1",
     "i_dvishemsia_dalshe2",
