@@ -35,10 +35,6 @@ def index(request):
 
     # Handle background image
     background_image = (MAIN_BACKGROUND_IMAGES[random.randrange(len(MAIN_BACKGROUND_IMAGES))])
-    
-    #print(dir(request))
-    #print(dir(request.user), request.user.is_authenticated)
-    #print(dir(request.session))
 
     if request.method == "POST":
         if "password" in request.POST.keys():
@@ -172,7 +168,7 @@ def view_workout(request):
 
     if workout_id in WORKOUTS.keys():
         from speech_manager import SpeechManager
-        
+
         this_user =  get_user(request) if request.user.is_authenticated else None
         result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
 
