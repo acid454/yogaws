@@ -13,7 +13,7 @@ from metronomes import MetronomeRest, MetronomeWork
 from snd_pools import *
 
 class Breath(BaseAsana):
-    def __init__(self, _inhale=True, action_text=None, **kwargs):
+    def __init__(self, _inhale=True, action_text=None, include_sounds=False, **kwargs):
         self.is_inhale = _inhale
         if action_text is None:
             action_text = 'вдох' if self.is_inhale else 'выдох'
@@ -27,3 +27,11 @@ class Breath(BaseAsana):
             images=["chakra_PNG132"],
             metronome = MetronomeWork() if self.is_inhale else MetronomeRest()
         ))
+
+        if include_sounds:
+            if _inhale:
+                for x in range(1,8):
+                    self.pool("start").append(f"inhale{x}")
+            else:
+                for x in range(1,9):
+                    self.pool("start").append(f"exhale{x}")
