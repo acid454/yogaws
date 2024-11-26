@@ -55,3 +55,5 @@ sudo apt install python3-django
 sudo apt install python3-django-crispy-forms
 sudo apt-get install python3-mutagen
 
+--------------------------------------------------------------------
+https://timeweb.com/ru/services/hosting/
