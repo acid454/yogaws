@@ -248,7 +248,7 @@ function hide_user_info() {
     function select_workout(_id) {
         document.getElementById('main_centered_display').style.display='none';
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/view_workout?id=' + _id, false);
+        xhr.open('GET', '/view_workout?no_sounds=true&id=' + _id, false);
         xhr.send();
         if (xhr.status != 200) {
             console.log("Fail to load workout " + _id + " with status " + xhr.status);

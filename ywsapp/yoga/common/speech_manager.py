@@ -17,7 +17,7 @@ BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 class SoundElement:
     file: str = None
     length: int = 0
-    used: int = 0
+    used: bool = False
 
 
 class SpeechManager:
@@ -36,18 +36,18 @@ class SpeechManager:
         mp3_path = os.path.join(BASE_PATH, 'static', 'ywsapp', 'res', 'sounds_merged')
         mp3_files = os.listdir(mp3_path)
         mp3_files = list(filter(lambda x: x.endswith(".mp3"), mp3_files))
-        #print("MP3 files loaded: " + str(mp3_files))
-
         self.mp3_files = {}
         for fl in mp3_files:
             self.mp3_files[fl[:-4]] = SoundElement(
                     file = fl,
                     length = math.ceil(MP3(os.path.join(mp3_path, fl)).info.length))
 
+
+    # Select (uses) one of pool's sounds (random), which is ok with length (time)
     def select_random_sound(self, pool_items, time, can_be_empty):
         result = []
-        if can_be_empty:
-            result.append(SoundElement())
+        
+        # First, filter all sounds, long/short enought
         for item in pool_items:
             fl_name = item['file']
             can_overlapse = item.get('overlapse', False)
@@ -57,41 +57,39 @@ class SpeechManager:
             
             if self.mp3_files[fl_name].length <= time or can_overlapse:
                 r = replace(self.mp3_files[fl_name])        # replace is from dataclasses. It just creates a copy of element
-                r.pool_item = item
+                r.pool_item = item                          #  add link to pool of this sound
+                r.original = self.mp3_files[fl_name]        #  and also link to original item, just only to inc usage count
                 result.append(r)
-        #print("Selecting from files: %s"%(list(map(lambda x: x.file, result))))
-        
+
         if len(result) == 0:
+            # No sounds good enought to choose from
             return SoundElement()
-        
-        # Select one of results, depending on usage count. Less usage - more probability to be selected.
-        #  Detect max usage count - that is the lowest prob. Than detect prob = max - usage + 1 for each elem,
-        #  and calculate sum of all. Take random of that sum, and for each elem substaract prob from that rand.
-        #  If result <= 0 - that is our elem.
-        max_usage = max(map(lambda x: x.used, result))
-        rev = list(map(lambda x: max_usage - x.used + 1, result))
-        #print("Selecting from usages: %s, max: %d, rev sum: %d"%(list(map(lambda x: x.used, result)), max_usage, sum(rev)))
-        rand = random.randint(1, sum(rev))
-        for x in range(len(rev)):
-            rand -= rev[x]
-            if rand <= 0:
-                #print(f"Selected item #{x} with use count {result[x].used}")
-                #print()
-                result[x].used += 1
-                return result[x]
+
+        if can_be_empty:
+            result.append(SoundElement())
+            result[-1].original = result[-1]
+
+        selected_items = list(filter(lambda x: not x.original.used, result))
+        if len(selected_items) == 0:
+            for x in result:
+                x.original.used = False
+            selected_items = result
+        itm = selected_items[random.randint(0, len(selected_items)-1)]
+        itm.original.used = True
+        return itm
 
 
     def do_generate_task_sounds(self, w, t, overlapse_offset = 0):
-        cur_time_idx = overlapse_offset
         remain_task_time = t.property.value     # Need this to know, how much time we got for float sound
-
+        cur_time_idx = overlapse_offset
         float_time_idx = overlapse_offset
+
         for pool_nm in ["start", "name", "continue", "end"]:
             # ----- Select one random sound for this pool
-            emtp = t.pool(pool_nm).can_be_empty
-            s = self.select_random_sound(t.pool(pool_nm).items, t.property.value - cur_time_idx, emtp)
+            task_snd_pool = t.pool(pool_nm)
+            s = self.select_random_sound(task_snd_pool.items, t.property.value - cur_time_idx, task_snd_pool.can_be_empty)
             if s.length == 0:
-                if not emtp and len(t.pool(pool_nm).items) > 0:
+                if not task_snd_pool.can_be_empty and len(task_snd_pool.items) > 0:
                     print(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
                 continue
 

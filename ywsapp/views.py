@@ -162,6 +162,7 @@ def list_workouts(request):
 
 def view_workout(request):
     workout_id = request.GET.get('id')
+    no_sounds = request.GET.get('no_sounds', False)
 
     if WORKOUTS is None:
         _update_workouts()
@@ -177,7 +178,8 @@ def view_workout(request):
             for r in recs:
                 result.apply_prop(r.prop_id, r.value)
 
-        SpeechManager().generate_sounds(result)
+        if not no_sounds:
+            SpeechManager().generate_sounds(result)
         result = jsons.dump(result)
         
         #import pprint
