@@ -26,7 +26,7 @@ class SuryaNamaskar(BaseSet):
         {'asana':Asanas.gorka.GorkaBase, 'slow':9, 'fast':4, 'extra_slow':16},
         {'asana':Asanas.virabhadrasana.VirabhadrasanaRight, 'slow':16, 'fast':12, 'extra_slow':50},
         {'asana':Asanas.gorka.GorkaBase, 'slow':11, 'fast':4, 'extra_slow':30},
-        {'asana':Asanas.nogi_k_rukam.Prizhok_k_Rukam},
+        {'asana':Asanas.short_poses.Prizhok_k_Rukam},
         {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':4, 'extra_slow':35},
         {'asana':Asanas.short_poses.PodnimaemsiaVvreh}
     ]

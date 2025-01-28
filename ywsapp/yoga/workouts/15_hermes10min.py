@@ -27,7 +27,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.planka.Planka(tm_main = 60))
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 30))
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 30, tm_prepare = 5))
-        self.wrap_asana(Asanas.nogi_k_rukam.Nogi_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
 
         self.sets.append(HermesGymnastics())
         

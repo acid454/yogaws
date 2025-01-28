@@ -34,12 +34,14 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 45))
         
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
-        #self.wrap_asana(Asanas.kapotasana.Kapotasana())
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
 
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
-        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
+        self.wrap_asana(Asanas.stol.Stol())
+
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         self.wrap_asana(Asanas.plug.Plug())
         self.wrap_asana(Asanas.sarvangasana.Sarvangasana())

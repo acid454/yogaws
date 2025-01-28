@@ -33,7 +33,7 @@ class DefaultWorkout(BaseWorkout):
         #self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
         self.wrap_asana(Asanas.prasarita_padottanasana.PrasaritaPadottanasana(with_hands = False))
 
-        self.wrap_asana(Asanas.nogi_k_rukam.Nogi_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaLeft())
         self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaRight())
 
@@ -41,7 +41,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 45))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
 
-        self.wrap_asana(Asanas.nogi_k_rukam.Nogi_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.bakasana.Bakasana())
 
        # self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())

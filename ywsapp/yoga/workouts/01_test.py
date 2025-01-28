@@ -20,7 +20,7 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
+        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 2000))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
