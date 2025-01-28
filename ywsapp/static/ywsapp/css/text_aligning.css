@@ -2,10 +2,27 @@
 
 .container {
   position: relative;
+  width: 97vw;
+  height: 97vh;
+  margin: 0;
+  display: flex;                  /* https://stackoverflow.com/questions/1311068/scale-a-div-to-fit-in-window-but-preserve-aspect-ratio */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: orange;
   font-size: 16px;
   font-size: 2vw;
+  /* outline: thin dashed blue; */           /* just so you can see the box */
+}
+
+.content {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* position: absolute; */
+  top: 0; bottom: 0; right: 0; left: 0;  /* follow the parent's edges */
+  /* outline: thin dashed green; */            /* just so you can see the box */
 }
 
 .bottom-left {
@@ -44,6 +61,7 @@
 .fit {
   max-width: 100vw;
   max-height: 100vh;
+  height: 100%;
   width: auto;
   margin-left: auto;
   margin-right: auto;
