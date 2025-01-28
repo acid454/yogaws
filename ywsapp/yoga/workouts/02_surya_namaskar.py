@@ -16,7 +16,7 @@ from ktimer import KTimerX3
 @dataclass
 class DefaultWorkout(BaseWorkout):
     name: str = "surya_namaskar"
-    caption: str = "Сурья Намаскар 20 минут"
+    caption: str = "Сурья Намаскар 20 минут - утренняя"
     description: str = "Сурья Намаскар и несколько основных асан"
     group: str = "Сурья Намаскар"
     
@@ -44,7 +44,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
         
         #self.wrap_asana(Asanas.marichiasana.Marichiasana())
-        self.wrap_asana(Asanas.most.Most())
+        #self.wrap_asana(Asanas.most.Most())
         self.wrap_asana(Asanas.plug.Plug())
 
         #self.sets.append(KTimerX3())
