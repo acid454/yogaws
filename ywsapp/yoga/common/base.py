@@ -35,11 +35,17 @@ class PropertiesContainer:
         return None
 
 @dataclass
-class BaseAsana(PropertiesContainer):
-    name: str = None
-    caption: str = None
-    tasks: list = field(default_factory=lambda: [])
+class VisibleElement:
     id: str = None
+    caption: str = None
+    preview_img: str = None
+
+
+@dataclass
+class BaseAsana(PropertiesContainer, VisibleElement):
+    name: str = None
+    tasks: list = field(default_factory=lambda: [])
+    
     
     def build(self, workout, _set):
         while any(list(map(lambda x: x.build(workout, _set), self.tasks))):
@@ -163,11 +169,9 @@ class BaseTask:
         pass
 
 @dataclass
-class BaseSet(PropertiesContainer):
-    caption: str = None
+class BaseSet(PropertiesContainer, VisibleElement):
     visible: bool = True        # Видно ли название самого сета (вместо входящих в него асан)
     asanas: list = field(default_factory=lambda: [])
-    id: str = None
 
     def update_props(self, kwargs):
         PropertiesContainer.update_props(self, kwargs)
@@ -176,6 +180,11 @@ class BaseSet(PropertiesContainer):
 
     def build(self, workout):
         self.id = "set%03d"%(workout.sets.index(self))
+        if self.preview_img is None:
+            self.preview_img = self.asanas[0].tasks[0].images[0]
+        if self.asanas[0].preview_img is None:
+            self.asanas[0].preview_img = self.asanas[0].tasks[0].images[0]
+        
         while any(list(map(lambda x: x.build(workout, self), self.asanas))):
             pass
         return False

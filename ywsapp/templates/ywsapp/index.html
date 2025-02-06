@@ -179,15 +179,21 @@ function hide_user_info() {
     function do_show_element(e, list, idx) {
         let node = document.createElement('li');
         let header = document.createElement('h3');
+        let elem_content_div = document.createElement('div');
         
         header.textContent = e.caption;
-        
+        elem_content_div.className = "element_content_left";
         if (e.properties != null) {
             var prop_table = document.createElement('table');
+
             
+            /* prop_table.style.border = "1px solid #000" */
+            prop_table.style.width = "100%"
             for (const [prop_idx, prop_descr] of Object.entries(e.properties)) {
                 let tbl_r = document.createElement('tr');
                 let tbl_d = document.createElement('td');
+
+                /* tbl_d.style.border = "1px solid #000" */
                 
                 tbl_d.textContent = prop_descr.caption + "\xa0\xa0";
                 tbl_r.appendChild(tbl_d);
@@ -237,9 +243,23 @@ function hide_user_info() {
                 prop_table.appendChild(tbl_r);
             }
         }
+        elem_content_div.appendChild(prop_table)
+
+
+        elem_preview_div = document.createElement('div');
+        elem_preview_div.className = "element_content_right";
+        img_preview = document.createElement('img');
+        img_preview.src = "{% static 'ywsapp/res/imgs/thumbnails/' %}" + e.preview_img + '.png'
+        elem_preview_div.appendChild(img_preview)
+        console.log(e.preview_img)
+
+
+        let elem_div = document.createElement('div');
+        elem_div.appendChild(elem_content_div)
+        elem_div.appendChild(elem_preview_div)
 
         node.appendChild(header);
-        node.appendChild(prop_table);
+        node.appendChild(elem_div);
         node.id = "asana_element_" + idx;
         node.style = "--i: " + idx;
         list.appendChild(node);

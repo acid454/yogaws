@@ -66,3 +66,17 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.element_content_left {
+  /* background: red; */
+  float: left;
+}
+
+.element_content_right {
+  /* background: green; */
+  width: 50%;
+  float: right;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
