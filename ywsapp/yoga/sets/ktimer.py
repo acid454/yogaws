@@ -46,7 +46,7 @@ class KTimerX3(BaseSet):
     def build(self, workout):
         if workout.user is None or (not workout.user.kegel_timer):
             workout.sets.remove(self)
-            return
+            return True
 
         prev_asana = workout.prev_item(self).asanas[-1]
         if type(prev_asana) not in [Asanas.breath.Breath, Asanas.short_poses.LoshimsiaNaSpinu]:
@@ -59,3 +59,5 @@ class KTimerX3(BaseSet):
             workout.sets.insert(workout.sets.index(self)+1, k)
             k.build(workout)
             self.asanas += workout.sets.pop(workout.sets.index(self)+1).asanas
+        
+        super().build(workout)
