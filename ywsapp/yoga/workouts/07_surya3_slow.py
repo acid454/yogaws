@@ -25,8 +25,8 @@ class DefaultWorkout(BaseWorkout):
         
         #self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
         self.wrap_asana(Asanas.bakasana.Bakasana())
-        ## - restore - self.wrap_asana(Asanas.niznii_upor.NizniiUpor(tm_main = 20))
-        ## - restore - self.wrap_asana(Asanas.kobra.KobraWithRotations())
+        self.wrap_asana(Asanas.niznii_upor.NizniiUpor(tm_main = 20))
+        self.wrap_asana(Asanas.kobra.KobraWithRotations())
         
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(tm_progib = 120, with_knees = False))

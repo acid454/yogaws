@@ -10,6 +10,7 @@ from base import BaseWorkout
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 from hermes import HermesGymnastics
+from ktimer import KTimerX3
 
 
 class DefaultWorkout(BaseWorkout):
@@ -30,6 +31,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
+        self.sets.append(KTimerX3())
+
+        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
 
 
 
