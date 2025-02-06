@@ -9,9 +9,8 @@
 from base import BaseSet
 from properties import IntProperty
 from asanas import Asanas
-#from gorka import GorkaBase
-#from uttanasana import Uttanasana
-#from sobaka_mordoi_vverh import SobakaMordoiVverh
+from parshvaconasana_base import BaseParshvaconasana
+from metronomes import MetronomeRest
 
 
 class SuryaNamaskar(BaseSet):
@@ -54,5 +53,12 @@ class SuryaNamaskar(BaseSet):
         next_asana = workout.next_item(self.asanas[-1])
         if type(next_asana) in [Asanas.gorka.GorkaBase, Asanas.planka.Planka]:
             del self.asanas[-1]
+        
+        for asana in self.asanas:
+            if issubclass(type(asana), BaseParshvaconasana):
+                # delete preparations for parshvakonasana (virabha) -based asanas
+                if type(asana.tasks[0].metronome) is MetronomeRest:
+                    del asana.tasks[0]
+
         super().build(workout)
 

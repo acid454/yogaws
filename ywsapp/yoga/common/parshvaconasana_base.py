@@ -17,10 +17,6 @@ class BaseParshvaconasana(AsanaLegForward):
 
     def build(self, workout, _set):
         super().build(workout, _set)
-        from surya_namaskar import SuryaNamaskar
-        # are we in suria? if yes - delete preparation
-        if type(_set) is SuryaNamaskar:
-            del self.tasks[0]
         
         prev_asana = workout.prev_item(self)
         if issubclass(type(prev_asana), AsanaLegForward):
