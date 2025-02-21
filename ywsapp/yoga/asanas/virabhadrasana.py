@@ -6,6 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+import random
 from base import BaseTask
 from parshvaconasana_base import BaseParshvaconasana
 from properties import IntProperty
@@ -37,7 +38,7 @@ class VirabhadrasanaBase(BaseParshvaconasana):
         self.pool("continue").append("enter_virabhadrasana3")
         self.pool("continue").append("enter_virabhadrasana4")
         self.pool("float").append("descr_virabhadrasana1")
-        self.pool("continue").append("descr_virabhadrasana3")
+        self.pool("continue" if random.randint(0, 1) else "float").append("descr_virabhadrasana3", tags="enter,long")
         self.pool("float").append("descr_virabhadrasana4")
         self.pool("float").append("descr_virabhadrasana5")
         self.pool("float").append("descr_virabhadrasana6")

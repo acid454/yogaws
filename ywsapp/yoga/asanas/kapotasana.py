@@ -17,7 +17,7 @@ class KapotasanaBase(BaseAsana):
         side_text = 'левая' if _side == 'left' else 'правая'
         super().__init__(name="kapotasana", caption="Капотасана\n(%s сторона)"%(side_text))
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=25))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=35))
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nподготовка",

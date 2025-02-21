@@ -7,6 +7,7 @@
 #  
 
 from base import BaseAsana, BaseTask
+from base import AsanaLegForward
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import SND_RASSLABILIS, SND_EXHALE, SND_ZAKONCHILI_DALSHE
@@ -88,3 +89,10 @@ class GorkaNormal(GorkaBase):
         self.tasks[0].pool("name").migrate(name_pool)
         for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i)
+    
+    def build(self, workout, _set):
+        super().build(workout, _set)
+        
+        next_asana = workout.next_item(self)
+        if issubclass(type(next_asana), AsanaLegForward):
+            self.pool("end").clear()

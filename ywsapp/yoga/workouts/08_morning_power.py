@@ -35,15 +35,17 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
         
         self.wrap_asana(Asanas.bakasana.Bakasana())
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
         self.wrap_asana(Asanas.utkatasana.Utkatasana())
+
+        self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 40))
         
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 30))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
         self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 30))        
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
-
         self.wrap_asana(Asanas.short_poses.Seli())
-        self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
 
         self.sets.append(KTimerX3())
 

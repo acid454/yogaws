@@ -85,7 +85,7 @@ class LoshimsiaNaSpinu(BaseAsana):
 class Nogi_k_Rukam(BaseAsana):
     def __init__(self, **kwargs):
         BaseAsana.__init__(self, name="nogi_k_rukam", caption="Подходим ногами к рукам")
-        self.properties.append(IntProperty(caption="время выполнения", short="tm_main", default=5))
+        self.properties.append(IntProperty(caption="время выполнения", short="tm_main", default=4))
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
