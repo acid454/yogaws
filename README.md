@@ -21,6 +21,15 @@ sessionStorage.removeItem('background_img_id')
 -- View: представление
           python-классы, выстраивающие тренировку на базе модели
 
+
+
+### added new field (migration):
+python manage.py makemigrations  
+python manage.py migrate
+
+acid454@yoga7:~/workspace/yogaws$ rm ./db.sqlite3 
+acid454@yoga7:~/workspace/yogaws$ python3 manage.py migrate  --run-syncdb
+
 --------------------------------------------
 VSCode:
 **- Shift+Tab - unintend multiple lines -**

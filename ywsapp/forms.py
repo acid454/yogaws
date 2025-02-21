@@ -57,5 +57,12 @@ class UserLoginForm(AuthenticationForm):
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = ("kegel_timer", )
+        fields = ("kegel_timer", "voice_acting",)
     kegel_timer = forms.BooleanField(label="Включить упражнения Кегеля (если есть в тренировке)", required=False)
+    voice_acting = forms.ChoiceField(label="Режим озвучивания", required=False, choices = (
+            (0, "Полный"),
+            (1, "Без комментариев"),
+            (2, "Названия асан и выходы"),
+            (3, "Только названия асан"),
+        )
+    )

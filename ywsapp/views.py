@@ -55,6 +55,7 @@ def index(request):
             form = UserInfoForm(request.POST)
             if form.is_valid():
                 request.user.kegel_timer = form.cleaned_data['kegel_timer']
+                request.user.voice_acting = form.cleaned_data['voice_acting']
                 request.user.save()
             else:
                 snack_text = form.errors.as_text()
