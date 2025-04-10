@@ -8,14 +8,20 @@
 
 
 <script>
-var workout_on_pause = false;
+var workout_state = "show";	/* show, ready, pause, run */
 function start_stop_workout() {
-	workout_on_pause = !workout_on_pause;
-	let pause_text = document.getElementById('pause_text');
-	if (!workout_on_pause)
-		pause_text.style.display = 'none';
-	else {
-		pause_text.style.display = 'block';
+	let pause_frame = document.getElementById('pause_frame');
+	
+	if (workout_state == "ready" || workout_state == "pause") {
+		if (workout_state == "ready") {
+			let pause_text = document.getElementById('pause_text');
+			pause_text.innerHTML = "ПАУЗА";
+		}
+		pause_frame.style.display = 'none';
+		workout_state = "run";
+	} else {
+		workout_state = "pause";
+		pause_frame.style.display = 'block';
 		for (let _s = 0; _s <  workout.sets.length; _s++) {
 			for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
 				for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
@@ -38,8 +44,8 @@ function start_stop_workout() {
 
 	<div class="container">
 		<div class="content">
-			<div id="pause_text" class="text-center" onclick="start_stop_workout()" hidden="hidden">
-				<hr><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ПАУЗА&nbsp;&nbsp;&nbsp;&nbsp;</b><hr>
+			<div id="pause_frame" class="text-center" onclick="start_stop_workout()">
+				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">НАЧАТЬ</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
 			</div>
 			<img id="asana_image" src="" class="fit" onclick="start_stop_workout()">
 			<div id="asana_name" class="top-right">Top Right</div>
@@ -137,12 +143,8 @@ function start_stop_workout() {
 
     function process() {
 		let task_changed = false;
-		//let now = new Date().getTime();
-		//let current_task_time = Math.floor((now - current_task_time_start) / 1000);
-		
 
-		//console.log("### current_task_time: " + current_task_time)
-		if (workout_on_pause)
+		if ((workout_state == "pause") || (workout_state == "ready"))
 			return;
 		
 		current_task = get_current_task();
@@ -180,20 +182,18 @@ function start_stop_workout() {
 				wavs[tick_id].play();
 		}
 		
-		let min_key = Infinity
-		for (let k in current_task.sounds) {
-			if (current_task.sounds[k].processed === undefined)
-				min_key = Math.min(parseInt(k), min_key)
-		}
+		if (workout_state != "show") {
+			let min_key = Infinity
+			for (let k in current_task.sounds) {
+				if (current_task.sounds[k].processed === undefined)
+					min_key = Math.min(parseInt(k), min_key)
+			}
 
-		//console.log("minimal key: " + min_key + ", current_task_time: " + current_task_time)
-		if ((min_key !== Infinity) && (current_task_time >= min_key)) {
-			let snds = current_task.sounds[min_key];
-			current_task.sounds[min_key]['processed'] = true
-			//task_audio.src = "{% static 'ywsapp/res/sounds_merged/' %}" + snds.file;
-			//task_audio.play();
-			current_task.sounds[min_key]['audio'].play();
-			//console.log("-- play new sound")
+			if ((min_key !== Infinity) && (current_task_time >= min_key)) {
+				let snds = current_task.sounds[min_key];
+				current_task.sounds[min_key]['processed'] = true
+				current_task.sounds[min_key]['audio'].play();
+			}
 		}
 
 		if (((current_task_time % 4) == 0) || task_changed) {
@@ -209,7 +209,11 @@ function start_stop_workout() {
 		timer_div.textContent = minutes + ":" + seconds;
 		//timer_div.textContent = current_task_time;
 
-		//return task_changed;
+		if (workout_state == "show") {
+			workout_state = "ready";
+			return;
+		}
+
 		if (!task_changed)
 			current_task_time++;
     }
