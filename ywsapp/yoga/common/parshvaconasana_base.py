@@ -17,6 +17,9 @@ class BaseParshvaconasana(AsanaLegForward):
 
     def build(self, workout, _set):
         super().build(workout, _set)
+
+        if len(self.tasks[0].pool("start").items) != 0:
+            print("WARNING! Base Parshvaconasana task start pool not empty, but need to be!")
         
         prev_asana = workout.prev_item(self)
         if issubclass(type(prev_asana), AsanaLegForward):

@@ -9,6 +9,7 @@
 import datetime
 from dataclasses import dataclass, field
 
+
 @dataclass
 class PropertiesContainer:
     properties: list = field(default_factory=lambda: [])
@@ -40,20 +41,22 @@ class VisibleElement:
     caption: str = None
     preview_img: str = None
 
-
 @dataclass
 class BaseAsana(PropertiesContainer, VisibleElement):
     name: str = None
     tasks: list = field(default_factory=lambda: [])
     
-    
     def build(self, workout, _set):
-        while any(list(map(lambda x: x.build(workout, _set), self.tasks))):
-            pass
-        
         self.id = "%s.%03d"%(self.__class__.__name__, _set.asanas.index(self))
+        for t_idx in range(len(self.tasks)):
+            self.tasks[t_idx].id = "%s.%s.%03d"%(self.id, self.tasks[t_idx].__class__.__name__, t_idx)
+        
+        for task in self.tasks:
+            task.build(workout, _set)
+
         for prp in self.properties:
             prp.gen_id(workout.name, _set.id, self.id )
+        
         return False
 
     # Удобно брать пул последней таски
@@ -145,6 +148,7 @@ class MetronomeSounds:
 
 @dataclass
 class BaseTask:
+    id: str = None
     caption: str = "Без названия"
     property: BaseProperty = None       # instead of value
     metronome: MetronomeSounds = field(default_factory=lambda: MetronomeSounds())
@@ -160,7 +164,7 @@ class BaseTask:
         return self.snd_pools[-1]
 
     def build(self, workout, _set):
-        return False
+        return None
     
     def __enter__(self):
         return self
@@ -178,15 +182,15 @@ class BaseSet(PropertiesContainer, VisibleElement):
         if 'subcaption' in kwargs.keys():
             self.caption += kwargs['subcaption']
 
-    def build(self, workout):
+    def build(self, workout, *args):
         self.id = "set%03d"%(workout.sets.index(self))
         if self.preview_img is None:
             self.preview_img = self.asanas[0].tasks[0].images[0]
         if self.asanas[0].preview_img is None:
             self.asanas[0].preview_img = self.asanas[0].tasks[0].images[0]
         
-        while any(list(map(lambda x: x.build(workout, self), self.asanas))):
-            pass
+        for a in self.asanas:
+            a.build(workout, self)
         return False
 
 @dataclass
@@ -252,10 +256,25 @@ class BaseWorkout(PropertiesContainer):
     def build(self, _user, _id):
         self.id = _id
         self.user = _user
-        while any(list(map(lambda x: x.build(self), self.sets))):
-            pass
+        
+        # Watch for deletions, and also appends
+        while not all(list(map(lambda x: getattr(x, 'build_complete', False), self.sets))):
+            for s in self.sets:
+                if getattr(s, 'build_complete', False):
+                    continue
+                
+                len_before = len(self.sets)
+                s.build(self)
+                s.build_complete = True
+                if len(self.sets) != len_before:
+                    break
+        for s in self.sets:
+            del s.build_complete
+
+        
         del self.user
         
+        # Calc total workout time
         total_time = 0
         for s in self.sets:
             for a in s.asanas:
