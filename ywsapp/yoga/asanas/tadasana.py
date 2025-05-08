@@ -14,7 +14,7 @@ from metronomes import MetronomeWork, MetronomeRest
 class Tadasana(BaseAsana):
     def __init__(self):
         BaseAsana.__init__(self, name="tadasana", caption="Тадасана")
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=32))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=45))
 
         self.tasks.append(BaseTask(
             caption=self.caption,

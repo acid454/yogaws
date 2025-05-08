@@ -17,7 +17,7 @@ from snd_pools import *
 class VirabhadrasanaBase(BaseParshvaconasana):
     def __init__(self, _side, _caption):
         super().__init__(name="virabhadrasana_%s"%(_side), caption=_caption, side = _side, prepare_tm_for_swap_hands = 4)
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
 
         self.tasks.append(BaseTask(
