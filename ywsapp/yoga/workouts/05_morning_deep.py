@@ -9,6 +9,7 @@
 from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
+from sobaki import Sobaki
 
 
 @dataclass
@@ -34,12 +35,16 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 45))
         
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
-        self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
+        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
 
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
+        #self.sets.append(Sobaki(timings = 'slow', first_gorka_tm = 30))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.short_poses.Seli())
+
+        self.wrap_asana(Asanas.dshanu_shirshasana.DshanuShirshasana())
+        
         self.wrap_asana(Asanas.stol.Stol())
 
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())

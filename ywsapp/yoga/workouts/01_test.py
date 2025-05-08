@@ -21,20 +21,12 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 2000))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
+        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 40))
+        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 40))
+        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20000))
+
+
         self.sets.append(KTimerX3())
-
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
-
 
 
 def do_load_workouts():
