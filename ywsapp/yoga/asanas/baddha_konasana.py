@@ -28,8 +28,8 @@ class BaddhaKonasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["baddha_konasana_romb1", "baddha_konasana_romb2"]
         ))
-        self.pool("start").append("name_baddha_konasana1")
-        self.pool("start").append("name_baddha_konasana2")
+        self.pool("name").append("name_baddha_konasana1")
+        self.pool("name").append("name_baddha_konasana2")
         self.pool("continue").append("descr_baddha_konasana_tjanemsia_vpered")
 
         self.tasks.append(BaseTask(
@@ -56,8 +56,8 @@ class BaddhaKonasana(BaseAsana):
                 metronome=MetronomeRest(),
                 images=["baddha_konasana1", "baddha_konasana2"]
             ))
-            self.pool("start").append("nogi_blishe")
-            self.pool("start").append("enter_baddha_konasana_overlapse")    # overlapse
+            self.pool("name").append("nogi_blishe")
+            self.pool("continue").append("enter_baddha_konasana_overlapse")    # overlapse
 
             self.tasks.append(BaseTask(
                 caption=self.caption + "\n(шевелим коленями)",

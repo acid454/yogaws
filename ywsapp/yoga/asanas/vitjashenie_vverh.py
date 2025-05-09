@@ -23,11 +23,11 @@ class VitjashenieVverh(BaseAsana):
             metronome=MetronomeWork(),
             images=["upr_vitjashenie_vverh1", "upr_vitjashenie_vverh2"]))
         
-        self.pool("start").append("upr_podnimaemsia_vverh1")
-        self.pool("start").append("upr_podnimaemsia_vverh2")
-        self.pool("start").append("upr_vitajshenie_vverh1")
-        self.pool("start").append("upr_vitajshenie_vverh2")
-        self.pool("start").append("upr_vitajshenie_vverh3_na_vdohe")
+        self.pool("name").append("upr_podnimaemsia_vverh1")
+        self.pool("name").append("upr_podnimaemsia_vverh2")
+        self.pool("name").append("upr_vitajshenie_vverh1")
+        self.pool("name").append("upr_vitajshenie_vverh2")
+        self.pool("name").append("upr_vitajshenie_vverh3_na_vdohe")
         
         self.pool("continue").append("descr_vitashenie_vverh1")
         self.pool("continue").append("descr_vitashenie_vverh2")

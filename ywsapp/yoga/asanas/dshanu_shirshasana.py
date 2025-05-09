@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
+from voice_actings import VOICE_SIDE_ONLY_ACTING
 
 
 class DshanuShirshasana(BaseAsana):
@@ -34,6 +35,10 @@ class DshanuShirshasana(BaseAsana):
         self.pool("name").append("name_dshanu_shirshasana2")
         self.pool("name").append("name_dshanu_shirshasana3")
         self.pool("name").append("name_dshanu_shirshasana_next")
+
+        for snd in SND_LEG_RIGHT_FORWARD:
+            self.pool("continue").append(snd, only_actings = VOICE_SIDE_ONLY_ACTING)
+
         self.pool("end").append("enter_dshanu_shirshasana_right1")
         self.pool("end").append("enter_dshanu_shirshasana_right2")
         
@@ -58,9 +63,9 @@ class DshanuShirshasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["dshanu_shirshasana_left1", "dshanu_shirshasana_left2", "dshanu_shirshasana_left3", "dshanu_shirshasana_left4"]
         ))
-        self.pool("start").append("i_meniaem")
+        self.pool("start").append("i_meniaem", mandatory = True)
         for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd)
+            self.pool("start").append(snd, mandatory = True)
         self.pool("continue").append("enter_dshanu_shirshasana_left1")
         self.pool("continue").append("enter_dshanu_shirshasana_left2")
 

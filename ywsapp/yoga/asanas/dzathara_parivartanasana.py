@@ -27,8 +27,8 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             metronome=MetronomeRest(),
             images=[f"dzathara_parivartanasana_left{x}" for x in range(1,3)]
         ))
-        self.pool("start").append("upr_razvodim_ruki_v_storoni")
-        self.pool("continue").append("upr_razvorot_vlevo")
+        self.pool("start").append("upr_razvodim_ruki_v_storoni", mandatory = True)
+        self.pool("continue").append("upr_razvorot_vlevo", mandatory = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nлевый бок",
@@ -48,9 +48,9 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             metronome=MetronomeRest(),
             images=["nogi_vverh_ruki_v_storoni", "dzathara_parivartanasana_right1", "dzathara_parivartanasana_right2"]
         ))
-        self.pool("start").append("podniali_nogi")
+        self.pool("start").append("podniali_nogi", mandatory = True)
         for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("continue").append(snd)
+            self.pool("continue").append(snd, mandatory = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nправый бок",

@@ -27,9 +27,9 @@ class Scorpion(BaseAsana):
         ))
 
         #ToDo: ????????? Why SND_OPUSTILIS_NA_KOLENI doubled, in say, yoga home training?
-        for i in SND_OPUSTILIS_NA_KOLENI:
-            self.pool("start").append(i)
-        self.pool("continue").append("enter_scorpion_left_overlapse")  # overlapse
+        #for i in SND_OPUSTILIS_NA_KOLENI:
+        #    self.pool("start").append(i)
+        self.pool("continue").append("enter_scorpion_left", overlapse = True, mandatory = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(правая рука)",
@@ -40,22 +40,23 @@ class Scorpion(BaseAsana):
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
 
-        # This is defferent over Android app:
+        #for i in SND_RASSLABILIS + SND_EXHALE:
+        #    self.pool("start").append(i)
+        #ToDo: this is also from dzathara
+        for i in SND_COMPLETION_OTHERS:
+            self.pool("end").append(i)
+        self.pool("end").append("vernulis'_v_ishodnuju")
+
+
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(подготовка, левая рука)",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
             images=["scorpion_right"]
         ))
-        for i in SND_RASSLABILIS + SND_EXHALE:
-            self.pool("start").append(i)
-        #ToDo: this is also from dzathara
-        self.pool("name").append("otlichno")
-        self.pool("name").append("vernulis'1")
-        self.pool("name").append("vernulis'2")
-        self.pool("name").append("vernulis'_v_ishodnuju")
+
         for i in SND_MENIAJEM_NOGI:
-            self.pool("continue").append(i)
+            self.pool("continue").append(i, mandatory = True)
         
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(левая рука)",
@@ -66,6 +67,6 @@ class Scorpion(BaseAsana):
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
         self.pool("end").append("i_opustilis'_na_koleni")
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE:
+        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS:
             self.pool("end").append(i)
 

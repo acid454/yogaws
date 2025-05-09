@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
+from voice_actings import VOICE_SIDE_ONLY_ACTING
 
 
 class Nakrasana(BaseAsana):
@@ -27,14 +28,20 @@ class Nakrasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"nakrasana_left{x}" for x in range(1,4)]
         ))
-        self.pool("start").append("upr_skrutka_leza1")
-        self.pool("start").append("upr_skrutka_leza2")
-        self.pool("start").append("upr_skrutki_leza")
-        self.pool("continue").append("enter_nakrasana_left1")
-        self.pool("continue").append("enter_nakrasana_left2_overlapse") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left3_overlapse") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left4_overlapse") # overlapse="1"/>
-        self.pool("continue").append("enter_nakrasana_left5_overlapse") # overlapse="1"/>
+        self.pool("name").append("upr_skrutka_leza1")
+        self.pool("name").append("upr_skrutka_leza2")
+        self.pool("name").append("upr_skrutki_leza")
+        self.pool("name").append("upr_skrutki_leza")
+
+        self.pool("continue").append("left_side1", only_actings = VOICE_SIDE_ONLY_ACTING)
+        self.pool("continue").append("left_side2", only_actings = VOICE_SIDE_ONLY_ACTING)
+        self.pool("continue").append("v_levo", only_actings = VOICE_SIDE_ONLY_ACTING)
+
+        self.pool("continue").append("enter_nakrasana_left1", overlapse = True)
+        self.pool("continue").append("enter_nakrasana_left2", overlapse = True)
+        self.pool("continue").append("enter_nakrasana_left3", overlapse = True)
+        self.pool("continue").append("enter_nakrasana_left4", overlapse = True)
+        self.pool("continue").append("enter_nakrasana_left5", overlapse = True)
 
 
         self.tasks.append(BaseTask(
@@ -56,9 +63,9 @@ class Nakrasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"nakrasana_right{x}" for x in range(1,5)]
         ))
-        self.pool("start").append("i_meniaem")
+        self.pool("start").append("i_meniaem", mandatory = True)
         for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd)
+            self.pool("start").append(snd, mandatory = True)
         self.pool("continue").append("enter_nakrasana_right1")
         self.pool("continue").append("enter_nakrasana_right2")
         self.pool("continue").append("enter_nakrasana_right_short")

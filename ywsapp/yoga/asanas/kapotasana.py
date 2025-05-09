@@ -69,6 +69,7 @@ class KapotasanaLeft(KapotasanaBase):
             t.images += ["kapotasana_left1"]
             t.pool("continue").append("left_side1")
             t.pool("continue").append("left_side2")
+            t.pool("continue").append("v_levo")
 
 class KapotasanaRight(KapotasanaBase):
     def __init__(self, **kwargs):

@@ -30,21 +30,21 @@ class BaseParshvaconasana(AsanaLegForward):
             else:
                 # different leg forward
                 for snd in SND_MENIAJEM_NOGI:
-                    self.tasks[0].pool("start").append(snd)
+                    self.tasks[0].pool("start").append(snd, mandatory = True)
         else:
             # prev asana was not leg-forwarded
             if self.side == 'left':
-                self.tasks[0].pool("start").append("leg_left_forward1")
-                self.tasks[0].pool("start").append("leg_left_forward2")
-                self.tasks[0].pool("start").append("leg_left_forward3")
-                self.tasks[0].pool("start").append("leg_left_forward4")
-                self.tasks[0].pool("start").append("leg_left_forward5")
-                self.tasks[0].pool("start").append("leg_left_forward6")
+                self.tasks[0].pool("start").append("leg_left_forward1", mandatory = True)
+                self.tasks[0].pool("start").append("leg_left_forward2", mandatory = True)
+                self.tasks[0].pool("start").append("leg_left_forward3", mandatory = True)
+                self.tasks[0].pool("start").append("leg_left_forward4", mandatory = True)
+                self.tasks[0].pool("start").append("leg_left_forward5", mandatory = True)
+                self.tasks[0].pool("start").append("leg_left_forward6", mandatory = True)
             else:
                 for snd in SND_LEG_RIGHT_FORWARD:
-                    self.tasks[0].pool("start").append(snd)
+                    self.tasks[0].pool("start").append(snd, mandatory = True)
         self.build_snd_name(prev_asana)
 
     def build_snd_swap_hands(self):
-        self.tasks[0].pool("start").append("ladoni_ruk_menijautsia_mestami")
-        self.tasks[0].pool("start").append("obratnaja_ei")  #?? not everytime
+        self.tasks[0].pool("start").append("ladoni_ruk_menijautsia_mestami", mandatory = True)
+        self.tasks[0].pool("start").append("obratnaja_ei", mandatory = True)

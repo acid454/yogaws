@@ -26,10 +26,10 @@ class Marichiasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["marichiasana_right1", "ardhamatsyendrasana_right", "marichiasana_right2"]
         ))
-        self.pool("start").append("name_marichiasana1")
-        self.pool("start").append("name_marichiasana2")
-        self.pool("start").append("name_marichiasana3")
-        self.pool("start").append("name_ardhamatsyendrasana_i_delaem")
+        self.pool("name").append("name_marichiasana1")
+        self.pool("name").append("name_marichiasana2")
+        self.pool("name").append("name_marichiasana3")
+        self.pool("name").append("name_ardhamatsyendrasana_i_delaem")
         self.pool("continue").append("enter_marichiasana_right1")
         self.pool("continue").append("enter_marichiasana_right2")
         self.pool("continue").append("enter_marichiasana_right3")
@@ -57,8 +57,8 @@ class Marichiasana(BaseAsana):
             images=["marichiasana_left1", "marichiasana_left2", "ardhamatsyendrasana_left"]
         ))
         for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(i)
-        self.pool("end").append("enter_marichiasana_left")
+            self.pool("start").append(i, mandatory = True)
+        self.pool("continue").append("enter_marichiasana_left")
 
 
         self.tasks.append(BaseTask(

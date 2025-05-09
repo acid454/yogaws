@@ -77,8 +77,8 @@ class UttanasanaWithCompensation(Uttanasana):
             metronome=MetronomeWork(),
             images=["vigibaemsia_vpered1", "vigibaemsia_vpered2"]
         ))
-        self.pool("start").append("upr_podnimaem_golovu_vugibaemsia")
-        self.pool("start").append("upr_podnimaem_golovu_ottolknulis'_ot_nog")
+        self.pool("start").append("upr_podnimaem_golovu_vugibaemsia", mandatory = True)
+        self.pool("start").append("upr_podnimaem_golovu_ottolknulis'_ot_nog", mandatory = True)
 
 class Uttanasana_ruki_v_zamke(UttanasanaBase):
     def __init__(self):

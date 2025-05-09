@@ -25,7 +25,7 @@ class Utkatasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["utkatasana1"]
         ))
-        self.pool("start").append("name_utkatasana")
+        self.pool("name").append("name_utkatasana")
         self.pool("continue").append("enter_utkatasana", overlapse = True)
 
         self.tasks.append(BaseTask(

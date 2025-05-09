@@ -5,9 +5,14 @@ from datetime import datetime
 
 class VoiceActing(models.IntegerChoices):
     FULL = 0, 'Full'
-    NO_COMMENTS = 1, 'No comments'
-    ASANA_START_STOP = 2, 'Asana start/stop'
-    ASANA_START_ONLY = 3, 'Asana start only'
+    NO_COMMON_COMMENTS = 1, 'No common comments'
+    NO_ANY_COMMENTS = 2, 'No any comments'
+    ASANA_START_STOP = 3, 'Asana start and stop only'
+    ASANA_START_ONLY = 4, 'Asana start only'
+
+# ToDo:
+#class VoiceActing(models.IntegerChoices, VoiceActings):
+#    pass
 
 # Create your models here.
 class User(AbstractUser):

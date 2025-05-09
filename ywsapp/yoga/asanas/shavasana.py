@@ -22,11 +22,11 @@ class Shavasana(BaseAsana):
             metronome=MetronomeShavasana(),
             images=[f"shavasana{x}" for x in range(1,6)]
         ))
-        self.pool("start").append("descr_shavasana1")
-        self.pool("start").append("descr_shavasana2")
-        self.pool("start").append("descr_shavasana3")
-        self.pool("start").append("descr_shavasana4")
-        self.pool("start").append("descr_shavasana5")
+        self.pool("name").append("descr_shavasana1")
+        self.pool("name").append("descr_shavasana2")
+        self.pool("name").append("descr_shavasana3")
+        self.pool("name").append("descr_shavasana4")
+        self.pool("name").append("descr_shavasana5")
     
     def build(self, workout, _set):
         super().build(workout, _set)

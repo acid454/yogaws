@@ -22,12 +22,12 @@ class Tadasana(BaseAsana):
             metronome=MetronomeWork(),
             images=["tadasana01", "tadasana02"]))
         
-        self.pool("start").append("name_tadasana")
-        self.pool("start").append("begin_nachinaete_s_poloshenija_stoja")
-        self.pool("start").append("begin_vstaem_na_kovrik")
-        self.pool("start").append("begin_tadasana")
-        self.pool("start").append("begin_vstaem_rovno_ruki_vdol'_tulovisha")
+        self.pool("name").append("begin_nachinaete_s_poloshenija_stoja")
+        self.pool("name").append("begin_vstaem_na_kovrik")
+        self.pool("name").append("name_tadasana")
+        self.pool("name").append("begin_tadasana")
 
+        self.pool("float").append("begin_vstaem_rovno_ruki_vdol'_tulovisha")
         self.pool("float").append("descr_tadasana_on_begin")
         self.pool("float").append(None)
 

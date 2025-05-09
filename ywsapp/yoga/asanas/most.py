@@ -26,8 +26,8 @@ class Most(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"most{x}" for x in range(1,7)]
         ))
-        self.pool("start").append("name_chakrasana1")
-        self.pool("start").append("name_chakrasana2")
+        self.pool("name").append("name_chakrasana1")
+        self.pool("name").append("name_chakrasana2")
         self.pool("continue").append("enter_most1")
         self.pool("continue").append("enter_most2")
         self.pool("end").append("enter_most_so_vdohom_vverh")
@@ -58,8 +58,8 @@ class Most(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"most_compensate{x}" for x in range(1,4)]
         ))
-        self.pool("start").append("delaem_kompensaciju")
-        self.pool("start").append("most_kompensacija")
+        self.pool("name").append("delaem_kompensaciju")
+        self.pool("name").append("most_kompensacija")
         self.pool("end").append("otlichno")
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i)

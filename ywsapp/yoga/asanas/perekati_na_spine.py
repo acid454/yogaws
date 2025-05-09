@@ -24,8 +24,8 @@ class Perekatu_na_spine(BaseAsana):
             metronome=MetronomeWork(),
             images=["perekatu_na_spine1"]))
         
-        self.pool("start").append("upr_kataemsia_po_spine1")
-        self.pool("start").append("upr_kataemsia_po_spine2")
+        self.pool("name").append("upr_kataemsia_po_spine1")
+        self.pool("name").append("upr_kataemsia_po_spine2")
         self.pool("float").append("descr_kataemsia_po_spine1")
         self.pool("float").append("descr_kataemsia_po_spine2")
         self.pool("float").append("descr_kataemsia_po_spine3")

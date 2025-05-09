@@ -20,6 +20,13 @@ SND_ZAKONCHILI_DALSHE = [
     "davaite_zavershat'"
 ]
 
+SND_COMPLETION_OTHERS = [
+    "otlichno",
+    "est'",
+    "vernulis'1",
+    "vernulis'2"
+]
+
 SND_RASSLABILIS = [
     "i_rasslabilis1",
     "i_rasslabilis2",

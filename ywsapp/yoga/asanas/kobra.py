@@ -25,7 +25,7 @@ class Kobra(BaseAsana):
             metronome=MetronomeRest(),
             images=["kobra01", "kobra02", "kobra03"]
         ))
-        self.pool("start").append("enter_kobra_provisli")
+        self.pool("name").append("enter_kobra_provisli")
 
         self.tasks.append(BaseTask(
             caption=self.caption,
@@ -58,8 +58,8 @@ class KobraWithRotations(Kobra):
             property=self.tm_left,
             metronome=MetronomeWork(),
             images=self.tasks[0].images))
-        self.pool("start").append("upr_razvorot_vlevo")
-        self.pool("start").append("upr_potjanulis_v_levuju_storonu")
+        self.pool("name").append("upr_razvorot_vlevo")
+        self.pool("name").append("upr_potjanulis_v_levuju_storonu")
         self.pool("float").append("starajas'_uvidet'_zadnuu_nogu")
 
         self.tasks.append(BaseTask(
@@ -67,17 +67,17 @@ class KobraWithRotations(Kobra):
             property=self.tm_right,
             metronome=MetronomeWork(),
             images=self.tasks[0].images))
-        self.pool("start").append("upr_razvorot_vpravo")
+        self.pool("name").append("upr_razvorot_vpravo")
         for snd in SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd)
+            self.pool("name").append(snd)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_second,
             metronome=MetronomeWork(),
             images=self.tasks[0].images))
-        self.pool("start").append("i_razvorachivaemsia_vpered")
-        self.pool("start").append("razvernulis")
-        self.pool("start").append("i_provisli")
+        self.pool("name").append("i_razvorachivaemsia_vpered")
+        self.pool("name").append("razvernulis")
+        self.pool("name").append("i_provisli")
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i)

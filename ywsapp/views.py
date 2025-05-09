@@ -4,7 +4,7 @@ from django.template import loader
 from django.utils import timezone
 from django.contrib.auth import get_user
 from .forms import UserLoginForm, NewUserForm, UserInfoForm
-from .models import UserWorkoutProps
+from .models import User, UserWorkoutProps
 from django.contrib.auth import authenticate, login, logout
 import json
 import jsons
@@ -179,13 +179,19 @@ def view_workout(request):
             for r in recs:
                 result.apply_prop(r.prop_id, r.value)
 
+        try:
+            voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
+        except:
+            voice_acting = 0
+
         if not no_sounds:
-            SpeechManager().generate_sounds(result)
+            SpeechManager().generate_sounds(result, voice_acting)
         result = jsons.dump(result)
         
-        #import pprint
-        #pprint.PrettyPrinter(indent=4).pprint(result)
-        return JsonResponse( result, safe = False, status = 200)
+        #if not no_sounds:
+        #    import pprint
+        #    pprint.PrettyPrinter(indent=4).pprint(result)
+        return JsonResponse(result, safe = False, status = 200)
     return JsonResponse({}, safe = False, status = 200)  # Not 200 here
 
 

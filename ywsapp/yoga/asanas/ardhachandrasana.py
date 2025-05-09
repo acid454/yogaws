@@ -61,7 +61,7 @@ class ArdhachandrasanaBase(BaseAsana):
             t = self.task(self.tm_prepare)
             t.pool("start").clear()
             for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-                    t.pool("start").append(i)
+                    t.pool("start").append(i, mandatory = True)
             return
         
         with self.task(self.tm_prepare) as t:

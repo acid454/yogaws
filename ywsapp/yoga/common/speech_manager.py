@@ -44,7 +44,7 @@ class SpeechManager:
 
 
     # Select (uses) one of pool's sounds (random), which is ok with length (time)
-    def select_random_sound(self, pool_items, time, can_be_empty):
+    def select_random_sound(self, pool_items, time, can_be_empty, only_mandatory, voice_acting):
         result = []
         
         # First, filter all sounds, long/short enought
@@ -54,7 +54,16 @@ class SpeechManager:
             if fl_name.endswith('_overlapse'):
                 can_overlapse = True
                 fl_name = fl_name[:-len('_overlapse')]
+                print(f"WARNING! Old overlapse name format for {fl_name}")
             
+            if only_mandatory and not item.get('mandatory', False):
+                continue
+
+            voice_actings = item.get('only_actings', None)
+            if voice_actings is not None:
+                if not (voice_acting in voice_actings):
+                    continue
+
             if self.mp3_files[fl_name].length <= time or can_overlapse:
                 r = replace(self.mp3_files[fl_name])        # replace is from dataclasses. It just creates a copy of element
                 r.pool_item = item                          #  add link to pool of this sound
@@ -78,8 +87,26 @@ class SpeechManager:
         itm.original.used = True
         return itm
 
+    # Returns true if this pool is needed
+    def check_only_mandatory_flag(self, pool_nm, voice_acting):
+        if pool_nm == "name":
+            return False        # Name allways
+        
+        if voice_acting == 4:
+            return True
+        
+        if voice_acting == 3 and pool_nm == "end":
+            return False
+        
+        if voice_acting == 2 and pool_nm in ["float", "continue"]:
+            return True
+        
+        if voice_acting == 1 and pool_nm == "float":
+            return True
 
-    def do_generate_task_sounds(self, w, t, overlapse_offset = 0):
+        return False if voice_acting == 0 else True
+
+    def do_generate_task_sounds(self, w, t, voice_acting, overlapse_offset = 0):
         remain_task_time = t.property.value     # Need this to know, how much time we got for float sound
         cur_time_idx = overlapse_offset
         float_time_idx = overlapse_offset
@@ -87,7 +114,15 @@ class SpeechManager:
         for pool_nm in ["start", "name", "continue", "end"]:
             # ----- Select one random sound for this pool
             task_snd_pool = t.pool(pool_nm)
-            s = self.select_random_sound(task_snd_pool.items, t.property.value - cur_time_idx, task_snd_pool.can_be_empty)
+
+            # Check if this pool is used
+            only_mandatory = self.check_only_mandatory_flag(pool_nm, voice_acting)
+
+            s = self.select_random_sound(task_snd_pool.items,
+                                         t.property.value - cur_time_idx,
+                                         task_snd_pool.can_be_empty,
+                                         only_mandatory,
+                                         voice_acting)
             if s.length == 0:
                 if not task_snd_pool.can_be_empty and len(task_snd_pool.items) > 0:
                     print(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
@@ -106,7 +141,9 @@ class SpeechManager:
         #print(f"Processing float: remain task time {remain_task_time}, idx {float_time_idx}")
         if remain_task_time > 0:
             empt = t.pool("float").can_be_empty
-            s = self.select_random_sound(t.pool("float").items, remain_task_time, empt)
+            only_mandatory = self.check_only_mandatory_flag("float", voice_acting)
+            print(f"ONLY MANDATORY: {only_mandatory}")
+            s = self.select_random_sound(t.pool("float").items, remain_task_time, empt, only_mandatory, voice_acting)
             if s.length > 0:
                 if remain_task_time > s.length:
                     if not s.pool_item.get('float_on_start'):
@@ -127,9 +164,9 @@ class SpeechManager:
         return ret if ret > 0 else 0
 
 
-    def generate_sounds(self, workout):
+    def generate_sounds(self, workout, voice_acting):
         overlapse_tm = 0
         for s in workout.sets:
             for a in s.asanas:
                 for t in a.tasks:
-                    overlapse_tm = self.do_generate_task_sounds(workout, t, overlapse_tm)
+                    overlapse_tm = self.do_generate_task_sounds(workout, t, voice_acting, overlapse_tm)

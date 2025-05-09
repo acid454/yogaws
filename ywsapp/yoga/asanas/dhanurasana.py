@@ -26,8 +26,8 @@ class Dhanurasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"dhanusana{x}" for x in range(1,3)]
         ))
-        self.pool("start").append("name_dhanurasana1")
-        self.pool("start").append("name_dhanurasana2")
+        self.pool("name").append("name_dhanurasana1")
+        self.pool("name").append("name_dhanurasana2")
         self.pool("continue").append("enter_dhanurasana1")
         self.pool("end").append("i_tjanemsia_vverh")
         self.pool("end").append("so_vdohom_vverh1")

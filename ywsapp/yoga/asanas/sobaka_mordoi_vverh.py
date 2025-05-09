@@ -25,9 +25,9 @@ class SobakaMordoiVverh(BaseAsana):
             images=["sobaka_mordoi_vverh1", "sobaka_mordoi_vverh2"]
         ))
         
-        self.pool("continue").append("name_sobaka_mordoi_vverh1")
-        self.pool("continue").append("name_sobaka_mordoi_vverh2_vikatilis'")
-        self.pool("continue").append("name_sobaka_mordoi_vverh3_i_vikatilis'")
+        self.pool("name").append("name_sobaka_mordoi_vverh1")
+        self.pool("name").append("name_sobaka_mordoi_vverh2_vikatilis'")
+        self.pool("name").append("name_sobaka_mordoi_vverh3_i_vikatilis'")
         if transition_type == "up":
             self.pool("start").append("upr_podnimaemsia_vverh1")
             self.pool("start").append("upr_podnimaemsia_vverh2")

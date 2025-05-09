@@ -27,7 +27,7 @@ class OpustilisNaKoleni(BaseAsana):
         ))
         
         for i in SND_OPUSTILIS_NA_KOLENI:
-            self.pool("start").append(i)
+            self.pool("name").append(i)
 
 
 class Seli(BaseAsana):
@@ -44,7 +44,7 @@ class Seli(BaseAsana):
         ))
         
         for i in SND_SELI:
-            self.pool("start").append(i)
+            self.pool("name").append(i)
 
 class PodnimaemsiaVvreh(BaseAsana):
     def __init__(self, **kwargs):
@@ -59,12 +59,12 @@ class PodnimaemsiaVvreh(BaseAsana):
             images=["tadasana01", "tadasana02"]
         ))
         
-        self.pool("start").append("upr_podnimaemsia_vverh1")
-        self.pool("start").append("upr_podnimaemsia_vverh2")
-        self.pool("start").append("i_skrugliaja_spinu_vverh1")
-        self.pool("start").append("i_skrugliaja_spinu_vverh2")
-        self.pool("start").append("podnimaemsia1")
-        self.pool("start").append("podnimaemsia2")
+        self.pool("name").append("upr_podnimaemsia_vverh1")
+        self.pool("name").append("upr_podnimaemsia_vverh2")
+        self.pool("name").append("i_skrugliaja_spinu_vverh1")
+        self.pool("name").append("i_skrugliaja_spinu_vverh2")
+        self.pool("name").append("podnimaemsia1")
+        self.pool("name").append("podnimaemsia2")
 
 class LoshimsiaNaSpinu(BaseAsana):
     def __init__(self, **kwargs):
@@ -79,8 +79,8 @@ class LoshimsiaNaSpinu(BaseAsana):
             images=[f"shavasana{x}" for x in range(1,6)]
         ))
         
-        self.pool("start").append("i_loshimsia_na_spinu")
-        self.pool("start").append("ukladivaemsia_v_poloshenie_lezha_na_spine")
+        self.pool("name").append("i_loshimsia_na_spinu")
+        self.pool("name").append("ukladivaemsia_v_poloshenie_lezha_na_spine")
 
 class Nogi_k_Rukam(BaseAsana):
     def __init__(self, **kwargs):
@@ -94,7 +94,7 @@ class Nogi_k_Rukam(BaseAsana):
             metronome=MetronomeWork(),
             images=["nogi_k_rukam1"]))
         
-        self.pool("start").append("i_podoshli_nogami_k_rukam")
+        self.pool("name").append("i_podoshli_nogami_k_rukam")
 
 class Prizhok_k_Rukam(BaseAsana):
     def __init__(self, **kwargs):
@@ -107,5 +107,5 @@ class Prizhok_k_Rukam(BaseAsana):
             metronome=MetronomeWork(),
             images=["prizhok_k_rukam"]))
         
-        self.pool("start").append("upr_prizhok_k_rukam1")
-        self.pool("start").append("upr_prizhok_k_rukam2")
+        self.pool("name").append("upr_prizhok_k_rukam1")
+        self.pool("name").append("upr_prizhok_k_rukam2")
