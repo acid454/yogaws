@@ -135,3 +135,20 @@ function select_workout(_id, _thumbnails_path) {
     document.getElementById('total_time_value').textContent = workout.total_time; 
     document.getElementById('main_workout_list_display').style.display = '';
 }
+
+function setup_collapsible_list_height() {
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("collapsible_content_active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+}
