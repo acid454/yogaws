@@ -164,6 +164,7 @@ function hide_user_info() {
 </body>
 
 <script src="{% static 'ywsapp/scripts/workout_elements.js' %}"></script>
+<script src="{% static 'ywsapp/scripts/background_img.js' %}"></script>
 <script>
     let xhr = new XMLHttpRequest();
     xhr.open('GET', '/list_workouts', false);
@@ -206,18 +207,13 @@ function hide_user_info() {
     document.getElementById('text_begin').hidden = false;
     {% endif %}
     
-    background_img_id = sessionStorage.getItem('background_img_id');
-    if (background_img_id == null) {
-        background_img_id = "{{main_bg_image}}";
-        sessionStorage.setItem('background_img_id', background_img_id);
-    }
-    document.getElementById('main_centered_display').style.backgroundImage = "url('{% static 'ywsapp/res/mainbg/' %}" + background_img_id + "')";
-    document.getElementById('main_workout_list_display').style.display = 'none';
+
     
     {% if snack_text is not None %}
     setTimeout( function(){ show_snackbar(); }, 500 );
     {% endif %}
 
+    setup_background_image("{% static 'ywsapp/res/mainbg/' %}");
     setup_collapsible_list_height();
 </script>
 
