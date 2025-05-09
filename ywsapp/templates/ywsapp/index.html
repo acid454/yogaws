@@ -98,7 +98,7 @@ function hide_user_info() {
 
 
 <div style="margin-left:27%">
-    <div id="main_workout_list_display" class="w3-container">
+    <div id="main_workout_list_display" class="w3-container" style="background-image: url({% static 'ywsapp/res/activebg/dust_scratches.png' %})">
         <h2 id="caption"></h2>
         <form id="frm_active" action="/active.html?" method="GET">
             <ol id="asanas_list" style="--length: 0" role="list"></ol>
@@ -122,7 +122,7 @@ function hide_user_info() {
         {% if user.is_authenticated %}
         <!-- The Modal (contains the User info data) -->
         <div id="user_info_popup" class="popup" hidden="hidden">
-            <div class="popup-content">
+            <div class="popup-content w3-round-xxlarge w3-sand">
                 <h1 style="color:rgb(124, 10, 177);">{{ user.get_username }}</h1>
                 <hr>
                 Всего тренировок: <b>{{ user.complete_workouts }}</b><br>
