@@ -5,6 +5,7 @@
 {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/active.css' %}">
 
 
 <script>
@@ -47,7 +48,7 @@ function start_stop_workout() {
 			<div id="pause_frame" class="text-center" onclick="start_stop_workout()">
 				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">НАЧАТЬ</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
 			</div>
-			<img id="asana_image" src="" class="fit" onclick="start_stop_workout()">
+			<img id="asana_image" src="" class="active-image" onclick="start_stop_workout()">
 			<div id="asana_name" class="top-right">Top Right</div>
 			<div id="timer" class="bottom-right">Bottom Right</div>
 		</div>
