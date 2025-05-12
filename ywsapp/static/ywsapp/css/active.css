@@ -1,0 +1,86 @@
+/* https://www.w3schools.com/howto/howto_css_image_text.asp */
+
+body{   
+  margin:0 auto; 
+  background:#F0F0F0;
+}
+
+.active-container {
+  position: relative;
+  width: 100vw;
+  height: 99vh;
+  display: flex;                  /* https://stackoverflow.com/questions/1311068/scale-a-div-to-fit-in-window-but-preserve-aspect-ratio */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(206, 138, 12);
+  font-size: 16px;
+  font-size: 2vw;
+  /* outline: thin dashed blue;  */           /* just so you can see the box */
+}
+
+.active-content {
+  display: inline-block;
+  position: relative;
+  height: auto;
+  width: auto;
+  /* position: absolute; */
+  top: 0; bottom: 0; right: 0; left: 0;  /* follow the parent's edges */
+  /* outline: thin dashed green; */            /* just so you can see the box */
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+.top-left {
+  position: relative;
+  transform: translate(15px, 140%);
+}
+
+.top-right {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.bottom-right {
+  position: absolute;
+  color: orange;
+  bottom: 5%;
+  right: 5%;
+}
+
+.text-center {
+  position: absolute;
+  color: orange;
+  background-color: rgba(61, 125, 179, 0.685);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.active-image {
+  max-width: 100vw;
+  max-height: 100vh;
+  height: auto;
+  width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.element_content_left {
+  /* background: red; */
+  float: left;
+}
+
+.element_content_right {
+  /* background: green; */
+  width: 50%;
+  float: right;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
