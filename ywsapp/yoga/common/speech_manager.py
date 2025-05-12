@@ -89,6 +89,16 @@ class SpeechManager:
 
     # Returns true if this pool is needed
     def check_only_mandatory_flag(self, pool_nm, voice_acting):
+        if voice_acting == 1 and pool_nm == "float":
+            return True
+        elif voice_acting == 2 and pool_nm in ["float", "continue"]:
+            return True
+        elif voice_acting == 3 and not (pool_nm in ["name", "end"]):
+            return True
+        elif voice_acting == 4 and pool_nm != "name":
+            return True
+        return False
+        
         if pool_nm == "name":
             return False        # Name allways
         
@@ -104,7 +114,7 @@ class SpeechManager:
         if voice_acting == 1 and pool_nm == "float":
             return True
 
-        return False if voice_acting == 0 else True
+        return False #if voice_acting == 0 else True
 
     def do_generate_task_sounds(self, w, t, voice_acting, overlapse_offset = 0):
         remain_task_time = t.property.value     # Need this to know, how much time we got for float sound
