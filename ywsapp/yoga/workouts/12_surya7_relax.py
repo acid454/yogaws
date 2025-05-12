@@ -39,7 +39,7 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 45, tm_prepare = 5))
         self.wrap_asana(Asanas.kobra.KobraWithRotations())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
         #self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
         #self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
         #self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))

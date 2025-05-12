@@ -21,12 +21,9 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 40))
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 40))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20000))
-
-
-        self.sets.append(KTimerX3())
+        self.wrap_asana(Asanas.planka.Planka(tm_main = 900))
+        #self.wrap_asana(Asanas.tadasana.Tadasana())
+        #self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = True))
 
 
 def do_load_workouts():

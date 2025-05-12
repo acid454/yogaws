@@ -34,7 +34,7 @@ class DefaultWorkout(BaseWorkout):
         
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 45))
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 45))
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20))
         #self.sets.append(Sobaki(timings = 'slow', first_gorka_tm = 30, cnt = 3))
         self.wrap_asana(Asanas.kobra.KobraWithRotations())
 

@@ -33,9 +33,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 30))
         self.wrap_asana(Asanas.prasarita_padottanasana.PrasaritaPadottanasana(with_hands = False))
         
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 25))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 25))
         self.wrap_asana(Asanas.bakasana.Bakasana(tm_main = 35))
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 25))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 25))
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 30))
         self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 30))
         

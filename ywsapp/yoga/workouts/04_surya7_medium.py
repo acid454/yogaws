@@ -46,7 +46,7 @@ class DefaultWorkout(BaseWorkout):
 
        # self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
        # self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
         self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
 
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana())

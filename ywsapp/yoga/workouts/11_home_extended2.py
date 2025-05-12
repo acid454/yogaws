@@ -38,7 +38,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.bakasana.Bakasana())
         self.wrap_asana(Asanas.dhanurasana.Dhanurasana())
         
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 40))
 
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
