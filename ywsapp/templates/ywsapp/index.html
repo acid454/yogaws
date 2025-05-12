@@ -214,7 +214,7 @@ function hide_user_info() {
     setTimeout( function(){ show_snackbar(); }, 500 );
     {% endif %}
 
-    setup_background_image("{% static 'ywsapp/res/mainbg/' %}");
+    setup_background_image("{% static 'ywsapp/res/mainbg/' %}", "{{main_bg_image}}");
     setup_collapsible_list_height();
 </script>
 
