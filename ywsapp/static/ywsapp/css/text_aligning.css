@@ -1,6 +1,6 @@
 /* https://www.w3schools.com/howto/howto_css_image_text.asp */
 
-.container {
+.active-container {
   position: relative;
   width: 100vw;
   height: 99vh;
@@ -14,7 +14,7 @@
   /* outline: thin dashed blue;  */           /* just so you can see the box */
 }
 
-.content {
+.active-content {
   display: inline-block;
   position: relative;
   height: auto;
