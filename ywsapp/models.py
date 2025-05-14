@@ -1,24 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
+import os, sys
+base_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(base_dir, "yoga/containers"))
+from integer_constants import VoiceActing, ShavasanaActing, MetronomeTicks
 
-
-class VoiceActing(models.IntegerChoices):
-    FULL = 0, 'Full'
-    NO_COMMON_COMMENTS = 1, 'No common comments'
-    NO_ANY_COMMENTS = 2, 'No any comments'
-    ASANA_START_STOP = 3, 'Asana start and stop only'
-    ASANA_START_ONLY = 4, 'Asana start only'
-
-class ShavasanaActing(models.IntegerChoices):
-    SETTINGS_DEPEND = 0, 'Depends on settings'
-    ALWAYS_ACTING = 1, 'Acting always'
-    NEVER_ACTING = 2, 'Never acting'
-
-class MetronomeTicks(models.IntegerChoices):
-    FULL = 0, 'Full'
-    ONLY_BELLS = 1, 'Bells only'
-    NONE = 2, 'No metronome sound'
 
 # Create your models here.
 class User(AbstractUser):
