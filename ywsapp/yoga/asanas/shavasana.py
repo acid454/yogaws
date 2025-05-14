@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeShavasana
 from snd_pools import SND_ZAKONCHILI_DALSHE
+from integer_constants import ShavasanaActing
 
 
 class Shavasana(BaseAsana):
@@ -30,6 +31,8 @@ class Shavasana(BaseAsana):
     
     def build(self, workout, _set):
         super().build(workout, _set)
+
+        #if workout.user.shavasana_acting == 
 
         # {% if not glob.get('last_before_shavasana') %}
         #end_pool = workout.sets[-2].asanas[-1].tasks[-1].pool("end")

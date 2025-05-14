@@ -10,7 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
-from voice_actings import VOICE_SIDE_ONLY_ACTING
+from integer_constants import VOICE_SIDE_ONLY_ACTING
 
 
 class DshanuShirshasana(BaseAsana):
