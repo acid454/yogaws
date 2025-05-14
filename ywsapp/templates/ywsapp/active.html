@@ -4,7 +4,6 @@
 
 {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% static 'ywsapp/css/text_aligning.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/active.css' %}">
 
 
@@ -81,7 +80,6 @@ function start_stop_workout() {
 	for (var i = 0; i < localStorage.length; i++)
 		properties += '&' + localStorage.key(i) + '=' + localStorage.getItem(localStorage.key(i));
 	
-	console.log( '/view_workout?id={{ workout_id }}' )
     xhr.open('GET', '/view_workout?id={{ workout_id }}', false);
     xhr.send();
     if (xhr.status == 200)
@@ -207,7 +205,7 @@ function start_stop_workout() {
 		
 		if (seconds < 10) seconds = "0" + seconds;
 		if (minutes < 10) minutes = "0" + minutes;
-		timer_div.textContent = minutes + ":" + seconds;
+		timer_div.textContent = "\u00A0" + minutes + ":" + seconds + "\u00A0";
 		//timer_div.textContent = current_task_time;
 
 		if (workout_state == "show") {
