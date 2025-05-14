@@ -14,9 +14,9 @@ class VoiceActing(models.IntegerChoices):
     NO_COMMON_COMMENTS = 1, 'No common comments'
     NO_ANY_COMMENTS = 2, 'No any comments'
     ASANA_START_STOP = 3, 'Asana start and stop only'
-    ASANA_START_ONLY = 4, 'Asana start only'
+    ASANA_NAME_ONLY = 4, 'Asana name only'
 
-VOICE_SIDE_ONLY_ACTING = [VoiceActing.ASANA_START_STOP, VoiceActing.ASANA_START_ONLY]
+VOICE_SIDE_ONLY_ACTING = [VoiceActing.ASANA_START_STOP, VoiceActing.ASANA_NAME_ONLY]
 
 
 class ShavasanaActing(models.IntegerChoices):

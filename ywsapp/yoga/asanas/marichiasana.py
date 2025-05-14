@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
+from integer_constants import VOICE_SIDE_ONLY_ACTING
 
 
 class Marichiasana(BaseAsana):
@@ -34,6 +35,8 @@ class Marichiasana(BaseAsana):
         self.pool("continue").append("enter_marichiasana_right2")
         self.pool("continue").append("enter_marichiasana_right3")
         self.pool("continue").append("enter_ardhamatsyendrasana_right")
+
+        self.pool("continue").append("v_pravo", only_actings = VOICE_SIDE_ONLY_ACTING)
 
 
         self.tasks.append(BaseTask(

@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UsernameField
 from . import models
 from django.utils.translation import ugettext_lazy as _
+import os, sys
+base_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(base_dir, "yoga/containers"))
+from integer_constants import VoiceActing, ShavasanaActing, MetronomeTicks
 
 
 #
@@ -61,11 +65,11 @@ class UserInfoForm(forms.ModelForm):
     
     kegel_timer = forms.BooleanField(label="Включить упражнения Кегеля (если есть в тренировке)", required=False)
     voice_acting = forms.ChoiceField(label="Режим озвучивания", required=False, choices = (
-            (0, "Полный"),
-            (1, "Без общих комментариев"),
-            (2, "Без комментариев и описаний"),
-            (3, "Названия асан и выходы"),
-            (4, "Только названия асан"),
+            (VoiceActing.FULL,               "Полный"),
+            (VoiceActing.NO_COMMON_COMMENTS, "Без общих комментариев"),
+            (VoiceActing.NO_ANY_COMMENTS,    "Без комментариев и описаний"),
+            (VoiceActing.ASANA_START_STOP,   "Названия асан и выходы"),
+            (VoiceActing.ASANA_NAME_ONLY,    "Только названия асан"),
         )
     )
     shavasana_acting = forms.ChoiceField(label="Озвучивание Шавасаны", required=False, choices = (

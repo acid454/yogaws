@@ -56,12 +56,13 @@ class SpeechManager:
                 fl_name = fl_name[:-len('_overlapse')]
                 print(f"WARNING! Old overlapse name format for {fl_name}")
             
-            if only_mandatory and not item.get('mandatory', False):
-                continue
-
+            mandatory_acting = False
             voice_actings = item.get('only_actings', None)
             if voice_actings is not None:
-                if not (voice_acting in voice_actings):
+                mandatory_acting = voice_acting in voice_actings
+
+            if only_mandatory and not item.get('mandatory', False):
+                if not mandatory_acting:
                     continue
 
             if self.mp3_files[fl_name].length <= time or can_overlapse:
@@ -98,23 +99,6 @@ class SpeechManager:
         elif voice_acting == 4 and pool_nm != "name":
             return True
         return False
-        
-        if pool_nm == "name":
-            return False        # Name allways
-        
-        if voice_acting == 4:
-            return True
-        
-        if voice_acting == 3 and pool_nm == "end":
-            return False
-        
-        if voice_acting == 2 and pool_nm in ["float", "continue"]:
-            return True
-        
-        if voice_acting == 1 and pool_nm == "float":
-            return True
-
-        return False #if voice_acting == 0 else True
 
     def do_generate_task_sounds(self, w, t, voice_acting, overlapse_offset = 0):
         remain_task_time = t.property.value     # Need this to know, how much time we got for float sound
@@ -152,7 +136,6 @@ class SpeechManager:
         if remain_task_time > 0:
             empt = t.pool("float").can_be_empty
             only_mandatory = self.check_only_mandatory_flag("float", voice_acting)
-            print(f"ONLY MANDATORY: {only_mandatory}")
             s = self.select_random_sound(t.pool("float").items, remain_task_time, empt, only_mandatory, voice_acting)
             if s.length > 0:
                 if remain_task_time > s.length:
