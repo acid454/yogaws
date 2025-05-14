@@ -8,6 +8,7 @@
 
 import datetime
 from dataclasses import dataclass, field
+from integer_constants import MetronomeTicks
 
 
 @dataclass
@@ -164,7 +165,14 @@ class BaseTask:
         return self.snd_pools[-1]
 
     def build(self, workout, _set):
-        return None
+        if (workout.user is None) or (workout.user.metronome == MetronomeTicks.FULL):
+            return
+
+        self.metronome.tick = "none"
+        if workout.user.metronome == MetronomeTicks.NONE:
+            self.metronome.bell = "none"
+            
+        return
     
     def __enter__(self):
         return self
