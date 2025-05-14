@@ -15,6 +15,11 @@ class ShavasanaActing(models.IntegerChoices):
     ALWAYS_ACTING = 1, 'Acting always'
     NEVER_ACTING = 2, 'Never acting'
 
+class MetronomeTicks(models.IntegerChoices):
+    FULL = 0, 'Full'
+    ONLY_BELLS = 1, 'Bells only'
+    NONE = 2, 'No metronome sound'
+
 # Create your models here.
 class User(AbstractUser):
     complete_workouts = models.PositiveIntegerField(default=0)
@@ -23,6 +28,7 @@ class User(AbstractUser):
     kegel_timer = models.BooleanField(default=False)
     voice_acting = models.IntegerField(default=VoiceActing.FULL, choices=VoiceActing.choices)
     shavasana_acting = models.IntegerField(default=ShavasanaActing.SETTINGS_DEPEND, choices=ShavasanaActing.choices)
+    metronome = models.IntegerField(default=MetronomeTicks.FULL, choices=MetronomeTicks.choices)
 
 class UserWorkoutProps(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

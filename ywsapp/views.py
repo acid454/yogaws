@@ -57,6 +57,7 @@ def index(request):
                 request.user.kegel_timer = form.cleaned_data['kegel_timer']
                 request.user.voice_acting = form.cleaned_data['voice_acting']
                 request.user.shavasana_acting = form.cleaned_data['shavasana_acting']
+                request.user.metronome = form.cleaned_data['metronome']
                 request.user.save()
             else:
                 snack_text = form.errors.as_text()
