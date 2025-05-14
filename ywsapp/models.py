@@ -10,9 +10,10 @@ class VoiceActing(models.IntegerChoices):
     ASANA_START_STOP = 3, 'Asana start and stop only'
     ASANA_START_ONLY = 4, 'Asana start only'
 
-# ToDo:
-#class VoiceActing(models.IntegerChoices, VoiceActings):
-#    pass
+class ShavasanaActing(models.IntegerChoices):
+    SETTINGS_DEPEND = 0, 'Depends on settings'
+    ALWAYS_ACTING = 1, 'Acting always'
+    NEVER_ACTING = 2, 'Never acting'
 
 # Create your models here.
 class User(AbstractUser):
@@ -21,6 +22,7 @@ class User(AbstractUser):
     last_workout_date = models.DateTimeField(default=datetime.now)
     kegel_timer = models.BooleanField(default=False)
     voice_acting = models.IntegerField(default=VoiceActing.FULL, choices=VoiceActing.choices)
+    shavasana_acting = models.IntegerField(default=ShavasanaActing.SETTINGS_DEPEND, choices=ShavasanaActing.choices)
 
 class UserWorkoutProps(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

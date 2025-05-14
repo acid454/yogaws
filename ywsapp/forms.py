@@ -57,7 +57,7 @@ class UserLoginForm(AuthenticationForm):
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = ("kegel_timer", "voice_acting",)
+        fields = ("kegel_timer", "voice_acting", "shavasana_acting")
     kegel_timer = forms.BooleanField(label="Включить упражнения Кегеля (если есть в тренировке)", required=False)
     voice_acting = forms.ChoiceField(label="Режим озвучивания", required=False, choices = (
             (0, "Полный"),
@@ -65,5 +65,11 @@ class UserInfoForm(forms.ModelForm):
             (2, "Без комментариев и описаний"),
             (3, "Названия асан и выходы"),
             (4, "Только названия асан"),
+        )
+    )
+    shavasana_acting = forms.ChoiceField(label="Озвучивание Шавасаны", required=False, choices = (
+            (0, "Согласно общим настройкам"),
+            (1, "Всегда озвучивать"),
+            (2, "Никогда не озвучивать")
         )
     )
