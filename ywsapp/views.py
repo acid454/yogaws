@@ -19,6 +19,7 @@ GLOBAL_PATHS = [
     ["yoga", "sets"],
     ["yoga", "common"],
     ["yoga", "containers"],
+    ["yoga", "asanas"],
     ["yoga"]
 ]
 

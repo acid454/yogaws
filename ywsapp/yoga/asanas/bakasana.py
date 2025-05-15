@@ -32,14 +32,17 @@ class Bakasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"bakasana{x}" for x in range(1,2)]
         ))
+        self.pool("name").append("name_bakasana1")
+        self.pool("name").append("name_bakasana2")
+        self.pool("name").append("name_bakasana3")
         if side == 'middle':
             self.pool("continue").append("enter_bakasana1")
             self.pool("continue").append("enter_bakasana2")
         elif side == 'left':
-            self.pool("continue").append("left_side1")
-            self.pool("continue").append("left_side2")
+            self.pool("continue").append("left_side1", mandatory = True)
+            self.pool("continue").append("left_side2", mandatory = True)
         else:
-            self.pool("continue").append("upr_skrutka_vpravo")
+            self.pool("continue").append("upr_skrutka_vpravo", mandatory = True)
 
 
         self.tasks.append(BaseTask(
@@ -58,6 +61,9 @@ class Bakasana(BaseAsana):
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
         self.pool("continue").append("descr_ardhachandrasana_common1")
         self.pool("continue").append("descr_ardhachandrasana_zameret'")
+        self.pool("end").append("otlichno")
+        for i in SND_EXHALE + SND_RASSLABILIS:
+            self.pool("end").append(i)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(выход)",
@@ -65,9 +71,8 @@ class Bakasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        self.pool("start").append("otlichno")
-        for i in SND_EXHALE + SND_RASSLABILIS:
-            self.pool("start").append(i)
+        for i in SND_ZAKONCHILI_DALSHE:
+            self.pool("end").append(i)
 
     def build(self, workout, _set):
         super().build(workout, _set)
@@ -78,12 +83,4 @@ class Bakasana(BaseAsana):
             for i in SND_NA_DRUGUJU_STORONU:
                 t.pool("start").append(i)
             return
-        
-        with self.task(self.tm_prepare) as t:
-            t.pool("name").append("name_bakasana1")
-            t.pool("name").append("name_bakasana2")
-            t.pool("name").append("name_bakasana3")
-        with self.task(self.tm_exit) as t:
-            for i in SND_ZAKONCHILI_DALSHE:
-                t.pool("start").append(i)
     

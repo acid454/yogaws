@@ -16,7 +16,7 @@ from integer_constants import VOICE_SIDE_ONLY_ACTING
 class Nakrasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="nakrasana", caption="Ардха Париврита Накрасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=11))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=90))
         self.properties.append(IntProperty(caption="переход", short="tm_swap", default=15))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=6))

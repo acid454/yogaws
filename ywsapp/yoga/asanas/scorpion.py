@@ -17,6 +17,7 @@ class Scorpion(BaseAsana):
         super().__init__(name="scorpion", caption="Скорпион")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=11))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=30))
+        self.properties.append(IntProperty(caption="переход", short="tm_swap", default=9))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(
@@ -29,7 +30,7 @@ class Scorpion(BaseAsana):
         #ToDo: ????????? Why SND_OPUSTILIS_NA_KOLENI doubled, in say, yoga home training?
         #for i in SND_OPUSTILIS_NA_KOLENI:
         #    self.pool("start").append(i)
-        self.pool("continue").append("enter_scorpion_left", overlapse = True, mandatory = True)
+        self.pool("name").append("enter_scorpion_left", overlapse = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(правая рука)",
@@ -50,13 +51,12 @@ class Scorpion(BaseAsana):
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(подготовка, левая рука)",
-            property=self.tm_prepare,
+            property=self.tm_swap,
             metronome=MetronomeRest(),
             images=["scorpion_right"]
         ))
-
         for i in SND_MENIAJEM_NOGI:
-            self.pool("continue").append(i, mandatory = True)
+            self.pool("name").append(i)
         
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(левая рука)",

@@ -64,9 +64,7 @@ class Plug(BaseAsana):
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         
     def build(self, workout, _set):
-        super().build(workout, _set)
         next_asana = workout.next_item(self)
-
         if type(next_asana) is AsanaLegsStayUp:
             self.tasks.append(BaseTask(
                 caption=self.caption + " (выход, ноги подняты)",
@@ -89,3 +87,4 @@ class Plug(BaseAsana):
                 self.pool("end").append(i)
         self.pool("start").append("raskatilis'")
         self.pool("start").append("poluperekatom_vozvrashaemsia")
+        super().build(workout, _set)

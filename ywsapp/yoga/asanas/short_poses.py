@@ -31,6 +31,7 @@ class OpustilisNaKoleni(BaseAsana):
 
 
 class Seli(BaseAsana):
+    IMAGES = ["seli1", "seli2", "seli3"]
     def __init__(self, **kwargs):
         super().__init__(name="seli", caption="Садимся")
         self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=5))
@@ -40,7 +41,7 @@ class Seli(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=["seli1", "seli2", "seli3"]
+            images=Seli.IMAGES
         ))
         
         for i in SND_SELI:

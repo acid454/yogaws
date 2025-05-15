@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
 from snd_pools import SND_ZAKONCHILI_DALSHE
+from short_poses import Seli
 
 
 class BaddhaKonasana(BaseAsana):
@@ -20,6 +21,7 @@ class BaddhaKonasana(BaseAsana):
         if with_knees:
             self.properties.append(IntProperty(caption="переход", short="tm_legs_change", default=5))
             self.properties.append(IntProperty(caption="ноги к себе", short="tm_squared", default=50))
+        self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
@@ -73,6 +75,13 @@ class BaddhaKonasana(BaseAsana):
             self.pool("float").append("common10")
             self.pool("float").append("common11")
             self.pool("float").append("common12")
-
+        self.pool("end").append("otlichno")
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i)
+        
+        self.tasks.append(BaseTask(
+            caption=self.caption + "\n(выход)",
+            property=self.tm_exit,
+            metronome=MetronomeRest(),
+            images=Seli.IMAGES
+        ))
