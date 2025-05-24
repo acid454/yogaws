@@ -50,6 +50,7 @@ class DshanuShirshasana(BaseAsana):
             images=self.tasks[-1].images
         ))
         self.dshanu_shirshasana_float_sounds()
+        self.pool("continue").append("descr_dshanu_shirshasana_right1")
         self.pool("end").append("so_vdohom_vverh1")
         self.pool("end").append("so_vdohom_vverh2")
         self.pool("end").append("podnimaemsia1")
@@ -104,4 +105,4 @@ class DshanuShirshasana(BaseAsana):
         self.pool("float").append("common_ne_pererastjagivaem_mushci")
         self.pool("float").append("common_rasslabit'_lico_plechi")
         self.pool("float").append("common_akcentiruite_vidohi")
-        self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")

@@ -36,7 +36,7 @@ class Bakasana(BaseAsana):
         self.pool("name").append("name_bakasana2")
         self.pool("name").append("name_bakasana3")
         if side == 'middle':
-            self.pool("continue").append("enter_bakasana1")
+            self.pool("continue").append("enter_bakasana1", overlapse = True)
             self.pool("continue").append("enter_bakasana2")
         elif side == 'left':
             self.pool("continue").append("left_side1", mandatory = True)

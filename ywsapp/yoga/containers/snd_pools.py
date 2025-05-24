@@ -23,8 +23,14 @@ SND_ZAKONCHILI_DALSHE = [
 SND_COMPLETION_OTHERS = [
     "otlichno",
     "est'",
+    "_horosho1",
+    "_horosho2"
+]
+
+SND_VERNULIS = [
     "vernulis'1",
-    "vernulis'2"
+    "vernulis'2",
+    "vernulis'_v_ishodnuju"
 ]
 
 SND_RASSLABILIS = [

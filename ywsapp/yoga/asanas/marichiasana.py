@@ -101,3 +101,4 @@ class Marichiasana(BaseAsana):
         self.pool("float").append("common_duhanie_estestvennoe_long")
         self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")

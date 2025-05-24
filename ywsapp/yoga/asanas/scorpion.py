@@ -40,13 +40,13 @@ class Scorpion(BaseAsana):
         ))
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
 
         #for i in SND_RASSLABILIS + SND_EXHALE:
         #    self.pool("start").append(i)
         #ToDo: this is also from dzathara
-        for i in SND_COMPLETION_OTHERS:
+        for i in SND_COMPLETION_OTHERS + SND_VERNULIS:
             self.pool("end").append(i)
-        self.pool("end").append("vernulis'_v_ishodnuju")
 
 
         self.tasks.append(BaseTask(
@@ -66,6 +66,7 @@ class Scorpion(BaseAsana):
         ))
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("end").append("i_opustilis'_na_koleni")
         for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS:
             self.pool("end").append(i)

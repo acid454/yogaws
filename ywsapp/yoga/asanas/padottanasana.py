@@ -61,6 +61,7 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("float").append("common_tianemsia_2x")
         self.pool("float").append("common_i_postojat'_podushat'")
         self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("end").append("vernulis'1")
         self.pool("end").append("vernulis'2")
         for i in SND_ZAKONCHILI_DALSHE:
