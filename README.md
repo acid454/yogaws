@@ -4,6 +4,17 @@ http://127.0.0.1:8000/
 
 sessionStorage.removeItem('background_img_id')
 
+!!! нет подъема вверх в медленной сурье
+!!! увеличить шрифт на успешном завершении
+!!! капотасана и горка после - звук паузы
+!!! не передавать can_be_empty, или вообще весь snd_pools
+!!! скорпион смена ног
+!!! использовать переход навасана-стол
+!!! переход стол-планка на боку
+
+!!! как это работает?:
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 ### ToDo: aftermath callback, чтобы отработать озвучку {% if not glob.get('last_before_shavasana') %}
 ### ToDo: async io для загрузки mp3
