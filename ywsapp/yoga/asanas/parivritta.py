@@ -26,10 +26,7 @@ class ParivrittaBase(BaseParshvaconasana):
         ))
         self.pool("end").append("krug_rukoi_i_potianuli_ee_vpered")
         self.pool("end").append("krug_rukoi_provorot")
-        self.pool("end").append("i_potianuli_ruku_vpered1")
-        self.pool("end").append("i_potianuli_ruku_vpered2")
-        self.pool("end").append("i_potianuli_ruku_vpered3")
-        self.pool("end").append("i_potjanut'_ruku_vpered")
+        self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("ruku_vpered_a_sami_v_potolok")
 
         self.tasks.append(BaseTask(

@@ -46,7 +46,7 @@ class Matjasana(BaseAsana):
         
         self.tasks.append(BaseTask(
             caption=self.caption + " (выход)",
-            property=self.tm_prepare,
+            property=self.tm_exit,
             metronome=MetronomeRest(),
             images=["matjasana1", "matjasana2"]
         ))

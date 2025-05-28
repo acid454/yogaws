@@ -53,6 +53,10 @@ class SuryaNamaskar(BaseSet):
         next_asana = workout.next_item(self.asanas[-1])
         if type(next_asana) in [Asanas.gorka.GorkaBase, Asanas.planka.Planka]:
             del self.asanas[-1]
+        # Remove last uttanasana, if next after is also uttanasana (or sort of)
+        if isinstance(next_asana, Asanas.uttanasana.UttanasanaBase):
+            del self.asanas[-1]
+            del self.asanas[-1]
         
         for asana in self.asanas:
             if issubclass(type(asana), BaseParshvaconasana):

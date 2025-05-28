@@ -123,9 +123,14 @@ class SoundPool:
         if x is None:
             self.can_be_empty = True
             return
-        itm = kwargs
-        itm['file'] = x
-        self.items.append(itm)
+
+        lst = x if isinstance(x, list) else [x]
+        for i in lst:
+            itm = {}
+            for k in kwargs:
+                itm[k] = kwargs[k]
+            itm['file'] = i
+            self.items.append(itm)
     
     def remove(self, x):
         for i in self.items:

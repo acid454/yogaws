@@ -106,3 +106,23 @@ SND_NA_DRUGUJU_STORONU = [
     "i_delaem_na_druguju_storonu",
     "povtoriaem_simmetrichno"
 ]
+
+SND_SAGGING = [
+    "i_provisli",
+    "provisli1",
+    "provisli2"
+]
+
+SND_POTIANULI_RUKU_VPERED = [
+    "i_potianuli_ruku_vpered1",
+    "i_potianuli_ruku_vpered2",
+    "i_potianuli_ruku_vpered3",
+    "i_potjanut'_ruku_vpered"
+]
+
+SND_OPUSTILIS = [
+    "opustilis'_1",
+    "opustilis'_2",
+    "opustilis'_3",
+    "opustilis'_4"
+]
