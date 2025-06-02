@@ -2,6 +2,7 @@
 <!--- https://freefrontend.com/css-sidebar-menus/ -->
 <!--- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_portfolio&stacked=h -->
 <!--- https://www.w3schools.com/html/html_layout.asp -->
+<!--- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_portfolio&stacked=h -->
 <html>
 <head>
 
@@ -19,6 +20,7 @@
 <link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/input_number.css' %}">
 <link rel="stylesheet" href="{% static 'ywsapp/css/collapsible.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <script>
@@ -68,35 +70,46 @@ function hide_user_info() {
 </script>
 
 </head>
-<body>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
 
+<!-- ================== Sidebar/menu ================== -->
+<nav id="workouts_list" class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3; width:400px;">
+    <div class="w3-container">
+        <br>
+        <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
+        <hr>
+        <div class="w3-container w3-center">
+            {% if user.is_authenticated %}
+                <h5 class="w3-center w3-deep-deep-purple w3-round-large">Добро пожаловать <a id="user_name" onclick="show_user_info()"><b>{{ user.username }}</b></a></h5>
+                <a href="/logout">выход</a>
+            {% else %}
+                {% load crispy_forms_tags %}
+                <button id="btn_show_login" class="center" onclick="show_login_form()">ВОЙТИ</button>
+                <form id="frm_login" method="post" class="form_login">
+                    {% csrf_token %}
+                    {{ form_login|crispy }}
+                    <p class="w3-tiny">&nbsp;</p>
+                    <button type="submit" onclick="login_form_submit()">вход</button>
+                    <button type="button" onclick="start_user_register(); w3_close();">регистрация</button>
+                </form>
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+</nav>
 
-<div id="workouts_list" class="w3-sidebar w3-bar-block w3-light-grey" style="width:27%">
-  <br>
-  <img src="{% static 'ywsapp/res/logo.png' %}" alt="logo" class="center">
-  <hr>
-  <div class="w3-container w3-center">
-    {% if user.is_authenticated %}
-        <h5 class="w3-center w3-deep-deep-purple w3-round-large">Добро пожаловать <a id="user_name" onclick="show_user_info()"><b>{{ user.username }}</b></a></h5>
-        <a href="/logout">выход</a>
-    {% else %}
-        {% load crispy_forms_tags %}
-        <button id="btn_show_login" class="center" onclick="show_login_form()">ВОЙТИ</button>
-        <form id="frm_login" method="post" class="form_login">
-            {% csrf_token %}
-            {{ form_login|crispy }}
-            <p class="w3-tiny">&nbsp;</p>
-            <button type="submit" onclick="login_form_submit()">вход</button>
-            <button type="button" onclick="start_user_register()">регистрация</button>
-        </form>
-    {% endif %}
-  </div>
-  <hr>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="dark_overlay"></div>
 
-</div>
+<div class="w3-main" style="margin-left:400px">
+    <!-- invisible head part on small screens -->
+    <div class="w3-container w3-hide-large w3-top w3-white">
+        <a href="#" onclick="w3_open()" class="w3-hide-large w3-left w3-jumbo w3-padding w3-hover-grey" title="close menu">
+            <i class="fa fa-bars"></i>
+        </a>
+        <h3>YOGA workout studio</h3>
+    </div>
 
-
-<div style="margin-left:27%">
     <div id="main_workout_list_display" class="w3-container" style="background-image: url({% static 'ywsapp/res/activebg/dust_scratches.png' %})">
         <h2 id="caption"></h2>
         <form id="frm_active" action="/active.html?" method="GET">
@@ -190,11 +203,12 @@ function hide_user_info() {
                 anker.id = "workout_element_" + i;
 
                 anker.href = "#";
-                anker.setAttribute('onclick', 'select_workout("' + workouts_list[k][i].id + '", "{% static 'ywsapp/res/imgs/thumbnails/' %}"); ');
+                anker.setAttribute('onclick', 'select_workout("' + workouts_list[k][i].id + '", "{% static 'ywsapp/res/imgs/thumbnails/' %}"); w3_close();');
                 anker.text = workouts_list[k][i].caption;
                 anker.className = "w3-bar-item w3-button";
                 
                 group_div.appendChild(anker);
+                group_div.appendChild(document.createElement('br'));
             }
         }
 
@@ -222,6 +236,17 @@ function hide_user_info() {
 {%if show_registration_form %}
 document.getElementById('registration_popup').style.display='block';
 {% endif %}
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("workouts_list").style.display = "block";
+    document.getElementById("dark_overlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("workouts_list").style.display = "none";
+    document.getElementById("dark_overlay").style.display = "none";
+}
 </script>
 
 

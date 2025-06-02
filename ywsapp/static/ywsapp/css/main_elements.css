@@ -38,8 +38,8 @@
 .total_time {
   position: fixed;
   bottom: 16px;
-  left: 27%;
   margin-left: 10px;
+  background-color: rgba(246, 246, 246, 0.8);
 }
 
 .text_begining {
