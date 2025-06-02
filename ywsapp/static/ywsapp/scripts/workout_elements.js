@@ -89,7 +89,7 @@ function do_show_element(e, list, idx, _thumbnails_path) {
     img_preview = document.createElement('img');
     img_preview.src = _thumbnails_path + e.preview_img + '.png'
     elem_preview_div.appendChild(img_preview)
-    console.log(e.preview_img)
+    /* console.log(e.preview_img) */
 
 
     let elem_div = document.createElement('div');
