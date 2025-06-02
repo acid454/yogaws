@@ -1,13 +1,27 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+#  views.py
+#  
+#  Copyright 2025 Repnikov Dmitry <acid454@yoga7>
+#  
+
+import traceback
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
-from django.utils import timezone
-from django.contrib.auth import get_user
-from .forms import UserLoginForm, NewUserForm, UserInfoForm
-from .models import User, UserWorkoutProps
-from django.contrib.auth import authenticate, login, logout
-import json
-import jsons
+try:
+    from django.http import HttpResponse, JsonResponse
+    from django.template import loader
+    from django.utils import timezone
+    from django.contrib.auth import get_user
+    from .forms import UserLoginForm, NewUserForm, UserInfoForm
+    from .models import User, UserWorkoutProps
+    from django.contrib.auth import authenticate, login, logout
+    import json
+    import jsons
+    import_exception = None
+except:
+    import_exception = traceback.format_exc()
+
 import random
 import os
 
@@ -29,10 +43,10 @@ ACTIVE_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspa
                                             'static', 'ywsapp', 'res', 'activebg'))
 
 
-# Create your views here.
-def index(request):
+def do_index(request):
     show_registration_form = False
     snack_text = None
+
 
     # Handle background image
     background_image = (MAIN_BACKGROUND_IMAGES[random.randrange(len(MAIN_BACKGROUND_IMAGES))])
@@ -91,6 +105,17 @@ def index(request):
         "workout_complete":workout_complete,
         "snack_text": snack_text
     })
+
+# Create your views here.
+def index(request):
+    if import_exception is not None:
+        return HttpResponse(f"<pre>{import_exception}</pre>")
+    
+    try:
+        return do_index(request)
+    except:
+        return HttpResponse(f"<pre>{str(traceback.format_exc())}</pre>")
+
 
 def active(request):
     # Request active page -- so, start a new workout. Cache WS's id here, to check it in index page when done
