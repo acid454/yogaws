@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm ./ywsapp/migrations/0001_initial.py
-rm db.sqlite3
+rm -f ./ywsapp/migrations/0001_initial.py
+rm -f db.sqlite3
 python3 manage.py makemigrations
 python3 manage.py migrate
