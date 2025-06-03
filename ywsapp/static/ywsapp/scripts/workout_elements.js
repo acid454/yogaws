@@ -20,6 +20,7 @@ function do_show_element(e, list, idx, _thumbnails_path) {
     let elem_content_div = document.createElement('div');
     
     header.textContent = e.caption;
+    header.className = "wourkout_list_h3";
     elem_content_div.className = "element_content_left";
     if (e.properties != null) {
         var prop_table = document.createElement('table');
