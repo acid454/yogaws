@@ -26,6 +26,7 @@ import random
 import os
 
 
+SCR_VERSION = "1.0.1"
 WORKOUTS = None
 SPEECH_MANAGER = None
 GLOBAL_PATHS = [
@@ -103,7 +104,8 @@ def do_index(request):
         "show_registration_form": show_registration_form,
         "main_bg_image":background_image,
         "workout_complete":workout_complete,
-        "snack_text": snack_text
+        "snack_text": snack_text,
+        "scr_version": SCR_VERSION
     })
 
 # Create your views here.
@@ -130,6 +132,7 @@ def active(request):
         "workout_id": request.GET.get('id'),
         "active_wuid": request.session['active_wuid'],
         "active_bg_image":background_image,
+        "scr_version": SCR_VERSION
     })
 
 def logout_view(request):

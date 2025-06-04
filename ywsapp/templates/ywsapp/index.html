@@ -13,13 +13,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link rel="stylesheet" href="{% static 'ywsapp/css/w3.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/workouts_list.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}?v=1.0">
-<link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/input_number.css' %}">
-<link rel="stylesheet" href="{% static 'ywsapp/css/collapsible.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/w3.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/workouts_list.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/main_elements.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/snackbar.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/modal.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/input_number.css' %}?v={{scr_version}}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/collapsible.css' %}?v={{scr_version}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -176,8 +176,8 @@ function hide_user_info() {
 
 </body>
 
-<script src="{% static 'ywsapp/scripts/workout_elements.js' %}"></script>
-<script src="{% static 'ywsapp/scripts/background_img.js' %}"></script>
+<script src="{% static 'ywsapp/scripts/workout_elements.js' %}?v={{scr_version}}"></script>
+<script src="{% static 'ywsapp/scripts/background_img.js' %}?v={{scr_version}}"></script>
 <script>
     let xhr = new XMLHttpRequest();
     xhr.open('GET', '/list_workouts', false);

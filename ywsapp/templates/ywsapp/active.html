@@ -4,7 +4,7 @@
 
 {% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% static 'ywsapp/css/active.css' %}">
+<link rel="stylesheet" href="{% static 'ywsapp/css/active.css' %}?v={{scr_version}}">
 
 
 <script>
@@ -55,7 +55,7 @@ function start_stop_workout() {
 
 </body>
 
-<script src="{% static 'ywsapp/res/NoSleep.min.js' %}"></script>
+<script src="{% static 'ywsapp/res/NoSleep.min.js' %}?v={{scr_version}}"></script>
 <script>
 	var noSleep = new NoSleep();
 	noSleep.enable(); // keep the screen on!
@@ -67,7 +67,7 @@ function start_stop_workout() {
     var workout = null;
 
 	var wavs = {};
-    xhr.open('GET', "{% static 'ywsapp/res/wavs/wavs.json' %}", false);
+    xhr.open('GET', "{% static 'ywsapp/res/wavs/wavs.json' %}?v={{scr_version}}", false);
     xhr.send();
     if (xhr.status == 200) {
 		let resp = JSON.parse(xhr.responseText)
