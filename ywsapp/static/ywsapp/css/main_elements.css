@@ -23,6 +23,11 @@
   width: 90%;
 }
 
+.run_element_background {
+  border-radius:6px;
+  background-color: rgba(115, 204, 245, 0.46);
+}
+
 .run_button {
   position: fixed;
   bottom: 16px;
@@ -39,7 +44,10 @@
   position: fixed;
   bottom: 16px;
   margin-left: 10px;
-  background-color: rgba(246, 246, 246, 0.8);
+}
+
+.cursor_default {
+  cursor: default;
 }
 
 .text_begining {

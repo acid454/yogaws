@@ -133,7 +133,7 @@ function select_workout(_id, _thumbnails_path) {
     
     list.style = "--length: " + idx;
     document.getElementById('runit_href').setAttribute('onclick','save_workout_local_storage("' + workout.id + '");');
-    document.getElementById('total_time_value').textContent = workout.total_time; 
+    document.getElementById('total_time_value').textContent = "\u00A0\u00A0" + workout.total_time + "\u00A0\u00A0";
     document.getElementById('main_workout_list_display').style.display = '';
 }
 

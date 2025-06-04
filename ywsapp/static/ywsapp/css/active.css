@@ -5,6 +5,10 @@ body{
   background:#F0F0F0;
 }
 
+.cursor_default {
+  cursor: default;
+}
+
 .active-container {
   position: relative;
   width: 100vw;
