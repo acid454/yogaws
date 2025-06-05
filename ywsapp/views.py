@@ -26,7 +26,7 @@ import random
 import os
 
 
-SCR_VERSION = "1.0.1"
+SCR_VERSION = "1.0.2"
 WORKOUTS = None
 SPEECH_MANAGER = None
 GLOBAL_PATHS = [

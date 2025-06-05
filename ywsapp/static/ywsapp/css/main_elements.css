@@ -50,6 +50,10 @@
   cursor: default;
 }
 
+.cursor_url {
+  cursor: pointer;
+}
+
 .text_begining {
   position: absolute;
   color: #bd1ae6;

@@ -1,3 +1,5 @@
+
+/*
 .popup {
     position: fixed;
     z-index: 1;
@@ -7,24 +9,26 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
+
     display: none;
 }
+*/
+
 .popup-content {
     background-color: white;
     margin: 10% auto;
     padding: 20px;
     border: 1px solid #888888;
-    width: 30%;
+    width: fit-content;
+    /* width: 30%; */
     
 }
 .popup-content button {
     display: block;
     margin: 0 auto;
 }
+
+/* Snackbas show */
 .show {
     display: block;
 }
-/*
-h1 {
-    color: green;
-}*/
