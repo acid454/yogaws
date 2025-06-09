@@ -9,12 +9,15 @@
 
 <script>
 var workout_state = "show";	/* show, ready, pause, run */
+var workout_sounds_loaded = 0;
+var workout_sounds_total = 0;
+var pause_text = null;
+
 function start_stop_workout() {
 	let pause_frame = document.getElementById('pause_frame');
 	
 	if (workout_state == "ready" || workout_state == "pause") {
 		if (workout_state == "ready") {
-			let pause_text = document.getElementById('pause_text');
 			pause_text.innerHTML = "ПАУЗА";
 		}
 		pause_frame.style.display = 'none';
@@ -36,6 +39,45 @@ function start_stop_workout() {
 		}
 	}
 }
+
+function list_workout_sounds(workout, p) {
+	for (let _s = 0; _s <  workout.sets.length; _s++) {
+		for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
+			for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
+				let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
+				for (let _k = 0; _k < _keys.length; _k++) {
+					p(workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]]);
+				}
+			}
+		}
+	}
+}
+
+function request_sound_file(snd) {
+	snd.audio = null;
+
+	let sound_request = new XMLHttpRequest();
+	sound_request.open("GET", "{% static 'ywsapp/res/sounds_merged/' %}" + snd.file, true);
+	sound_request.responseType = "blob";
+	sound_request.onload = function() {
+		if (this.status == 200) {
+			snd.audio = new Audio(URL.createObjectURL(this.response));
+			snd.audio.load();
+			
+			workout_sounds_loaded++;
+			if (pause_text == null)
+				pause_text = document.getElementById('pause_text');
+
+			if (workout_sounds_total == workout_sounds_loaded) {
+				pause_text.innerHTML = "НАЧАТЬ";
+			} else {
+				pause_text.innerHTML = "ЗАГРУЗКА (" + workout_sounds_total + "/" + workout_sounds_loaded + ")";
+			}
+		}
+	}
+	sound_request.send();
+	workout_sounds_total++;
+}
 </script>
 </head>
 
@@ -45,7 +87,7 @@ function start_stop_workout() {
 	<div class="active-container">
 		<div class="active-content">
 			<div id="pause_frame" class="text-center cursor_default" onclick="start_stop_workout()">
-				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">НАЧАТЬ</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
+				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">ЗАГРУЗКА</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
 			</div>
 			<img id="asana_image" src="" class="active-image" onclick="start_stop_workout()">
 			<div id="asana_name" class="top-right cursor_default">Top Right</div>
@@ -98,18 +140,8 @@ function start_stop_workout() {
 
 
 	// Preload all audio files for this workout
-	for (let _s = 0; _s <  workout.sets.length; _s++) {
-		for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
-			for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
-				let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
-				for (let _k = 0; _k < _keys.length; _k++) {
-					let _sound = workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]];
-					_sound.audio = new Audio("{% static 'ywsapp/res/sounds_merged/' %}" + _sound.file);
-				}
-			}
-		}
-	}
-   
+
+	list_workout_sounds(workout, request_sound_file);
 
 	function get_current_task(inc_task = false) {
 		if (current_set_idx >= workout.sets.length) {
