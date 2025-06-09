@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <!--- https://freefrontend.com/css-sidebar-menus/ -->
-<!--- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_portfolio&stacked=h -->
 <!--- https://www.w3schools.com/html/html_layout.asp -->
 <!--- https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_portfolio&stacked=h -->
 <html>
@@ -103,11 +102,11 @@ function hide_user_info() {
 
 <div class="w3-main" style="margin-left:400px">
     <!-- invisible head part on small screens -->
-    <div class="w3-container w3-hide-large w3-top w3-white w3-text-center">
+    <div class="w3-container w3-hide-large w3-top w3-white w3-text-center" style="white-space:nowrap">
         <a href="#" onclick="w3_open()" class="w3-hide-large w3-left w3-jumbo w3-padding w3-hover-grey" title="close menu">
             <i class="fa fa-bars"></i>
         </a>
-        <h3>YOGA workout studio</h3>
+        <img src="{% static 'ywsapp/res/logo-horizontal.png' %}" alt="logo" class="w3-center logo-horizontal">
     </div>
 
     <div id="main_workout_list_display" class="w3-container" style="background-image: url({% static 'ywsapp/res/activebg/dust_scratches.png' %})">

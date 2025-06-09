@@ -89,7 +89,6 @@ function start_stop_workout() {
 	var current_set_idx = 0;
 	var current_asana_idx = 0;
 	var current_task_idx = 0;
-    //var current_task_time_start = new Date().getTime();
 	var current_task_time = 0;
     var current_task_image = 0;
     var first_load = true;
@@ -98,7 +97,7 @@ function start_stop_workout() {
     var asana_img = document.getElementById('asana_image');
 
 
-	// Preload all audio filed for this workout
+	// Preload all audio files for this workout
 	for (let _s = 0; _s <  workout.sets.length; _s++) {
 		for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
 			for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
