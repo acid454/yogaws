@@ -15,8 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponse
+from django.conf import settings
+import os
+
+def serve_favicon(request):
+    file_path = os.path.join(settings.BASE_DIR, 'ywsapp/static/ywsapp/res/favicon.ico')
+    with open(file_path, 'rb') as f:
+        return HttpResponse(f.read(), content_type="image/x-icon")
+
+def serve_apple_touch_icon(request):
+    file_path = os.path.join(settings.BASE_DIR, 'ywsapp/static/ywsapp/res/apple-touch-icon.png')
+    with open(file_path, 'rb') as f:
+        return HttpResponse(f.read(), content_type="image/png")
 
 urlpatterns = [
     path('', include("ywsapp.urls")),
     path('admin/', admin.site.urls),
+    path('favicon.ico', serve_favicon, name='favicon'),
+    path('apple-touch-icon.png', serve_apple_touch_icon, name='apple_touch_icon'),
 ]
