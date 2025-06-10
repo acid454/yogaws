@@ -11,6 +11,8 @@ sessionStorage.removeItem('background_img_id')
 !!! скорпион смена ног
 !!! использовать переход навасана-стол
 !!! переход стол-планка на боку
+!!! убрать properties из active.html
+
 
 !!! как это работает?:
     def __init__(self, **kwargs):
