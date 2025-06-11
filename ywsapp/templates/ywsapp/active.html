@@ -8,225 +8,87 @@
 
 
 <script>
-var workout_state = "show";	/* show, ready, pause, run */
-var workout_sounds_loaded = 0;
-var workout_sounds_total = 0;
-var pause_text = null;
+var workout_state = "show";	/* show, load, ready, pause, run */
+var workout_audio = new Audio("/sound?id={{ workout_id }}");
 
 function start_stop_workout() {
 	let pause_frame = document.getElementById('pause_frame');
 	
 	if (workout_state == "ready" || workout_state == "pause") {
-		if (workout_state == "ready") {
+		if (workout_state == "ready")
 			pause_text.innerHTML = "ПАУЗА";
-		}
 		pause_frame.style.display = 'none';
 		workout_state = "run";
-	} else {
+		workout_audio.play();
+	} else if (workout_state == "run") {
 		workout_state = "pause";
 		pause_frame.style.display = 'block';
-		for (let _s = 0; _s <  workout.sets.length; _s++) {
-			for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
-				for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
-					let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
-					for (let _k = 0; _k < _keys.length; _k++) {
-						let _sound = workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]];
-						if (!_sound.audio.paused)
-							_sound.audio.pause();
-					}
-				}
-			}
-		}
+		workout_audio.pause();
 	}
-}
-
-function list_workout_sounds(workout, p) {
-	for (let _s = 0; _s <  workout.sets.length; _s++) {
-		for (let _a = 0; _a <  workout.sets[_s].asanas.length; _a++) {
-			for (let _t = 0; _t <  workout.sets[_s].asanas[_a].tasks.length; _t++) {
-				let _keys = Object.keys(workout.sets[_s].asanas[_a].tasks[_t].sounds);
-				for (let _k = 0; _k < _keys.length; _k++) {
-					p(workout.sets[_s].asanas[_a].tasks[_t].sounds[_keys[_k]]);
-				}
-			}
-		}
-	}
-}
-
-function request_sound_file(snd) {
-	snd.audio = null;
-
-	let sound_request = new XMLHttpRequest();
-	sound_request.open("GET", "{% static 'ywsapp/res/sounds_merged/' %}" + snd.file, true);
-	sound_request.responseType = "blob";
-	sound_request.onload = function() {
-		if (this.status == 200) {
-			snd.audio = new Audio(URL.createObjectURL(this.response));
-			snd.audio.load();
-			
-			workout_sounds_loaded++;
-			if (pause_text == null)
-				pause_text = document.getElementById('pause_text');
-
-			if (workout_sounds_total == workout_sounds_loaded) {
-				pause_text.innerHTML = "НАЧАТЬ";
-			} else {
-				pause_text.innerHTML = "ЗАГРУЗКА (" + workout_sounds_total + "/" + workout_sounds_loaded + ")";
-			}
-		}
-	}
-	sound_request.send();
-	workout_sounds_total++;
 }
 </script>
 </head>
 
 
 <body>
-
 	<div class="active-container">
 		<div class="active-content">
 			<div id="pause_frame" class="text-center cursor_default" onclick="start_stop_workout()">
-				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">ЗАГРУЗКА</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
+				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">ЗАГРУЗКА...</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
 			</div>
 			<img id="asana_image" src="" class="active-image" onclick="start_stop_workout()">
 			<div id="asana_name" class="top-right cursor_default">Top Right</div>
 			<div id="timer" class="bottom-right cursor_default">Bottom Right</div>
 		</div>
 	</div>
-
 </body>
+
 
 <script src="{% static 'ywsapp/res/NoSleep.min.js' %}?v={{scr_version}}"></script>
 <script>
 	var noSleep = new NoSleep();
-	noSleep.enable(); // keep the screen on!
-	//noSleep.disable(); // let the screen turn off.
+	noSleep.enable();
 </script>
 
 <script>
-    let xhr = new XMLHttpRequest();
     var workout = null;
-
-	var wavs = {};
-    xhr.open('GET', "{% static 'ywsapp/res/wavs/wavs.json' %}?v={{scr_version}}", false);
-    xhr.send();
-    if (xhr.status == 200) {
-		let resp = JSON.parse(xhr.responseText)
-		Object.keys(resp).forEach(function (elem) {
-			wavs[elem] = new Audio("{% static 'ywsapp/res/wavs/' %}" + resp[elem])
-		})
-	}
-	
-	properties = "";
-	for (var i = 0; i < localStorage.length; i++)
-		properties += '&' + localStorage.key(i) + '=' + localStorage.getItem(localStorage.key(i));
-	
-    xhr.open('GET', '/view_workout?id={{ workout_id }}', false);
+	let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/get_workout?id={{ workout_id }}', false);
     xhr.send();
     if (xhr.status == 200)
         workout = JSON.parse(xhr.responseText)
     
-    
-	var current_set_idx = 0;
-	var current_asana_idx = 0;
-	var current_task_idx = 0;
-	var current_task_time = 0;
+	var current_task_time = null;
     var current_task_image = 0;
-    var first_load = true;
+	var task_schedule_idx = null;
     var timer_div = document.getElementById('timer');
     var name_div = document.getElementById('asana_name');
     var asana_img = document.getElementById('asana_image');
+	var pause_text = document.getElementById('pause_text');
 
-
-	// Preload all audio files for this workout
-
-	list_workout_sounds(workout, request_sound_file);
-
-	function get_current_task(inc_task = false) {
-		if (current_set_idx >= workout.sets.length) {
-			/* All sets complete, so workout is complete*/
-			return;
-		}
-
-		if (current_asana_idx >= workout.sets[current_set_idx].asanas.length) {
-			current_set_idx++;
-			current_asana_idx = 0;
-			current_task_idx = 0;
-			return get_current_task();
-		}
-
-		//while (workout.sets[current_set_idx].asanas[current_asana_idx].tasks.length == 0)
-		//	current_asana_idx++;
-
-		if (inc_task)
-			current_task_idx++;
-
-		if (current_task_idx >= workout.sets[current_set_idx].asanas[current_asana_idx].tasks.length) {
-			current_asana_idx++;
-			current_task_idx = 0;
-			return get_current_task();
-		}
-
-		return workout.sets[current_set_idx].asanas[current_asana_idx].tasks[current_task_idx];
-	}
 
     function process() {
-		let task_changed = false;
-
-		if ((workout_state == "pause") || (workout_state == "ready"))
+		if ((workout_state == "load") || (workout_state == "ready")) {
+			if (workout_audio.readyState == 4) {
+				pause_text.innerHTML = "НАЧАТЬ";
+				workout_state = "ready";
+			}
 			return;
-		
-		current_task = get_current_task();
-		if (current_task === undefined)
-			return;
-
-		if ((current_task_time >= current_task.property.value) || first_load) {
-			if (!first_load) {
-				let bell = current_task.metronome.bell;
-				if (bell in wavs)
-					wavs[bell].play();
-				
-				current_task = get_current_task(inc_task = true);
-				if (current_task === undefined) {
-					if (bell in wavs)
-						wavs[bell].addEventListener('ended', function() {
-    						// Audio has ended when this function is executed.
-							window.location.href = "/?wuid={{active_wuid}}";
-						}, false);
-					else
-						window.location.href = "/?wuid={{active_wuid}}";
-					return false;
-				}
-			}
-			
-			first_load = false;
-			
-			name_div.innerText = current_task.caption;
-			//current_task_time_start = new Date().getTime();
-			current_task_time = 0;
-			task_changed = true;
-		} else {
-			let tick_id = current_task.metronome.tick;
-			if (tick_id in wavs)
-				wavs[tick_id].play();
-		}
-		
-		if (workout_state != "show") {
-			let min_key = Infinity
-			for (let k in current_task.sounds) {
-				if (current_task.sounds[k].processed === undefined)
-					min_key = Math.min(parseInt(k), min_key)
-			}
-
-			if ((min_key !== Infinity) && (current_task_time >= min_key)) {
-				let snds = current_task.sounds[min_key];
-				current_task.sounds[min_key]['processed'] = true
-				current_task.sounds[min_key]['audio'].play();
-			}
 		}
 
+		let current_task_time = Math.floor(workout_audio.currentTime);
+		current_task = workout.timetable[workout.schedule[current_task_time]];
+		if (current_task === undefined) {
+			window.location.href = "/?wuid={{active_wuid}}";
+			return;
+		}
+
+		task_changed = ((task_schedule_idx == null) || (task_schedule_idx != workout.schedule[current_task_time]));
+		task_schedule_idx = workout.schedule[current_task_time];
+
+		/* ToDo: window.location.href = "/?wuid={{active_wuid}}"; on stopped audio */
 		if (((current_task_time % 4) == 0) || task_changed) {
+			name_div.innerText = current_task.caption;
 			current_task_image = (current_task_image + 1) % current_task.images.length;
 			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + current_task.images[current_task_image] + '.png'
 		}
@@ -237,15 +99,11 @@ function request_sound_file(snd) {
 		if (seconds < 10) seconds = "0" + seconds;
 		if (minutes < 10) minutes = "0" + minutes;
 		timer_div.textContent = "\u00A0" + minutes + ":" + seconds + "\u00A0";
+		//timer_div.textContent = "audio state: " + workout_audio.readyState + ", time: " + workout_audio.currentTime;
 		//timer_div.textContent = current_task_time;
 
-		if (workout_state == "show") {
-			workout_state = "ready";
-			return;
-		}
-
-		if (!task_changed)
-			current_task_time++;
+		if (workout_state == "show")
+			workout_state = "load";
     }
     
     process();	// First process to start immediately

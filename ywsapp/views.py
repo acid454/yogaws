@@ -196,6 +196,7 @@ def view_workout(request):
     workout_id = request.GET.get('id')
     no_sounds = request.GET.get('no_sounds', False)
 
+    # ToDo: this as decorator?
     if WORKOUTS is None:
         _update_workouts()
 
@@ -224,6 +225,40 @@ def view_workout(request):
         #    pprint.PrettyPrinter(indent=4).pprint(result)
         return JsonResponse(result, safe = False, status = 200)
     return JsonResponse({}, safe = False, status = 200)  # Not 200 here
+
+
+def get_workout(request):
+    workout_id = request.GET.get('id')
+
+    # ToDo: this as decorator?
+    if WORKOUTS is None:
+        _update_workouts()
+    
+    if workout_id not in WORKOUTS.keys():
+        return JsonResponse({}, safe = False, status = 200)  # Not 200 here
+
+    from speech_manager import SpeechManager
+    this_user =  get_user(request) if request.user.is_authenticated else None
+    result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
+
+    if this_user:
+        recs = UserWorkoutProps.objects.filter(user = this_user)
+        for r in recs:
+            result.apply_prop(r.prop_id, r.value)
+
+    try:
+        voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
+    except:
+        voice_acting = 0
+
+    SpeechManager().generate_sounds(result, voice_acting)
+    del result.sets   # ToDo: maybe this inside build() of workout class?
+    
+    #import pprint
+    #pprint.PrettyPrinter(indent=4).pprint(result)
+    result = jsons.dump(result)
+    return JsonResponse(result, safe = False, status = 200)
+
 
 
 # ToDo: cache requests
@@ -269,4 +304,14 @@ def modify_workout_params(request):
 
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
 
-    
+def sound(request):
+    workout_id = request.GET.get('id')
+    print(f"Generate sound for workout {workout_id}")
+    fname = "/home/acid454/YDrive/spirit/медитации/30-дневная медитативная практика, способная изменить жизнь! Изобилие любви к себе исцеляет!.mp3"
+    file = open(fname, "rb")
+
+    response = HttpResponse()
+    response.write(file.read())
+    response['Content-Type'] = 'audio/mp3'
+    response['Content-Length'] = os.path.getsize(fname)
+    return response
