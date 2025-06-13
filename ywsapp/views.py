@@ -18,46 +18,30 @@ try:
     from django.contrib.auth import authenticate, login, logout
     import json
     import jsons
+    from .resmanager import ResourcesManager
     import_exception = None
 except:
     import_exception = traceback.format_exc()
 
 import random
-import os
+import hashlib
 
 
 SCR_VERSION = "1.0.2"
 WORKOUTS = None
 SPEECH_MANAGER = None
-GLOBAL_PATHS = [
-    ["yoga", "workouts"],       # Note: workouts must be [0]
-    ["yoga", "sets"],
-    ["yoga", "common"],
-    ["yoga", "containers"],
-    ["yoga", "asanas"],
-    ["yoga"]
-]
-
-MAIN_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                                            'static', 'ywsapp', 'res', 'mainbg'))
-ACTIVE_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                                            'static', 'ywsapp', 'res', 'activebg'))
+RESMAN = ResourcesManager()
 
 
 def do_index(request):
     show_registration_form = False
     snack_text = None
 
-
-    # Handle background image
-    background_image = (MAIN_BACKGROUND_IMAGES[random.randrange(len(MAIN_BACKGROUND_IMAGES))])
-
     if request.method == "POST":
         if "password" in request.POST.keys():
             # Processing login form
             form = UserLoginForm(request, data=request.POST)
             if form.is_valid():
-                print("Login valid: " + str(request))
                 username = request.POST['username']
                 password = request.POST['password']
                 user = authenticate(request, username =username, password = password)
@@ -102,7 +86,7 @@ def do_index(request):
         "form_register": NewUserForm(),
         "form_user_info": UserInfoForm(instance= request.user if request.user.is_authenticated else None),
         "show_registration_form": show_registration_form,
-        "main_bg_image":background_image,
+        "main_bg_image":RESMAN.active_bg_image(),
         "workout_complete":workout_complete,
         "snack_text": snack_text,
         "scr_version": SCR_VERSION
@@ -125,13 +109,10 @@ def active(request):
     request.session['active_wuid'] = uuid.uuid4().hex
     request.session['workout_id'] = request.GET.get('id')
 
-    # Handle background image
-    background_image = (ACTIVE_BACKGROUND_IMAGES[random.randrange(len(ACTIVE_BACKGROUND_IMAGES))])
-
     return render(request, 'ywsapp/active.html', {
         "workout_id": request.GET.get('id'),
         "active_wuid": request.session['active_wuid'],
-        "active_bg_image":background_image,
+        "active_bg_image":RESMAN.active_bg_image(),
         "scr_version": SCR_VERSION
     })
 
@@ -143,26 +124,11 @@ def logout_view(request):
 # --------========= WORKOUTS MANAGE ==========-------------------------
 def _update_workouts():
     global WORKOUTS
-
-    import os
-    import sys
-
-    #-------------------------------------------------------------------
-    # Some preparations, that must be called once. Must be refactor    
-    import random
-    random.seed()
-    import hashlib
+    
     #-------------------------------------------------------------------
    
     WORKOUTS = {}
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    for path in GLOBAL_PATHS:
-        sys.path.append(os.path.join(base_dir, *path))
-
-    workout_files = os.listdir(os.path.join(base_dir, *(GLOBAL_PATHS[0])))
-    workout_files = list(filter(lambda x: x.endswith(".py"), workout_files))
-    
-    for f in workout_files:
+    for f in RESMAN.workout_files():
         #if f != "01_test.py": continue
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
