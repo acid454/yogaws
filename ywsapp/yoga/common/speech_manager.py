@@ -33,7 +33,7 @@ class SpeechManager:
 
     def __init__(self):
         # List all sound files, their lengths
-        mp3_path = os.path.join(BASE_PATH, 'static', 'ywsapp', 'res', 'sounds_merged')
+        mp3_path = os.path.join(BASE_PATH, 'static', 'ywsapp', 'res', 'sounds')
         mp3_files = os.listdir(mp3_path)
         mp3_files = list(filter(lambda x: x.endswith(".mp3"), mp3_files))
         self.mp3_files = {}
