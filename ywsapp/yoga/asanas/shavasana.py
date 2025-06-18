@@ -13,9 +13,11 @@ from integer_constants import ShavasanaActing
 
 
 class Shavasana(BaseAsana):
-    def __init__(self):
+    def __init__(self, **kwargs):
         BaseAsana.__init__(self, name="shavasana", caption="Шавасана")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=90))
+        self.update_props(kwargs)
+        
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,

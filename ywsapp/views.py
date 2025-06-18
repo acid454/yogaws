@@ -29,7 +29,7 @@ except:
 import hashlib
 
 
-SCR_VERSION = "1.0.2"
+SCR_VERSION = "1.0.3"
 WORKOUTS = None
 SOUND_STREAMS = {}
 
@@ -87,7 +87,7 @@ def do_index(request):
         "form_register": NewUserForm(),
         "form_user_info": UserInfoForm(instance= request.user if request.user.is_authenticated else None),
         "show_registration_form": show_registration_form,
-        "main_bg_image":ResourcesManager().active_bg_image(),
+        "main_bg_image":ResourcesManager().main_bg_image(),
         "workout_complete":workout_complete,
         "snack_text": snack_text,
         "scr_version": SCR_VERSION
