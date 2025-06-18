@@ -16,21 +16,22 @@ try:
     from .forms import UserLoginForm, NewUserForm, UserInfoForm
     from .models import User, UserWorkoutProps
     from django.contrib.auth import authenticate, login, logout
+    import uuid
     import json
     import jsons
     from .resmanager import ResourcesManager
+    from .audiocore.soundgen import SoundGenerator
     import_exception = None
 except:
     import_exception = traceback.format_exc()
 
-import random
+#import random
 import hashlib
 
 
 SCR_VERSION = "1.0.2"
 WORKOUTS = None
-SPEECH_MANAGER = None
-RESMAN = ResourcesManager()
+SOUND_STREAMS = {}
 
 
 def do_index(request):
@@ -86,7 +87,7 @@ def do_index(request):
         "form_register": NewUserForm(),
         "form_user_info": UserInfoForm(instance= request.user if request.user.is_authenticated else None),
         "show_registration_form": show_registration_form,
-        "main_bg_image":RESMAN.active_bg_image(),
+        "main_bg_image":ResourcesManager().active_bg_image(),
         "workout_complete":workout_complete,
         "snack_text": snack_text,
         "scr_version": SCR_VERSION
@@ -112,7 +113,7 @@ def active(request):
     return render(request, 'ywsapp/active.html', {
         "workout_id": request.GET.get('id'),
         "active_wuid": request.session['active_wuid'],
-        "active_bg_image":RESMAN.active_bg_image(),
+        "active_bg_image":ResourcesManager().active_bg_image(),
         "scr_version": SCR_VERSION
     })
 
@@ -128,7 +129,7 @@ def _update_workouts():
     #-------------------------------------------------------------------
    
     WORKOUTS = {}
-    for f in RESMAN.workout_files():
+    for f in ResourcesManager().workout_files():
         #if f != "01_test.py": continue
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
@@ -201,9 +202,9 @@ def get_workout(request):
         _update_workouts()
     
     if workout_id not in WORKOUTS.keys():
-        return JsonResponse({}, safe = False, status = 200)  # Not 200 here
+        return JsonResponse({}, safe = False, status = 404)
 
-    from speech_manager import SpeechManager
+    from speech_manager import SpeechManager  #ToDo: remove to imports
     this_user =  get_user(request) if request.user.is_authenticated else None
     result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
 
@@ -217,7 +218,21 @@ def get_workout(request):
     except:
         voice_acting = 0
 
+    #import pprint
+    #pprint.PrettyPrinter(indent=4).pprint(result)
     SpeechManager().generate_sounds(result, voice_acting)
+
+    # Generate sound, store id
+    sound_id = str(uuid.uuid4())
+    result.sound_id = sound_id
+
+    print('-'*80, ' sound generation starts...')
+    SOUND_STREAMS[sound_id] = SoundGenerator().generate(result)
+    print(type(SOUND_STREAMS[sound_id]))
+    print('-'*80, ' sound generation complete')
+    
+
+    
     del result.sets   # ToDo: maybe this inside build() of workout class?
     
     #import pprint
@@ -271,13 +286,21 @@ def modify_workout_params(request):
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
 
 def sound(request):
-    workout_id = request.GET.get('id')
-    print(f"Generate sound for workout {workout_id}")
-    fname = "/home/acid454/YDrive/spirit/медитации/30-дневная медитативная практика, способная изменить жизнь! Изобилие любви к себе исцеляет!.mp3"
-    file = open(fname, "rb")
+    sound_id = request.GET.get('id')
+    print(f"Search and returns sound id {sound_id}")
 
-    response = HttpResponse()
-    response.write(file.read())
-    response['Content-Type'] = 'audio/mp3'
-    response['Content-Length'] = os.path.getsize(fname)
+    chunk_size = 8192
+    from io import BytesIO
+    from wsgiref.util import FileWrapper
+    from django.http import StreamingHttpResponse
+
+
+    response = StreamingHttpResponse(
+       FileWrapper(BytesIO(SOUND_STREAMS[sound_id]), chunk_size),
+       content_type="audio/mp3"
+   )
+
+    response['Accept-Ranges'] = 'bytes' # Enable range requests
+    response['Content-Length'] = len(SOUND_STREAMS[sound_id])
+    print(f"Return sound stream, length {response['Content-Length']} bytes")
     return response

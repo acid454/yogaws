@@ -23,5 +23,5 @@ class MetronomeWork(MetronomeSounds):
 
 @dataclass
 class MetronomeShavasana(MetronomeSounds):
-    tick: str = "none"
+    tick: str = None
     bell: str = "workout_complete"

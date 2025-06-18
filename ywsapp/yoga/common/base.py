@@ -217,6 +217,7 @@ class BaseWorkout(PropertiesContainer):
     group: str = None
     timetable: list = None
     schedule: list = None
+    sound_id: str = None
 
     # Добавляем сет, не отображаемый в интерфейсе, с одной асаной
     def wrap_asana(self, asana):
@@ -290,23 +291,23 @@ class BaseWorkout(PropertiesContainer):
         del self.user
         
         # Calc total workout time, and times for each asanas
-        total_time = 0
+        self.total_time_int = 0
         self.timetable = {}
         for s in self.sets:
             for a in s.asanas:
                 for t in a.tasks:
-                    self.timetable[total_time] = t
-                    total_time += t.property.value
+                    self.timetable[self.total_time_int] = t
+                    self.total_time_int += t.property.value
         
-        # Pre-Calc task timing list fo web engine
+        # Pre-Calc task timing list for web engine
         self.schedule = []
-        for i in range(total_time):
+        for i in range(self.total_time_int):
             self.schedule.append( max( list(filter( lambda x: x <= i, self.timetable.keys() )) ) )
 
 
-        self.total_time = str(datetime.timedelta(seconds=total_time))
-        if self.total_time.startswith("0:"):
-            self.total_time = self.total_time[2:]
+        self.total_time_str = str(datetime.timedelta(seconds=self.total_time_int))
+        if self.total_time_str.startswith("0:"):
+            self.total_time_str = self.total_time_str[2:]
         return self
     
     # Находим и применяем значение property

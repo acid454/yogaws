@@ -10,31 +10,34 @@ import os
 import sys
 import random
 
-
 #
-#MAIN_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-#                                            'static', 'ywsapp', 'res', 'mainbg'))
-#ACTIVE_BACKGROUND_IMAGES = os.listdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-#                                            'static', 'ywsapp', 'res', 'activebg'))
-#
-
-
+# It is a PATH MANAGER, not resources!
 class ResourcesManager():
     WORKOUTS_PATH = "workouts"
+    SOUND_COMPOSER_EXEC = "sound_composer"
     GLOBAL_PYTHON_PATHS = [ "", "sets", "common", "containers", "asanas" ]
+
+    #
+    # Singleton class for resources manager
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(ResourcesManager, cls).__new__(cls)
+        return cls.instance
 
     def __init__(self):
         random.seed()
         base_path = os.path.dirname(os.path.abspath(__file__))
-        res_path = os.path.join(base_path, 'static', 'ywsapp', 'res')
-
+        
+        self.res_path = os.path.join(base_path, 'static', 'ywsapp', 'res')
+        sys.path.append(os.path.join(base_path))
         for p in ResourcesManager.GLOBAL_PYTHON_PATHS + [ResourcesManager.WORKOUTS_PATH]:
             sys.path.append(os.path.join(base_path, 'yoga', p))
 
-        self.main_bg_images = os.listdir(os.path.join(res_path, 'mainbg'))
-        self.active_bg_images = os.listdir(os.path.join(res_path, 'activebg'))
+        self.main_bg_images = os.listdir(os.path.join(self.res_path, 'mainbg'))
+        self.active_bg_images = os.listdir(os.path.join(self.res_path, 'activebg'))
         self.workout_files_list = list(filter(lambda x: x.endswith(".py"),
                             os.listdir(os.path.join(base_path, 'yoga', ResourcesManager.WORKOUTS_PATH)) ))
+        self.sound_composer_exec = os.path.join(base_path, '..', 'scripts', 'sound_composer')
     
     def main_bg_image(self):
         return self.main_bg_images[random.randrange(len(self.main_bg_images))]
@@ -44,3 +47,19 @@ class ResourcesManager():
     
     def workout_files(self):
         return self.workout_files_list
+    
+    def wave_config_file(self):
+        return os.path.join(self.res_path, 'wavs', 'wavs.json')
+    
+    def wave_file(self, w):
+        return os.path.join(self.res_path, 'wavs', w)
+    
+    def sound_file(self, s):
+        return os.path.join(self.res_path, 'sounds', s + '.mp3')
+    
+    def sound_composer(self):
+        return self.sound_composer_exec
+    
+
+#=============== Initialize (-create) res manager on import ===============
+_ = ResourcesManager()

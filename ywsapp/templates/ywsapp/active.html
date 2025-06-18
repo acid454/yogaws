@@ -9,7 +9,7 @@
 
 <script>
 var workout_state = "show";	/* show, load, ready, pause, run */
-var workout_audio = new Audio("/sound?id={{ workout_id }}");
+
 
 function start_stop_workout() {
 	let pause_frame = document.getElementById('pause_frame');
@@ -58,6 +58,8 @@ function start_stop_workout() {
     if (xhr.status == 200)
         workout = JSON.parse(xhr.responseText)
     
+	console.log("workout ok, sound id is " + workout.sound_id)
+	var workout_audio = new Audio("/sound?id=" + workout.sound_id);
 	var current_task_time = null;
     var current_task_image = 0;
 	var task_schedule_idx = null;
