@@ -18,6 +18,9 @@ sessionStorage.removeItem('background_img_id')
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+!!! красивый код (@login_required):
+https://stackoverflow.com/questions/48949022/django-filewrapper-memory-error-serving-big-files-how-to-stream
+
 ### ToDo: aftermath callback, чтобы отработать озвучку {% if not glob.get('last_before_shavasana') %}
 ### ToDo: async io для загрузки mp3
 
@@ -34,6 +37,9 @@ sessionStorage.removeItem('background_img_id')
 -- View: представление
           python-классы, выстраивающие тренировку на базе модели
 
+
+### wav conversion:
+ffmpeg -i ./tick2.wav -ar 44100 -ac 1 ./tick2-44100.wav
 
 
 ### added new field (migration):
