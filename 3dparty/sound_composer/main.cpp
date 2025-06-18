@@ -72,14 +72,14 @@ int main (void) {
 	/* ,,,change-track.mp3 */
 	/* ...etc */
 	while (!std::getline(std::cin, table_line).eof()) {
-		DEBUG std::cout << "--- line ok ---" << std::endl;
+		DEBUG std::cerr << "--- line ok ---" << std::endl;
 
 		sound_files.clear();
 		split_table_line(table_line, sound_files);
-		DEBUG std::cout << "input vector length: " << sound_files.size() << std::endl;
+		DEBUG std::cerr << "input vector length: " << sound_files.size() << std::endl;
 
 		for (uint track_num = 0; track_num < sound_files.size(); track_num++) {
-			DEBUG std::cout << "check sound_table size: " << sound_table.size() << ", current index " << track_num << std::endl;
+			DEBUG std::cerr << "check sound_table size: " << sound_table.size() << ", current index " << track_num << std::endl;
 
 			if (sound_table.size() < track_num + 1)
 				sound_table.push_back( { NULL, "" } );
@@ -96,13 +96,13 @@ int main (void) {
 				std::memset(&tmp_sfinfo, 0x00, sizeof(tmp_sfinfo));
 				pCurTrack->name = sound_files[track_num];
 				if ((pCurTrack->pSndFile = sf_open(pCurTrack->name.c_str(), SFM_READ, &tmp_sfinfo)) == NULL) {
-					DEBUG std::cout << "Unable to open track #" << track_num << ": " << pCurTrack->name << std::endl;
+					DEBUG std::cerr << "Unable to open track #" << track_num << ": " << pCurTrack->name << std::endl;
 					pCurTrack->name = "";
 				} else
-					DEBUG std::cout << "OK open track #" << track_num << ": " << pCurTrack->name << " - open" << std::endl;
+					DEBUG std::cerr << "OK open track #" << track_num << ": " << pCurTrack->name << " - open" << std::endl;
 			} else {
 				sf_seek(pCurTrack->pSndFile, 0, SEEK_SET);
-				DEBUG std::cout << "OK open track #" << track_num << ": " << pCurTrack->name << " - rewind" << std::endl;
+				DEBUG std::cerr << "OK open track #" << track_num << ": " << pCurTrack->name << " - rewind" << std::endl;
 			}
 		}
 
@@ -113,7 +113,7 @@ int main (void) {
 			if (s.pSndFile == NULL)
 				continue;
 
-			DEBUG std::cout << "-- compose file: " << s.name << std::endl;
+			DEBUG std::cerr << "-- compose file: " << s.name << std::endl;
 
 			/* std::memset(trc_data, 0x00, sizeof(trc_data)); */
 			readcount = (int)sf_read_double(s.pSndFile, trc_data, YOGAWS_SAMPLE_RATE);

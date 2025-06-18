@@ -38,9 +38,14 @@ class SoundGenerator():
 
 
     def call_composer(self, composer_lines):
+        #print('\n'.join(composer_lines))
+        composer_lines.append(',')   # ToDo: fix this, last bell sound longer, than just a second
+        composer_lines.append(',')
         result = subprocess.run(self.sound_compoer, 
                                 input=bytes('\n'.join(composer_lines), 'ascii'),
-                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        #print(result.stderr.decode("utf-8"))
         if result.returncode != 0:
             return None
         return result.stdout
