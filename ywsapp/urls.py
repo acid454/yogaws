@@ -10,7 +10,8 @@ urlpatterns = [
     path('get_workout', views.get_workout, name="get_workout"),
     path('logout', views.logout_view, name="logout"),
     path('modify_workout_params', views.modify_workout_params, name="modify_workout_params"),
-    path('sound', views.sound, name="sound")
+    path('sound', views.sound, name="sound"),
+    path('logs', views.logs, name="logs")
     #path('accounts/', include('django.contrib.auth.urls')),
     #path("register/", views.register, name="register"),
 ]

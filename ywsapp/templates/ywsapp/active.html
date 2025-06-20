@@ -58,8 +58,8 @@ function start_stop_workout() {
     if (xhr.status == 200)
         workout = JSON.parse(xhr.responseText)
     
-	console.log("workout ok, sound id is " + workout.sound_id)
-	var workout_audio = new Audio("/sound?id=" + workout.sound_id);
+
+	var workout_audio = null;
 	var current_task_time = null;
     var current_task_image = 0;
 	var task_schedule_idx = null;
@@ -67,18 +67,61 @@ function start_stop_workout() {
     var name_div = document.getElementById('asana_name');
     var asana_img = document.getElementById('asana_image');
 	var pause_text = document.getElementById('pause_text');
+	var sound_request = null;
+
+	function check_audio_ready() {
+		if (sound_request != null)
+			return;
+
+		sound_request = new XMLHttpRequest();
+		sound_request.open("GET", "/sound?id=" + workout.sound_id + "&check=true", true);
+		sound_request.onload = function() {
+			{%if debug %}
+			let ptext = document.getElementById('pause_text');
+			ptext.innerHTML = "sound request status: " + this.status;
+			console.log("sound request status: " + this.status)
+			{% endif %}
+
+			if (this.status == 200) {
+				console.log("audio is ready");
+				workout_audio = new Audio("/sound?id=" + workout.sound_id);
+			}
+			sound_request = null;
+		}
+
+		sound_request.ontimeout = function () {
+			sound_request = null;
+		}
+
+		sound_request.send();
+	}
 
 
     function process() {
-		if ((workout_state == "load") || (workout_state == "ready")) {
-			if (workout_audio.readyState == 4) {
-				pause_text.innerHTML = "НАЧАТЬ";
-				workout_state = "ready";
+		if (!workout_audio) {
+			check_audio_ready();
+		}
+		else
+		{
+			{%if debug %}
+			console.log(workout_audio.readyState, workout_state);
+			let ptext = document.getElementById('pause_text');
+			ptext.innerHTML = "--workout_state: " + workout_state + ", ready: " + workout_audio.readyState;
+			{% endif %}
+
+			if ((workout_state == "load") || (workout_state == "ready")) {
+				if (workout_audio.readyState != 0) {
+					pause_text.innerHTML = "НАЧАТЬ";
+					workout_state = "ready";
+				}
+				return;
 			}
-			return;
 		}
 
-		let current_task_time = Math.floor(workout_audio.currentTime);
+		let current_task_time = 0;
+		if (workout_audio != null)
+			current_task_time = Math.floor(workout_audio.currentTime);
+
 		current_task = workout.timetable[workout.schedule[current_task_time]];
 		if (current_task === undefined) {
 			window.location.href = "/?wuid={{active_wuid}}";

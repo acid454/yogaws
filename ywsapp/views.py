@@ -32,6 +32,7 @@ import hashlib
 SCR_VERSION = "1.0.3"
 WORKOUTS = None
 SOUND_STREAMS = {}
+YOGAWS_LOGS = []
 
 
 def do_index(request):
@@ -103,6 +104,9 @@ def index(request):
     except:
         return HttpResponse(f"<pre>{str(traceback.format_exc())}</pre>")
 
+def logs(request):
+    result = '\n'.join(YOGAWS_LOGS)
+    return HttpResponse(f"<pre>{result}</pre>")
 
 def active(request):
     # Request active page -- so, start a new workout. Cache WS's id here, to check it in index page when done
@@ -114,7 +118,8 @@ def active(request):
         "workout_id": request.GET.get('id'),
         "active_wuid": request.session['active_wuid'],
         "active_bg_image":ResourcesManager().active_bg_image(),
-        "scr_version": SCR_VERSION
+        "scr_version": SCR_VERSION,
+        "debug": False
     })
 
 def logout_view(request):
@@ -205,7 +210,7 @@ def get_workout(request):
         return JsonResponse({}, safe = False, status = 404)
 
     from speech_manager import SpeechManager  #ToDo: remove to imports
-    this_user =  get_user(request) if request.user.is_authenticated else None
+    this_user = get_user(request) if request.user.is_authenticated else None
     result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
 
     if this_user:
@@ -222,22 +227,16 @@ def get_workout(request):
     #pprint.PrettyPrinter(indent=4).pprint(result)
     SpeechManager().generate_sounds(result, voice_acting)
 
+    del result.sets   # ToDo: maybe this inside build() of workout class?
+
     # Generate sound, store id
     sound_id = str(uuid.uuid4())
     result.sound_id = sound_id
-
-    print('-'*80, ' sound generation starts...')
+    result = jsons.dump(result)
     SOUND_STREAMS[sound_id] = SoundGenerator().generate(result)
-    print(type(SOUND_STREAMS[sound_id]))
-    print('-'*80, ' sound generation complete')
-    
-
-    
-    del result.sets   # ToDo: maybe this inside build() of workout class?
     
     #import pprint
     #pprint.PrettyPrinter(indent=4).pprint(result)
-    result = jsons.dump(result)
     return JsonResponse(result, safe = False, status = 200)
 
 
@@ -287,20 +286,35 @@ def modify_workout_params(request):
 
 def sound(request):
     sound_id = request.GET.get('id')
-    print(f"Search and returns sound id {sound_id}")
+    sound_check = request.GET.get('check', None)
+
+    YOGAWS_LOGS.append(f"Sound id is {sound_id}, check is: {(sound_check)}")
+
+    if sound_id not in SOUND_STREAMS.keys():
+        YOGAWS_LOGS.append(f"Sound id {sound_id} not in SOUND_STREAMS")
+        return JsonResponse({}, safe = False, status = 404)
+    
+    result = SOUND_STREAMS[sound_id]
+    if not result.sound_ready():
+        return JsonResponse({}, safe = False, status = 503)
+    
+    if sound_check == 'true':
+        return JsonResponse({}, safe = False, status = 200)
+    
+    YOGAWS_LOGS.append("Task done, result requested")
+    result = result.get_result()
 
     chunk_size = 8192
     from io import BytesIO
     from wsgiref.util import FileWrapper
     from django.http import StreamingHttpResponse
 
-
     response = StreamingHttpResponse(
-       FileWrapper(BytesIO(SOUND_STREAMS[sound_id]), chunk_size),
+       FileWrapper(BytesIO(result), chunk_size),
        content_type="audio/mp3"
    )
 
     response['Accept-Ranges'] = 'bytes' # Enable range requests
-    response['Content-Length'] = len(SOUND_STREAMS[sound_id])
-    print(f"Return sound stream, length {response['Content-Length']} bytes")
+    response['Content-Length'] = len(result)
+    YOGAWS_LOGS.append(f"echo 'Return sound stream, length {response['Content-Length']} bytes")
     return response
