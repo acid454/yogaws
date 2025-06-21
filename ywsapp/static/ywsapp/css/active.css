@@ -68,11 +68,21 @@ body{
   transform: translate(-50%, -50%);
 }
 
-.active-image {
+/* ToDo: use aspect ratio: https://stackoverflow.com/questions/10858994/css-media-query-height-greater-than-width-and-vice-versa-or-how-to-imitate-with */
+.active-image-horizontal {
   max-width: 100vw;
   max-height: 100vh;
   height: auto;
   width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.active-image-vertical {
+  max-width: 100vw;
+  max-height: 100vh;
+  height: 100vh;
+  width: auto; 
   margin-left: auto;
   margin-right: auto;
 }

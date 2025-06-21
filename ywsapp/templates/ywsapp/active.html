@@ -8,7 +8,7 @@
 
 
 <script>
-var workout_state = "show";	/* show, load, ready, pause, run */
+var workout_state = "load";	/* show, load, ready, pause, run */
 
 
 function start_stop_workout() {
@@ -34,11 +34,13 @@ function start_stop_workout() {
 	<div class="active-container">
 		<div class="active-content">
 			<div id="pause_frame" class="text-center cursor_default" onclick="start_stop_workout()">
-				<hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">ЗАГРУЗКА...</b>&nbsp;&nbsp;&nbsp;&nbsp;<hr>
+				<hr>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="pause_text">ЗАГРУЗКА...</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<hr>
 			</div>
-			<img id="asana_image" src="" class="active-image" onclick="start_stop_workout()">
-			<div id="asana_name" class="top-right cursor_default">Top Right</div>
-			<div id="timer" class="bottom-right cursor_default">Bottom Right</div>
+			<img id="asana_image" src="{% static 'ywsapp/res/chakra.png' %}" class="active-image-vertical" onclick="start_stop_workout()">
+			<div id="asana_name" class="top-right cursor_default"></div>
+			<div id="timer" class="bottom-right cursor_default"></div>
 		</div>
 	</div>
 </body>
@@ -60,7 +62,7 @@ function start_stop_workout() {
     
 
 	var workout_audio = null;
-	var current_task_time = null;
+	var workout_start_tm = new Date().getTime();
     var current_task_image = 0;
 	var task_schedule_idx = null;
     var timer_div = document.getElementById('timer');
@@ -97,27 +99,38 @@ function start_stop_workout() {
 	}
 
 
-    function process() {
-		if (!workout_audio) {
+	function do_process_wait() {
+		let workout_audio_ready = -1;
+		if (!workout_audio)
 			check_audio_ready();
-		}
 		else
-		{
-			{%if debug %}
-			console.log(workout_audio.readyState, workout_state);
-			let ptext = document.getElementById('pause_text');
-			ptext.innerHTML = "--workout_state: " + workout_state + ", ready: " + workout_audio.readyState;
-			{% endif %}
+			workout_audio_ready = workout_audio.readyState;
 
-			if ((workout_state == "load") || (workout_state == "ready")) {
-				if (workout_audio.readyState != 0) {
-					pause_text.innerHTML = "НАЧАТЬ";
-					workout_state = "ready";
-				}
-				return;
+		if (workout_audio_ready > 0) {
+			pause_text.innerHTML = "\u00A0\u00A0\u00A0НАЧАТЬ\u00A0\u00A0\u00A0";
+			workout_state = "ready";
+		} else {
+			let points_count = (((new Date().getTime()) - workout_start_tm) / 1000) % 3;
+			let text = "ЗАГРУЗКА";
+			for (i = 0; i < 3; i++) {
+				if (i <= points_count)
+					text += '.';
+				else
+					text += '\u00A0';
 			}
+
+
+			pause_text.innerHTML = text;
 		}
 
+		{%if debug %}
+		console.log(workout_audio_ready, workout_state);
+		pause_text.innerHTML = "--workout_state: " + workout_state + ", ready: " + workout_audio.readyState;
+		{% endif %}
+	}
+
+
+	function do_process_run() {
 		let current_task_time = 0;
 		if (workout_audio != null)
 			current_task_time = Math.floor(workout_audio.currentTime);
@@ -132,10 +145,13 @@ function start_stop_workout() {
 		task_schedule_idx = workout.schedule[current_task_time];
 
 		/* ToDo: window.location.href = "/?wuid={{active_wuid}}"; on stopped audio */
-		if (((current_task_time % 4) == 0) || task_changed) {
+		let img_change_tm = (((new Date().getTime()) - workout_start_tm) / 1000) % 4;
+		console.log(img_change_tm);
+		if ((img_change_tm == 0) || task_changed) {
 			name_div.innerText = current_task.caption;
 			current_task_image = (current_task_image + 1) % current_task.images.length;
 			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + current_task.images[current_task_image] + '.png'
+			asana_image.className = "active-image-horizontal";
 		}
 		
 		var seconds = current_task_time % 60;
@@ -146,13 +162,17 @@ function start_stop_workout() {
 		timer_div.textContent = "\u00A0" + minutes + ":" + seconds + "\u00A0";
 		//timer_div.textContent = "audio state: " + workout_audio.readyState + ", time: " + workout_audio.currentTime;
 		//timer_div.textContent = current_task_time;
+	}
 
-		if (workout_state == "show")
-			workout_state = "load";
+
+    function process() {
+		if ((workout_state == "run") || (workout_state == "pause"))
+			do_process_run()
+		else
+			do_process_wait();
     }
-    
     process();	// First process to start immediately
-    setInterval(process, 1000);
+    setInterval(process, 250);
 	document.body.style.backgroundImage = "url('{% static 'ywsapp/res/activebg/' %}" + "{{active_bg_image}}" + "')";
 </script>
 
