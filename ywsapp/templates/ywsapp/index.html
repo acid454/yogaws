@@ -23,15 +23,6 @@
 
 
 <script>
-function save_workout_local_storage(workout_nm)
-{
-    const collection = document.getElementsByClassName("prop_input");
-    for (var i = 0; i < collection.length; i++) {
-        localStorage.setItem(collection[i].id, collection[i].value);
-    }
-    window.location.href = "/active?id=" + workout_nm;
-}
-
 function show_login_form()
 {
     document.getElementById("frm_login").style.display = "block";

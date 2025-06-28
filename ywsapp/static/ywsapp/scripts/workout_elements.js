@@ -14,6 +14,16 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function save_workout_local_storage(workout_nm)
+{
+    const collection = document.getElementsByClassName("prop_input");
+    for (var i = 0; i < collection.length; i++) {
+        //console.log("save prperty: ", collection[i].id, " value ", collection[i].value);
+        localStorage.setItem(collection[i].id, collection[i].value);
+    }
+    window.location.href = "/active?id=" + workout_nm;
+}
+
 function do_show_element(e, list, idx, _thumbnails_path) {
     let node = document.createElement('li');
     let header = document.createElement('h3');
@@ -70,7 +80,7 @@ function do_show_element(e, list, idx, _thumbnails_path) {
                 xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
                 xhr.send(JSON.stringify(params)) // Make sure to stringify
                 //xhr.onload = function() {
-                //    console.log(`xhr status code: ${xhr.status}`)
+                //    console.log(`modify workout params xhr status code: ${xhr.status}`)
                 //}
             });
 

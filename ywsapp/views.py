@@ -139,13 +139,19 @@ def _update_workouts():
         workouts = __import__(f[:-3]).do_load_workouts()
         for w in workouts:
             wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
-            WORKOUTS[wid] = { 'class':w, 'filenm':f, 'wid':wid }
+            WORKOUTS[wid] = {
+                'class':w,
+                'default':w().build(None, wid),
+                'filenm':f,
+                'wid':wid
+            }
 
 def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
     wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
-    wrks = map(lambda x: jsons.dump(x['class']().build(None, x['wid']) ), wrks)
+    #wrks = map(lambda x: jsons.dump(x['class']().build(None, x['wid']) ), wrks)
+    wrks = map(lambda x: jsons.dump(x['default']), wrks)
     
     result = {}
     for w in wrks:
@@ -251,19 +257,20 @@ def modify_workout_params(request):
     except:
         return JsonResponse({}, safe = False, status = 400)
     
-    #print(params)
+
+    YOGAWS_LOGS.append(f"modify_workout_params: '{params}'  by user {get_user(request)}")
     try:
         for workout_id in WORKOUTS.keys():
-            w = WORKOUTS[workout_id]['class'] #().build(workout_id)
-            p = w.find_property_by_id(params['property_id'])
+            p = WORKOUTS[workout_id]['default'].find_property_by_id(params['property_id'])
             if p is not None:
                 break
         
         if p is None:
+            print("modify_workout_params: property not found")
             return JsonResponse({}, safe = False, status = 404)
         
         #print(dir(request.user.id), request.user.is_authenticated)
-        #print(get_user(request))
+        #print(f"modify_workout_params: user - {get_user(request)}")
         try:
             v = int(params['value'])
             if (v < p.value_min) or (v > p.value_max):
@@ -278,11 +285,13 @@ def modify_workout_params(request):
         
         rec.value = v
         rec.save()
+        #print(f"modify_workout_params: param saved")
         return JsonResponse({}, safe = False, status = 200)
     except:
-        pass
+        print(traceback.format_exc())
 
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
+
 
 def sound(request):
     sound_id = request.GET.get('id')
