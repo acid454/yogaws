@@ -15,9 +15,11 @@ function start_stop_workout() {
 	let pause_frame = document.getElementById('pause_frame');
 	
 	if (workout_state == "ready" || workout_state == "pause") {
-		if (workout_state == "ready")
-			pause_text.innerHTML = "ПАУЗА";
 		pause_frame.style.display = 'none';
+		if (workout_state == "ready") {
+			noSleep.enable();
+			pause_text.innerHTML = "ПАУЗА";
+		}
 		workout_state = "run";
 		workout_audio.play();
 	} else if (workout_state == "run") {
@@ -49,7 +51,6 @@ function start_stop_workout() {
 <script src="{% static 'ywsapp/res/NoSleep.min.js' %}?v={{scr_version}}"></script>
 <script>
 	var noSleep = new NoSleep();
-	noSleep.enable();
 </script>
 
 <script>
@@ -146,7 +147,6 @@ function start_stop_workout() {
 
 		/* ToDo: window.location.href = "/?wuid={{active_wuid}}"; on stopped audio */
 		let img_change_tm = (((new Date().getTime()) - workout_start_tm) / 1000) % 4;
-		console.log(img_change_tm);
 		if ((img_change_tm == 0) || task_changed) {
 			name_div.innerText = current_task.caption;
 			current_task_image = (current_task_image + 1) % current_task.images.length;

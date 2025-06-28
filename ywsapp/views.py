@@ -29,7 +29,7 @@ except:
 import hashlib
 
 
-SCR_VERSION = "1.0.3"
+SCR_VERSION = "1.0.5"
 WORKOUTS = None
 SOUND_STREAMS = {}
 YOGAWS_LOGS = []
