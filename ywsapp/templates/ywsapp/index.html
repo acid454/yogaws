@@ -35,6 +35,9 @@ function login_form_submit()
 }
 
 function start_user_register() {
+    document.getElementById('main_workout_list_display').style.display = 'none';
+    document.getElementById('main_centered_display').style.display = '';
+
     document.getElementById('text_begin').style.display = 'none';
     document.getElementById('registration_popup').style.display = 'block';
 }
