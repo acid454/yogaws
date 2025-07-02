@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-ffs%*ul!ld$v1+9_)ot*(7y!$wc2z$w5msf4ik_4bvo-wr*wv)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['acid45k9.beget.tech']
+ALLOWED_HOSTS = ['yogaws.ru']
 
 
 # Application definition
@@ -137,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/home/a/acid45k9/acid45k9.beget.tech/public_html/static'
+STATIC_ROOT = '/home/a/acid45k9/yogaws/public_html/static'
 # STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
