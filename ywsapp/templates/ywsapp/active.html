@@ -64,7 +64,7 @@ function start_stop_workout() {
 
 	var workout_audio = null;
 	var workout_start_tm = new Date().getTime();
-    var current_task_image = 0;
+    var task_image = 0;
 	var task_schedule_idx = null;
     var timer_div = document.getElementById('timer');
     var name_div = document.getElementById('asana_name');
@@ -132,36 +132,35 @@ function start_stop_workout() {
 
 
 	function do_process_run() {
-		let current_task_time = 0;
+		let workout_current_time = 0;
 		if (workout_audio != null)
-			current_task_time = Math.floor(workout_audio.currentTime);
+			workout_current_time = Math.floor(workout_audio.currentTime);
 
-		current_task = workout.timetable[workout.schedule[current_task_time]];
+		let current_task = workout.timetable[workout.schedule[workout_current_time]];
 		if (current_task === undefined) {
 			window.location.href = "/?wuid={{active_wuid}}";
 			return;
 		}
 
-		task_changed = ((task_schedule_idx == null) || (task_schedule_idx != workout.schedule[current_task_time]));
-		task_schedule_idx = workout.schedule[current_task_time];
+		let task_changed = ((task_schedule_idx == null) || (task_schedule_idx != workout.schedule[workout_current_time]));
+		task_schedule_idx = workout.schedule[workout_current_time];
 
-		/* ToDo: window.location.href = "/?wuid={{active_wuid}}"; on stopped audio */
-		let img_change_tm = (((new Date().getTime()) - workout_start_tm) / 1000) % 4;
-		if ((img_change_tm == 0) || task_changed) {
+		let current_task_image = Math.floor((workout_current_time - task_schedule_idx)/4) % current_task.images.length;
+		if (task_changed || (current_task_image != task_image)) {
+			task_image = current_task_image;
 			name_div.innerText = current_task.caption;
-			current_task_image = (current_task_image + 1) % current_task.images.length;
 			asana_img.src = "{% static 'ywsapp/res/imgs/' %}" + current_task.images[current_task_image] + '.png'
 			asana_image.className = "active-image-horizontal";
 		}
 		
-		var seconds = current_task_time % 60;
-		var minutes = (current_task_time - seconds) / 60;
+		let seconds = workout_current_time % 60;
+		let minutes = (workout_current_time - seconds) / 60;
 		
 		if (seconds < 10) seconds = "0" + seconds;
 		if (minutes < 10) minutes = "0" + minutes;
 		timer_div.textContent = "\u00A0" + minutes + ":" + seconds + "\u00A0";
 		//timer_div.textContent = "audio state: " + workout_audio.readyState + ", time: " + workout_audio.currentTime;
-		//timer_div.textContent = current_task_time;
+		//timer_div.textContent = workout_current_time;
 	}
 
 
