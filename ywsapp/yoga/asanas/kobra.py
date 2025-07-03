@@ -23,7 +23,7 @@ class Kobra(BaseAsana):
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["kobra01", "kobra02", "kobra03"]
+            images=[f"kobra0{x}" for x in range(1,4)]
         ))
         self.pool("name").append("enter_kobra_provisli")
 
@@ -58,7 +58,7 @@ class KobraWithRotations(Kobra):
             caption=self.caption + "\n(разворот влево)",
             property=self.tm_left,
             metronome=MetronomeWork(),
-            images=self.tasks[0].images))
+            images=["kobra_left"]))
         self.pool("name").append("upr_razvorot_vlevo")
         self.pool("name").append("upr_potjanulis_v_levuju_storonu")
         self.pool("float").append("starajas'_uvidet'_zadnuu_nogu")
@@ -67,7 +67,7 @@ class KobraWithRotations(Kobra):
             caption=self.caption + "\n(разворот вправо)",
             property=self.tm_right,
             metronome=MetronomeWork(),
-            images=self.tasks[0].images))
+            images=["kobra_right"]))
         self.pool("name").append("upr_razvorot_vpravo")
         for snd in SND_NA_DRUGUJU_STORONU:
             self.pool("name").append(snd)
