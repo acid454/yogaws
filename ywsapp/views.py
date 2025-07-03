@@ -6,30 +6,38 @@
 #  Copyright 2025 Repnikov Dmitry <acid454@yoga7>
 #  
 
-import traceback
+
+SCR_VERSION = "1.0.5"
+
+import logging
+from io import StringIO
+main_log_stream = StringIO()
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(message)s',
+    handlers=[logging.StreamHandler(main_log_stream)]
+)
+logging.info(f"--- starting app, SCR version is {SCR_VERSION} ---")
+
 from django.shortcuts import render, redirect
 try:
     from django.http import HttpResponse, JsonResponse
-    from django.template import loader
     from django.utils import timezone
     from django.contrib.auth import get_user
     from .forms import UserLoginForm, NewUserForm, UserInfoForm
     from .models import User, UserWorkoutProps
     from django.contrib.auth import authenticate, login, logout
-    import uuid
+    import hashlib, uuid
     import json
     import jsons
     from .resmanager import ResourcesManager
     from .audiocore.soundgen import SoundGenerator
-    import_exception = None
 except:
-    import_exception = traceback.format_exc()
-
-#import random
-import hashlib
+    logging.exception("Exception while loading main view modules:")
 
 
-SCR_VERSION = "1.0.5"
+# GLOBAL VARIABLES still here...
 WORKOUTS = None
 SOUND_STREAMS = {}
 YOGAWS_LOGS = []
@@ -96,17 +104,14 @@ def do_index(request):
 
 # Create your views here.
 def index(request):
-    if import_exception is not None:
-        return HttpResponse(f"<pre>{import_exception}</pre>")
-    
     try:
         return do_index(request)
     except:
-        return HttpResponse(f"<pre>{str(traceback.format_exc())}</pre>")
+        logging.exception("exception while rendering main view:")
+        return logs(request)
 
 def logs(request):
-    result = '\n'.join(YOGAWS_LOGS)
-    return HttpResponse(f"<pre>{result}</pre>")
+    return HttpResponse(f"<pre>{main_log_stream.getvalue()}</pre>")
 
 def active(request):
     # Request active page -- so, start a new workout. Cache WS's id here, to check it in index page when done
@@ -258,7 +263,7 @@ def modify_workout_params(request):
         return JsonResponse({}, safe = False, status = 400)
     
 
-    YOGAWS_LOGS.append(f"modify_workout_params: '{params}'  by user {get_user(request)}")
+    logging.debug(f"modify_workout_params: '{params}'  by user {get_user(request)}")
     try:
         for workout_id in WORKOUTS.keys():
             p = WORKOUTS[workout_id]['default'].find_property_by_id(params['property_id'])
@@ -266,7 +271,7 @@ def modify_workout_params(request):
                 break
         
         if p is None:
-            print("modify_workout_params: property not found")
+            logging.error(f"modify_workout_params: property {params['property_id']} not found")
             return JsonResponse({}, safe = False, status = 404)
         
         #print(dir(request.user.id), request.user.is_authenticated)
@@ -288,7 +293,7 @@ def modify_workout_params(request):
         #print(f"modify_workout_params: param saved")
         return JsonResponse({}, safe = False, status = 200)
     except:
-        print(traceback.format_exc())
+        logging.exception("Exception while modify workout params")
 
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
 
@@ -297,10 +302,10 @@ def sound(request):
     sound_id = request.GET.get('id')
     sound_check = request.GET.get('check', None)
 
-    YOGAWS_LOGS.append(f"Sound id is {sound_id}, check is: {(sound_check)}")
+    logging.debug(f"Sound id is {sound_id}, check is: {(sound_check)}")
 
     if sound_id not in SOUND_STREAMS.keys():
-        YOGAWS_LOGS.append(f"Sound id {sound_id} not in SOUND_STREAMS")
+        logging.error(f"Sound id {sound_id} not in SOUND_STREAMS")
         return JsonResponse({}, safe = False, status = 404)
     
     result = SOUND_STREAMS[sound_id]
@@ -310,7 +315,7 @@ def sound(request):
     if sound_check == 'true':
         return JsonResponse({}, safe = False, status = 200)
     
-    YOGAWS_LOGS.append("Task done, result requested")
+    logging.debug("Sound task done, result requested")
     result = result.get_result()
 
     chunk_size = 8192
@@ -325,5 +330,5 @@ def sound(request):
 
     response['Accept-Ranges'] = 'bytes' # Enable range requests
     response['Content-Length'] = len(result)
-    YOGAWS_LOGS.append(f"echo 'Return sound stream, length {response['Content-Length']} bytes")
+    logging.debug(f"return sound stream, length {response['Content-Length']} bytes")
     return response
