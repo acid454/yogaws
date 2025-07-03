@@ -12,13 +12,12 @@ SCR_VERSION = "1.0.5"
 import logging
 from io import StringIO
 main_log_stream = StringIO()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler(main_log_stream))
+logger.handlers[-1].setFormatter(logging.Formatter('%(asctime)s %(message)s'))
+logger.info(f"--- starting app, SCR version is {SCR_VERSION} ---")
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(message)s',
-    handlers=[logging.StreamHandler(main_log_stream)]
-)
-logging.info(f"--- starting app, SCR version is {SCR_VERSION} ---")
 
 from django.shortcuts import render, redirect
 try:
@@ -34,7 +33,7 @@ try:
     from .resmanager import ResourcesManager
     from .audiocore.soundgen import SoundGenerator
 except:
-    logging.exception("Exception while loading main view modules:")
+    logger.exception("Exception while loading main view modules:")
 
 
 # GLOBAL VARIABLES still here...
@@ -107,7 +106,7 @@ def index(request):
     try:
         return do_index(request)
     except:
-        logging.exception("exception while rendering main view:")
+        logger.exception("exception while rendering main view:")
         return logs(request)
 
 def logs(request):
@@ -263,7 +262,7 @@ def modify_workout_params(request):
         return JsonResponse({}, safe = False, status = 400)
     
 
-    logging.debug(f"modify_workout_params: '{params}'  by user {get_user(request)}")
+    logger.debug(f"modify_workout_params: '{params}'  by user {get_user(request)}")
     try:
         for workout_id in WORKOUTS.keys():
             p = WORKOUTS[workout_id]['default'].find_property_by_id(params['property_id'])
@@ -271,7 +270,7 @@ def modify_workout_params(request):
                 break
         
         if p is None:
-            logging.error(f"modify_workout_params: property {params['property_id']} not found")
+            logger.error(f"modify_workout_params: property {params['property_id']} not found")
             return JsonResponse({}, safe = False, status = 404)
         
         #print(dir(request.user.id), request.user.is_authenticated)
@@ -293,7 +292,7 @@ def modify_workout_params(request):
         #print(f"modify_workout_params: param saved")
         return JsonResponse({}, safe = False, status = 200)
     except:
-        logging.exception("Exception while modify workout params")
+        logger.exception("Exception while modify workout params")
 
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
 
@@ -302,10 +301,10 @@ def sound(request):
     sound_id = request.GET.get('id')
     sound_check = request.GET.get('check', None)
 
-    logging.debug(f"Sound id is {sound_id}, check is: {(sound_check)}")
+    logger.debug(f"Sound id is {sound_id}, check is: {(sound_check)}")
 
     if sound_id not in SOUND_STREAMS.keys():
-        logging.error(f"Sound id {sound_id} not in SOUND_STREAMS")
+        logger.error(f"Sound id {sound_id} not in SOUND_STREAMS")
         return JsonResponse({}, safe = False, status = 404)
     
     result = SOUND_STREAMS[sound_id]
@@ -315,7 +314,7 @@ def sound(request):
     if sound_check == 'true':
         return JsonResponse({}, safe = False, status = 200)
     
-    logging.debug("Sound task done, result requested")
+    logger.debug("Sound task done, result requested")
     result = result.get_result()
 
     chunk_size = 8192
@@ -330,5 +329,5 @@ def sound(request):
 
     response['Accept-Ranges'] = 'bytes' # Enable range requests
     response['Content-Length'] = len(result)
-    logging.debug(f"return sound stream, length {response['Content-Length']} bytes")
+    logger.debug(f"return sound stream, length {response['Content-Length']} bytes")
     return response
