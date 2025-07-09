@@ -15,7 +15,7 @@ from os.path import isfile, join
 
 def main(args):
     size = 256, 256
-    cur_path = os.path.abspath(os.path.dirname(__file__))
+    cur_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..')
     res_path = os.path.join(cur_path, 'ywsapp/static/ywsapp/res/imgs')
     res_files = [f for f in listdir(res_path) if (isfile(join(res_path, f)) and f.endswith('.png'))]
 
