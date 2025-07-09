@@ -13,11 +13,12 @@ from snd_pools import *
 
 
 class PrasaritaPadottanasana(BaseAsana):
-    def __init__(self, with_hands = False, **kwargs):
+    def __init__(self, with_legs = True, with_hands = False, **kwargs):
         super().__init__(name="prasarita_padottanasana", caption="Прасарита Падоттанасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=11))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=80))
-        self.properties.append(IntProperty(caption="наклон к ногам", short="tm_legs", default=30))
+        if with_legs:
+            self.properties.append(IntProperty(caption="наклон к ногам", short="tm_legs", default=30))
         if with_hands:
             self.properties.append(IntProperty(caption="подготовка рук", short="tm_hands_prep", default=5))
             self.properties.append(IntProperty(caption="подъём рук", short="tm_hands_main", default=30))
@@ -59,35 +60,36 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("end").append("_horosho2")
         self.pool("end").append("otlichno")
 
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\n(наклон к левой ноге)",
-            property=self.tm_legs,
-            metronome=MetronomeWork(),
-            images=["prasarita_padottanasana_leg_left"]
-        ))
-        self.pool("start").append("upr_potjanulis_k_levoi_noge1")
-        self.pool("start").append("upr_potjanulis_k_levoi_noge2")
-        self.pool("start").append("upr_potjanulis_v_levuju_storonu")
-        self.pool("continue").append("descr_prasarita_potjanulis_k_levoi_noge")
-        self.pool("continue").append("descr_prasarita_potjanulis_k_noge_common")
-        self.pool("float").append("common7")
+        if with_legs:
+            self.tasks.append(BaseTask(
+                caption=self.caption + "\n(наклон к левой ноге)",
+                property=self.tm_legs,
+                metronome=MetronomeWork(),
+                images=["prasarita_padottanasana_leg_left"]
+            ))
+            self.pool("start").append("upr_potjanulis_k_levoi_noge1")
+            self.pool("start").append("upr_potjanulis_k_levoi_noge2")
+            self.pool("start").append("upr_potjanulis_v_levuju_storonu")
+            self.pool("continue").append("descr_prasarita_potjanulis_k_levoi_noge")
+            self.pool("continue").append("descr_prasarita_potjanulis_k_noge_common")
+            self.pool("float").append("common7")
 
-        self.tasks.append(BaseTask(
-            caption=self.caption + "\n(наклон к правой ноге)",
-            property=self.tm_legs,
-            metronome=MetronomeWork(),
-            images=["prasarita_padottanasana_leg_right"]
-        ))
-        self.pool("start").append("k_pravoi_noge")
-        for i in SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(i)
-        self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
-        self.pool("float").append("common_tianemsia_2x")
-        self.pool("float").append("common_i_postojat'_podushat'")
-        self.pool("float").append("common7")
-        self.pool("end").append("_horosho1")
-        self.pool("end").append("_horosho2")
-        self.pool("end").append("otlichno")
+            self.tasks.append(BaseTask(
+                caption=self.caption + "\n(наклон к правой ноге)",
+                property=self.tm_legs,
+                metronome=MetronomeWork(),
+                images=["prasarita_padottanasana_leg_right"]
+            ))
+            self.pool("start").append("k_pravoi_noge")
+            for i in SND_NA_DRUGUJU_STORONU:
+                self.pool("start").append(i)
+            self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
+            self.pool("float").append("common_tianemsia_2x")
+            self.pool("float").append("common_i_postojat'_podushat'")
+            self.pool("float").append("common7")
+            self.pool("end").append("_horosho1")
+            self.pool("end").append("_horosho2")
+            self.pool("end").append("otlichno")
 
         if with_hands:
             self.append_hands_tasks()
@@ -98,9 +100,11 @@ class PrasaritaPadottanasana(BaseAsana):
             metronome=MetronomeWork(),
             images=["prasarita_padottanasana"]
         ))
-        self.pool("start").append("vernulis'_v_ishodnuju")
-        self.pool("start").append("otlichno")
-        self.pool("start").append("davaite_zavershat'")
+        if with_legs or with_hands:
+            self.pool("start").append("vernulis'_v_ishodnuju")
+            self.pool("start").append("otlichno")
+            self.pool("start").append("davaite_zavershat'")
+        
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("start").append(i)
         self.pool("continue").append("so_vdohom_vverh1")
