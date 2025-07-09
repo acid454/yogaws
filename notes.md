@@ -4,6 +4,7 @@ http://127.0.0.1:8000/
 
 sessionStorage.removeItem('background_img_id')
 
+!!!!!! # ToDo: fix this, last bell sound longer, than just a second
 !!! нет подъема вверх в медленной сурье
 !!! увеличить шрифт на успешном завершении
 !!! капотасана и горка после - звук паузы
