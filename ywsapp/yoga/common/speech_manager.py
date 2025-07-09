@@ -21,7 +21,6 @@ class SoundElement:
 
 
 class SpeechManager:
-    POOLS = ["start", "name", "continue", "float", "end"]
     # Singleton class for speech manager, see
     #  https://www.geeksforgeeks.org/singleton-pattern-in-python-a-complete-guide/
     #  The new method is a static method that belongs to the class itself.
@@ -105,7 +104,7 @@ class SpeechManager:
         cur_time_idx = overlapse_offset
         float_time_idx = overlapse_offset
 
-        for pool_nm in ["start", "name", "continue", "end"]:
+        for pool_nm in ["start", "name", "continue", "continue+", "end"]:
             # ----- Select one random sound for this pool
             task_snd_pool = t.pool(pool_nm)
 
