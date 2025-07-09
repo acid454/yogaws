@@ -8,7 +8,9 @@
 
 SND_ZAKONCHILI_DALSHE = [
     "i_zakanchivaem",
-    "i_zakonchili",
+    "i_zakonchili1",
+    "i_zakonchili2",
+    "zakonchili",
     "zakanchivaem_s_nei",
     "zakanchivaem_s_nei_i_dal'she",
     # {% if not glob.get('last_before_shavasana') %}
@@ -21,7 +23,8 @@ SND_ZAKONCHILI_DALSHE = [
 ]
 
 SND_COMPLETION_OTHERS = [
-    "otlichno",
+    "otlichno1",
+    "otlichno2",
     "est'",
     "_horosho1",
     "_horosho2"

@@ -30,6 +30,7 @@ class Pashimotanasana(BaseAsana):
         self.pool("start").append("nogi_pered_soboi2")
         self.pool("start").append("nogi_pered_soboi3")
         self.pool("start").append("nogi_pered_soboi4")
+        self.pool("start").append("nogi_pered_soboi5")
         self.pool("name").append("name_pashimotanasana1")
         self.pool("name").append("name_pashimotanasana2")
         self.pool("name").append("name_pashimotanasana4")
