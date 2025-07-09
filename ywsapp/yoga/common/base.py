@@ -60,7 +60,7 @@ class BaseAsana(PropertiesContainer, VisibleElement):
         
         return False
 
-    # Удобно брать пул последней таски
+    # Удобно брать пул последней задачи
     def pool(self, name):
         return self.tasks[-1].pool(name)
 
@@ -73,7 +73,7 @@ class BaseAsana(PropertiesContainer, VisibleElement):
             if t.property is property:
                 return t
     
-    # Используется, если после этого перехода идёт таймерное утпражнение типа циклов дыхания (которые без названия)
+    # Используется, если после этого перехода идёт таймерное упражнение типа циклов дыхания (которые без названия)
     def set_name_sound(self, name):
         self.pool("name").clear()
         self.pool("name").append(name)
@@ -119,6 +119,7 @@ class SoundPool:
     seq: int = 0
     can_be_empty: bool = False
 
+    # Append None, string (sound name), or list with names
     def append(self, x, **kwargs):
         if x is None:
             self.can_be_empty = True
