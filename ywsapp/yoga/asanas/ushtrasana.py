@@ -57,13 +57,7 @@ class Ushtrasana(BaseAsana):
         self.pool("float").append("common5_v_vitalkivanii")
         self.pool("float").append("common6")
         self.pool("float").append("common10")
-        for i in SND_RASSLABILIS + SND_EXHALE:
-            self.pool("end").append(i)
-        self.pool("end").append("vernulis'_v_ishodnuju")
-        self.pool("end").append("otlichno")
-        self.pool("end").append("vernulis'1")
-        self.pool("end").append("vernulis'2")
-        self.pool("end").append("davaite_zavershat'")
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE + SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nвыход",

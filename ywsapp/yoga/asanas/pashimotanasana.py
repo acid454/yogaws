@@ -58,8 +58,4 @@ class Pashimotanasana(BaseAsana):
         self.pool("float").append("common9")
         self.pool("float").append("common11")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
-        self.pool("end").append("otlichno")
-        self.pool("end").append("_horosho1")
-        self.pool("end").append("_horosho2")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)

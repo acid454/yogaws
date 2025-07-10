@@ -9,7 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
-from snd_pools import SND_ZAKONCHILI_DALSHE
+from snd_pools import SND_COMPLETION_OTHERS, SND_ZAKONCHILI_DALSHE
 from short_poses import Seli
 
 
@@ -76,9 +76,7 @@ class BaddhaKonasana(BaseAsana):
             self.pool("float").append("common10")
             self.pool("float").append("common11")
             self.pool("float").append("common12")
-        self.pool("end").append("otlichno")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
         
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(выход)",

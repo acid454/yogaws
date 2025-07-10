@@ -61,9 +61,7 @@ class Bakasana(BaseAsana):
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
         self.pool("continue").append("descr_ardhachandrasana_common1")
         self.pool("continue").append("descr_ardhachandrasana_zameret'")
-        self.pool("end").append("otlichno")
-        for i in SND_EXHALE + SND_RASSLABILIS:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(выход)",
@@ -71,8 +69,7 @@ class Bakasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
 
     def build(self, workout, _set):
         super().build(workout, _set)
@@ -80,7 +77,6 @@ class Bakasana(BaseAsana):
         if issubclass(type(prev_asana), Bakasana):
             t = self.task(self.tm_prepare)
             t.pool("start").clear()
-            for i in SND_NA_DRUGUJU_STORONU:
-                t.pool("start").append(i)
+            t.pool("start").append(SND_NA_DRUGUJU_STORONU)
             return
     

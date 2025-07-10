@@ -60,6 +60,4 @@ class Most(BaseAsana):
         ))
         self.pool("name").append("delaem_kompensaciju")
         self.pool("name").append("most_kompensacija")
-        self.pool("end").append("otlichno")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)

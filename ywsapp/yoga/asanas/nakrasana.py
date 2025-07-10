@@ -52,10 +52,7 @@ class Nakrasana(BaseAsana):
         ))
         self.nakrasana_float_sounds()
         self.pool("float").append("descr_nakrasana_left1")
-        self.pool("end").append("otlichno")
-        self.pool("end").append("vernulis'1")
-        self.pool("end").append("vernulis'2")
-        self.pool("end").append("vernulis'_v_ishodnuju")
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_VERNULIS)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nправый бок, подготовка",
@@ -92,13 +89,7 @@ class Nakrasana(BaseAsana):
             images=self.tasks[-1].images
         ))
         self.pool("start").append("otpuskaem_levuju_nogu")
-        self.pool("start").append("vernulis'_v_ishodnuju")
-        self.pool("start").append("otlichno")
-        self.pool("start").append("vernulis'1")
-        self.pool("start").append("vernulis'2")
-        self.pool("start").append("davaite_zavershat'")
-        for i in SND_RASSLABILIS + SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("start").append(SND_COMPLETION_OTHERS + SND_VERNULIS + SND_ZAKONCHILI_DALSHE + SND_RASSLABILIS)
 
     def nakrasana_float_sounds(self):
         self.pool("float").append("descr_nakrasana1")

@@ -56,9 +56,7 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common4")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
-        self.pool("end").append("_horosho1")
-        self.pool("end").append("_horosho2")
-        self.pool("end").append("otlichno")
+        self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_legs:
             self.tasks.append(BaseTask(
@@ -87,9 +85,7 @@ class PrasaritaPadottanasana(BaseAsana):
             self.pool("float").append("common_tianemsia_2x")
             self.pool("float").append("common_i_postojat'_podushat'")
             self.pool("float").append("common7")
-            self.pool("end").append("_horosho1")
-            self.pool("end").append("_horosho2")
-            self.pool("end").append("otlichno")
+            self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_hands:
             self.append_hands_tasks()
@@ -100,18 +96,13 @@ class PrasaritaPadottanasana(BaseAsana):
             metronome=MetronomeWork(),
             images=["prasarita_padottanasana"]
         ))
+
         if with_legs or with_hands:
-            self.pool("start").append("vernulis'_v_ishodnuju")
-            self.pool("start").append("otlichno")
-            self.pool("start").append("davaite_zavershat'")
-        
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("start").append(i)
+            self.pool("start").append(SND_VERNULIS + SND_COMPLETION_OTHERS)
+
         self.pool("continue").append("so_vdohom_vverh1")
         self.pool("continue").append("upr_podnimaemsia_vverh1")
         self.pool("continue").append("upr_podnimaemsia_vverh2")
-        for i in SND_RASSLABILIS:
-            self.pool("end").append(i)
     
     def append_hands_tasks(self):
         self.tasks.append(BaseTask(
@@ -144,10 +135,7 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common10")
         self.pool("end").append("i_provernuli")
-        self.pool("end").append("otlichno")
-        self.pool("end").append("vernulis'_v_ishodnuju")
-        for i in SND_S_VIDOHOM_VNIZ:
-            self.pool("start").append(i)
+        self.pool("end").append(SND_VERNULIS + SND_COMPLETION_OTHERS + SND_S_VIDOHOM_VNIZ)
         
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(левая рука, подготовка)",

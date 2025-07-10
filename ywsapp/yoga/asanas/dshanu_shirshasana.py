@@ -55,7 +55,7 @@ class DshanuShirshasana(BaseAsana):
         self.pool("end").append("so_vdohom_vverh2")
         self.pool("end").append("podnimaemsia1")
         self.pool("end").append("podnimaemsia2")
-        self.pool("end").append("otlichno")
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
 
 
         self.tasks.append(BaseTask(
@@ -81,8 +81,7 @@ class DshanuShirshasana(BaseAsana):
         self.pool("end").append("otpuskaem_levuju_nogu")
         self.pool("end").append("podnimaemsia1")
         self.pool("end").append("podnimaemsia2")
-        for snd in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(snd)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
 
     def dshanu_shirshasana_float_sounds(self):
         self.pool("continue").append("descr_dshanu_shirshasana1")
