@@ -139,17 +139,21 @@ def _update_workouts():
     #-------------------------------------------------------------------
    
     WORKOUTS = {}
+    logger.debug(f"workout files: {ResourcesManager().workout_files()}")
     for f in ResourcesManager().workout_files():
         #if f != "01_test.py": continue
-        workouts = __import__(f[:-3]).do_load_workouts()
-        for w in workouts:
-            wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
-            WORKOUTS[wid] = {
-                'class':w,
-                'default':w().build(None, wid),
-                'filenm':f,
-                'wid':wid
-            }
+        try:
+            workouts = __import__(f[:-3]).do_load_workouts()
+            for w in workouts:
+                wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
+                WORKOUTS[wid] = {
+                    'class':w,
+                    'default':w().build(None, wid),
+                    'filenm':f,
+                    'wid':wid
+                }
+        except:
+            logger.exception(f"exception while loading workout {f}")
 
 def list_workouts(request):
     if WORKOUTS is None:
