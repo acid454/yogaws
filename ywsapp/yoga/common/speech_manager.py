@@ -7,11 +7,13 @@
 #  
 
 import os, random, math
+import logging
 from mutagen.mp3 import MP3
 from dataclasses import dataclass, replace
 
 
-BASE_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+logger = logging.getLogger("ywsapp")
+
 
 @dataclass
 class SoundElement:
@@ -32,7 +34,8 @@ class SpeechManager:
 
     def __init__(self):
         # List all sound files, their lengths
-        mp3_path = os.path.join(BASE_PATH, 'static', 'ywsapp', 'res', 'sounds')
+        base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        mp3_path = os.path.join(base_path, 'static', 'ywsapp', 'res', 'sounds')
         mp3_files = os.listdir(mp3_path)
         mp3_files = list(filter(lambda x: x.endswith(".mp3"), mp3_files))
         self.mp3_files = {}
@@ -48,27 +51,30 @@ class SpeechManager:
         
         # First, filter all sounds, long/short enought
         for item in pool_items:
-            fl_name = item['file']
-            can_overlapse = item.get('overlapse', False)
-            if fl_name.endswith('_overlapse'):
-                can_overlapse = True
-                fl_name = fl_name[:-len('_overlapse')]
-                print(f"WARNING! Old overlapse name format for {fl_name}")
-            
-            mandatory_acting = False
-            voice_actings = item.get('only_actings', None)
-            if voice_actings is not None:
-                mandatory_acting = voice_acting in voice_actings
+            try:
+                fl_name = item['file']
+                can_overlapse = item.get('overlapse', False)
+                if fl_name.endswith('_overlapse'):
+                    can_overlapse = True
+                    fl_name = fl_name[:-len('_overlapse')]
+                    print(f"WARNING! Old overlapse name format for {fl_name}")
+                
+                mandatory_acting = False
+                voice_actings = item.get('only_actings', None)
+                if voice_actings is not None:
+                    mandatory_acting = voice_acting in voice_actings
 
-            if only_mandatory and not item.get('mandatory', False):
-                if not mandatory_acting:
-                    continue
+                if only_mandatory and not item.get('mandatory', False):
+                    if not mandatory_acting:
+                        continue
 
-            if self.mp3_files[fl_name].length <= time or can_overlapse:
-                r = replace(self.mp3_files[fl_name])        # replace is from dataclasses. It just creates a copy of element
-                r.pool_item = item                          #  add link to pool of this sound
-                r.original = self.mp3_files[fl_name]        #  and also link to original item, just only to inc usage count
-                result.append(r)
+                if self.mp3_files[fl_name].length <= time or can_overlapse:
+                    r = replace(self.mp3_files[fl_name])        # replace is from dataclasses. It just creates a copy of element
+                    r.pool_item = item                          #  add link to pool of this sound
+                    r.original = self.mp3_files[fl_name]        #  and also link to original item, just only to inc usage count
+                    result.append(r)
+            except:
+                logger.exception("exception while processing item in sound pool")
 
         if len(result) == 0:
             # No sounds good enought to choose from

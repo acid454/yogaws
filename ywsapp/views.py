@@ -12,7 +12,7 @@ SCR_VERSION = "1.0.5"
 import logging
 from io import StringIO
 main_log_stream = StringIO()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ywsapp")
 logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(main_log_stream))
 logger.handlers[-1].setFormatter(logging.Formatter('%(asctime)s %(message)s'))
@@ -44,7 +44,8 @@ YOGAWS_LOGS = []
 
 def do_index(request):
     show_registration_form = False
-    snack_text = None
+    snack_text = "Some erors occured. Please, check logs" if 'Traceback (most recent call last)' in main_log_stream.getvalue() else None
+
 
     if request.method == "POST":
         if "password" in request.POST.keys():
