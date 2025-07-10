@@ -28,17 +28,12 @@ class DshanuShirshasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["dshanu_shirshasana_right1", "dshanu_shirshasana_right2", "dshanu_shirshasana_right3", "dshanu_shirshasana_right4"]
         ))
-        for snd in SND_LEG_RIGHT_FORWARD:
-            self.pool("start").append(snd)
-        
+        self.pool("start").append(SND_LEG_RIGHT_FORWARD)
         self.pool("name").append("name_dshanu_shirshasana1")
         self.pool("name").append("name_dshanu_shirshasana2")
         self.pool("name").append("name_dshanu_shirshasana3")
         self.pool("name").append("name_dshanu_shirshasana_next")
-
-        for snd in SND_LEG_RIGHT_FORWARD:
-            self.pool("continue").append(snd, only_actings = VOICE_SIDE_ONLY_ACTING)
-
+        self.pool("continue").append(SND_LEG_RIGHT_FORWARD, only_actings = VOICE_SIDE_ONLY_ACTING)
         self.pool("end").append("enter_dshanu_shirshasana_right1")
         self.pool("end").append("enter_dshanu_shirshasana_right2")
         
@@ -65,8 +60,7 @@ class DshanuShirshasana(BaseAsana):
             images=["dshanu_shirshasana_left1", "dshanu_shirshasana_left2", "dshanu_shirshasana_left3", "dshanu_shirshasana_left4"]
         ))
         self.pool("start").append("i_meniaem", mandatory = True)
-        for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd, mandatory = True)
+        self.pool("start").append(SND_LEG_LEFT_FORWARD + SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
         self.pool("continue").append("enter_dshanu_shirshasana_left1")
         self.pool("continue").append("enter_dshanu_shirshasana_left2")
 
@@ -105,3 +99,5 @@ class DshanuShirshasana(BaseAsana):
         self.pool("float").append("common_rasslabit'_lico_plechi")
         self.pool("float").append("common_akcentiruite_vidohi")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")

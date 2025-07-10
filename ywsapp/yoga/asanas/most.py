@@ -49,8 +49,9 @@ class Most(BaseAsana):
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common8")
-        for i in SND_EXHALE + SND_RASSLABILIS:
-            self.pool("end").append(i)
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(
             caption=self.caption + " (выход, компенсация)",

@@ -44,6 +44,7 @@ class Sarvangasana(BaseAsana):
         self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
         self.pool("float").append("common3")
         self.pool("float").append("common12")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nвыход",
@@ -51,16 +52,5 @@ class Sarvangasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        self.pool("start").append("i_opustilis'")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz1")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz2")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz3")
-        self.pool("start").append("opuskaemsia_vniz1")
-        self.pool("start").append("opuskaemsia_vniz2")
-        self.pool("start").append("opustilis'_1")
-        self.pool("start").append("opustilis'_2")
-        self.pool("start").append("opustilis'_3")
-        self.pool("start").append("opustilis'_4")
-        self.pool("start").append("opustilis'_5")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("start").append(SND_OPUSTILIS)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)

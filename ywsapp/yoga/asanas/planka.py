@@ -52,8 +52,9 @@ class Planka(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common10")
         self.pool("float").append("common12")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
 
 class PlankaWithRotationsEx(Planka):
     def __init__(self, with_sagging = False, **kwargs):
@@ -84,6 +85,7 @@ class PlankaWithRotationsEx(Planka):
             images=["planka_left_hand"]
         ))
         self.pool("float").append("common6")
+        self.planka_na_boku_snd_float()
         self.planka_na_boku_snd_end()
 
 
@@ -160,4 +162,5 @@ class PlankaWithRotationsEx(Planka):
         self.pool("float").append("common9")
         self.pool("float").append("common10")
         self.pool("float").append("common12")
-
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")

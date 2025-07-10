@@ -40,7 +40,8 @@ class Kobra(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common10")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
-
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         for i in SND_ZAKONCHILI_DALSHE:
             self.pool("end").append(i)
 
@@ -69,8 +70,7 @@ class KobraWithRotations(Kobra):
             metronome=MetronomeWork(),
             images=["kobra_right"]))
         self.pool("name").append("upr_razvorot_vpravo")
-        for snd in SND_NA_DRUGUJU_STORONU:
-            self.pool("name").append(snd)
+        self.pool("name").append(SND_NA_DRUGUJU_STORONU)
 
         self.tasks.append(BaseTask(
             caption=self.caption,

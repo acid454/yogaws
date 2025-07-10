@@ -38,3 +38,4 @@ class VitjashenieVpered(BaseAsana):
         self.pool("continue").append("descr_potjanulis_vpered5")
         self.pool("continue").append("common_dushim_derzim_t'anemsia")
         self.pool("continue").append("common_tianemsia_2x")
+        

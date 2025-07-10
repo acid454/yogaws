@@ -41,9 +41,8 @@ class Virabhadrasana3Base(BaseParshvaconasana):
         self.pool("float").append("common_vashna_geometria_i_tochnost")
         self.pool("float").append("common1")
         self.pool("float").append("common4")
-
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:
-            self.pool("end").append(i) 
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ) 
     
     def build_snd_name(self, prev_asana):
         if issubclass(type(prev_asana), Virabhadrasana3Base):

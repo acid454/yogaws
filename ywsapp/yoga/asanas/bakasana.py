@@ -51,16 +51,17 @@ class Bakasana(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
+        self.pool("continue").append("common_i_postojat'_podushat'")
+        self.pool("continue").append("descr_ardhachandrasana_common1")
+        self.pool("continue").append("descr_ardhachandrasana_zameret'")
         self.pool("float").append("common3")
         self.pool("float").append("common4")
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
         self.pool("float").append("common12")
-        self.pool("continue").append("common_i_postojat'_podushat'")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
-        self.pool("continue").append("descr_ardhachandrasana_common1")
-        self.pool("continue").append("descr_ardhachandrasana_zameret'")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(

@@ -10,6 +10,7 @@ SND_ZAKONCHILI_DALSHE = [
     "i_zakanchivaem",
     "i_zakonchili1",
     "i_zakonchili2",
+    "i_zakonchili3",
     "zakonchili",
     "zakanchivaem_s_nei",
     "zakanchivaem_s_nei_i_dal'she",
@@ -25,6 +26,8 @@ SND_ZAKONCHILI_DALSHE = [
 SND_COMPLETION_OTHERS = [
     "otlichno1",
     "otlichno2",
+    "otlichno3",
+    "i_otlichno",
     "est'",
     "_horosho1",
     "_horosho2"
@@ -33,6 +36,8 @@ SND_COMPLETION_OTHERS = [
 SND_VERNULIS = [
     "vernulis'1",
     "vernulis'2",
+    "vernulis'3",
+    "i_vernemsia",
     "vernulis'_v_ishodnuju"
 ]
 
@@ -66,6 +71,15 @@ SND_LEG_RIGHT_FORWARD = [
     "leg_right_forward4",
     "leg_right_forward5",
     "leg_right_forward6_vinesli"
+]
+
+SND_LEG_LEFT_FORWARD = [
+    "leg_left_forward1",
+    "leg_left_forward2",
+    "leg_left_forward3",
+    "leg_left_forward4",
+    "leg_left_forward5",
+    "leg_left_forward6"
 ]
 
 SND_MENIAJEM_NOGI = [
@@ -124,8 +138,28 @@ SND_POTIANULI_RUKU_VPERED = [
 ]
 
 SND_OPUSTILIS = [
+    "i_opustilis'",
+    "i_s_vidohom_opustilis'_vniz1",
+    "i_s_vidohom_opustilis'_vniz2",
+    "i_s_vidohom_opustilis'_vniz3",
+    "opuskaemsia_vniz1",
+    "opuskaemsia_vniz2",
     "opustilis'_1",
     "opustilis'_2",
     "opustilis'_3",
-    "opustilis'_4"
+    "opustilis'_4",
+    "opustilis'_5"
+]
+
+SND_SIDE_RIGHT = [
+    "v_pravo",
+    "v_pravuju_storonu1",
+    "v_pravuju_storonu2"
+]
+
+SND_SIDE_LEFT = [
+    "left_side1",
+    "left_side2",
+    "v_levo",
+    "v_levuju_storonu"
 ]

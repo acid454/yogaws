@@ -42,5 +42,7 @@ class Utkatasana(BaseAsana):
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
-        for i in SND_EXHALE + SND_RASSLABILIS + SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_EXHALE + SND_RASSLABILIS + SND_ZAKONCHILI_DALSHE)

@@ -57,5 +57,6 @@ class Navasana(BaseAsana):
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE)

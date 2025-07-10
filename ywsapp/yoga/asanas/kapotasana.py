@@ -42,6 +42,8 @@ class KapotasanaBase(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common8")
         self.pool("float").append("common10")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
     
     def build(self, workout, _set):
         super().build(workout, _set)
@@ -51,8 +53,8 @@ class KapotasanaBase(BaseAsana):
                 return
             t = self.task(self.tm_prepare)
             t.pool("start").clear()
-            for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-                    t.pool("start").append(i)
+            t.pool("start").append("i_meniaem", mandatory = True)
+            t.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
             return
         
         with self.task(self.tm_prepare) as t:
@@ -67,9 +69,7 @@ class KapotasanaLeft(KapotasanaBase):
 
         with self.task(self.tm_prepare) as t:
             t.images += ["kapotasana_left1"]
-            t.pool("continue").append("left_side1")
-            t.pool("continue").append("left_side2")
-            t.pool("continue").append("v_levo")
+            t.pool("continue").append(SND_SIDE_LEFT)
 
 class KapotasanaRight(KapotasanaBase):
     def __init__(self, **kwargs):
@@ -78,8 +78,7 @@ class KapotasanaRight(KapotasanaBase):
 
         with self.task(self.tm_prepare) as t:
             t.images += ["kapotasana_right1"]
-            for snd in SND_LEG_RIGHT_FORWARD:
-                t.pool("start").append(snd)
+            t.pool("start").append(SND_LEG_RIGHT_FORWARD)
 
             
         

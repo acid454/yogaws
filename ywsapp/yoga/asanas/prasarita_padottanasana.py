@@ -56,6 +56,8 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common4")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_legs:
@@ -79,12 +81,12 @@ class PrasaritaPadottanasana(BaseAsana):
                 images=["prasarita_padottanasana_leg_right"]
             ))
             self.pool("start").append("k_pravoi_noge")
-            for i in SND_NA_DRUGUJU_STORONU:
-                self.pool("start").append(i)
+            self.pool("start").append(SND_NA_DRUGUJU_STORONU)
             self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
             self.pool("float").append("common_tianemsia_2x")
             self.pool("float").append("common_i_postojat'_podushat'")
             self.pool("float").append("common7")
+            self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
             self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_hands:
@@ -124,7 +126,7 @@ class PrasaritaPadottanasana(BaseAsana):
             images=["prasarita_padottanasana_right"]
         ))
         self.pool("start").append("i_delaem_shirokie_razvoroti")
-        self.pool("continue").append("v_pravo")
+        self.pool("continue").append(SND_SIDE_RIGHT)
         self.pool("float").append("common_dlya_spinu_i_pozvonochnika")
         self.pool("float").append("common_i_postojat'_podushat'")
         self.pool("float").append("common_dushim_derzim_t'anemsia")
@@ -134,6 +136,8 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common4")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append("i_provernuli")
         self.pool("end").append(SND_VERNULIS + SND_COMPLETION_OTHERS + SND_S_VIDOHOM_VNIZ)
         
@@ -144,8 +148,7 @@ class PrasaritaPadottanasana(BaseAsana):
             images=["prasarita_padottanasana_left"]
         ))
         self.pool("start").append("i_meniaem")
-        for i in SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(i)
+        self.pool("start").append(SND_NA_DRUGUJU_STORONU)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(разорот влево)",
@@ -162,5 +165,7 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common4")
         self.pool("float").append("common7")
         self.pool("float").append("common10")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append("opustili_ruku")
     

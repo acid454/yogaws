@@ -38,15 +38,13 @@ class Scorpion(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
-        self.pool("float").append("descr_scorpion_vse_mushci")
-        self.pool("float").append("descr_scorpion")
-        self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.snd_float()
 
         #for i in SND_RASSLABILIS + SND_EXHALE:
         #    self.pool("start").append(i)
         #ToDo: this is also from dzathara
-        for i in SND_COMPLETION_OTHERS + SND_VERNULIS:
-            self.pool("end").append(i)
+        self.pool("end").append("vernuli_pravuju_ruku")
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_VERNULIS)
 
 
         self.tasks.append(BaseTask(
@@ -55,8 +53,7 @@ class Scorpion(BaseAsana):
             metronome=MetronomeRest(),
             images=["scorpion_right"]
         ))
-        for i in SND_MENIAJEM_NOGI:
-            self.pool("name").append(i)
+        self.pool("name").append(SND_MENIAJEM_NOGI)
         
         self.tasks.append(BaseTask(
             caption=self.caption + "\n(левая рука)",
@@ -64,10 +61,13 @@ class Scorpion(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
+        self.snd_float()
+        self.pool("end").append("i_opustilis'_na_koleni")
+        self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS)
+    
+    def snd_float(self):
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
-        self.pool("end").append("i_opustilis'_na_koleni")
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS:
-            self.pool("end").append(i)
-
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")

@@ -35,8 +35,7 @@ class Marichiasana(BaseAsana):
         self.pool("continue").append("enter_marichiasana_right2")
         self.pool("continue").append("enter_marichiasana_right3")
         self.pool("continue").append("enter_ardhamatsyendrasana_right")
-
-        self.pool("continue").append("v_pravo", only_actings = VOICE_SIDE_ONLY_ACTING)
+        self.pool("continue").append(SND_SIDE_RIGHT, only_actings = VOICE_SIDE_ONLY_ACTING)
 
 
         self.tasks.append(BaseTask(
@@ -59,8 +58,7 @@ class Marichiasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["marichiasana_left1", "marichiasana_left2", "ardhamatsyendrasana_left"]
         ))
-        for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(i, mandatory = True)
+        self.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
         self.pool("continue").append("enter_marichiasana_left")
 
 
@@ -83,14 +81,10 @@ class Marichiasana(BaseAsana):
         ))
         self.pool("start").append("raspletaemsia")
         self.pool("start").append("i_raspletaemsia1")
-        self.pool("start").append("i_raspletaemsia1")
-        self.pool("start").append("i_raspletaemsia1")
+        self.pool("start").append("i_raspletaemsia2")
+        self.pool("start").append("i_raspletaemsia3")
         self.pool("start").append("razvernulis")
-        self.pool("start").append("vernulis'_v_ishodnuju")
-        self.pool("start").append("vernulis'1")
-        self.pool("start").append("vernulis'2")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("start").append(i)
+        self.pool("start").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE)
 
     def marichiasana_float_sounds(self):
         self.pool("float").append("descr_marichiasana1")
@@ -102,3 +96,5 @@ class Marichiasana(BaseAsana):
         self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")

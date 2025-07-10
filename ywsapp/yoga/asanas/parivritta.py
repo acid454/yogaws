@@ -64,12 +64,13 @@ class ParivrittaBase(BaseParshvaconasana):
         self.pool("float").append("common7")
         self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("common_i_postojat'_podushat'")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")
         self.pool("end").append("i_s_vidohom_opustili_ruku")
         self.pool("end").append("provernuli_ruku_opustili_vniz")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
-        for i in SND_S_VIDOHOM_VNIZ:
-            self.pool("end").append(i) 
+        self.pool("end").append(SND_S_VIDOHOM_VNIZ)
     
     def build(self, workout, _set):
         super().build(workout, _set)
@@ -111,3 +112,4 @@ class ParivrittaRight(ParivrittaBase):
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right1")
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right2")
         self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right3")
+        self.tasks[-1].pool("end").append("vernuli_pravuju_ruku")

@@ -51,6 +51,7 @@ class BaddhaKonasana(BaseAsana):
         self.pool("float").append("common_rasslabit'_lico_plechi")
         self.pool("float").append("common_akcentiruite_vidohi")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
 
         if with_knees:
             self.tasks.append(BaseTask(

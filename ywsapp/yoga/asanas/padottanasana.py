@@ -46,8 +46,6 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("start").append("leg_priamaja_noga_ushli_k_nei")
         self.pool("start").append("vitjanulis'1")
         self.pool("start").append("vitjanulis'2")
-        self.pool("start").append("i_mu_zamerli")
-        self.pool("start").append("i_dershimsia")
         self.pool("start").append("i_stoim1")
         self.pool("start").append("i_stoim2")
         self.pool("start").append("i_stoim3")
@@ -56,16 +54,13 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("float").append("common_delaem_vse_ne_toropias'")
         self.pool("float").append("common_telo_prosedajet")
         self.pool("float").append("common7")
-        self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("posvisajem_potianemsia")
         self.pool("float").append("common_tianemsia_2x")
         self.pool("float").append("common_i_postojat'_podushat'")
         self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
-        self.pool("end").append("vernulis'1")
-        self.pool("end").append("vernulis'2")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i) 
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("end").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE) 
 
     def build_snd_name(self, prev_asana):
         if issubclass(type(prev_asana), PadottanasanaBase):

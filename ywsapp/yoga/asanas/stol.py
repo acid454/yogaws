@@ -40,4 +40,6 @@ class Stol(BaseAsana):
         self.pool("float").append("common5_v_vitalkivanii")
         self.pool("float").append("common6")
         self.pool("float").append("common10")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE + SND_EXHALE + SND_RASSLABILIS)

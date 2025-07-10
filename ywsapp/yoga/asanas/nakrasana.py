@@ -61,8 +61,7 @@ class Nakrasana(BaseAsana):
             images=[f"nakrasana_right{x}" for x in range(1,5)]
         ))
         self.pool("start").append("i_meniaem", mandatory = True)
-        for snd in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-            self.pool("start").append(snd, mandatory = True)
+        self.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
         self.pool("continue").append("enter_nakrasana_right1")
         self.pool("continue").append("enter_nakrasana_right2")
         self.pool("continue").append("enter_nakrasana_right_short")
@@ -109,3 +108,4 @@ class Nakrasana(BaseAsana):
         self.pool("float").append("common_akcentiruite_vidohi")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")

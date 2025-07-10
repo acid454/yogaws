@@ -44,8 +44,9 @@ class ArdhachandrasanaBase(BaseAsana):
         self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("common_vashna_geometria_i_tochnost")
         self.pool("float").append("common1")
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:
-            self.pool("end").append(i)
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ)
         self.pool("end").append("i_s_vidohom_na_ladoni_ruk")
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")
         self.pool("end").append("i_s_vidohom_opustili_ruku")
@@ -60,8 +61,7 @@ class ArdhachandrasanaBase(BaseAsana):
                 return
             t = self.task(self.tm_prepare)
             t.pool("start").clear()
-            for i in SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU:
-                    t.pool("start").append(i, mandatory = True)
+            t.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
             return
         
         with self.task(self.tm_prepare) as t:
@@ -88,8 +88,7 @@ class ArdhachandrasanaRight(ArdhachandrasanaBase):
             t.images += [f"ardhachandrasana_right{x}" for x in range(1,4)]
             # ToDo: need 'leg right opornaja' sound
             #t.pool('continue').append("leg_left_opornaja")
-            for snd in SND_LEG_RIGHT_FORWARD:
-                self.tasks[0].pool("continue").append(snd)
+            self.tasks[0].pool("continue").append(SND_LEG_RIGHT_FORWARD)
             t.pool('float').append('enter_ardhachandrasana_right1', float_on_start = True)
             t.pool('float').append('enter_ardhachandrasana_right2', float_on_start = True)
             t.pool('float').append('enter_ardhachandrasana_right3', float_on_start = True)
