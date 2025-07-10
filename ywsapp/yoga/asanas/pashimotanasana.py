@@ -25,12 +25,7 @@ class Pashimotanasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"pashimotanasana{x}" for x in range(1,3)]
         ))
-        self.pool("start").append("nogi_pered_nami1")
-        self.pool("start").append("nogi_pered_soboi1")
-        self.pool("start").append("nogi_pered_soboi2")
-        self.pool("start").append("nogi_pered_soboi3")
-        self.pool("start").append("nogi_pered_soboi4")
-        self.pool("start").append("nogi_pered_soboi5")
+        self.pool("start").append(NOGI_PERED_SOBOI)
         self.pool("name").append("name_pashimotanasana1")
         self.pool("name").append("name_pashimotanasana2")
         self.pool("name").append("name_pashimotanasana4")

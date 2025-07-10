@@ -57,7 +57,7 @@ class SpeechManager:
                 if fl_name.endswith('_overlapse'):
                     can_overlapse = True
                     fl_name = fl_name[:-len('_overlapse')]
-                    print(f"WARNING! Old overlapse name format for {fl_name}")
+                    logger.warning(f"WARNING! Old overlapse name format for {fl_name}")
                 
                 mandatory_acting = False
                 voice_actings = item.get('only_actings', None)

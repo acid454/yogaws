@@ -34,6 +34,7 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.kobra.Kobra(tm_main = 60))
         self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
 
