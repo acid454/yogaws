@@ -163,3 +163,12 @@ SND_SIDE_LEFT = [
     "v_levo",
     "v_levuju_storonu"
 ]
+
+NOGI_PERED_SOBOI = [
+    "nogi_pered_nami1",
+    "nogi_pered_soboi1",
+    "nogi_pered_soboi2",
+    "nogi_pered_soboi3",
+    "nogi_pered_soboi4",
+    "nogi_pered_soboi5"
+]
