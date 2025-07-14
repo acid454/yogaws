@@ -58,10 +58,11 @@ class BaddhaKonasana(BaseAsana):
                 caption=self.caption + "\n(подтягиваем ноги к себе)",
                 property=self.tm_legs_change,
                 metronome=MetronomeRest(),
-                images=["baddha_konasana1", "baddha_konasana2"]
+                images=[f"baddha_konasana{i}" for i in range(1,4)]
             ))
             self.pool("name").append("nogi_blishe")
-            self.pool("continue").append("enter_baddha_konasana_overlapse")    # overlapse
+            self.pool("name").append("sognuli_nogi_podtianuli_k_sebe")
+            self.pool("continue").append("enter_baddha_konasana", overlapse = True)    # overlapse
 
             self.tasks.append(BaseTask(
                 caption=self.caption + "\n(шевелим коленями)",

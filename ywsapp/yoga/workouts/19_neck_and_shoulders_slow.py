@@ -32,6 +32,8 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.uttanasana.UttanasanaWithCompensation(tm_main = 30, tm_compensation = 20))
 
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.malasana.Malasana())
         self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())

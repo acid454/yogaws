@@ -43,6 +43,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.short_poses.Seli())
 
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
         self.wrap_asana(Asanas.dshanu_shirshasana.DshanuShirshasana())
         
         self.wrap_asana(Asanas.stol.Stol())
@@ -50,7 +51,6 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         self.wrap_asana(Asanas.plug.Plug())
         self.wrap_asana(Asanas.nakrasana.Nakrasana())
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 def do_load_workouts():

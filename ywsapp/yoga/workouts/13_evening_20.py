@@ -41,6 +41,7 @@ class DefaultWorkout(BaseWorkout):
         #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaLeft())
         #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaRight())
         
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
 

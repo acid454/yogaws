@@ -88,7 +88,6 @@ class PlankaWithRotationsEx(Planka):
         self.planka_na_boku_snd_float()
         self.planka_na_boku_snd_end()
 
-
         if with_sagging:
             self.tasks.append(BaseTask(
                 caption=self.caption +  " на левой руке\n(провисание)",
@@ -102,6 +101,7 @@ class PlankaWithRotationsEx(Planka):
             self.pool("float").append("descr_planka_provisli_na_levoi_ruke")
             self.planka_na_boku_snd_float()
         self.pool("end").append(SND_VERNULIS)
+        self.pool("end").append("vernuli_pravuju_ruku")
     
             
         self.tasks.append(BaseTask(

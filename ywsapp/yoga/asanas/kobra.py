@@ -34,7 +34,7 @@ class Kobra(BaseAsana):
             images=self.tasks[0].images))
         
         self.pool("float").append("rasslablenie_v_kobre")
-        self.pool("float").append("ubedilis'_chto_nam_horosho")
+        self.pool("float").append("common_ubedilis'_chto_nam_horosho")
         self.pool("float").append("common3")
         self.pool("float").append("common5_v_vitalkivanii")
         self.pool("float").append("common7")

@@ -39,8 +39,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.uttanasana.Uttanasana_ruki_v_zamke(tm_main = 50, tm_zamok = 30))
 
         self.wrap_asana(Asanas.short_poses.Seli())
-
-
+        self.wrap_asana(Asanas.malasana.Malasana())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.plug.Plug())

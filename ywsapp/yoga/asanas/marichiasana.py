@@ -50,6 +50,7 @@ class Marichiasana(BaseAsana):
         self.pool("end").append("i_raspletaemsia2")
         self.pool("end").append("i_raspletaemsia3")
         self.pool("end").append("razvernulis")
+        self.pool("end").append("i_razvorachivaemsia_vpered")
 
 
         self.tasks.append(BaseTask(
@@ -84,7 +85,10 @@ class Marichiasana(BaseAsana):
         self.pool("start").append("i_raspletaemsia2")
         self.pool("start").append("i_raspletaemsia3")
         self.pool("start").append("razvernulis")
-        self.pool("start").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE)
+        self.pool("start").append("i_razvorachivaemsia_vpered")
+        self.pool("start").append(SND_VERNULIS)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
+
 
     def marichiasana_float_sounds(self):
         self.pool("float").append("descr_marichiasana1")

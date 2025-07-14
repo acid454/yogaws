@@ -38,12 +38,12 @@ class KapotasanaBase(BaseAsana):
         self.pool("float").append("common3")
         self.pool("float").append("common4")
         self.pool("float").append("common5_v_vitalkivanii")
-        self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common8")
         self.pool("float").append("common10")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_ubedilis'_chto_nam_horosho")
     
     def build(self, workout, _set):
         super().build(workout, _set)

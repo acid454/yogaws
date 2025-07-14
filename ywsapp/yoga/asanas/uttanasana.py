@@ -9,7 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork
-from snd_pools import SND_ZAKONCHILI_DALSHE, SND_COMPLETION_OTHERS
+from snd_pools import SND_S_VIDOHOM_VNIZ, SND_ZAKONCHILI_DALSHE, SND_COMPLETION_OTHERS
 
 
 class UttanasanaBase(BaseAsana):
@@ -22,13 +22,7 @@ class UttanasanaBase(BaseAsana):
             metronome=MetronomeWork(),
             images=[f"uttanasana{x}" for x in range(1,4)]
         ))
-        self.pool("start").append("i_uhodim_vniz")
-        self.pool("start").append("s_vidohom_uhodim_vniz1")
-        self.pool("start").append("s_vidohom_uhodim_vniz2")
-        self.pool("start").append("s_vidohom_uhodim_vniz3")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz1")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz2")
-        self.pool("start").append("i_s_vidohom_opustilis'_vniz3")
+        self.pool("start").append(SND_S_VIDOHOM_VNIZ)
         self.pool("start").append("upr_vitiagivanie_vniz1")
         self.pool("start").append("upr_vitiagivanie_vniz2")
         self.pool("start").append("upr_vitiagivanie_vniz3")
@@ -40,7 +34,7 @@ class UttanasanaBase(BaseAsana):
         self.pool("continue").append("descr_vitjashenie_vniz2")
         self.pool("continue").append("descr_vitjashenie_vniz6")
         self.pool("continue").append("na_skol'ko_eto_poluchaetsia")
-        self.pool("continue").append(None)
+        self.pool("continue").append("i_tianemsia_lbom_v_pol")
         self.pool("float").append("descr_uttanasana1")
         self.pool("float").append("descr_uttanasana2")
         self.pool("float").append("descr_vitjashenie_vniz3")

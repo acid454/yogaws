@@ -21,12 +21,15 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
-        self.wrap_asana(Asanas.planka.PlankaWithRotationsEx())
-        self.wrap_asana(Asanas.uttanasana.Uttanasana_ruki_v_zamke(tm_main = 10, tm_zamok = 10))
-        self.wrap_asana(Asanas.plug.Plug())
-        self.wrap_asana(Asanas.marichiasana.Marichiasana())
-        self.wrap_asana(Asanas.shavasana.Shavasana())
-        self.wrap_asana(Asanas.planka.Planka(tm_main = 900))
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.malasana.Malasana())
+        self.wrap_asana(Asanas.shirokii_razvorot_nazad.ShirokiiRazvorotNazad())
+        self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered())
+        self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Left(tm_main = 20))
+        self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right(tm_main = 20))
+
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
+        self.wrap_asana(Asanas.gorka.GorkaNormal())
         #self.wrap_asana(Asanas.tadasana.Tadasana())
         #self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = True))
 

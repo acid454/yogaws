@@ -14,6 +14,7 @@ SND_ZAKONCHILI_DALSHE = [
     "zakonchili",
     "zakanchivaem_s_nei",
     "zakanchivaem_s_nei_i_dal'she",
+    "i_so_vdohom_zakonchili",
     # {% if not glob.get('last_before_shavasana') %}
     "i_dvishemsia_dalshe1",
     "i_dvishemsia_dalshe2",
@@ -27,13 +28,16 @@ SND_COMPLETION_OTHERS = [
     "otlichno1",
     "otlichno2",
     "otlichno3",
+    "otlichno4",
     "i_otlichno",
     "est'",
     "_horosho1",
-    "_horosho2"
+    "_horosho2",
+    "zamechatel'no"
 ]
 
 SND_VERNULIS = [
+    "vernuli",
     "vernulis'1",
     "vernulis'2",
     "vernulis'3",
@@ -96,6 +100,7 @@ SND_MENIAJEM_NOGI = [
 
 SND_S_VIDOHOM_VNIZ = [
     "i_vniz",
+    "i_uhodim_vniz",
     "i_s_vidohom_vniz",
     "i_s_vidohom_opustilis'_vniz1",
     "i_s_vidohom_opustilis'_vniz2",

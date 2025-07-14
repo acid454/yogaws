@@ -42,6 +42,7 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.bakasana.Bakasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
+        self.wrap_asana(Asanas.malasana.Malasana())
         
         #self.wrap_asana(Asanas.marichiasana.Marichiasana())
         #self.wrap_asana(Asanas.most.Most())
