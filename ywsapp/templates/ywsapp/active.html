@@ -133,8 +133,11 @@ function start_stop_workout() {
 
 	function do_process_run() {
 		let workout_current_time = 0;
-		if (workout_audio != null)
+		let debug_rs = "-"
+		if (workout_audio != null) {
 			workout_current_time = Math.floor(workout_audio.currentTime);
+			debug_rs = workout_audio.readyState;
+		}
 
 		let current_task = workout.timetable[workout.schedule[workout_current_time]];
 		if (current_task === undefined) {
@@ -158,9 +161,12 @@ function start_stop_workout() {
 		
 		if (seconds < 10) seconds = "0" + seconds;
 		if (minutes < 10) minutes = "0" + minutes;
-		timer_div.textContent = "\u00A0" + minutes + ":" + seconds + "\u00A0";
+		timer_div.textContent = "\u00A0 (" + debug_rs + ") " + minutes + ":" + seconds + "\u00A0";
 		//timer_div.textContent = "audio state: " + workout_audio.readyState + ", time: " + workout_audio.currentTime;
 		//timer_div.textContent = workout_current_time;
+
+		if (workout_audio.paused && (workout_state == "run"))
+			start_stop_workout();
 	}
 
 
