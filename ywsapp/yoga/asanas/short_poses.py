@@ -25,9 +25,7 @@ class OpustilisNaKoleni(BaseAsana):
             metronome=MetronomeRest(),
             images=["opustilis_na_koleni1", "opustilis_na_koleni2"]
         ))
-        
-        for i in SND_OPUSTILIS_NA_KOLENI:
-            self.pool("name").append(i)
+        self.pool("name").append(SND_OPUSTILIS_NA_KOLENI)
 
 
 class Seli(BaseAsana):
@@ -43,9 +41,7 @@ class Seli(BaseAsana):
             metronome=MetronomeRest(),
             images=Seli.IMAGES
         ))
-        
-        for i in SND_SELI:
-            self.pool("name").append(i)
+        self.pool("name").append(SND_SELI)
 
 class PodnimaemsiaVvreh(BaseAsana):
     def __init__(self, **kwargs):

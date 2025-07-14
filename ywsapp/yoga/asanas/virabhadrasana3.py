@@ -10,7 +10,7 @@ from base import BaseTask
 from parshvaconasana_base import BaseParshvaconasana
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
-from snd_pools import *
+from snd_pools import SND_RASSLABILIS, SND_EXHALE, SND_S_VIDOHOM_VNIZ
 
 
 class Virabhadrasana3Base(BaseParshvaconasana):
@@ -24,11 +24,8 @@ class Virabhadrasana3Base(BaseParshvaconasana):
             property=self.tm_prepare,
             metronome=MetronomeRest()
         ))
-
-        #ToDo: description is long and can overlapse - but, with next task!
-        #  now we can overlapse only inside same task.
-        self.pool("continue").append("descr_virabhadrasana_tri1_overlapse")
-        self.pool("continue").append("descr_virabhadrasana_tri2_overlapse")
+        self.pool("continue").append("descr_virabhadrasana_tri1", overlapse = True)
+        self.pool("continue").append("descr_virabhadrasana_tri2", overlapse = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
@@ -51,6 +48,12 @@ class Virabhadrasana3Base(BaseParshvaconasana):
     
     def build_snd_swap_hands(self):
         pass
+
+    def build(self, workout, _set):
+        super().build(workout, _set)
+        prev_asana = workout.prev_item(self)
+        if issubclass(type(prev_asana), Virabhadrasana3Base):
+            self.tasks[0].pool("continue").clear()
 
 class Virabhadrasana3Left(Virabhadrasana3Base):
     def __init__(self, **kwargs):
