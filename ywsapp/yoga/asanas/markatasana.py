@@ -72,7 +72,7 @@ class Markatasana(BaseAsana):
 
 class MarkatasanaWithLegs(Markatasana):
     def __init__(self, **kwargs):
-        super().__init__(*kwargs)
+        super().__init__()
         self.cycles_count.caption = "циклов коленей"
         self.properties.append(IntProperty(caption="ноги перед собой", short="tm_legs", default=5))
         self.properties.append(IntProperty(caption="циклов скруток", short="cycles_twist", default=3))
