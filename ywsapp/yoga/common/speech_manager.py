@@ -46,7 +46,7 @@ class SpeechManager:
 
 
     # Select (uses) one of pool's sounds (random), which is ok with length (time)
-    def select_random_sound(self, pool_items, time, can_be_empty, only_mandatory, voice_acting):
+    def select_random_sound(self, pool_items, time, can_be_empty, only_mandatory, voice_acting, asana_time_remains):
         result = []
         
         # First, filter all sounds, long/short enought
@@ -68,6 +68,10 @@ class SpeechManager:
                     if not mandatory_acting:
                         continue
 
+                # Time checks:
+                #logger.debug(f"Check in-asana time: {fl_name} {self.mp3_files[fl_name].length}, {asana_time_remains}. Time: {time}")
+                if self.mp3_files[fl_name].length > asana_time_remains:
+                    continue
                 if self.mp3_files[fl_name].length <= time or can_overlapse:
                     r = replace(self.mp3_files[fl_name])        # replace is from dataclasses. It just creates a copy of element
                     r.pool_item = item                          #  add link to pool of this sound
@@ -105,7 +109,7 @@ class SpeechManager:
             return True
         return False
 
-    def do_generate_task_sounds(self, w, t, voice_acting, overlapse_offset = 0):
+    def do_generate_task_sounds(self, t, voice_acting, overlapse_offset, asana_time_remains):
         remain_task_time = t.property.value     # Need this to know, how much time we got for float sound
         cur_time_idx = overlapse_offset
         float_time_idx = overlapse_offset
@@ -121,32 +125,39 @@ class SpeechManager:
                                          t.property.value - cur_time_idx,
                                          task_snd_pool.can_be_empty,
                                          only_mandatory,
-                                         voice_acting)
+                                         voice_acting,
+                                         asana_time_remains)
             if s.length == 0:
                 if not task_snd_pool.can_be_empty and len(task_snd_pool.items) > 0:
-                    print(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
+                    logger.warning(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
                 continue
 
             remain_task_time -= s.length                    # We place this sound...
+            asana_time_remains -= s.length
             if pool_nm == "end":
                 # ... the end case
                 cur_time_idx = t.property.value - s.length
+            logger.debug(f"Selected sound for pool {pool_nm}: {s.file} length {s.length}. Asana time remains: {asana_time_remains}")
             t.sounds[cur_time_idx] = s                      # ...at cur_time_idx
             cur_time_idx += t.sounds[cur_time_idx].length   # and move index forward
             if pool_nm != "end":
                 # also, move float time start index - index, where float sound can start
                 float_time_idx = cur_time_idx
         
-        #print(f"Processing float: remain task time {remain_task_time}, idx {float_time_idx}")
         if remain_task_time > 0:
             empt = t.pool("float").can_be_empty
             only_mandatory = self.check_only_mandatory_flag("float", voice_acting)
-            s = self.select_random_sound(t.pool("float").items, remain_task_time, empt, only_mandatory, voice_acting)
+            s = self.select_random_sound(t.pool("float").items, remain_task_time, empt, only_mandatory, voice_acting, asana_time_remains)
+            logger.debug(f"Selected sound for float pool: {s.file} length {s.length}. Asana time remains: {asana_time_remains}")
             if s.length > 0:
                 if remain_task_time > s.length:
                     if not s.pool_item.get('float_on_start'):
                         float_time_idx += random.randrange(remain_task_time - s.length)
                 t.sounds[float_time_idx] = s
+            elif len(t.pool("float").items) > 0 and not empt:
+                logger.warning(f"WARNING: empty float pool for for task {t.caption}")
+        elif len(t.pool("float").items) > 0:
+            logger.warning(f"WARNING: empty float pool and no time remains for for task {t.caption}")
         
         # Some debug, if needed:
         #print(f"------------ {t.caption} ----------------")
@@ -166,5 +177,9 @@ class SpeechManager:
         overlapse_tm = 0
         for s in workout.sets:
             for a in s.asanas:
+                # Deprecate overlapsing with next asana anyway
+                asana_time_remains = sum(map(lambda x: x.property.value, a.tasks))
+                logger.debug(f"{a.name} time total: {asana_time_remains}")
                 for t in a.tasks:
-                    overlapse_tm = self.do_generate_task_sounds(workout, t, voice_acting, overlapse_tm)
+                    overlapse_tm = self.do_generate_task_sounds(t, voice_acting, overlapse_tm, asana_time_remains)
+                    asana_time_remains -= t.property.value + overlapse_tm
