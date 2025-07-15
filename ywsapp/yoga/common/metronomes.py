@@ -15,6 +15,10 @@ class MetronomeRest(MetronomeSounds):
     tick: str = "tick_rest"
     bell: str = "task_begin_norm"
 
+@dataclass
+class MetronomeRestComplete(MetronomeSounds):
+    tick: str = "tick_rest"
+    bell: str = "task_complete_norm"
 
 @dataclass
 class MetronomeWork(MetronomeSounds):

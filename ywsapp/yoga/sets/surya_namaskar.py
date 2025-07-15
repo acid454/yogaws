@@ -14,6 +14,7 @@ from metronomes import MetronomeRest
 
 
 class SuryaNamaskar(BaseSet):
+    SURYA_NAMES = {'slow': "", 'fast': " быстрая", 'extra_slow': " медленная"}
     SURYA_TIMINGS = [
         {'asana':Asanas.vitjashenie_vverh.VitjashenieVverh, 'slow':9, 'fast':4, 'extra_slow':15},
         {'asana':Asanas.vitjashenie_vpered.VitjashenieVpered, 'slow':9, 'fast':5, 'extra_slow':15 },
@@ -30,7 +31,7 @@ class SuryaNamaskar(BaseSet):
         {'asana':Asanas.short_poses.PodnimaemsiaVvreh}
     ]
     def __init__(self, timings = 'slow', **kwargs):
-        super().__init__(caption="Сурья Намаскар")
+        super().__init__(caption = "Сурья Намаскар" + SuryaNamaskar.SURYA_NAMES[timings])
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
         self.update_props(kwargs)
         self.timings = timings

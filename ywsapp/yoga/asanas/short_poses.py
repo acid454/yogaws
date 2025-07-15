@@ -29,7 +29,7 @@ class OpustilisNaKoleni(BaseAsana):
 
 
 class Seli(BaseAsana):
-    IMAGES = ["seli1", "seli2", "seli3"]
+    IMAGES = [f"seli{n}" for n in range(1,4)]
     def __init__(self, **kwargs):
         super().__init__(name="seli", caption="Садимся")
         self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=5))

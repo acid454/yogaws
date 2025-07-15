@@ -16,7 +16,7 @@ class Malasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="malasana", caption="Маласана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=30))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
         self.properties.append(IntProperty(caption="вытяжение вниз", short="tm_floor", default=30))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
@@ -58,7 +58,7 @@ class Malasana(BaseAsana):
 
         self.tasks.append(BaseTask(
             caption=self.caption,
-            property=self.tm_main,
+            property=self.tm_floor,
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))

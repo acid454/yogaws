@@ -48,7 +48,6 @@ class Plug(BaseAsana):
         self.pool("start").append("descr_plug3")
         self.pool("start").append("descr_plug4")
         self.pool("start").append("common_delaem_vse_ne_toropias'")
-        self.pool("start").append("i_mu_zamerli")
         self.pool("float").append("descr_plug1")
         self.pool("float").append("descr_plug2")
         self.pool("float").append("descr_plug6")
@@ -86,8 +85,8 @@ class Plug(BaseAsana):
                 metronome=MetronomeRest(),
                 images=self.tasks[-1].images
             ))
-            for i in SND_ZAKONCHILI_DALSHE:
-                self.pool("end").append(i)
+            self.pool("end").append(SND_ZAKONCHILI_DALSHE)
+            self.pool("start").append("i_akkuratno_raskatali_spinu_obratno")
         self.pool("start").append("raskatilis'")
         self.pool("start").append("poluperekatom_vozvrashaemsia")
         super().build(workout, _set)

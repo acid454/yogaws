@@ -32,4 +32,5 @@ class Tadasana(BaseAsana):
         self.pool("float").append(None)
 
         self.pool("end").append("_hlopok_")
-        self.pool("end").append("poehali")
+        self.pool("end").append("poehali1")
+        self.pool("end").append("poehali2")

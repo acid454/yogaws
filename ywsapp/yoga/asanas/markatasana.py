@@ -17,7 +17,7 @@ class Markatasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="markatasana", caption="Маркатасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=11))
-        self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=3))
+        self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=5))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=7))
         self.update_props(kwargs)
         

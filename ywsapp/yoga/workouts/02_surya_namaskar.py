@@ -22,9 +22,10 @@ class DefaultWorkout(BaseWorkout):
     
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
-        self.sets.append(SuryaNamaskar(cnt = 3))
+        self.sets.append(SuryaNamaskar(cnt = 1))
+        self.sets.append(SuryaNamaskar(timings = 'fast', cnt = 2))
 
-        self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
+        self.wrap_asana(Asanas.planka.PlankaWithRotationsEx(tm_main = 90))
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10, tm_prepare = 5))
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft())

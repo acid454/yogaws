@@ -39,8 +39,8 @@ class Most(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
-        self.pool("start").append("descr_most1")
-        self.pool("start").append(None)
+        self.pool("float").append("descr_most1", float_on_start = True)
+        self.pool("float").append("descr_most4", float_on_start = True)
         self.pool("float").append("descr_most2")
         self.pool("float").append("descr_most3")
         self.pool("float").append("common3")
@@ -60,5 +60,7 @@ class Most(BaseAsana):
             images=[f"most_compensate{x}" for x in range(1,4)]
         ))
         self.pool("name").append("delaem_kompensaciju")
-        self.pool("name").append("most_kompensacija")
+        self.pool("name").append("most_kompensacija1")
+        self.pool("name").append("most_kompensacija2")
+        self.pool("end").append("i_akkuratno_raskatali_spinu_obratno")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
