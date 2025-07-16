@@ -92,6 +92,7 @@ SND_MENIAJEM_NOGI = [
     "meniajem_nogi3",
     "meniajem_nogi4",
     "meniajem_nogi5",
+    "meniajem_nogi6",
     "chereduem_nashi_nogi1",
     "chereduem_nashi_nogi2",
     "chereduem_nashi_nogi3",
@@ -172,9 +173,20 @@ SND_SIDE_LEFT = [
 
 NOGI_PERED_SOBOI = [
     "nogi_pered_nami1",
+    "nogi_pered_nami2",
+    "nogi_pered_nami3",
     "nogi_pered_soboi1",
     "nogi_pered_soboi2",
     "nogi_pered_soboi3",
     "nogi_pered_soboi4",
     "nogi_pered_soboi5"
+]
+
+FIKSIRUEM = [
+    "fiksiruem",
+    "i_mu_zamerli",
+    "i_dershimsia",
+    "i_stoim1",
+    "i_stoim2",
+    "i_stoim3"
 ]

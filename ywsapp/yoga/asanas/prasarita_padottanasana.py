@@ -34,6 +34,7 @@ class PrasaritaPadottanasana(BaseAsana):
         ))
         self.pool("name").append("name_prasarita_padottanasana1")
         self.pool("name").append("name_prasarita_padottanasana2")
+        self.pool("continue").append("razveli_nashi_nogi")
         self.pool("continue").append("razvodim_nogi_v_storoni1")
         self.pool("continue").append("razvodim_nogi_v_storoni2")
         self.pool("end").append("upr_vitiagivanie_vniz5")
@@ -58,6 +59,7 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common10")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_legs:
@@ -87,6 +89,7 @@ class PrasaritaPadottanasana(BaseAsana):
             self.pool("float").append("common_i_postojat'_podushat'")
             self.pool("float").append("common7")
             self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+            self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
             self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_hands:

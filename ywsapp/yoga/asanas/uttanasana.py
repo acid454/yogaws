@@ -51,6 +51,7 @@ class UttanasanaBase(BaseAsana):
         self.pool("float").append("common7")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_povtoriaushiesia_pozu")
 
     def construct_end_pool(self):
         self.pool("end").append(SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS)

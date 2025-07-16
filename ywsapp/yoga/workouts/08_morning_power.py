@@ -47,8 +47,8 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20))
         self.wrap_asana(Asanas.short_poses.Seli())
 
+        self.wrap_asana(Asanas.navasana.Navasana())
         self.sets.append(KTimerX3())
-
         self.wrap_asana(Asanas.plug.Plug())
         #self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())

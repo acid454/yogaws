@@ -101,3 +101,4 @@ class DshanuShirshasana(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")

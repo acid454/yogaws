@@ -50,6 +50,7 @@ class VirabhadrasanaBase(BaseParshvaconasana):
         self.pool("continue").append("descr_virabhadrasana12")
         self.pool("float").append("descr_virabhadrasana13")
         self.pool("float").append("descr_virabhadrasana14")
+        self.pool("float").append("common_povtoriaushiesia_pozu")
 
         #!!!!!!! TODO: short sounds
         for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:

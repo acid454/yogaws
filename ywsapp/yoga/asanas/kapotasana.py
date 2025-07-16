@@ -24,6 +24,9 @@ class KapotasanaBase(BaseAsana):
             property=self.tm_prepare,
             metronome=MetronomeRest()
         ))
+        self.pool("end").append("vitjanulis'1")
+        self.pool("end").append("vitjanulis'2")
+        self.pool("end").append(FIKSIRUEM)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
@@ -44,6 +47,9 @@ class KapotasanaBase(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_ubedilis'_chto_nam_horosho")
+        self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
+        self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
     
     def build(self, workout, _set):
         super().build(workout, _set)

@@ -65,6 +65,8 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_povtoriaushiesia_pozu")
+        self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
     
     def gorka_name_snd(self):
         self.pool("name").append("gorka1")

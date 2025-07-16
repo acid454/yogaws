@@ -25,16 +25,18 @@ class Marichiasana(BaseAsana):
             caption=self.caption + "\nправый бок, подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["marichiasana_right1", "ardhamatsyendrasana_right", "marichiasana_right2"]
+            images=["marichiasana_right1", "ardhamatsyendrasana_right1", "ardhamatsyendrasana_right2", "marichiasana_right2"]
         ))
         self.pool("name").append("name_marichiasana1")
         self.pool("name").append("name_marichiasana2")
         self.pool("name").append("name_marichiasana3")
+        self.pool("name").append("name_ardhamatsyendrasana")
         self.pool("name").append("name_ardhamatsyendrasana_i_delaem")
         self.pool("continue").append("enter_marichiasana_right1")
         self.pool("continue").append("enter_marichiasana_right2")
         self.pool("continue").append("enter_marichiasana_right3")
-        self.pool("continue").append("enter_ardhamatsyendrasana_right")
+        self.pool("continue").append("enter_ardhamatsyendrasana_right1")
+        self.pool("continue").append("enter_ardhamatsyendrasana_right2")
         self.pool("continue").append(SND_SIDE_RIGHT, only_actings = VOICE_SIDE_ONLY_ACTING)
 
 
@@ -45,19 +47,14 @@ class Marichiasana(BaseAsana):
             images=self.tasks[-1].images
         ))
         self.marichiasana_float_sounds()
-        self.pool("end").append("raspletaemsia")
-        self.pool("end").append("i_raspletaemsia1")
-        self.pool("end").append("i_raspletaemsia2")
-        self.pool("end").append("i_raspletaemsia3")
-        self.pool("end").append("razvernulis")
-        self.pool("end").append("i_razvorachivaemsia_vpered")
+        self.marichiasana_exit_sounds("end")
 
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nлевый бок, подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["marichiasana_left1", "marichiasana_left2", "ardhamatsyendrasana_left"]
+            images=["marichiasana_left1", "marichiasana_left2", "ardhamatsyendrasana_left1", "ardhamatsyendrasana_left2"]
         ))
         self.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
         self.pool("continue").append("enter_marichiasana_left")
@@ -80,15 +77,17 @@ class Marichiasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        self.pool("start").append("raspletaemsia")
-        self.pool("start").append("i_raspletaemsia1")
-        self.pool("start").append("i_raspletaemsia2")
-        self.pool("start").append("i_raspletaemsia3")
-        self.pool("start").append("razvernulis")
-        self.pool("start").append("i_razvorachivaemsia_vpered")
-        self.pool("start").append(SND_VERNULIS)
+        self.marichiasana_exit_sounds("start")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
 
+    def marichiasana_exit_sounds(self, pool):
+        self.pool(pool).append("raspletaemsia")
+        self.pool(pool).append("i_raspletaemsia1")
+        self.pool(pool).append("i_raspletaemsia2")
+        self.pool(pool).append("i_raspletaemsia3")
+        self.pool(pool).append("i_akkuratno_raspletaemsia")
+        self.pool(pool).append("razvernulis")
+        self.pool(pool).append("i_razvorachivaemsia_vpered")
 
     def marichiasana_float_sounds(self):
         self.pool("float").append("descr_marichiasana1")
@@ -102,3 +101,7 @@ class Marichiasana(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_povtoriaushiesia_pozu")
+        self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
+        self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")

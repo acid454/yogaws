@@ -60,7 +60,10 @@ class Ushtrasana(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
-        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE + SND_EXHALE + SND_RASSLABILIS)
+        self.pool("float").append("common_povtoriaushiesia_pozu")
+        self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
+        self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("end").append(SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nвыход",
@@ -68,5 +71,4 @@ class Ushtrasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)

@@ -42,8 +42,7 @@ class Kobra(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
 
 class KobraWithRotations(Kobra):
     def __init__(self, **kwargs):
@@ -80,5 +79,4 @@ class KobraWithRotations(Kobra):
         self.pool("name").append("i_razvorachivaemsia_vpered")
         self.pool("name").append("razvernulis")
         self.pool("name").append("i_provisli")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)

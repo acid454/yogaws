@@ -41,8 +41,9 @@ class Matjasana(BaseAsana):
         self.pool("float").append("common8")
         self.pool("float").append("common9")
         self.pool("float").append("common10")
-        for i in SND_RASSLABILIS:
-            self.pool("end").append(i)
+        self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
+        self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("end").append(SND_RASSLABILIS)
         
         self.tasks.append(BaseTask(
             caption=self.caption + " (выход)",
@@ -50,9 +51,6 @@ class Matjasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["matjasana1", "matjasana2"]
         ))
-        self.pool("start").append("vernulis'1")
-        self.pool("start").append("vernulis'2")
-        self.pool("start").append("vernulis'_v_ishodnuju")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("start").append(SND_VERNULIS)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
         
