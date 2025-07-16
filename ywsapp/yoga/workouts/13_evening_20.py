@@ -53,7 +53,7 @@ class DefaultWorkout(BaseWorkout):
 
         self.sets.append(KTimerX3())
 
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
+        #self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 

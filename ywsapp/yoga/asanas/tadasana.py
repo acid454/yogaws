@@ -34,3 +34,4 @@ class Tadasana(BaseAsana):
         self.pool("end").append("_hlopok_")
         self.pool("end").append("poehali1")
         self.pool("end").append("poehali2")
+        self.pool("end").append("poehali_nu_chto")

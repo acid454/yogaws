@@ -118,7 +118,8 @@ SND_OPUSTILIS_NA_KOLENI = [
 ]
 
 SND_SELI = [
-    "seli",
+    "seli1",
+    "seli2",
     "sadimsia1",
     "sadimsia2"
 ]

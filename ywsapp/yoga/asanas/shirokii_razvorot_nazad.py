@@ -16,7 +16,7 @@ from short_poses import Seli
 class ShirokiiRazvorotNazad(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(self, name="shirokii_razvorot_nazad", caption="Широкий разворот назад")
-        self.properties.append(IntProperty(caption="циклов", short="cycles", default=2))
+        self.properties.append(IntProperty(caption="циклов", short="cycles", default=3))
         self.properties.append(IntProperty(caption="смена рук", short="tm_prepare", default=5))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=13))
         self.update_props(kwargs)
