@@ -87,8 +87,8 @@ class Plug(BaseAsana):
                 metronome=MetronomeRest(),
                 images=self.tasks[-1].images
             ))
-            self.pool("end").append(SND_ZAKONCHILI_DALSHE)
             self.pool("start").append("i_akkuratno_raskatali_spinu_obratno")
+            self.pool("start").append("plug_i_poluperekatom_vozvrashaemsia_sidia")
         self.pool("start").append("raskatilis'")
         self.pool("start").append("poluperekatom_vozvrashaemsia")
         super().build(workout, _set)

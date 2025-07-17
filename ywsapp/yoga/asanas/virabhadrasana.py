@@ -53,8 +53,7 @@ class VirabhadrasanaBase(BaseParshvaconasana):
         self.pool("float").append("common_povtoriaushiesia_pozu")
 
         #!!!!!!! TODO: short sounds
-        for i in SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ:
-            self.pool("end").append(i) 
+        self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ) 
     
     def build_snd_name(self, prev_asana):
         if issubclass(type(prev_asana), VirabhadrasanaBase):

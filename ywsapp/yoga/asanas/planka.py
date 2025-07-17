@@ -95,8 +95,7 @@ class PlankaWithRotationsEx(Planka):
                 metronome=MetronomeWork(),
                 images=["planka_left_hand_provisanie"]
             ))
-            for i in SND_SAGGING:
-                self.pool("name").append(i)
+            self.pool("name").append(SND_SAGGING)
             self.pool("continue").append("enter_planka_provisli_na_levoi_ruke")
             self.pool("float").append("descr_planka_provisli_na_levoi_ruke")
             self.planka_na_boku_snd_float()
@@ -132,8 +131,7 @@ class PlankaWithRotationsEx(Planka):
                 metronome=MetronomeWork(),
                 images=["planka_left_hand_provisanie"]
             ))
-            for i in SND_SAGGING:
-                self.pool("name").append(i)
+            self.pool("name").append(SND_SAGGING)
             self.pool("continue").append("enter_planka_provisli_na_levoi_ruke")
             self.pool("float").append("descr_planka_provisli_na_levoi_ruke")
             self.planka_na_boku_snd_float()
@@ -142,6 +140,7 @@ class PlankaWithRotationsEx(Planka):
 
 
     def construct_hand_pulls(self):
+        self.pool("end").append("potianem_ruku_vpered_a_vot_teper'")
         self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("provernuli_ruku")
         self.pool("end").append("ruku_vpered_a_sami_v_potolok", overlapsed = True)

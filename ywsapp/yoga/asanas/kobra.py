@@ -69,6 +69,7 @@ class KobraWithRotations(Kobra):
             metronome=MetronomeWork(),
             images=["kobra_right"]))
         self.pool("name").append("upr_razvorot_vpravo")
+        self.pool("name").append("razvernulis'_vpravo")
         self.pool("name").append(SND_NA_DRUGUJU_STORONU)
 
         self.tasks.append(BaseTask(

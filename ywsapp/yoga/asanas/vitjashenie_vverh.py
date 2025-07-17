@@ -22,7 +22,7 @@ class VitjashenieVverh(BaseAsana):
             property=self.tm_main,
             metronome=MetronomeWork(),
             images=["upr_vitjashenie_vverh1", "upr_vitjashenie_vverh2"]))
-        
+        self.pool("name").append("vitiagivaemsia_vverh")
         self.pool("name").append("upr_podnimaemsia_vverh1")
         self.pool("name").append("upr_podnimaemsia_vverh2")
         self.pool("name").append("upr_vitajshenie_vverh1")

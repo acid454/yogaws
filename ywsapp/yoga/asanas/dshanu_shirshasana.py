@@ -26,7 +26,7 @@ class DshanuShirshasana(BaseAsana):
             caption=self.caption + "\nпправая нога, подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["dshanu_shirshasana_right1", "dshanu_shirshasana_right2", "dshanu_shirshasana_right3", "dshanu_shirshasana_right4"]
+            images=[f"dshanu_shirshasana_right{i}" for i in range(1,5)]
         ))
         self.pool("start").append(SND_LEG_RIGHT_FORWARD)
         self.pool("name").append("name_dshanu_shirshasana1")
@@ -50,19 +50,20 @@ class DshanuShirshasana(BaseAsana):
         self.pool("end").append("so_vdohom_vverh2")
         self.pool("end").append("podnimaemsia1")
         self.pool("end").append("podnimaemsia2")
-        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
+        self.pool("end").append(SND_COMPLETION_OTHERS)
 
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nлевая нога, подготовка",
             property=self.tm_swap,
             metronome=MetronomeRest(),
-            images=["dshanu_shirshasana_left1", "dshanu_shirshasana_left2", "dshanu_shirshasana_left3", "dshanu_shirshasana_left4"]
+            images=[f"dshanu_shirshasana_left{i}" for i in range(1,5)]
         ))
         self.pool("start").append("i_meniaem", mandatory = True)
         self.pool("start").append(SND_LEG_LEFT_FORWARD + SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
         self.pool("continue").append("enter_dshanu_shirshasana_left1")
         self.pool("continue").append("enter_dshanu_shirshasana_left2")
+        self.pool("continue").append("enter_dshanu_shirshasana_left3")
 
 
         self.tasks.append(BaseTask(
@@ -82,6 +83,7 @@ class DshanuShirshasana(BaseAsana):
         self.pool("continue").append("descr_dshanu_shirshasana2")
         self.pool("continue").append("descr_dshanu_shirshasana3")
         self.pool("continue").append("descr_dshanu_shirshasana4")
+        self.pool("continue").append("descr_dshanu_shirshasana5")
         self.pool("float").append("descr_dshanu_shirshasana_navisanie_nad_nogoi")
         self.pool("float").append("descr_dshanu_shirshasana_ja_mogu_sloshitsia")
         self.pool("float").append("descr_dshanu_shirshasana_sledim_za_perekosom_v_plechah")

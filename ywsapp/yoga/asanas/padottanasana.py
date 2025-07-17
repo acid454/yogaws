@@ -33,8 +33,7 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("end").append("upr_vitiagivanie_vniz1")
         self.pool("end").append("upr_vitiagivanie_vniz2")
         self.pool("end").append("upr_vitiagivanie_vniz4")
-        for i in SND_S_VIDOHOM_VNIZ:
-            self.pool("end").append(i) 
+        self.pool("end").append(SND_S_VIDOHOM_VNIZ) 
         
         self.tasks.append(BaseTask(
             caption=self.caption,

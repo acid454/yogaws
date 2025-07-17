@@ -24,9 +24,9 @@ class ParivrittaBase(BaseParshvaconasana):
             property=self.tm_prepare,
             metronome=MetronomeRest()
         ))
+        self.pool("end").append("potianem_ruku_vpered_a_vot_teper'")
         self.pool("end").append("krug_rukoi_i_potianuli_ee_vpered")
         self.pool("end").append("krug_rukoi_provorot")
-        self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("ruku_vpered_a_sami_v_potolok")
 
         self.tasks.append(BaseTask(
@@ -44,7 +44,7 @@ class ParivrittaBase(BaseParshvaconasana):
         self.pool("start").append("upr_potjanulis_vpered7")
         self.pool("start").append("vitjanulis'1")
         self.pool("start").append("vitjanulis'2")
-        self.pool("start").append(FIKSIRUEM)
+        self.pool("continue").append(FIKSIRUEM)
         self.pool("float").append("descr_parivritta_parshvakonasana2")
         self.pool("float").append("descr_parivritta_parshvakonasana3")
         self.pool("float").append("descr_parivritta_parshvakonasana4")

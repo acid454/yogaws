@@ -29,6 +29,7 @@ SND_COMPLETION_OTHERS = [
     "otlichno2",
     "otlichno3",
     "otlichno4",
+    "otlichno5",
     "i_otlichno",
     "est'",
     "_horosho1",
@@ -108,7 +109,8 @@ SND_S_VIDOHOM_VNIZ = [
     "i_s_vidohom_opustilis'_vniz3",
     "s_vidohom_uhodim_vniz1",
     "s_vidohom_uhodim_vniz2",
-    "s_vidohom_uhodim_vniz3"
+    "s_vidohom_uhodim_vniz3",
+    "s_vidohom_uhodim_vniz4"
 ]
 
 SND_OPUSTILIS_NA_KOLENI = [
@@ -141,7 +143,8 @@ SND_POTIANULI_RUKU_VPERED = [
     "i_potianuli_ruku_vpered1",
     "i_potianuli_ruku_vpered2",
     "i_potianuli_ruku_vpered3",
-    "i_potjanut'_ruku_vpered"
+    "i_potjanut'_ruku_vpered",
+    "potianem_ruku_vpered_a_vot_teper"
 ]
 
 SND_OPUSTILIS = [
@@ -188,5 +191,6 @@ FIKSIRUEM = [
     "i_dershimsia",
     "i_stoim1",
     "i_stoim2",
-    "i_stoim3"
+    "i_stoim3",
+    "stoim1"
 ]

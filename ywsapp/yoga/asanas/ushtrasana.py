@@ -41,6 +41,7 @@ class Ushtrasana(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
+        self.pool("start").append("vitiagivaemsia_vverh")
         self.pool("start").append("i_mu_pot'anulis'")
         self.pool("start").append("i_tjanemsia_vverh")
         self.pool("start").append("vitalkivaemsia_vverh")

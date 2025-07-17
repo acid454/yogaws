@@ -15,7 +15,7 @@ from snd_pools import *
 class Utkatasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="most", caption="Уткатасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=9))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.update_props(kwargs)
         
@@ -23,10 +23,12 @@ class Utkatasana(BaseAsana):
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["utkatasana1"]
+            images=["utkatasana1", "utkatasana2"]
         ))
-        self.pool("name").append("name_utkatasana")
-        self.pool("continue").append("enter_utkatasana", overlapse = True)
+        self.pool("name").append("name_utkatasana1")
+        self.pool("name").append("name_utkatasana2")
+        self.pool("continue").append("enter_utkatasana1", overlapse = True)
+        self.pool("continue").append("enter_utkatasana2", overlapse = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption,
@@ -34,6 +36,7 @@ class Utkatasana(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
+        self.pool("continue").append("descr_utkatasana")
         self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("common_dushim_derzim_t'anemsia")
         self.pool("float").append("common1")

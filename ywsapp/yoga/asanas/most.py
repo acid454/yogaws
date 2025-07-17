@@ -26,6 +26,7 @@ class Most(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"most{x}" for x in range(1,7)]
         ))
+        self.pool("name_most")
         self.pool("name").append("name_chakrasana1")
         self.pool("name").append("name_chakrasana2")
         self.pool("continue").append("enter_most1")

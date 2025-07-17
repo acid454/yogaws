@@ -85,6 +85,7 @@ class Marichiasana(BaseAsana):
         self.pool(pool).append("i_raspletaemsia1")
         self.pool(pool).append("i_raspletaemsia2")
         self.pool(pool).append("i_raspletaemsia3")
+        self.pool(pool).append("i_raspletaemsia4")
         self.pool(pool).append("i_akkuratno_raspletaemsia")
         self.pool(pool).append("razvernulis")
         self.pool(pool).append("i_razvorachivaemsia_vpered")
