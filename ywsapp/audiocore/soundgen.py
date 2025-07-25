@@ -6,16 +6,19 @@
 #  Copyright 2025 Repnikov Dmitry <acid454@yoga7>
 #  
 
-import io
+import logging
 import json
 import subprocess
 import multiprocessing
 from resmanager import ResourcesManager
 from speech_manager import SpeechManager
+logger = logging.getLogger("ywsapp")
 
 
 class SoundComposer():
     def __init__(self, lines):
+        logger.debug("Composer input:")
+        logger.debug('\n'.join([''] + lines))
         self.conn1, self.conn2 = multiprocessing.Pipe(duplex=False)
         self.proc = multiprocessing.Process(
             target=SoundComposer.call_composer,
@@ -40,7 +43,6 @@ class SoundComposer():
 
     @staticmethod
     def call_composer(connector, composer_lines):
-        #print('\n'.join(composer_lines))
         composer_lines.append(',')   # ToDo: fix this, last bell sound longer, than just a second
         composer_lines.append(',')
         result = subprocess.run(ResourcesManager().sound_composer(), 
@@ -48,6 +50,7 @@ class SoundComposer():
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         #print(result.stderr.decode("utf-8"))
+        logger.debug('-'*120)
         stdout = result.stdout if result.returncode == 0 else None
         connector.send(stdout)
         return
