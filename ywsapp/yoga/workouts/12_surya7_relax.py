@@ -36,13 +36,13 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = True))
-
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 45, tm_prepare = 5))
+        self.wrap_asana(Asanas.malasana.Malasana(tm_main = 70))
         self.wrap_asana(Asanas.kobra.KobraWithRotations())
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
-        #self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
-        #self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
-        #self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
+        self.wrap_asana(Asanas.short_poses.OpustilisNaKoleni())
         self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
 
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana())

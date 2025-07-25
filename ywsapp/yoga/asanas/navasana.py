@@ -56,4 +56,5 @@ class Navasana(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_ZAKONCHILI_DALSHE)

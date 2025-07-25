@@ -13,11 +13,12 @@ from snd_pools import *
 
 
 class Malasana(BaseAsana):
-    def __init__(self, **kwargs):
+    def __init__(self, with_complication = True, **kwargs):
         super().__init__(name="malasana", caption="Маласана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
-        self.properties.append(IntProperty(caption="вытяжение вниз", short="tm_floor", default=30))
+        if with_complication:
+            self.properties.append(IntProperty(caption="вытяжение вниз", short="tm_floor", default=30))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
         
@@ -43,9 +44,13 @@ class Malasana(BaseAsana):
         ))
         self.pool("continue").append("descr_malasana")
         self.float_sounds()
-        self.pool("end").append(SND_EXHALE + SND_COMPLETION_OTHERS)
+        self.pool("end").append(SND_EXHALE)
 
+        if not with_complication:
+            self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
+            return
 
+        
         self.tasks.append(BaseTask(
             caption=self.caption + " \n(ладони в пол)",
             property=self.tm_prepare,
@@ -63,7 +68,7 @@ class Malasana(BaseAsana):
             images=self.tasks[-1].images
         ))
         self.float_sounds()
-        self.pool("end").append(SND_EXHALE + SND_COMPLETION_OTHERS)
+        self.pool("end").append(SND_EXHALE)
 
         self.tasks.append(BaseTask(
             caption=self.caption + " (выход)",
@@ -82,3 +87,4 @@ class Malasana(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")

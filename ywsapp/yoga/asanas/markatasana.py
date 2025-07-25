@@ -16,9 +16,9 @@ from snd_pools import *
 class Markatasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="markatasana", caption="Маркатасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=11))
-        self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=5))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=7))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=13))
+        self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=4))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=9))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(
@@ -40,9 +40,9 @@ class Markatasana(BaseAsana):
             ))
 
             if i == 0:
-                self.pool("continue").append("descr_markatasana_left")
+                self.pool("start").append("descr_markatasana_left")
             else:
-                self.pool("float").append("descr_markatasana_zatragivaet_tazobedrennue", overlapse = True)
+                self.pool("float").append("descr_markatasana_zatragivaet_tazobedrennue", float_on_start = True, overlapse = True)
 
             self.pool("end").append(SND_MENIAJEM_NOGI)
             self.pool("end").append("i potom rovno na oborot")
@@ -64,10 +64,17 @@ class Markatasana(BaseAsana):
 
     def setup_float(self, t):
         t.pool("float").append(None)
+        t.pool("float").append(FIKSIRUEM, float_on_start = True)
         t.pool("float").append("common_delaem_vse_ne_toropias'")
-        t.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
-        t.pool("float").append("descr_markatasana_koleni_stremiatsia_opustitsia_na_pol")
+        t.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'", float_on_start = True)
+        t.pool("float").append("descr_markatasana_koleni_stremiatsia_opustitsia_na_pol", float_on_start = True)
         t.pool("float").append("common_mjagkoe_bezobidnoe_uprashnenie_raskrepostit'_pojasnicu")
+        t.pool("float").append("common_delaem_vse_ne_toropias'")
+        t.pool("float").append("common_tianemsia_2x")
+        t.pool("float").append("common_ubedilis'_chto_nam_horosho")
+        t.pool("float").append("common1")
+        t.pool("float").append("common7")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
 
     def setup_end_pool(self):
         self.pool("end").clear()
@@ -80,7 +87,7 @@ class MarkatasanaWithLegs(Markatasana):
         self.cycles_count.caption = "циклов коленей"
         self.properties.append(IntProperty(caption="ноги перед собой", short="tm_legs", default=5))
         self.properties.append(IntProperty(caption="циклов скруток", short="cycles_twist", default=3))
-        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=3))
+        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=2))
         self.update_props(kwargs)
 
         self.pool("end").clear()

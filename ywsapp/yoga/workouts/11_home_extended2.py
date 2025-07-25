@@ -1,23 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  10_home_extended.py
+#  11_home_extended2.py
 #  
 #  Copyright 2023 Repnikov Dmitry <acid454@yoga7>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 from ktimer import KTimerX3
 
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "home_extended2",
-                             caption = "Расширенная домашняя тренировка #2",
-                             description = "Непродолжительный комплекс для любого начального уровня подготовки. Прекращение физической деградации.")
-    
+    name: str = "home_extended2"
+    caption: str = "Расширенная домашняя тренировка #2"
+    description: str = "Комплекс для начального уровня подготовки. Прекращение физической деградации."
+
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered(tm_main = 13))
@@ -28,7 +29,6 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 40))
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 40))
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 40))
         self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 40))
 
@@ -45,10 +45,10 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.dshanu_shirshasana.DshanuShirshasana())
         self.wrap_asana(Asanas.most.Most())
-        
-        self.wrap_asana(Asanas.plug.Plug())
+
         self.wrap_asana(Asanas.navasana.Navasana())
-        self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
+        self.wrap_asana(Asanas.ushtrasana.Ushtrasana())        
+        self.wrap_asana(Asanas.plug.Plug())
         #self.wrap_asana(Asanas.matjasana.Matjasana())
 
         self.wrap_asana(Asanas.nakrasana.Nakrasana())

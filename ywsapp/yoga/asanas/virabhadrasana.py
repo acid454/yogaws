@@ -17,7 +17,7 @@ from snd_pools import *
 class VirabhadrasanaBase(BaseParshvaconasana):
     def __init__(self, _side, _caption):
         super().__init__(name="virabhadrasana_%s"%(_side), caption=_caption, side = _side, prepare_tm_for_swap_hands = 4)
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=9))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
 
         self.tasks.append(BaseTask(
@@ -51,8 +51,14 @@ class VirabhadrasanaBase(BaseParshvaconasana):
         self.pool("float").append("descr_virabhadrasana13")
         self.pool("float").append("descr_virabhadrasana14")
         self.pool("float").append("common_povtoriaushiesia_pozu")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
+        self.pool("float").append("common_ne_zabuvaem_raspredeliat'_ravnovesie")
 
         #!!!!!!! TODO: short sounds
+        if self.tm_main.value <= 10:
+            self.pool("float").append(FIKSIRUEM + STOIM)
+
         self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ) 
     
     def build_snd_name(self, prev_asana):

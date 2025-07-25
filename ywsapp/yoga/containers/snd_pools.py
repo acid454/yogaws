@@ -130,7 +130,8 @@ SND_SELI = [
 SND_NA_DRUGUJU_STORONU = [
     "i_na_druguju_storonu",
     "i_delaem_na_druguju_storonu",
-    "povtoriaem_simmetrichno"
+    "povtoriaem_simmetrichno",
+    "i_perehodim_k_sleduushei_storone"
 ]
 
 SND_SAGGING = [
@@ -189,8 +190,13 @@ FIKSIRUEM = [
     "fiksiruem",
     "i_mu_zamerli",
     "i_dershimsia",
+    "derzhim1",
+    "derzhim2"
+]
+
+STOIM = [
     "i_stoim1",
     "i_stoim2",
     "i_stoim3",
-    "stoim1"
+    "stoim1",
 ]

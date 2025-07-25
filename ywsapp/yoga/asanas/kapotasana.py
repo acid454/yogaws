@@ -50,6 +50,8 @@ class KapotasanaBase(BaseAsana):
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
         self.pool("float").append("common_vsie_budet_horosho")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
     
     def build(self, workout, _set):
         super().build(workout, _set)

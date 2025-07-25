@@ -49,6 +49,7 @@ class Ushtrasana(BaseAsana):
         self.pool("start").append("upr_podnimaemsia_vverh1")
         self.pool("start").append("upr_podnimaemsia_vverh2")
         self.pool("start").append("vigibaemsia")
+        self.pool("float").append("common_tianemsia_2x")
         self.pool("float").append("descr_ushtarsana_vitiagivaemsia")
         self.pool("float").append("descr_ushtarsana_pomnim_pro_pajasnitsu")
         self.pool("float").append("descr_most2")
@@ -64,6 +65,7 @@ class Ushtrasana(BaseAsana):
         self.pool("float").append("common_povtoriaushiesia_pozu")
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
         self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
         self.pool("end").append(SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(

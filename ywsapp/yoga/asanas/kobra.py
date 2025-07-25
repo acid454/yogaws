@@ -26,13 +26,19 @@ class Kobra(BaseAsana):
             images=[f"kobra0{x}" for x in range(1,4)]
         ))
         self.pool("name").append("enter_kobra_provisli")
+        self.pool("name").append("name_kobra")
 
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
             images=self.tasks[0].images))
+        self.snd_float()
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
         
+    def snd_float(self):
+        self.pool("float").append("descr_kobra_tianemsia_ne_za_schet_ruk", float_on_start = True)
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
         self.pool("float").append("rasslablenie_v_kobre")
         self.pool("float").append("common_ubedilis'_chto_nam_horosho")
         self.pool("float").append("common3")
@@ -42,7 +48,9 @@ class Kobra(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
-        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        
 
 class KobraWithRotations(Kobra):
     def __init__(self, **kwargs):

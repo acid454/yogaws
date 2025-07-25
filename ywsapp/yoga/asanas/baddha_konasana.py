@@ -19,7 +19,7 @@ class BaddhaKonasana(BaseAsana):
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
         self.properties.append(IntProperty(caption="прогиб вперёд", short="tm_progib", default= 50 if with_knees else 110 ))
         if with_knees:
-            self.properties.append(IntProperty(caption="переход", short="tm_legs_change", default=5))
+            self.properties.append(IntProperty(caption="переход", short="tm_legs_change", default=7))
             self.properties.append(IntProperty(caption="ноги к себе", short="tm_squared", default=50))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
@@ -54,6 +54,7 @@ class BaddhaKonasana(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_povtoriaushiesia_pozu")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
 
         if with_knees:
             self.tasks.append(BaseTask(

@@ -46,6 +46,8 @@ class ArdhachandrasanaBase(BaseAsana):
         self.pool("float").append("common1")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
+        self.pool("float").append("common_ne_zabuvaem_raspredeliat'_ravnovesie")
         self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ)
         self.pool("end").append("i_s_vidohom_na_ladoni_ruk")
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")

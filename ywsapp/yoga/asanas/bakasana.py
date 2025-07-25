@@ -62,6 +62,7 @@ class Bakasana(BaseAsana):
         self.pool("float").append("common12")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
+        self.pool("float").append("common_ne_zabuvaem_raspredeliat'_ravnovesie")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(

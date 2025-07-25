@@ -39,5 +39,7 @@ class Kukkutasana(BaseAsana):
         self.pool("float").append("common3")
         self.pool("float").append("common4")
         self.pool("float").append("common5_v_vitalkivanii")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
+        self.pool("float").append("common_ne_zabuvaem_raspredeliat'_ravnovesie")
         self.pool("end").append("i_s_vidohom_na_ladoni_ruk")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE + SND_EXHALE + SND_RASSLABILIS)

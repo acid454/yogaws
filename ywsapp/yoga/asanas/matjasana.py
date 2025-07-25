@@ -43,6 +43,7 @@ class Matjasana(BaseAsana):
         self.pool("float").append("common10")
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
         self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
         self.pool("end").append(SND_RASSLABILIS)
         
         self.tasks.append(BaseTask(

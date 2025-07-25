@@ -60,6 +60,8 @@ class PodnimaemsiaVvreh(BaseAsana):
         self.pool("name").append("upr_podnimaemsia_vverh2")
         self.pool("name").append("i_skrugliaja_spinu_vverh1")
         self.pool("name").append("i_skrugliaja_spinu_vverh2")
+        self.pool("name").append("i_skrugliaja_spinu_vverh3")
+        self.pool("name").append("i_skrugliaja_spinu_vverh4")
         self.pool("name").append("podnimaemsia1")
         self.pool("name").append("podnimaemsia2")
 

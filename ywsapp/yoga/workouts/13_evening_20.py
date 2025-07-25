@@ -20,13 +20,13 @@ class DefaultWorkout(BaseWorkout):
     group: str = "Утренние и вечерние"
     
     def __post_init__(self):
-        self.wrap_asana(Asanas.tadasana.Tadasana())
+        self.wrap_asana(Asanas.tadasana.Tadasana(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 45))
         
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.shirokii_razvorot_nazad.ShirokiiRazvorotNazad())
-        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs(cycles_count = 5, cycles_twist = 2))
+        self.wrap_asana(Asanas.markatasana.Markatasana(cycles_count = 5, cycles_twist = 2))
         self.wrap_asana(Asanas.malasana.Malasana())
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 30, tm_prepare = 5))

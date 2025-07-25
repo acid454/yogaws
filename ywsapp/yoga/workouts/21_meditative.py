@@ -23,24 +23,25 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(timings = 'extra_slow', cnt = 1))
 
-        self.wrap_asana(Asanas.planka.PlankaWithRotationsEx(tm_main = 90))
+        self.wrap_asana(Asanas.planka.Planka(tm_main = 40))
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
 
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
 
         self.wrap_asana(Asanas.kobra.Kobra(tm_main = 60))
         self.wrap_asana(Asanas.short_poses.Seli())
-        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
+        self.wrap_asana(Asanas.markatasana.Markatasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
+        self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
 
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
-        self.wrap_asana(Asanas.most.Most())
-        self.wrap_asana(Asanas.plug.Plug())
+        #self.wrap_asana(Asanas.most.Most())
+        self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
 
         # Переворачиваемся на живот здесь
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
@@ -53,9 +54,13 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.marichiasana.Marichiasana())
+        self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
-        self.wrap_asana(Asanas.plug.Plug())
+        self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
 
 
         self.wrap_asana(Asanas.shavasana.Shavasana())

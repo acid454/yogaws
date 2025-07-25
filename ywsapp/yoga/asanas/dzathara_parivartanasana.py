@@ -75,3 +75,4 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
         self.pool("float").append("common12")
         self.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")

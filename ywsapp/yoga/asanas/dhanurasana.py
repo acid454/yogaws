@@ -49,6 +49,8 @@ class Dhanurasana(BaseAsana):
         self.pool("float").append("common3")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_tianemsia_intensovno_vverh")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("end").append(SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(

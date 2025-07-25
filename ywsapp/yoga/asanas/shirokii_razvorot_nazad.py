@@ -16,12 +16,21 @@ from short_poses import Seli
 class ShirokiiRazvorotNazad(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(self, name="shirokii_razvorot_nazad", caption="Широкий разворот назад")
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=5))
         self.properties.append(IntProperty(caption="циклов", short="cycles", default=3))
-        self.properties.append(IntProperty(caption="смена рук", short="tm_prepare", default=5))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=13))
+        self.properties.append(IntProperty(caption="смена рук", short="tm_swap", default=5))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=14))
         self.update_props(kwargs)
 
         
+        self.tasks.append(BaseTask(
+            caption=self.caption + "\nподготовка",
+            property=self.tm_prepare,
+            metronome=MetronomeRest(),
+            images=["shirokii_razvorot_nazad_left"]
+        ))
+        self.pool("start").append("enter_shirokii_razvorot_vlevo")
+
         for i in range(self.cycles.value):
             self.tasks.append(BaseTask(
                 caption=self.caption + "\nвлево",
@@ -33,7 +42,6 @@ class ShirokiiRazvorotNazad(BaseAsana):
             if i == 0:
                 self.pool("name").append("name_shirokii_razvorot_nazad")
                 self.pool("continue").append(SND_SIDE_LEFT, mandatory = True)
-                self.pool("continue+").append("enter_shirokii_razvorot_vlevo")
             self.float_sounds()
             
             self.swap_hands()
@@ -55,13 +63,30 @@ class ShirokiiRazvorotNazad(BaseAsana):
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
 
     def float_sounds(self):
-        self.pool("float").append("ruka_priamaja")
+        self.pool("float").append(None)
+        self.pool("float").append(FIKSIRUEM, float_on_start = True)
+        self.pool("float").append("ruka_priamaja", float_on_start = True)
         self.pool("float").append("shirokii_razvorot_descr_tianem_daleko")
+        self.pool("float").append("common_delaem_vse_ne_toropias'")
+        self.pool("float").append("common_derzimsia_dushim")
+        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_dushim_derzim_t'anemsia")
+        self.pool("float").append("common_mjagkoe_bezobidnoe_uprashnenie_raskrepostit'_pojasnicu")
+        self.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
+        self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
+        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_tianemsia_2x")
+        self.pool("float").append("common_ubedilis'_chto_nam_horosho")
+        self.pool("float").append("common_vashna_geometria_i_tochnost")
+        self.pool("float").append("common1")
+        self.pool("float").append("common3")
+        self.pool("float").append("common4")
+        self.pool("float").append("common7")
 
     def swap_hands(self):
         self.tasks.append(BaseTask(
             caption=self.caption + "\nсмена рук",
-            property=self.tm_prepare,
+            property=self.tm_swap,
             metronome=MetronomeRest(),
             images=Seli.IMAGES
         ))

@@ -59,6 +59,7 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("end").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE) 
 
     def build_snd_name(self, prev_asana):

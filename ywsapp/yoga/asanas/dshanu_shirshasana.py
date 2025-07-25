@@ -23,7 +23,7 @@ class DshanuShirshasana(BaseAsana):
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
-            caption=self.caption + "\nпправая нога, подготовка",
+            caption=self.caption + "\nправая нога, подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
             images=[f"dshanu_shirshasana_right{i}" for i in range(1,5)]
@@ -34,8 +34,8 @@ class DshanuShirshasana(BaseAsana):
         self.pool("name").append("name_dshanu_shirshasana3")
         self.pool("name").append("name_dshanu_shirshasana_next")
         self.pool("continue").append(SND_LEG_RIGHT_FORWARD, only_actings = VOICE_SIDE_ONLY_ACTING)
-        self.pool("end").append("enter_dshanu_shirshasana_right1")
-        self.pool("end").append("enter_dshanu_shirshasana_right2")
+        self.pool("end").append("enter_dshanu_shirshasana_right1", overlapse = True)
+        self.pool("end").append("enter_dshanu_shirshasana_right2", overlapse = True)
         
 
         self.tasks.append(BaseTask(

@@ -44,7 +44,7 @@ class ParivrittaBase(BaseParshvaconasana):
         self.pool("start").append("upr_potjanulis_vpered7")
         self.pool("start").append("vitjanulis'1")
         self.pool("start").append("vitjanulis'2")
-        self.pool("continue").append(FIKSIRUEM)
+        self.pool("continue").append(FIKSIRUEM + STOIM)
         self.pool("float").append("descr_parivritta_parshvakonasana2")
         self.pool("float").append("descr_parivritta_parshvakonasana3")
         self.pool("float").append("descr_parivritta_parshvakonasana4")

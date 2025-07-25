@@ -16,7 +16,7 @@ from sobaki import Sobaki
 class DefaultWorkout(BaseWorkout):
     name: str = "home_extended"
     caption: str = "Расширенная домашняя тренировка"
-    description: str = "Непродолжительный комплекс для любого начального уровня подготовки. Прекращение физической деградации."
+    description: str = "Комплекс для начального уровня подготовки. Прекращение физической деградации."
 
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
@@ -24,11 +24,12 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 45))
 
         self.wrap_asana(Asanas.short_poses.Seli())
-        self.wrap_asana(Asanas.shirokii_razvorot_nazad.ShirokiiRazvorotNazad())
-        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs(cycles_count = 3, cycles_twist = 5))
+        self.wrap_asana(Asanas.markatasana.Markatasana())
+        self.wrap_asana(Asanas.shirokii_razvorot_nazad.ShirokiiRazvorotNazad(cycles = 2))
         self.wrap_asana(Asanas.stol.Stol())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = True))
 
+        self.wrap_asana(Asanas.malasana.Malasana())
         self.wrap_asana(Asanas.short_poses.PodnimaemsiaVvreh())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 15))
         self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered())
@@ -42,7 +43,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
         #self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 40))
         
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
+        #self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20))
         self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 40))
         self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
         #self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 40))
@@ -51,7 +52,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.bakasana.Bakasana())
         self.wrap_asana(Asanas.dhanurasana.Dhanurasana())
 
-        self.sets.append(Sobaki(timings = 'slow', first_gorka_tm = 30))
+        self.sets.append(Sobaki(timings = 'slow', first_gorka_tm = 10))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
 
         self.wrap_asana(Asanas.short_poses.Seli())
@@ -70,7 +71,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         self.wrap_asana(Asanas.nakrasana.Nakrasana())
 
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
+        #self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 def do_load_workouts():

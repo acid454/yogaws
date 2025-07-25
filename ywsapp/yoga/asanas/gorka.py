@@ -10,7 +10,7 @@ from base import BaseAsana, BaseTask
 from base import AsanaLegForward
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest, MetronomeRestComplete
-from snd_pools import SND_RASSLABILIS, SND_EXHALE, SND_ZAKONCHILI_DALSHE
+from snd_pools import FIKSIRUEM, STOIM, SND_RASSLABILIS, SND_EXHALE, SND_ZAKONCHILI_DALSHE
 
 
 class GorkaBase(BaseAsana):
@@ -67,6 +67,9 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_povtoriaushiesia_pozu")
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
+        if self.tm_main.value < 10:
+            self.pool("float").append(FIKSIRUEM + STOIM, float_on_start = True)
     
     def gorka_name_snd(self):
         self.pool("name").append("gorka1")

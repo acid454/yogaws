@@ -66,6 +66,8 @@ class Plug(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
         self.pool("float").append("common_vsie_budet_horosho")
+        self.pool("float").append("common_vihodim_iz_asan_plavno")
+        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         
     def build(self, workout, _set):
         next_asana = workout.next_item(self)
