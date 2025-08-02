@@ -28,9 +28,7 @@ void split_table_line(std::string& s, std::vector<std::string>& v) {
 
 
 	while ((pos = s.find(",")) != std::string::npos) {
-		token = s.substr(0, pos);
-		if (token.length() != 0)
-			v.push_back(token);
+		v.push_back(s.substr(0, pos));
 		s.erase(0, ++pos);
 	}
 	v.push_back(s);

@@ -43,8 +43,6 @@ class SoundComposer():
 
     @staticmethod
     def call_composer(connector, composer_lines):
-        composer_lines.append(',')   # ToDo: fix this, last bell sound longer, than just a second
-        composer_lines.append(',')
         result = subprocess.run(ResourcesManager().sound_composer(), 
                                 input=bytes('\n'.join(composer_lines), 'ascii'),
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -98,5 +96,6 @@ class SoundGenerator():
                     k = current_task['sounds'][snd_start_tm]
                     composer_lines[-1] += self.audio_data[k['file']] + ','
         
+        composer_lines += [","]*2  # Last bell sound longer, than second
         return SoundComposer(composer_lines)
         

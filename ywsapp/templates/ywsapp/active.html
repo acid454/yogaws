@@ -141,7 +141,8 @@ function start_stop_workout() {
 
 		let current_task = workout.timetable[workout.schedule[workout_current_time]];
 		if (current_task === undefined) {
-			window.location.href = "/?wuid={{active_wuid}}";
+			if (workout_audio.ended)
+				window.location.href = "/?wuid={{active_wuid}}";
 			return;
 		}
 
