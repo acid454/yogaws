@@ -59,5 +59,5 @@ class Dhanurasana(BaseAsana):
             metronome=MetronomeRest(),
             images=self.tasks[-1].images
         ))
-        self.pool("start").append(SND_OPUSTILIS)
+        self.pool("start").append(SND_S_VIDOHOM_VNIZ)
         self.pool("end").append(SND_ZAKONCHILI_DALSHE)

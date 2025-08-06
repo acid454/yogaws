@@ -33,8 +33,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
 
         self.wrap_asana(Asanas.kobra.Kobra(tm_main = 60))
+        self.wrap_asana(Asanas.short_poses.Seli())   # Ushli na chetveren'ki
+        self.wrap_asana(Asanas.malasana.Malasana(with_complication = False))
         self.wrap_asana(Asanas.short_poses.Seli())
-        self.wrap_asana(Asanas.markatasana.Markatasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
@@ -42,6 +43,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
         #self.wrap_asana(Asanas.most.Most())
         self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
+        self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 90))
 
         # Переворачиваемся на живот здесь
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
@@ -51,8 +53,8 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(go_down = True, tm_main = 50, tm_down = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(go_down = True, tm_main = 50, tm_down = 50))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
         
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
@@ -60,7 +62,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
-        self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
+        self.wrap_asana(Asanas.plug.Plug(tm_main = 80))
 
 
         self.wrap_asana(Asanas.shavasana.Shavasana())

@@ -46,9 +46,11 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
-        self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
+        #self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
+        self.wrap_asana(Asanas.short_poses.Seli())
 
-        self.wrap_asana(Asanas.plug.Plug())
+        #self.wrap_asana(Asanas.plug.Plug())
+        self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 110))
         self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 80))
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         

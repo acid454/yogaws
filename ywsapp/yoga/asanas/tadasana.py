@@ -30,6 +30,7 @@ class Tadasana(BaseAsana):
 
         self.pool("float").append("begin_vstaem_rovno_ruki_vdol'_tulovisha")
         self.pool("float").append("descr_tadasana_on_begin")
+        self.pool("float").append("common_orientiruemsia_na_oshushenia")
         self.pool("float").append(None)
 
         self.pool("end").append("_hlopok_")

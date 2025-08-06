@@ -6,7 +6,7 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import BaseAsana, BaseTask, AsanaLegsStayUp
+from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
@@ -60,7 +60,6 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
-        self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_legs:
             self.tasks.append(BaseTask(
@@ -69,9 +68,9 @@ class PrasaritaPadottanasana(BaseAsana):
                 metronome=MetronomeWork(),
                 images=["prasarita_padottanasana_leg_left"]
             ))
-            self.pool("start").append("upr_potjanulis_k_levoi_noge1")
-            self.pool("start").append("upr_potjanulis_k_levoi_noge2")
-            self.pool("start").append("upr_potjanulis_v_levuju_storonu")
+            self.pool("name").append("upr_potjanulis_k_levoi_noge1")
+            self.pool("name").append("upr_potjanulis_k_levoi_noge2")
+            self.pool("name").append("upr_potjanulis_v_levuju_storonu")
             self.pool("continue").append("descr_prasarita_potjanulis_k_levoi_noge")
             self.pool("continue").append("descr_prasarita_potjanulis_k_noge_common")
             self.pool("float").append("common7")
@@ -82,15 +81,14 @@ class PrasaritaPadottanasana(BaseAsana):
                 metronome=MetronomeWork(),
                 images=["prasarita_padottanasana_leg_right"]
             ))
-            self.pool("start").append("k_pravoi_noge")
-            self.pool("start").append(SND_NA_DRUGUJU_STORONU)
+            self.pool("name").append("k_pravoi_noge")
+            self.pool("name").append(SND_NA_DRUGUJU_STORONU)
             self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
             self.pool("float").append("common_tianemsia_2x")
             self.pool("float").append("common_i_postojat'_podushat'")
             self.pool("float").append("common7")
             self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
             self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
-            self.pool("end").append(SND_COMPLETION_OTHERS)
 
         if with_hands:
             self.append_hands_tasks()
@@ -103,7 +101,7 @@ class PrasaritaPadottanasana(BaseAsana):
         ))
 
         if with_legs or with_hands:
-            self.pool("start").append(SND_VERNULIS + SND_COMPLETION_OTHERS)
+            self.pool("name").append(SND_VERNULIS + SND_COMPLETION_OTHERS)
 
         self.pool("continue").append("so_vdohom_vverh1")
         self.pool("continue").append("upr_podnimaemsia_vverh1")
@@ -141,6 +139,7 @@ class PrasaritaPadottanasana(BaseAsana):
         self.pool("float").append("common10")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+        self.pool("float").append("common_akcentiruite_vidohi")
         self.pool("end").append("i_provernuli")
         self.pool("end").append(SND_VERNULIS + SND_COMPLETION_OTHERS + SND_S_VIDOHOM_VNIZ)
         

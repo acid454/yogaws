@@ -8,7 +8,7 @@
 
 from base import AsanaLegForward
 from dataclasses import dataclass
-from snd_pools import *
+from snd_pools import SND_MENIAJEM_NOGI, SND_LEG_LEFT_FORWARD, SND_LEG_RIGHT_FORWARD
 
 
 @dataclass

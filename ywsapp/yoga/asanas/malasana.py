@@ -15,7 +15,7 @@ from snd_pools import *
 class Malasana(BaseAsana):
     def __init__(self, with_complication = True, **kwargs):
         super().__init__(name="malasana", caption="Маласана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
         if with_complication:
             self.properties.append(IntProperty(caption="вытяжение вниз", short="tm_floor", default=30))

@@ -36,8 +36,8 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.kobra.Kobra(tm_main = 45))
 
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 50))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(go_down = True, tm_main = 50))
+        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(go_down = True, tm_main = 50))
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 40))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())

@@ -34,10 +34,11 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 40))
         
         self.wrap_asana(Asanas.bakasana.Bakasana())
-        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 80))
+        self.wrap_asana(Asanas.navasana.Navasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
         self.wrap_asana(Asanas.stol.Stol())
-        self.wrap_asana(Asanas.malasana.Malasana())
+        self.wrap_asana(Asanas.malasana.Malasana(tm_main = 50))
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 40))
         
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 30))
@@ -47,7 +48,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.utkatasana.Utkatasana())
 
-        self.wrap_asana(Asanas.navasana.Navasana())
+        
         self.sets.append(KTimerX3())
         self.wrap_asana(Asanas.plug.Plug())
         #self.wrap_asana(Asanas.sarvangasana.Sarvangasana())

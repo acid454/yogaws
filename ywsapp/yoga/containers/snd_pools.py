@@ -100,8 +100,8 @@ SND_MENIAJEM_NOGI = [
     "smena_nog"
 ]
 
+# Relaxation sounds
 SND_S_VIDOHOM_VNIZ = [
-    "i_vniz",
     "i_uhodim_vniz",
     "i_s_vidohom_vniz",
     "i_s_vidohom_opustilis'_vniz1",
@@ -111,6 +111,18 @@ SND_S_VIDOHOM_VNIZ = [
     "s_vidohom_uhodim_vniz2",
     "s_vidohom_uhodim_vniz3",
     "s_vidohom_uhodim_vniz4"
+]
+
+SND_OPUSTILIS = [
+    "i_vniz",
+    "i_opustilis'",
+    "opuskaemsia_vniz1",
+    "opuskaemsia_vniz2",
+    "opustilis'_1",
+    "opustilis'_2",
+    "opustilis'_3",
+    "opustilis'_4",
+    "opustilis'_5"
 ]
 
 SND_OPUSTILIS_NA_KOLENI = [
@@ -146,20 +158,6 @@ SND_POTIANULI_RUKU_VPERED = [
     "i_potianuli_ruku_vpered3",
     "i_potjanut'_ruku_vpered",
     "potianem_ruku_vpered_a_vot_teper"
-]
-
-SND_OPUSTILIS = [
-    "i_opustilis'",
-    "i_s_vidohom_opustilis'_vniz1",
-    "i_s_vidohom_opustilis'_vniz2",
-    "i_s_vidohom_opustilis'_vniz3",
-    "opuskaemsia_vniz1",
-    "opuskaemsia_vniz2",
-    "opustilis'_1",
-    "opustilis'_2",
-    "opustilis'_3",
-    "opustilis'_4",
-    "opustilis'_5"
 ]
 
 SND_SIDE_RIGHT = [

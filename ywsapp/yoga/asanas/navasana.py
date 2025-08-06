@@ -25,14 +25,6 @@ class Navasana(BaseAsana):
             metronome=MetronomeRest(),
             images=[f"navasana{x}" for x in range(1,5)]
         ))
-        #self.pool("start").append("seli")
-        #self.pool("start").append("sadimsia1")
-        #self.pool("start").append("sadimsia2")
-        #self.pool("start").append("opustilis'_1")
-        #self.pool("start").append("opustilis'_2")
-        #self.pool("start").append("opustilis'_3")
-        #self.pool("start").append("opustilis'_4")
-        #self.pool("start").append("opustilis'_5")
         self.pool("name").append("name_navasana1")
         self.pool("name").append("name_navasana2")
         self.pool("name").append("name_navasana3")
