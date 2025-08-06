@@ -13,7 +13,7 @@ import logging
 from io import StringIO
 main_log_stream = StringIO()
 logger = logging.getLogger("ywsapp")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler(main_log_stream))
 logger.handlers[-1].setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 logger.info(f"--- starting app, SCR version is {SCR_VERSION} ---")
@@ -32,6 +32,7 @@ try:
     import jsons
     from .resmanager import ResourcesManager
     from .audiocore.soundgen import SoundGenerator
+    from speech_manager import SpeechManager
 except:
     logger.exception("Exception while loading main view modules:")
 
@@ -139,7 +140,8 @@ def _update_workouts():
     #-------------------------------------------------------------------
    
     WORKOUTS = {}
-    logger.debug(f"workout files: {ResourcesManager().workout_files()}")
+    logger.info("workout files:")
+    logger.info("\n".join(ResourcesManager().workout_files()))
     for f in ResourcesManager().workout_files():
         #if f != "01_test.py": continue
         try:
@@ -158,17 +160,16 @@ def _update_workouts():
 def list_workouts(request):
     if WORKOUTS is None:
         _update_workouts()
-    wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
-    #wrks = map(lambda x: jsons.dump(x['class']().build(None, x['wid']) ), wrks)
-    wrks = map(lambda x: jsons.dump(x['default']), wrks)
     
+    wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
+    wrks = map(lambda x: jsons.dump(x['default']), wrks)
+
     result = {}
     for w in wrks:
         if w['group'] in result.keys():
             result[w['group']].append(w)
         else:
             result[w['group']] = [w]
-    
     
     #result = list(map(lambda k: ( WORKOUTS[k]['class']().build(k), WORKOUTS.keys()))
     #result = sorted( result, key = lambda k: k.FILENAME )
@@ -182,6 +183,7 @@ def list_workouts(request):
 def view_workout(request):
     workout_id = request.GET.get('id')
     no_sounds = request.GET.get('no_sounds', False)
+    logger.info(f"get workout: {workout_id}, no_sounds: {no_sounds}")
 
     # ToDo: this as decorator?
     if WORKOUTS is None:
@@ -216,6 +218,7 @@ def view_workout(request):
 
 def get_workout(request):
     workout_id = request.GET.get('id')
+    logger.info(f"get workout: {workout_id}")
 
     # ToDo: this as decorator?
     if WORKOUTS is None:
@@ -224,7 +227,6 @@ def get_workout(request):
     if workout_id not in WORKOUTS.keys():
         return JsonResponse({}, safe = False, status = 404)
 
-    from speech_manager import SpeechManager  #ToDo: remove to imports
     this_user = get_user(request) if request.user.is_authenticated else None
     result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
 
