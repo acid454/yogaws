@@ -9,13 +9,14 @@
 from base import AsanaLegsStayUp, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
+from plug import Plug
 from snd_pools import *
 
 
 class Dzathara_Parivartanasana(AsanaLegsStayUp):
     def __init__(self, **kwargs):
         super().__init__(name="dzathara_parivartanasana", caption="Джатхара Паривартанасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=7))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=9))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
         self.properties.append(IntProperty(caption="переход", short="tm_swap", default=15))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=6))
@@ -27,7 +28,7 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             metronome=MetronomeRest(),
             images=[f"dzathara_parivartanasana_left{x}" for x in range(1,3)]
         ))
-        self.pool("start").append("upr_razvodim_ruki_v_storoni", mandatory = True)
+        self.pool("name").append("upr_razvodim_ruki_v_storoni")
         self.pool("continue").append("upr_razvorot_vlevo", mandatory = True)
 
         self.tasks.append(BaseTask(
@@ -76,3 +77,8 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
         self.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+    
+    def build(self, workout, _set):
+        super().build(workout, _set)
+        if not issubclass(type(workout.prev_item(self)), Plug):
+            self.task(self.tm_prepare).pool("start").append("podniali_nogi", mandatory = True)
