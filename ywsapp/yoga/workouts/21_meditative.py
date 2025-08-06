@@ -3,7 +3,7 @@
 #
 #  21 meditative.py
 #  
-#  Copyright 2023 Dmitry Repnikov <acid454@x220>
+#  Copyright 2025 Dmitry Repnikov <acid454@x220>
 #  
 
 from dataclasses import dataclass
@@ -46,16 +46,16 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 90))
 
         # Переворачиваемся на живот здесь
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.kobra.KobraWithRotations())
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
 
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(go_down = True, tm_main = 50, tm_down = 50))
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight(go_down = True, tm_main = 50, tm_down = 50))
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 50))
         
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.short_poses.Seli())
