@@ -42,6 +42,8 @@ class VirabhadrasanaBase(BaseParshvaconasana, AsanaGoDown):
         self.pool("continue").append("enter_virabhadrasana2")
         self.pool("continue").append("enter_virabhadrasana3")
         self.pool("continue").append("enter_virabhadrasana4")
+        self.pool("continue").append("descr_virabhadrasana_obrashaem_vnimanie_na_stupniu_i_koleno")
+        self.pool("continue").append("descr_virabhadrasana_telo_odna_linija")
         self.pool("float").append("descr_virabhadrasana_vipriamlaem_zadnuu_nogu")
         self.pool("continue" if random.randint(0, 1) else "float").append("descr_virabhadrasana3")
         self.pool("float").append("descr_virabhadrasana4")
@@ -56,6 +58,7 @@ class VirabhadrasanaBase(BaseParshvaconasana, AsanaGoDown):
         self.pool("continue").append("descr_virabhadrasana12")
         self.pool("float").append("descr_virabhadrasana13")
         self.pool("float").append("descr_virabhadrasana14")
+        self.pool("float").append("descr_parivritta_parshvakonasana5", float_on_start = True)
 
         #!!!!!!! TODO: short sounds
         if self.tm_main.value <= 10:

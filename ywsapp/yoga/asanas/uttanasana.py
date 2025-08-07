@@ -20,7 +20,7 @@ class UttanasanaBase(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=[f"uttanasana{x}" for x in range(1,4)]
+            images=[f"uttanasana{x}" for x in range(1,5)]
         ))
         self.pool("start").append(SND_S_VIDOHOM_VNIZ)
         self.pool("start").append("upr_vitiagivanie_vniz1")
@@ -33,6 +33,7 @@ class UttanasanaBase(BaseAsana):
         self.pool("name").append("name_uttanasana4")
         self.pool("continue").append("descr_vitjashenie_vniz2")
         self.pool("continue").append("descr_vitjashenie_vniz6")
+        self.pool("continue").append("descr_uttanasana3")
         self.pool("continue").append("na_skol'ko_eto_poluchaetsia")
         self.pool("continue").append("i_tianemsia_lbom_v_pol")
         self.pool("float").append("descr_uttanasana1")

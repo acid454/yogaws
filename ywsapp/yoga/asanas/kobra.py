@@ -16,7 +16,7 @@ class Kobra(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="kobra", caption="Кобра")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=5))
-        self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=25))
+        self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=30))
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(
@@ -50,6 +50,8 @@ class Kobra(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_vihodim_iz_asan_plavno")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
         
 
 class KobraWithRotations(Kobra):

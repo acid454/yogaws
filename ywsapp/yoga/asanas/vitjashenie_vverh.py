@@ -34,3 +34,4 @@ class VitjashenieVverh(BaseAsana):
         self.pool("continue").append("descr_vitashenie_vverh3")
         self.pool("continue").append("descr_vitashenie_vverh4")
         self.pool("continue").append("descr_vitashenie_vverh5")
+        self.pool("continue").append("descr_vitashenie_vverh6")

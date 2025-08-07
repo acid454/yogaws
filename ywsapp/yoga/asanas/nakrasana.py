@@ -110,3 +110,4 @@ class Nakrasana(BaseAsana):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_vihodim_iz_asan_plavno")
+        self.pool("float").append("common_isportit'_usediem")

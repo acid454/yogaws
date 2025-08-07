@@ -40,4 +40,5 @@ class Shavasana(BaseAsana):
             self.pool("name").append("descr_shavasana3", mandatory = snd_mandatory)
             self.pool("name").append("descr_shavasana4", mandatory = snd_mandatory)
             self.pool("name").append("descr_shavasana5", mandatory = snd_mandatory)
+            self.pool("name").append("descr_shavasana6", mandatory = snd_mandatory)
         

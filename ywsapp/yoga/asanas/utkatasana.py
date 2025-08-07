@@ -23,12 +23,15 @@ class Utkatasana(BaseAsana):
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["utkatasana1", "utkatasana2"]
+            images=[f"utkatasana{x}" for x in range(1,4)]
         ))
         self.pool("name").append("name_utkatasana1")
         self.pool("name").append("name_utkatasana2")
+        self.pool("name").append("name_utkatasana3")
         self.pool("continue").append("enter_utkatasana1", overlapse = True)
         self.pool("continue").append("enter_utkatasana2", overlapse = True)
+        self.pool("continue").append("enter_utkatasana3")
+
 
         self.tasks.append(BaseTask(
             caption=self.caption,

@@ -16,7 +16,7 @@ class Plug(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="plug", caption="Халасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=11))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=80))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=110))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=6))
         self.update_props(kwargs)
         
@@ -68,6 +68,8 @@ class Plug(BaseAsana):
         self.pool("float").append("common_vsie_budet_horosho")
         self.pool("float").append("common_vihodim_iz_asan_plavno")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
         
     def build(self, workout, _set):
         if issubclass(type(workout.next_item(self)), AsanaLegsStayUp):

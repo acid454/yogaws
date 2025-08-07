@@ -32,9 +32,12 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.malasana.Malasana())
         self.wrap_asana(Asanas.short_poses.PodnimaemsiaVvreh())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 15))
+        
         self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered())
         self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Left(tm_main = 20))
+        self.wrap_asana(Asanas.utthita.UtthitaLeft(tm_main = 40))
         self.wrap_asana(Asanas.virabhadrasana3.Virabhadrasana3Right(tm_main = 20))
+        self.wrap_asana(Asanas.utthita.UtthitaRight(tm_main = 40))
 
         self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 55, tm_prepare = 5))
@@ -53,7 +56,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.dhanurasana.Dhanurasana())
 
         self.sets.append(Sobaki(timings = 'slow', first_gorka_tm = 10))
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
+        #self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 40))
 
         self.wrap_asana(Asanas.short_poses.Seli())
         

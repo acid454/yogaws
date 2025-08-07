@@ -17,7 +17,7 @@ class Marichiasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="marichiasana", caption="Маричиасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=18))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=60))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=80))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
         self.update_props(kwargs)
 
@@ -57,7 +57,8 @@ class Marichiasana(BaseAsana):
             images=["marichiasana_left1", "marichiasana_left2", "ardhamatsyendrasana_left1", "ardhamatsyendrasana_left2"]
         ))
         self.pool("start").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
-        self.pool("continue").append("enter_marichiasana_left")
+        self.pool("continue").append("enter_marichiasana_left1")
+        self.pool("continue").append("enter_marichiasana_left2")
 
 
         self.tasks.append(BaseTask(
@@ -108,3 +109,4 @@ class Marichiasana(BaseAsana):
         self.pool("float").append("common_vsie_budet_horosho")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        self.pool("float").append("common_isportit'_usediem")

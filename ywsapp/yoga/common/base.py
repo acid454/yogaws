@@ -323,6 +323,13 @@ class BaseWorkout(PropertiesContainer):
 class AsanaLegForward(BaseAsana):
     side: str = None
 
+    def is_prev_asana_same_leg(self, workout):
+        prev_asana = workout.prev_item(self)
+        if issubclass(type(prev_asana), AsanaLegForward):
+            return prev_asana.side == self.side
+        return False
+
+
 @dataclass
 class AsanaLegsStayUp(BaseAsana):
     pass

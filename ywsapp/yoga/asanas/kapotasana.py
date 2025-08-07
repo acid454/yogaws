@@ -70,6 +70,7 @@ class KapotasanaBase(BaseAsana, AsanaGoDown):
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         self.pool("float").append("common_duhanie_estestvennoe_long")
+        self.pool("float").append("common_isportit'_usediem")
     
     def build(self, workout, _set):
         super().build(workout, _set)

@@ -51,6 +51,8 @@ class Dhanurasana(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_tianemsia_intensovno_vverh")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
         self.pool("end").append(SND_EXHALE + SND_RASSLABILIS)
 
         self.tasks.append(BaseTask(

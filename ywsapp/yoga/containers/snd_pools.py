@@ -110,7 +110,8 @@ SND_S_VIDOHOM_VNIZ = [
     "s_vidohom_uhodim_vniz1",
     "s_vidohom_uhodim_vniz2",
     "s_vidohom_uhodim_vniz3",
-    "s_vidohom_uhodim_vniz4"
+    "s_vidohom_uhodim_vniz4",
+    "i_s_vidohom_opuskaemsia_vniz1"
 ]
 
 SND_OPUSTILIS = [
