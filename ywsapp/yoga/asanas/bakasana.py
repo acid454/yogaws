@@ -51,7 +51,7 @@ class Bakasana(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
-        self.pool("continue").append("common_i_postojat'_podushat'")
+        self.pool("continue").append("common_i_postojat'_podushat'", float_on_start = True)
         self.pool("continue").append("descr_ardhachandrasana_common1")
         self.pool("continue").append("descr_ardhachandrasana_zameret'")
         self.pool("float").append("common3")

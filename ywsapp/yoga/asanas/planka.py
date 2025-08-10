@@ -18,21 +18,21 @@ class Planka(BaseAsana):
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=4))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.update_props(kwargs)
-        self.main_task_planka(self.tm_main)
 
-    def main_task_planka(self, prop, no_start_sound = False):
+
         self.tasks.append(BaseTask(
             caption=self.caption + " (подготовка)",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
             images=["planka1", "planka2"]
         ))
-        if not no_start_sound:
-            self.pool("start").append(SND_OPUSTILIS)
+        self.pool("start").append(SND_OPUSTILIS)
         self.pool("name").append("name_planka1")
         self.pool("name").append("name_planka2")
         self.pool("name").append("name_planka3")
-    
+        self.main_task_planka(self.tm_main)
+
+    def main_task_planka(self, prop):
         self.tasks.append(BaseTask(
             caption=self.caption,
             property=prop,
@@ -45,15 +45,23 @@ class Planka(BaseAsana):
         self.pool("start").append("descr_planka4")
         self.pool("continue").append(FIKSIRUEM + STOIM)
         self.pool("continue").append("stoim_derzhim")
+        self.float_sounds()
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
+
+    def float_sounds(self):
         self.pool("float").append("common3")
         self.pool("float").append("common4")
         self.pool("float").append("common6")
         self.pool("float").append("common7")
+        self.pool("float").append("common8")
+        self.pool("float").append("common9")
         self.pool("float").append("common10")
         self.pool("float").append("common12")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
-        self.pool("end").append(SND_ZAKONCHILI_DALSHE)
+        self.pool("float").append("common_prirost_navikov")
+        self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
+
 
 class PlankaWithRotationsEx(Planka):
     def __init__(self, with_sagging = False, **kwargs):
@@ -74,6 +82,7 @@ class PlankaWithRotationsEx(Planka):
         ))
         self.pool("name").append("upr_razvorachivaemsia_na_levuju_ruku")
         self.pool("continue").append("vitalkivaemsia_vverh")
+        self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
         self.pool("end").append("hand_right_vpered")
         self.construct_hand_pulls()
 
@@ -83,8 +92,7 @@ class PlankaWithRotationsEx(Planka):
             metronome=MetronomeWork(),
             images=["planka_left_hand"]
         ))
-        self.pool("float").append("common6")
-        self.planka_na_boku_snd_float()
+        self.float_sounds()
         self.planka_na_boku_snd_end()
 
         if with_sagging:
@@ -97,7 +105,7 @@ class PlankaWithRotationsEx(Planka):
             self.pool("name").append(SND_SAGGING)
             self.pool("continue").append("enter_planka_provisli_na_levoi_ruke")
             self.pool("float").append("descr_planka_provisli_na_levoi_ruke")
-            self.planka_na_boku_snd_float()
+            self.float_sounds()
         self.pool("end").append(SND_VERNULIS)
         self.pool("end").append("vernuli_pravuju_ruku")
     
@@ -111,6 +119,7 @@ class PlankaWithRotationsEx(Planka):
         self.pool("name").append("i_meniaem")
         self.pool("name").append("pereshli_na_prvuju_ruku")
         self.pool("name").append(SND_NA_DRUGUJU_STORONU)
+        self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
         self.construct_hand_pulls()
 
 
@@ -133,9 +142,9 @@ class PlankaWithRotationsEx(Planka):
             self.pool("name").append(SND_SAGGING)
             self.pool("continue").append("enter_planka_provisli_na_levoi_ruke")
             self.pool("float").append("descr_planka_provisli_na_levoi_ruke")
-            self.planka_na_boku_snd_float()
+            self.float_sounds()
         self.pool("end").append(SND_VERNULIS)
-        self.main_task_planka(self.tm_second, no_start_sound = True)
+        self.main_task_planka(self.tm_second)
 
 
     def construct_hand_pulls(self):
@@ -151,14 +160,33 @@ class PlankaWithRotationsEx(Planka):
         self.pool("end").append("provernuli_ruku_opustili_vniz")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
 
-    def planka_na_boku_snd_float(self):
-        self.pool("float").append("common_prirost_navikov")
-        self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
-        self.pool("float").append("common3")
-        self.pool("float").append("common4")
-        self.pool("float").append("common8")
-        self.pool("float").append("common9")
-        self.pool("float").append("common10")
-        self.pool("float").append("common12")
-        self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
-        self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
+
+class PlankaWithLegs(Planka):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.properties.append(IntProperty(caption="фиксация ноги", short="tm_leg", default=20))
+        self.properties.append(IntProperty(caption="повторная фиксация", short="tm_second", default=20))
+        self.update_props(kwargs)
+        self.pool("end").clear()
+
+
+        self.tasks.append(BaseTask(
+            caption=self.caption +  "\nлевая нога вверх",
+            property=self.tm_leg,
+            metronome=MetronomeWork(),
+            images=self.tasks[-1].images
+        ))
+        self.pool("name").append("leg_left_up1")
+        self.float_sounds()
+        self.pool("end").append(SND_MENIAJEM_NOGI)
+
+
+        self.tasks.append(BaseTask(
+            caption=self.caption +  "\nправая нога вверх",
+            property=self.tm_leg,
+            metronome=MetronomeWork(),
+            images=self.tasks[-1].images
+        ))
+        self.float_sounds()
+        self.pool("end").append(SND_VERNULIS)
+        self.main_task_planka(self.tm_second)

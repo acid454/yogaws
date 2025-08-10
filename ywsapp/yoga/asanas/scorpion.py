@@ -67,6 +67,7 @@ class Scorpion(BaseAsana):
     
     def snd_float(self):
         self.pool("continue").append("i_mu_zamerli")
+        self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
         self.pool("float").append("descr_scorpion_vse_mushci")
         self.pool("float").append("descr_scorpion")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")

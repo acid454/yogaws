@@ -69,7 +69,7 @@ class SpeechManager:
                         continue
 
                 # Time checks:
-                #logger.debug(f"Check in-asana time: {fl_name} {self.mp3_files[fl_name].length}, {asana_time_remains}. Time: {time}")
+                logger.debug(f"Check in-asana time: {fl_name} {self.mp3_files[fl_name].length}, {asana_time_remains}. Time: {time}")
                 if self.mp3_files[fl_name].length > asana_time_remains:
                     continue
                 if self.mp3_files[fl_name].length <= time or can_overlapse:
@@ -93,6 +93,7 @@ class SpeechManager:
             for x in result:
                 x.original.used = False
             selected_items = result
+        logger.debug(f"Selecting random sound from pool: {selected_items}")
         itm = selected_items[random.randint(0, len(selected_items)-1)]
         itm.original.used = True
         return itm
@@ -129,7 +130,8 @@ class SpeechManager:
                                          asana_time_remains)
             if s.length == 0:
                 if not task_snd_pool.can_be_empty and len(task_snd_pool.items) > 0:
-                    logger.warning(f"WARNING! No sounds selected for task {t.caption} pool {pool_nm}")
+                    logger.warning("WARNING! No sounds selected for task %s pool %s"%(t.caption.replace('\n', ' '), pool_nm))
+                    logger.warning(f"   Pool items: {task_snd_pool.items}")
                 continue
 
             remain_task_time -= s.length                    # We place this sound...

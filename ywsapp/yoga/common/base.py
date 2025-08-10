@@ -322,6 +322,8 @@ class BaseWorkout(PropertiesContainer):
 @dataclass
 class AsanaLegForward(BaseAsana):
     side: str = None
+    SIDE_LEFT = "left"
+    SIDE_RIGHT = "right"
 
     def is_prev_asana_same_leg(self, workout):
         prev_asana = workout.prev_item(self)

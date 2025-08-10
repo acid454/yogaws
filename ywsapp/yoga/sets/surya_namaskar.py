@@ -67,3 +67,5 @@ class SuryaNamaskar(BaseSet):
 
         super().build(workout)
 
+def get_slow_gorka_time():
+    return list(filter(lambda x: x['asana'] == Asanas.gorka.GorkaBase, SuryaNamaskar.SURYA_TIMINGS))[0]['slow']

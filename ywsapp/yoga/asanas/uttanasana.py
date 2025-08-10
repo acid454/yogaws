@@ -48,7 +48,7 @@ class UttanasanaBase(BaseAsana):
         self.pool("float").append("common_telo_prosedajet")
         self.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'")
         self.pool("float").append("common_tianemsia_2x")
-        self.pool("float").append("common_i_postojat'_podushat'")
+        self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
         self.pool("float").append("common7")
         self.pool("float").append("common_delaem_medlenno_pomogaja_duhaniem")
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")

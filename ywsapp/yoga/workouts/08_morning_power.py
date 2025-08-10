@@ -26,12 +26,13 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.planka.PlankaWithRotationsEx(tm_main = 60))
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 30, tm_prepare = 5))
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 30))
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 30))
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20))
+        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(go_down = True, tm_main = 30))
+        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(go_down = True, tm_main = 30))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
 
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 35))
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 40))
+        #self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 40))
+        self.wrap_asana(Asanas.gorka.GorkaWithLegs(tm_main = 40))
         
         self.wrap_asana(Asanas.bakasana.Bakasana())
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 80))
@@ -41,9 +42,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.malasana.Malasana(tm_main = 50))
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 40))
         
-        self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 30))
-        self.wrap_asana(Asanas.parivritta.ParivrittaRight(tm_main = 30))
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20))
+        self.wrap_asana(Asanas.parivritta.ParivrittaLeft())
+        self.wrap_asana(Asanas.parivritta.ParivrittaRight())
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 20, metronome_rest = True))
 
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.utkatasana.Utkatasana())
