@@ -10,6 +10,7 @@ from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import *
+from asanas.uttanasana import UttanasanaBase, Uttanasana
 
 
 class Planka(BaseAsana):
@@ -61,6 +62,15 @@ class Planka(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_prirost_navikov")
         self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
+
+    def build(self, workout, _set):
+        prev_asana = workout.prev_item(self)
+        if isinstance(prev_asana, UttanasanaBase):
+            self.task(self.tm_prepare).pool("start").clear()
+            self.task(self.tm_prepare).pool("start").append("i_s_vidohom_na_ladoni_ruk")
+            self.task(self.tm_prepare).pool("start").append("ladoni_ruk_pered_soboi1")
+            self.task(self.tm_prepare).pool("start").append("ladoni_ruk_pered_soboi2")
+            self.task(self.tm_prepare).pool("start").append("malasana_ladoni_v_pol")
 
 
 class PlankaWithRotationsEx(Planka):
@@ -148,7 +158,6 @@ class PlankaWithRotationsEx(Planka):
 
 
     def construct_hand_pulls(self):
-        self.pool("end").append("potianem_ruku_vpered_a_vot_teper'")
         self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("provernuli_ruku")
         self.pool("end").append("ruku_vpered_a_sami_v_potolok", overlapsed = True)

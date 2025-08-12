@@ -14,7 +14,7 @@ from snd_pools import SND_S_VIDOHOM_VNIZ, SND_ZAKONCHILI_DALSHE, SND_COMPLETION_
 
 class UttanasanaBase(BaseAsana):
     def __init__(self, name, caption):
-        BaseAsana.__init__(self, name=name, caption=caption)
+        super().__init__(name=name, caption=caption)
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.tasks.append(BaseTask(
             caption=self.caption,
@@ -60,7 +60,7 @@ class UttanasanaBase(BaseAsana):
 
 class Uttanasana(UttanasanaBase):
     def __init__(self, **kwargs):
-        UttanasanaBase.__init__(self, name="uttanasana", caption="Уттанасана")
+        super().__init__(name="uttanasana", caption="Уттанасана")
         self.update_props(kwargs)
         self.tasks[-1].pool("start").append("upr_vitiagivanie_vniz5")
         self.tasks[-1].pool("start").append("upr_vitiagivanie_vniz7")
@@ -68,7 +68,7 @@ class Uttanasana(UttanasanaBase):
 
 class UttanasanaWithCompensation(UttanasanaBase):
     def __init__(self, **kwargs):
-        UttanasanaBase.__init__(self, name="uttanasana", caption="Уттанасана")
+        super().__init__(name="uttanasana_with_compensation", caption="Уттанасана")
         self.properties.append(IntProperty(caption="время компенсации", short="tm_compensation", default=10))
         self.update_props(kwargs)
 
@@ -86,7 +86,7 @@ class UttanasanaWithCompensation(UttanasanaBase):
 
 class Uttanasana_ruki_v_zamke(UttanasanaBase):
     def __init__(self, **kwargs):
-        UttanasanaBase.__init__(self, name="uttanasana_ruki_v_zamke", caption="Уттанасана (руки в замке)")
+        super().__init__(name="uttanasana_ruki_v_zamke", caption="Уттанасана (руки в замке)")
         self.properties.append(IntProperty(caption="замок", short="tm_zamok", default=25))
         self.update_props(kwargs)
 

@@ -75,6 +75,9 @@ class PrasaritaPadottanasana(BaseAsana):
             self.pool("continue").append("descr_prasarita_potjanulis_k_levoi_noge")
             self.pool("continue").append("descr_prasarita_potjanulis_k_noge_common")
             self.pool("float").append("common7")
+            self.pool("float").append("dushim_i_tianem", float_on_start = True)
+            self.pool("float").append("common_tianemsia_2x")
+            self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
 
             self.tasks.append(BaseTask(
                 caption=self.caption + "\n(наклон к правой ноге)",
@@ -84,6 +87,7 @@ class PrasaritaPadottanasana(BaseAsana):
             ))
             self.pool("name").append("k_pravoi_noge")
             self.pool("name").append(SND_NA_DRUGUJU_STORONU)
+            self.pool("float").append("dushim_i_tianem", float_on_start = True)
             self.pool("float").append("descr_prasarita_potjanulis_k_noge_common")
             self.pool("float").append("common_tianemsia_2x")
             self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
@@ -129,6 +133,7 @@ class PrasaritaPadottanasana(BaseAsana):
         ))
         self.pool("start").append("i_delaem_shirokie_razvoroti")
         self.pool("continue").append(SND_SIDE_RIGHT)
+        self.pool("float").append("dushim_i_tianem", float_on_start = True)
         self.pool("float").append("common_dlya_spinu_i_pozvonochnika")
         self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
         self.pool("float").append("common_dushim_derzim_t'anemsia")
@@ -159,6 +164,7 @@ class PrasaritaPadottanasana(BaseAsana):
             metronome=MetronomeWork(),
             images=self.tasks[-1].images
         ))
+        self.pool("float").append("dushim_i_tianem", float_on_start = True)
         self.pool("float").append("common_dlya_spinu_i_pozvonochnika")
         self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
         self.pool("float").append("common_dushim_derzim_t'anemsia")

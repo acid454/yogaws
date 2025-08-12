@@ -158,7 +158,7 @@ SND_POTIANULI_RUKU_VPERED = [
     "i_potianuli_ruku_vpered2",
     "i_potianuli_ruku_vpered3",
     "i_potjanut'_ruku_vpered",
-    "potianem_ruku_vpered_a_vot_teper"
+    "potianem_ruku_vpered_a_vot_teper'"
 ]
 
 SND_SIDE_RIGHT = [

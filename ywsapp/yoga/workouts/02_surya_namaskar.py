@@ -25,13 +25,15 @@ class DefaultWorkout(BaseWorkout):
         self.sets.append(SuryaNamaskar(cnt = 1))
         self.sets.append(SuryaNamaskar(timings = 'fast', cnt = 2))
 
-        self.wrap_asana(Asanas.planka.PlankaWithRotationsEx(tm_main = 90))
+        #self.wrap_asana(Asanas.planka.PlankaWithRotationsEx(tm_main = 90))
+        self.wrap_asana(Asanas.planka.PlankaWithLegs(tm_main = 70))
 
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10, tm_prepare = 5))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10, tm_prepare = 5, metronome_rest = True))
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.parivritta.ParivrittaRight())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 90))
+        #self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 90))
+        self.wrap_asana(Asanas.gorka.GorkaWithLegs())
         #self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
         #self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
         self.wrap_asana(Asanas.prasarita_padottanasana.PrasaritaPadottanasana(with_hands = False))
@@ -39,6 +41,7 @@ class DefaultWorkout(BaseWorkout):
         #self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaLeft())
         #self.wrap_asana(Asanas.ardhachandrasana.ArdhachandrasanaRight())
+        self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
 
         self.wrap_asana(Asanas.bakasana.Bakasana())

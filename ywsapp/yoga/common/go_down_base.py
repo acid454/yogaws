@@ -8,7 +8,7 @@
 
 from base import BaseTask
 from metronomes import MetronomeWork, MetronomeRest
-from snd_pools import SND_OPUSTILIS, SND_S_VIDOHOM_VNIZ, SND_VERNULIS, SND_COMPLETION_OTHERS
+from snd_pools import SND_VERNULIS, SND_COMPLETION_OTHERS
 
 
 class AsanaGoDown:
@@ -19,8 +19,9 @@ class AsanaGoDown:
             metronome=MetronomeWork(),
             images=self.tasks[-1].images            # We made a ref to prev task's images
         ))
+        self.pool("start").append("malasana_ladoni_v_pol", mandatory = True)
         self.pool("name").append("i_potianulis'_vniz")
-        self.pool("name").append(SND_OPUSTILIS + SND_S_VIDOHOM_VNIZ)
+        self.pool("name").append("i_tianemsia_lbom_v_pol")
 
         if float_sounds is not None:
             float_sounds()

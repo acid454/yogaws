@@ -15,7 +15,7 @@ from snd_pools import FIKSIRUEM, STOIM, SND_RASSLABILIS, SND_EXHALE, SND_ZAKONCH
 
 class GorkaBase(BaseAsana):
     def __init__(self, transition_type=None, metronome_rest=False, **kwargs):
-        BaseAsana.__init__(self, name="gorka", caption="Горка")
+        super().__init__(name="gorka", caption="Горка")
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.update_props(kwargs)
 
@@ -120,7 +120,7 @@ class GorkaNormal(GorkaBase):
 class GorkaWithLegs(GorkaNormal):
     def __init__(self, **kwargs):
         super().__init__()
-        self.properties.append(IntProperty(caption="фиксация ног", short="tm_legs", default=13))
+        self.properties.append(IntProperty(caption="фиксация ног", short="tm_legs", default=25))
         self.update_props(kwargs)
         self.pool("end").clear()
     

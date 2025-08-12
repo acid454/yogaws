@@ -8,7 +8,7 @@
 
 from base import AsanaLegForward
 from dataclasses import dataclass
-from snd_pools import SND_MENIAJEM_NOGI, SND_LEG_LEFT_FORWARD, SND_LEG_RIGHT_FORWARD, SND_S_VIDOHOM_VNIZ, FIKSIRUEM, STOIM
+from snd_pools import SND_MENIAJEM_NOGI, SND_LEG_LEFT_FORWARD, SND_LEG_RIGHT_FORWARD, SND_S_VIDOHOM_VNIZ, FIKSIRUEM, STOIM, SND_POTIANULI_RUKU_VPERED
 
 
 @dataclass
@@ -16,7 +16,7 @@ class BaseParshvaconasana(AsanaLegForward):
     prepare_tm_for_swap_hands: int = 8
 
     def preparation_sounds_with_hand(self):
-        self.pool("end").append("potianem_ruku_vpered_a_vot_teper'")
+        self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("krug_rukoi_i_potianuli_ee_vpered")
         self.pool("end").append("krug_rukoi_provorot")
         self.pool("end").append("ruku_vpered_a_sami_v_potolok")
@@ -34,6 +34,7 @@ class BaseParshvaconasana(AsanaLegForward):
         self.pool("continue").append("descr_virabhadrasana_obrashaem_vnimanie_na_stupniu_i_koleno")
         self.pool("continue").append("descr_virabhadrasana_telo_odna_linija")
         self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
+        self.pool("continue").append("dushim_i_tianem")
         self.pool("float").append("descr_parivritta_parshvakonasana2", float_on_start = True)
         self.pool("float").append("descr_parivritta_parshvakonasana3", float_on_start = True)
         self.pool("float").append("descr_parivritta_parshvakonasana5", float_on_start = True)

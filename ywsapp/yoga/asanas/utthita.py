@@ -40,7 +40,6 @@ class UtthitaBase(BaseParshvaconasana):
             self.tm_prepare.default = 11    # We are somewhere with same leg - only hands changes
 
     def build_snd_name(self, prev_asana):
-        print(f"utthita base build snd name, is prev utthita: {issubclass(type(prev_asana), UtthitaBase)}")
         if issubclass(type(prev_asana), UtthitaBase):
             return
         self.tasks[0].pool("name").append("name_utthita_parshvakonasana")
@@ -53,7 +52,6 @@ class UtthitaLeft(UtthitaBase):
         self.update_all_tasks_images([f"utthita_parshvakonasana_left{x}" for x in range(1,3)])
     
     def build_snd_name(self, prev_asana):
-        print("utthita left build snd name")
         super().build_snd_name(prev_asana)
         self.tasks[0].pool("continue").append("short_enter_utthita_left", overlapse = True)
         self.tasks[-1].pool("end").append("vernuli_pravuju_ruku")
@@ -66,8 +64,4 @@ class UtthitaRight(UtthitaBase):
         self.update_all_tasks_images([f"utthita_parshvakonasana_right{x}" for x in range(1,3)])
     
     def build_snd_name(self, prev_asana):
-        print("utthita right build snd name")
         super().build_snd_name(prev_asana)
-        #self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right1")
-        #self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right2")
-        #self.tasks[0].pool("continue").append("short_enter_parivritta_parshvakonasana_right3")

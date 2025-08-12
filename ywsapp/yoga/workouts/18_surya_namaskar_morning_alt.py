@@ -25,13 +25,14 @@ class DefaultWorkout(BaseWorkout):
         self.sets.append(SuryaNamaskar(cnt = 1, timings = 'extra_slow'))
         self.sets.append(SuryaNamaskar(cnt = 2))
 
-        self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
+        #self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
+        self.wrap_asana(Asanas.planka.PlankaWithLegs(tm_main = 70))
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10, tm_prepare = 5))
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10))
+        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.kapotasana.KapotasanaRight())
-        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20))
+        self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 20, metronome_rest = True))
         self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
         self.wrap_asana(Asanas.padottanasana.PadottanasanaRight())
 
