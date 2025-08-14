@@ -2,9 +2,15 @@
 python3 manage.py runserver
 http://127.0.0.1:8000/
 
+
+
 sessionStorage.removeItem('background_img_id')
 
-!!!!!! # ToDo: fix this, last bell sound longer, than just a second
+
+*** нет озвученного имени для джатхара паривартанасаны
+*** добавить скрины капотасаны вниз
+*** нет изображений для планки с поднятой ногой
+
 !!! нет подъема вверх в медленной сурье
 !!! увеличить шрифт на успешном завершении
 !!! капотасана и горка после - звук паузы
@@ -14,6 +20,16 @@ sessionStorage.removeItem('background_img_id')
 !!! переход стол-планка на боку
 !!! убрать properties из active.html
 
+
+
+!!! проверить установку свойств
+class MarkatasanaWithLegs(Markatasana):
+     def __init__(self, **kwargs):
+-        super().__init__(*kwargs)
++        super().__init__()
+         self.cycles_count.caption = "циклов коленей"
+         self.properties.append(IntProperty(caption="ноги перед собой", short="tm_legs", default=5))
+         self.properties.append(IntProperty(caption="циклов скруток", short="cycles_twist", default=3))
 
 !!! как это работает?:
     def __init__(self, **kwargs):

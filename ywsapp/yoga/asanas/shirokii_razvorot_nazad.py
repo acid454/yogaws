@@ -80,7 +80,7 @@ class ShirokiiRazvorotNazad(BaseAsana):
         self.pool("float").append("common_vashna_geometria_i_tochnost")
         self.pool("float").append("common1")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common7")
 
     def swap_hands(self):

@@ -59,6 +59,7 @@ class VirabhadrasanaBase(BaseParshvaconasana, AsanaGoDown):
         self.pool("float").append("descr_virabhadrasana13")
         self.pool("float").append("descr_virabhadrasana14")
         self.pool("float").append("descr_parivritta_parshvakonasana5", float_on_start = True)
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
 
         #!!!!!!! TODO: short sounds
         if self.tm_main.value <= 10:

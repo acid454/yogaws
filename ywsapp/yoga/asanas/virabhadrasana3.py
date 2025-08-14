@@ -37,7 +37,7 @@ class Virabhadrasana3Base(BaseParshvaconasana):
         self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("common_vashna_geometria_i_tochnost")
         self.pool("float").append("common1")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("end").append(SND_RASSLABILIS + SND_EXHALE + SND_S_VIDOHOM_VNIZ) 
     

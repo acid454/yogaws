@@ -63,7 +63,7 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("descr_gorka6")
         self.pool("float").append("descr_gorka7")
         self.pool("float").append("common5_v_vitalkivanii")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common3")
         self.pool("float").append("common7")
         self.pool("float").append("common12")
@@ -73,6 +73,7 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("common_povtoriaushiesia_pozu")
         self.pool("float").append("marichiasana_common_sledim_za_pozvonochnikom")
         self.pool("float").append("common_vihodim_iz_asan_plavno")
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
         
         if self.tm_main.value < self.slow_gorka_time:
             self.pool("float").append(FIKSIRUEM + STOIM, float_on_start = True)
@@ -149,6 +150,7 @@ class GorkaWithLegs(GorkaNormal):
                 images=["gorka_right_leg_up1"]
             ))
             self.pool("name").append("leg_right_up1")
+            self.pool("name").append("leg_right_up2")
             if prev_leg:
                 self.pool("name").append(SND_MENIAJEM_NOGI)
             self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")

@@ -34,7 +34,7 @@ class ArdhachandrasanaBase(BaseAsana):
         ))
         self.pool("float").append("descr_ardhachandrasana_zameret'")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("descr_ardhachandrasana_common1")
         self.pool("float").append("common_esli_chto_to_ne_poluchaetsia")
         self.pool("float").append("common10")

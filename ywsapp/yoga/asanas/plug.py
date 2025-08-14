@@ -52,7 +52,7 @@ class Plug(BaseAsana):
         self.pool("float").append("descr_plug2")
         self.pool("float").append("descr_plug6")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common8")
         self.pool("float").append("common9")
         self.pool("float").append("common10")
@@ -70,6 +70,7 @@ class Plug(BaseAsana):
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("float").append("common_isportit'_usediem")
         self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
         
     def build(self, workout, _set):
         if issubclass(type(workout.next_item(self)), AsanaLegsStayUp):

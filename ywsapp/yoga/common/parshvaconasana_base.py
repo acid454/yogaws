@@ -42,7 +42,7 @@ class BaseParshvaconasana(AsanaLegForward):
         self.pool("float").append("descr_utthita_stupnia_ruka")
         self.pool("float").append("common1")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common10")

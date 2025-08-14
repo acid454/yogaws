@@ -52,6 +52,7 @@ class Kobra(BaseAsana):
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("float").append("common_isportit'_usediem")
         self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
         
 
 class KobraWithRotations(Kobra):

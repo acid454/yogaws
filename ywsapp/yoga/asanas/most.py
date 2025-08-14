@@ -45,7 +45,7 @@ class Most(BaseAsana):
         self.pool("float").append("descr_most2")
         self.pool("float").append("descr_most3")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common5_v_vitalkivanii")
         self.pool("float").append("common6")
         self.pool("float").append("common7")

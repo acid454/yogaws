@@ -55,7 +55,7 @@ class Bakasana(BaseAsana):
         self.pool("continue").append("descr_ardhachandrasana_common1")
         self.pool("continue").append("descr_ardhachandrasana_zameret'")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common10")

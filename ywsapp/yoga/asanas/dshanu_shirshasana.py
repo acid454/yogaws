@@ -105,3 +105,4 @@ class DshanuShirshasana(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_glubokoe_proshivanie_tela")

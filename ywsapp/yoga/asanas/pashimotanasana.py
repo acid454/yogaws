@@ -56,4 +56,5 @@ class Pashimotanasana(BaseAsana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
         self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)

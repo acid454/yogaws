@@ -51,7 +51,7 @@ class Planka(BaseAsana):
 
     def float_sounds(self):
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common6")
         self.pool("float").append("common7")
         self.pool("float").append("common8")
@@ -62,6 +62,7 @@ class Planka(BaseAsana):
         self.pool("float").append("common_sledim_za_geometriei_kak_zadumanno")
         self.pool("float").append("common_prirost_navikov")
         self.pool("float").append("common_samokontrol'_primenit'_k_sebe")
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
 
     def build(self, workout, _set):
         prev_asana = workout.prev_item(self)

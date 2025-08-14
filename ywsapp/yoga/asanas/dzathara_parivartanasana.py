@@ -67,7 +67,7 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
 
     def dzathara_float_sounds(self):
         self.pool("float").append("descr_dzathara_parivartanasana")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common7")
         self.pool("float").append("common8")
         self.pool("float").append("common9")

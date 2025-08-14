@@ -74,7 +74,8 @@ class Markatasana(BaseAsana):
         t.pool("float").append("common_ubedilis'_chto_nam_horosho")
         t.pool("float").append("common1")
         t.pool("float").append("common7")
-        self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        t.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        t.pool("float").append("common_glubokoe_proshivanie_tela")
 
     def setup_end_pool(self):
         self.pool("end").clear()

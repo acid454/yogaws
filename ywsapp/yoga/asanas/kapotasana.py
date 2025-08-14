@@ -43,7 +43,7 @@ class KapotasanaBase(BaseAsana, AsanaGoDown):
         ))
         self.pool("float").append("descr_kapotasana")
         self.pool("float").append("common3")
-        self.pool("float").append("common4")
+        self.pool("float").append("common4_dushim_dershimsia")
         self.pool("float").append("common5_v_vitalkivanii")
         self.pool("float").append("common8")
         self.pool("float").append("common_tianemsia_intensovno_vverh")
@@ -71,6 +71,7 @@ class KapotasanaBase(BaseAsana, AsanaGoDown):
         self.pool("float").append("common_delaite_to_chto_poluchaetsia")
         self.pool("float").append("common_duhanie_estestvennoe_long")
         self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("common_glubokoe_proshivanie_tela")
     
     def build(self, workout, _set):
         super().build(workout, _set)
