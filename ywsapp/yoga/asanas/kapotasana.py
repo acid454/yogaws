@@ -76,7 +76,7 @@ class KapotasanaBase(BaseAsana, AsanaGoDown):
     def build(self, workout, _set):
         super().build(workout, _set)
         prev_asana = workout.prev_item(self)
-        if issubclass(type(prev_asana), KapotasanaBase):
+        if isinstance(prev_asana, KapotasanaBase):
             if self.side == prev_asana.side:
                 return
             t = self.task(self.tm_prepare)
@@ -99,7 +99,7 @@ class KapotasanaLeft(KapotasanaBase):
         self.update_all_tasks_images([f"kapotasana_left{x}" for x in range(1,3)])
         self.task(self.tm_prepare).pool("continue").append(SND_SIDE_LEFT)
         if _down:
-            self.task(self.tm_down).images = ["kapotasana_down_left"]
+            self.task(self.tm_down).images = ["kapotasana_down_left1", "kapotasana_down_left2"]
 
 class KapotasanaRight(KapotasanaBase):
     def __init__(self, **kwargs):
@@ -109,8 +109,9 @@ class KapotasanaRight(KapotasanaBase):
 
         self.update_all_tasks_images([f"kapotasana_right{x}" for x in range(1,3)])
         self.task(self.tm_prepare).pool("start").append(SND_LEG_RIGHT_FORWARD)
+        self.task(self.tm_main).pool("float").append("kapotasana_right_enter", float_on_start = True)
         if _down:
-            self.task(self.tm_down).images = ["kapotasana_down_right"]
+            self.task(self.tm_down).images = ["kapotasana_down_right1", "kapotasana_down_right2"]
 
             
         

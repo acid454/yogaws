@@ -42,7 +42,7 @@ class ParivrittaBase(BaseParshvaconasana):
             self.tm_prepare.default = 8    # We are in utthita/parivritta, and leg is same - only swap hands
 
     def build_snd_name(self, prev_asana):
-        if not issubclass(type(prev_asana), ParivrittaBase):
+        if not isinstance(prev_asana, ParivrittaBase):
             self.tasks[0].pool("name").append("name_parivritta_pashvakonasana1")
             self.tasks[0].pool("name").append("name_parivritta_pashvakonasana2")
 

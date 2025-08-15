@@ -30,11 +30,11 @@ class BaseParshvaconasana(AsanaLegForward):
         self.pool("start").append("upr_potjanulis_vpered7")
         self.pool("start").append("vitjanulis'1")
         self.pool("start").append("vitjanulis'2")
-        self.pool("continue").append(FIKSIRUEM + STOIM)
-        self.pool("continue").append("descr_virabhadrasana_obrashaem_vnimanie_na_stupniu_i_koleno")
-        self.pool("continue").append("descr_virabhadrasana_telo_odna_linija")
-        self.pool("continue").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
-        self.pool("continue").append("dushim_i_tianem")
+        #self.pool("continue").append(FIKSIRUEM + STOIM)
+        self.pool("float").append("descr_virabhadrasana_obrashaem_vnimanie_na_stupniu_i_koleno")
+        self.pool("float").append("descr_virabhadrasana_telo_odna_linija")
+        self.pool("float").append("gorka_with_leg_potianuli_udershivaja_konstruciu")
+        self.pool("float").append("dushim_i_tianem")
         self.pool("float").append("descr_parivritta_parshvakonasana2", float_on_start = True)
         self.pool("float").append("descr_parivritta_parshvakonasana3", float_on_start = True)
         self.pool("float").append("descr_parivritta_parshvakonasana5", float_on_start = True)
@@ -54,6 +54,7 @@ class BaseParshvaconasana(AsanaLegForward):
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")
         self.pool("end").append("i_s_vidohom_opustili_ruku")
+        self.pool("end").append("i_provernuv_ruku_vozvrashaemsia")
         self.pool("end").append("provernuli_ruku_opustili_vniz")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
         self.pool("end").append(SND_S_VIDOHOM_VNIZ)
@@ -65,11 +66,14 @@ class BaseParshvaconasana(AsanaLegForward):
             print("WARNING! Base Parshvaconasana task start pool not empty, but need to be!")
         
         prev_asana = workout.prev_item(self)
-        if issubclass(type(prev_asana), AsanaLegForward):
+        if isinstance(prev_asana, AsanaLegForward):
             if prev_asana.side == self.side:
-                # this and prev asana is same legs (same side), but different hands
-                self.build_snd_swap_hands()
-                self.tm_prepare.default = self.prepare_tm_for_swap_hands
+                # this and prev asana is same legs (same side). But may be different hands
+                from asanas.parivritta import ParivrittaBase
+                from asanas.utthita import UtthitaBase
+                if isinstance(prev_asana, ParivrittaBase | UtthitaBase) and isinstance(self, ParivrittaBase | UtthitaBase):
+                    self.build_snd_swap_hands()
+                    self.tm_prepare.default = self.prepare_tm_for_swap_hands
             else:
                 # different leg forward
                 self.tasks[0].pool("start").append(SND_MENIAJEM_NOGI, mandatory = True)

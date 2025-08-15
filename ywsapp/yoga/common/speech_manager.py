@@ -93,7 +93,7 @@ class SpeechManager:
             for x in result:
                 x.original.used = False
             selected_items = result
-        logger.debug(f"Selecting random sound from pool: {selected_items}")
+        logger.error(f"Selecting random sound from pool: {selected_items}")
         itm = selected_items[random.randint(0, len(selected_items)-1)]
         itm.original.used = True
         return itm
@@ -118,6 +118,7 @@ class SpeechManager:
         for pool_nm in ["start", "name", "continue", "continue+", "end"]:
             # ----- Select one random sound for this pool
             task_snd_pool = t.pool(pool_nm)
+            logger.warning(f"processing pool {pool_nm}, asana time remains: {asana_time_remains}, overlapse: {overlapse_offset}")
 
             # Check if this pool is used
             only_mandatory = self.check_only_mandatory_flag(pool_nm, voice_acting)
@@ -130,8 +131,9 @@ class SpeechManager:
                                          asana_time_remains)
             if s.length == 0:
                 if not task_snd_pool.can_be_empty and len(task_snd_pool.items) > 0:
-                    logger.warning("WARNING! No sounds selected for task %s pool %s"%(t.caption.replace('\n', ' '), pool_nm))
-                    logger.warning(f"   Pool items: {task_snd_pool.items}")
+                    logger.warning("WARNING! No sounds selected for task %s pool %s. Task time remains: %d, asana remains: %d"%(t.caption.replace('\n', ' '), pool_nm, t.property.value - cur_time_idx, asana_time_remains))
+                    logger.warning(f"   Pool items: {list(map(lambda x: self.mp3_files[x['file']], task_snd_pool.items))}")
+                    #logger.warning(f"   Pool items: {task_snd_pool.items}")
                 continue
 
             remain_task_time -= s.length                    # We place this sound...
@@ -172,6 +174,7 @@ class SpeechManager:
             v = k + t.sounds[k].length
             ret = max(v, ret)
         ret = ret - t.property.value
+        logger.warning(f"processing task complete, ret: {ret}")
         return ret if ret > 0 else 0
 
 
@@ -181,7 +184,9 @@ class SpeechManager:
             for a in s.asanas:
                 # Deprecate overlapsing with next asana anyway
                 asana_time_remains = sum(map(lambda x: x.property.value, a.tasks))
-                logger.debug(f"{a.name} time total: {asana_time_remains}")
+                logger.error(f"{a.name} time total: {asana_time_remains}")
                 for t in a.tasks:
+                    logger.error(f"---- processing task %s total time remains: {asana_time_remains}. This task time: {t.property.value}"%(t.caption.replace('\n', ' ')))
                     overlapse_tm = self.do_generate_task_sounds(t, voice_acting, overlapse_tm, asana_time_remains)
-                    asana_time_remains -= t.property.value + overlapse_tm
+                    logger.error(f"gensound complete. Overlapse: {overlapse_tm}, current asana time: {asana_time_remains}, task value: {t.property.value}")
+                    asana_time_remains -= t.property.value

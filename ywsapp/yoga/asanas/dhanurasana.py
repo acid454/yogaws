@@ -16,7 +16,7 @@ class Dhanurasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="dhanurasana", caption="Дханурасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=30))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
         

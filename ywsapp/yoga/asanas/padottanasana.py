@@ -18,7 +18,7 @@ class PadottanasanaBase(BaseParshvaconasana):
     def __init__(self, _side, _caption):
         super().__init__(name="padottanasana_%s"%(_side), caption=_caption, side=_side)
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=9))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=45))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=70))
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nподготовка",
@@ -47,7 +47,7 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("start").append("i_stoim1")
         self.pool("start").append("i_stoim2")
         self.pool("start").append("i_stoim3")
-        self.pool("float").append("descr_padattonasana")
+        self.pool("float").append("descr_padottonasana")
         self.pool("float").append("leg_rastiagivaja_mishzi_zadnei_chasti_nogi")
         self.pool("float").append("common_telo_prosedajet")
         self.pool("float").append("common7")
@@ -59,6 +59,7 @@ class PadottanasanaBase(BaseParshvaconasana):
         self.pool("float").append("common_duhanie_rovnoe_estestvennoe")
         self.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
         self.pool("float").append("common_isportit'_usediem")
+        self.pool("float").append("dshanu_shirshasana_simmetrichnost'")
         self.pool("end").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE) 
 
     def build_snd_name(self, prev_asana):

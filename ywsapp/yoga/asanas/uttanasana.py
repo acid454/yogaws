@@ -27,6 +27,7 @@ class UttanasanaBase(BaseAsana):
         self.pool("start").append("upr_vitiagivanie_vniz2")
         self.pool("start").append("upr_vitiagivanie_vniz3")
         self.pool("start").append("upr_vitiagivanie_vniz4")
+        self.pool("start").append("upr_vitiagivanie_vniz6")
         self.pool("name").append("name_uttanasana1")
         self.pool("name").append("name_uttanasana2")
         self.pool("name").append("name_uttanasana3")

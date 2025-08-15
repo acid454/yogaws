@@ -53,6 +53,7 @@ class ArdhachandrasanaBase(BaseAsana):
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")
         self.pool("end").append("i_s_vidohom_opustili_ruku")
         self.pool("end").append("provernuli_ruku_opustili_vniz")
+        self.pool("end").append("i_provernuv_ruku_vozvrashaemsia")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
 
     def build(self, workout, _set):

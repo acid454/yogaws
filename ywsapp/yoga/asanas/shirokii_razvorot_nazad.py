@@ -27,16 +27,18 @@ class ShirokiiRazvorotNazad(BaseAsana):
             caption=self.caption + "\nподготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=["shirokii_razvorot_nazad_left"]
+            images=["shirokii_razvorot_nazad_left1", "shirokii_razvorot_nazad_left2"]
         ))
-        self.pool("start").append("enter_shirokii_razvorot_vlevo")
+        self.pool("start").append("enter_shirokii_razvorot_vlevo1")
+        self.pool("start").append("enter_shirokii_razvorot_vlevo2")
+        self.pool("end").append("descr_shirokii_razvorot_vlevo")
 
         for i in range(self.cycles.value):
             self.tasks.append(BaseTask(
                 caption=self.caption + "\nвлево",
                 property=self.tm_main,
                 metronome=MetronomeWork(),
-                images=["shirokii_razvorot_nazad_left"]
+                images=self.task(self.tm_prepare).images
             ))
             
             if i == 0:
@@ -51,7 +53,7 @@ class ShirokiiRazvorotNazad(BaseAsana):
                 caption=self.caption + "\nвправо",
                 property=self.tm_main,
                 metronome=MetronomeWork(),
-                images=["shirokii_razvorot_nazad_right"]
+                images=["shirokii_razvorot_nazad_right1", "shirokii_razvorot_nazad_right2"]
             ))
             self.float_sounds()
             
@@ -92,7 +94,8 @@ class ShirokiiRazvorotNazad(BaseAsana):
         ))
         
         self.pool("name").append(SND_VERNULIS)
-        self.pool("name").append("vernuli_ruku")
+        self.pool("name").append("vernuli_ruku1")
+        self.pool("name").append("vernuli_ruku2")
         self.pool("name").append("i_razvorachivaemsia_vpered")
         self.pool("name").append("razvernulis")
         self.pool("continue").append(SND_NA_DRUGUJU_STORONU, mandatory = True)

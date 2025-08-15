@@ -6,7 +6,7 @@
 #  Copyright 2025 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import BaseTask
+from base import BaseTask, AsanaLegForward
 from metronomes import MetronomeWork, MetronomeRest
 from snd_pools import SND_VERNULIS, SND_COMPLETION_OTHERS
 
@@ -22,6 +22,12 @@ class AsanaGoDown:
         self.pool("start").append("malasana_ladoni_v_pol", mandatory = True)
         self.pool("name").append("i_potianulis'_vniz")
         self.pool("name").append("i_tianemsia_lbom_v_pol")
+        self.pool("name").append("upr_vitiagivanie_vniz1")
+        self.pool("name").append("upr_vitiagivanie_vniz2")
+        self.pool("name").append("upr_vitiagivanie_vniz4")
+        self.pool("name").append("upr_vitiagivanie_vniz6")
+        if isinstance(self, AsanaLegForward):
+            self.pool("start").append("ubrali_ruki_vpravo" if self.side == AsanaLegForward.SIDE_LEFT else "ruki_vlevo")
 
         if float_sounds is not None:
             float_sounds()

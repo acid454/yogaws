@@ -23,7 +23,7 @@ class VirabhadrasanaBase(BaseParshvaconasana, AsanaGoDown):
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=40))
         if _go_down:
             self.properties.append(IntProperty(caption="фиксация лежа", short="tm_down", default=45))
-            self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
+            self.properties.append(IntProperty(caption="выход", short="tm_exit", default=3))
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nподготовка",

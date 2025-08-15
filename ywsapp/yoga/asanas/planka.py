@@ -44,8 +44,8 @@ class Planka(BaseAsana):
         self.pool("start").append("descr_planka2")
         self.pool("start").append("descr_planka3")
         self.pool("start").append("descr_planka4")
-        self.pool("continue").append(FIKSIRUEM + STOIM)
-        self.pool("continue").append("stoim_derzhim")
+        #self.pool("continue").append(FIKSIRUEM + STOIM)
+        #self.pool("continue").append("stoim_derzhim")
         self.float_sounds()
         self.pool("end").append(SND_ZAKONCHILI_DALSHE)
 
@@ -161,6 +161,7 @@ class PlankaWithRotationsEx(Planka):
     def construct_hand_pulls(self):
         self.pool("end").append(SND_POTIANULI_RUKU_VPERED)
         self.pool("end").append("provernuli_ruku")
+        self.pool("end").append("i_provernuv_ruku_vozvrashaemsia")
         self.pool("end").append("ruku_vpered_a_sami_v_potolok", overlapsed = True)
 
     def planka_na_boku_snd_end(self):
@@ -168,6 +169,7 @@ class PlankaWithRotationsEx(Planka):
         self.pool("end").append("i_s_vidohom_opuskaem_ruku_vniz")
         self.pool("end").append("i_s_vidohom_opustili_ruku")
         self.pool("end").append("provernuli_ruku_opustili_vniz")
+        self.pool("end").append("i_provernuv_ruku_vozvrashaemsia")
         self.pool("end").append("exit_provernuv_ruku_opuskaem_ee_vniz")
 
 

@@ -75,7 +75,8 @@ SND_LEG_RIGHT_FORWARD = [
     "leg_right_forward3",
     "leg_right_forward4",
     "leg_right_forward5",
-    "leg_right_forward6_vinesli"
+    "leg_right_forward6_vinesli",
+    "leg_right_forward7",
 ]
 
 SND_LEG_LEFT_FORWARD = [
@@ -141,10 +142,12 @@ SND_SELI = [
 ]
 
 SND_NA_DRUGUJU_STORONU = [
-    "i_na_druguju_storonu",
+    "i_na_druguju_storonu1",
+    "i_na_druguju_storonu2",
     "i_delaem_na_druguju_storonu",
     "povtoriaem_simmetrichno",
-    "i_perehodim_k_sleduushei_storone"
+    "i_perehodim_k_sleduushei_storone",
+    "na_druguju_storonu"
 ]
 
 SND_SAGGING = [
@@ -182,7 +185,9 @@ NOGI_PERED_SOBOI = [
     "nogi_pered_soboi2",
     "nogi_pered_soboi3",
     "nogi_pered_soboi4",
-    "nogi_pered_soboi5"
+    "nogi_pered_soboi5",
+    "nogi_pered_soboi6_i_vitiagivaem",
+    "vitianuli_nogi1"
 ]
 
 FIKSIRUEM = [

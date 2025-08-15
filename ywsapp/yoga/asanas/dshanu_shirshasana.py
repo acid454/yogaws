@@ -84,6 +84,7 @@ class DshanuShirshasana(BaseAsana):
         self.pool("continue").append("descr_dshanu_shirshasana3")
         self.pool("continue").append("descr_dshanu_shirshasana4")
         self.pool("continue").append("descr_dshanu_shirshasana5")
+        self.pool("continue").append("descr_padottonasana")
         self.pool("float").append("descr_dshanu_shirshasana_navisanie_nad_nogoi")
         self.pool("float").append("descr_dshanu_shirshasana_ja_mogu_sloshitsia")
         self.pool("float").append("descr_dshanu_shirshasana_sledim_za_perekosom_v_plechah")
@@ -106,3 +107,4 @@ class DshanuShirshasana(BaseAsana):
         self.pool("float").append("common_sbrasivaete_napriajenie_s_litca_s_shivota")
         self.pool("float").append("common_isportit'_usediem")
         self.pool("float").append("common_glubokoe_proshivanie_tela")
+        self.pool("float").append("dshanu_shirshasana_simmetrichnost'")
