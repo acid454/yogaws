@@ -27,20 +27,19 @@ try:
     from .forms import UserLoginForm, NewUserForm, UserInfoForm
     from .models import User, UserWorkoutProps
     from django.contrib.auth import authenticate, login, logout
-    import hashlib, uuid
+    import uuid
     import json
     import jsons
     from .resmanager import ResourcesManager
     from .audiocore.soundgen import SoundGenerator
     from speech_manager import SpeechManager
+    from .workout_manager import WorkoutManager
 except:
     logger.exception("Exception while loading main view modules:")
 
 
 # GLOBAL VARIABLES still here...
-WORKOUTS = None
 SOUND_STREAMS = {}
-YOGAWS_LOGS = []
 
 
 def do_index(request):
@@ -133,35 +132,8 @@ def logout_view(request):
     return redirect('/')
 
 
-# --------========= WORKOUTS MANAGE ==========-------------------------
-def _update_workouts():
-    global WORKOUTS
-    
-    #-------------------------------------------------------------------
-   
-    WORKOUTS = {}
-    logger.info("workout files:")
-    logger.info("\n".join(ResourcesManager().workout_files()))
-    for f in ResourcesManager().workout_files():
-        #if f != "01_test.py": continue
-        try:
-            workouts = __import__(f[:-3]).do_load_workouts()
-            for w in workouts:
-                wid = hashlib.md5((f + ':' + w.__name__).encode()).hexdigest()
-                WORKOUTS[wid] = {
-                    'class':w,
-                    'default':w().build(None, wid),
-                    'filenm':f,
-                    'wid':wid
-                }
-        except:
-            logger.exception(f"exception while loading workout {f}")
-
 def list_workouts(request):
-    if WORKOUTS is None:
-        _update_workouts()
-    
-    wrks = sorted( WORKOUTS.values(), key = lambda v: v['filenm'] )
+    wrks = sorted( WorkoutManager().list_workouts(), key = lambda v: v['filenm'] )
     wrks = map(lambda x: jsons.dump(x['default']), wrks)
 
     result = {}
@@ -185,50 +157,43 @@ def view_workout(request):
     no_sounds = request.GET.get('no_sounds', False)
     logger.info(f"get workout: {workout_id}, no_sounds: {no_sounds}")
 
-    # ToDo: this as decorator?
-    if WORKOUTS is None:
-        _update_workouts()
+    workout = WorkoutManager().load_workout(workout_id)
+    if workout is None:
+        return JsonResponse({}, safe = False, status = 404)
 
-    if workout_id in WORKOUTS.keys():
-        from speech_manager import SpeechManager
+    this_user =  get_user(request) if request.user.is_authenticated else None
+    result = workout['class']().build(this_user, workout_id)
 
-        this_user =  get_user(request) if request.user.is_authenticated else None
-        result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
+    if this_user:
+        recs = UserWorkoutProps.objects.filter(user = this_user)
+        for r in recs:
+            result.apply_prop(r.prop_id, r.value)
 
-        if this_user:
-            recs = UserWorkoutProps.objects.filter(user = this_user)
-            for r in recs:
-                result.apply_prop(r.prop_id, r.value)
+    try:
+        voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
+    except:
+        voice_acting = 0
 
-        try:
-            voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
-        except:
-            voice_acting = 0
-
-        if not no_sounds:
-            SpeechManager().generate_sounds(result, voice_acting)
-        result = jsons.dump(result)
-        
-        #if not no_sounds:
-        #    import pprint
-        #    pprint.PrettyPrinter(indent=4).pprint(result)
-        return JsonResponse(result, safe = False, status = 200)
-    return JsonResponse({}, safe = False, status = 200)  # Not 200 here
+    if not no_sounds:
+        SpeechManager().generate_sounds(result, voice_acting)
+    result = jsons.dump(result)
+    
+    #if not no_sounds:
+    #    import pprint
+    #    pprint.PrettyPrinter(indent=4).pprint(result)
+    return JsonResponse(result, safe = False, status = 200)
 
 
 def get_workout(request):
     workout_id = request.GET.get('id')
     logger.info(f"get workout: {workout_id}")
 
-    # ToDo: this as decorator?
-    if WORKOUTS is None:
-        _update_workouts()
-    
-    if workout_id not in WORKOUTS.keys():
+    workout = WorkoutManager().load_workout(workout_id)
+    if workout is None:
         return JsonResponse({}, safe = False, status = 404)
 
     this_user = get_user(request) if request.user.is_authenticated else None
-    result = WORKOUTS[workout_id]['class']().build(this_user, workout_id)
+    result = workout['class']().build(this_user, workout_id)
 
     if this_user:
         recs = UserWorkoutProps.objects.filter(user = this_user)
@@ -271,11 +236,7 @@ def modify_workout_params(request):
 
     logger.debug(f"modify_workout_params: '{params}'  by user {get_user(request)}")
     try:
-        for workout_id in WORKOUTS.keys():
-            p = WORKOUTS[workout_id]['default'].find_property_by_id(params['property_id'])
-            if p is not None:
-                break
-        
+        p = WorkoutManager().find_property_by_id( params['property_id'] )
         if p is None:
             logger.error(f"modify_workout_params: property {params['property_id']} not found")
             return JsonResponse({}, safe = False, status = 404)
