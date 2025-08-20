@@ -7,7 +7,7 @@ sys.path.append(os.path.join(base_dir, "yoga/containers"))
 from integer_constants import VoiceActing, ShavasanaActing, MetronomeTicks
 
 
-# Create your models here.
+
 class User(AbstractUser):
     complete_workouts = models.PositiveIntegerField(default=0)
     last_workout_id = models.TextField(default="-")
@@ -21,3 +21,10 @@ class UserWorkoutProps(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     prop_id = models.CharField(max_length=120)
     value = models.IntegerField()
+
+class UserWorkouts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    workout_id = models.CharField(max_length=120)
+    caption = models.CharField(max_length=120)
+    group = models.CharField(max_length=120)
+    sequence = models.CharField(max_length=65535)

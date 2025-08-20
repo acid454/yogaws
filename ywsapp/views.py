@@ -13,7 +13,7 @@ import logging
 from io import StringIO
 main_log_stream = StringIO()
 logger = logging.getLogger("ywsapp")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(main_log_stream))
 logger.handlers[-1].setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 logger.info(f"--- starting app, SCR version is {SCR_VERSION} ---")
@@ -42,10 +42,12 @@ except:
 SOUND_STREAMS = {}
 
 
+def wm_id(request):
+    return request.session.session_key if request.user.id is None else request.user.id
+
 def do_index(request):
     show_registration_form = False
     snack_text = "Some erors occured. Please, check logs" if 'Traceback (most recent call last)' in main_log_stream.getvalue() else None
-
 
     if request.method == "POST":
         if "password" in request.POST.keys():
@@ -127,13 +129,14 @@ def active(request):
         "debug": False
     })
 
+
 def logout_view(request):
     logout(request)
     return redirect('/')
 
 
 def list_workouts(request):
-    wrks = sorted( WorkoutManager().list_workouts(), key = lambda v: v['filenm'] )
+    wrks = sorted( WorkoutManager().list_workouts(wm_id(request)), key = lambda v: v['filenm'] )
     wrks = map(lambda x: jsons.dump(x['default']), wrks)
 
     result = {}
@@ -157,17 +160,12 @@ def view_workout(request):
     no_sounds = request.GET.get('no_sounds', False)
     logger.info(f"get workout: {workout_id}, no_sounds: {no_sounds}")
 
-    workout = WorkoutManager().load_workout(workout_id)
+    workout = WorkoutManager().load_workout(wm_id(request), workout_id)
     if workout is None:
         return JsonResponse({}, safe = False, status = 404)
 
-    this_user =  get_user(request) if request.user.is_authenticated else None
-    result = workout['class']().build(this_user, workout_id)
-
-    if this_user:
-        recs = UserWorkoutProps.objects.filter(user = this_user)
-        for r in recs:
-            result.apply_prop(r.prop_id, r.value)
+    this_user = get_user(request) if request.user.is_authenticated else None
+    result = workout['default']
 
     try:
         voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
@@ -188,12 +186,12 @@ def get_workout(request):
     workout_id = request.GET.get('id')
     logger.info(f"get workout: {workout_id}")
 
-    workout = WorkoutManager().load_workout(workout_id)
+    workout = WorkoutManager().load_workout(wm_id(request), workout_id)
     if workout is None:
         return JsonResponse({}, safe = False, status = 404)
 
     this_user = get_user(request) if request.user.is_authenticated else None
-    result = workout['class']().build(this_user, workout_id)
+    result = workout['default'].build(this_user, workout_id)
 
     if this_user:
         recs = UserWorkoutProps.objects.filter(user = this_user)
@@ -225,7 +223,7 @@ def get_workout(request):
 
 # ToDo: cache requests
 def modify_workout_params(request):
-    if (request.method != "POST") or (not request.user.is_authenticated):
+    if request.method != "POST":
         return JsonResponse({}, safe = False, status = 200)
     
     try:
@@ -234,34 +232,16 @@ def modify_workout_params(request):
         return JsonResponse({}, safe = False, status = 400)
     
 
-    logger.debug(f"modify_workout_params: '{params}'  by user {get_user(request)}")
+    logger.debug(f"modify_workout_params: '{params}' by user {get_user(request)}")
     try:
-        p = WorkoutManager().find_property_by_id( params['property_id'] )
-        if p is None:
-            logger.error(f"modify_workout_params: property {params['property_id']} not found")
-            return JsonResponse({}, safe = False, status = 404)
-        
-        #print(dir(request.user.id), request.user.is_authenticated)
-        #print(f"modify_workout_params: user - {get_user(request)}")
-        try:
-            v = int(params['value'])
-            if (v < p.value_min) or (v > p.value_max):
-                raise Exception()
-        except:
-            return JsonResponse({}, safe = False, status = 406)
-        
-        try:
-            rec = UserWorkoutProps.objects.get(user = get_user(request), prop_id = params['property_id'])
-        except:
-            rec = UserWorkoutProps(user = get_user(request), prop_id = params['property_id'])
-        
-        rec.value = v
-        rec.save()
-        #print(f"modify_workout_params: param saved")
-        return JsonResponse({}, safe = False, status = 200)
+        WorkoutManager().edit_property(wm_id(request), params['property_id'], params['value'])
+    except ValueError:
+        return JsonResponse({}, safe = False, status = 406)
     except:
         logger.exception("Exception while modify workout params")
-
+        return JsonResponse({}, safe = False, status = 400)
+    
+    # ToDo: alert user if he is anon, that parameters not saved in DB
     return JsonResponse({}, safe = False, status = 200) # Not 200 here
 
 
