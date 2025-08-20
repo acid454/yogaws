@@ -174,6 +174,11 @@ class BaseTask:
         if (workout.user is None) or (workout.user.metronome == MetronomeTicks.FULL):
             return
 
+        from metronomes import MetronomeKapalabhati
+        print(self.metronome)
+        if isinstance(self.metronome, MetronomeKapalabhati):
+            return
+        
         self.metronome.tick = "none"
         if workout.user.metronome == MetronomeTicks.NONE:
             self.metronome.bell = "none"

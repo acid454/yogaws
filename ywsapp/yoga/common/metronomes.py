@@ -29,3 +29,18 @@ class MetronomeWork(MetronomeSounds):
 class MetronomeShavasana(MetronomeSounds):
     tick: str = None
     bell: str = "workout_complete"
+
+@dataclass
+class MetronomeNone(MetronomeSounds):
+    tick: str = None
+    bell: str = None
+
+@dataclass
+class MetronomeComplete(MetronomeSounds):
+    tick: str = None
+    bell: str = "task_complete_norm"
+
+@dataclass
+class MetronomeKapalabhati(MetronomeSounds):
+    tick: str = "kapalabhati-slow"
+    bell: str = "task_complete_norm"

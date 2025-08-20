@@ -38,7 +38,6 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             images=self.tasks[-1].images
         ))
         self.dzathara_float_sounds()
-        self.pool("end").append(SND_VERNULIS + SND_ZAKONCHILI_DALSHE)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nправый бок, подготовка",
@@ -47,7 +46,7 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             images=["nogi_vverh_ruki_v_storoni", "dzathara_parivartanasana_right1", "dzathara_parivartanasana_right2"]
         ))
         self.pool("start").append("podniali_nogi", mandatory = True)
-        self.pool("continue").append(SND_MENIAJEM_NOGI + SND_NA_DRUGUJU_STORONU, mandatory = True)
+        self.pool("continue").append(SND_NA_DRUGUJU_STORONU, mandatory = True)
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nправый бок",

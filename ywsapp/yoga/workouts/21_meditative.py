@@ -33,7 +33,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
 
         self.wrap_asana(Asanas.kobra.Kobra(tm_main = 60))
-        self.wrap_asana(Asanas.short_poses.Seli())   # Ushli na chetveren'ki
+        self.wrap_asana(Asanas.short_poses.UshliNaChetverenki())
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False))
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
@@ -41,7 +41,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
 
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
-        #self.wrap_asana(Asanas.most.Most())
+        self.wrap_asana(Asanas.most.Most())
         self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
         self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 90))
 

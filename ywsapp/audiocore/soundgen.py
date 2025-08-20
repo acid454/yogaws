@@ -85,7 +85,7 @@ class SoundGenerator():
             composer_lines.append("")
             # Bell or tick sound, at the start (end?) of each second
             if (t == workout['total_time_int']-1) or (schedule[t] != schedule[t+1]):
-                metronome_snd = self.metronomes[current_task['metronome']['bell']]
+                metronome_snd = self.metronomes.get(current_task['metronome']['bell'], None)
             else:
                 metronome_snd = self.metronomes.get(current_task['metronome']['tick'], None)
             

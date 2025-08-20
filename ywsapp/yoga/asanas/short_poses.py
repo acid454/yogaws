@@ -10,10 +10,11 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
-from snd_pools import SND_OPUSTILIS_NA_KOLENI, SND_SELI
+from snd_pools import SND_OPUSTILIS_NA_KOLENI, SND_USHLI_NA_CHETVERENKI, SND_SELI
 
 
 class OpustilisNaKoleni(BaseAsana):
+    IMAGES = ["opustilis_na_koleni1", "opustilis_na_koleni2"]
     def __init__(self, **kwargs):
         super().__init__(name="opustilis_na_koleni", caption="Опустились на колени")
         self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=5))
@@ -23,10 +24,23 @@ class OpustilisNaKoleni(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=["opustilis_na_koleni1", "opustilis_na_koleni2"]
+            images=OpustilisNaKoleni.IMAGES
         ))
-        self.pool("name").append(SND_OPUSTILIS_NA_KOLENI)
+        self.pool("name").append(SND_OPUSTILIS_NA_KOLENI + SND_USHLI_NA_CHETVERENKI)
 
+class UshliNaChetverenki(BaseAsana):
+    def __init__(self, **kwargs):
+        super().__init__(name="ushli_na_chetverenki", caption="Переход на четвереньки")
+        self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=5))
+        self.update_props(kwargs)
+
+        self.tasks.append(BaseTask(
+            caption=self.caption,
+            property=self.tm_main,
+            metronome=MetronomeRest(),
+            images=OpustilisNaKoleni.IMAGES
+        ))
+        self.pool("name").append(SND_USHLI_NA_CHETVERENKI)
 
 class Seli(BaseAsana):
     IMAGES = [f"seli{n}" for n in range(1,4)]

@@ -6,7 +6,16 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-SND_ZAKONCHILI_DALSHE = [
+
+SND_I_DALSHE = [
+    # {% if not glob.get('last_before_shavasana') %}
+    "i_dvishemsia_dalshe1",
+    "i_dvishemsia_dalshe2",
+    "i_dvishemsia_dalshe3"
+    # {% endif %}
+]
+
+SND_ZAKONCHILI_DALSHE = SND_I_DALSHE + [
     "i_zakanchivaem",
     "i_zakonchili1",
     "i_zakonchili2",
@@ -15,11 +24,6 @@ SND_ZAKONCHILI_DALSHE = [
     "zakanchivaem_s_nei",
     "zakanchivaem_s_nei_i_dal'she",
     "i_so_vdohom_zakonchili",
-    # {% if not glob.get('last_before_shavasana') %}
-    "i_dvishemsia_dalshe1",
-    "i_dvishemsia_dalshe2",
-    "i_dvishemsia_dalshe3",
-    # {% endif %}
     "akkuratno_zavershaem",
     "davaite_zavershat'"
 ]
@@ -129,7 +133,10 @@ SND_OPUSTILIS = [
 
 SND_OPUSTILIS_NA_KOLENI = [
     "i_opustilis'_na_koleni",
-    "opustilis'_na_koleni",
+    "opustilis'_na_koleni"
+]
+
+SND_USHLI_NA_CHETVERENKI = [
     "vihodite_v_poloshenie_stoja_na_chetveren'kah",
     "ushli_na_chetveren'ki"
 ]
@@ -203,4 +210,14 @@ STOIM = [
     "i_stoim2",
     "i_stoim3",
     "stoim1",
+]
+
+SND_POEHALI = [
+    "poehali1",
+    "poehali3",
+    "poehali2",
+    "poehali_nu_chto1",
+    "poehali_nu_chto2",
+    "itak_poehali",
+    "i_nachinaem"
 ]

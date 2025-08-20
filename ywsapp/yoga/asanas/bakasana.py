@@ -74,7 +74,6 @@ class Bakasana(BaseAsana):
         self.pool("end").append(SND_ZAKONCHILI_DALSHE)
 
     def build(self, workout, _set):
-        print(f"Bakasana build, exit time: {self.task(self.tm_exit).property.value}")
         super().build(workout, _set)
         prev_asana = workout.prev_item(self)
         if issubclass(type(prev_asana), Bakasana):

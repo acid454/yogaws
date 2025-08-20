@@ -9,6 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest
+from snd_pools import SND_POEHALI
 
 
 class Tadasana(BaseAsana):
@@ -34,10 +35,4 @@ class Tadasana(BaseAsana):
         self.pool("float").append(None)
 
         self.pool("end").append("_hlopok_")
-        self.pool("end").append("poehali1")
-        self.pool("end").append("poehali2")
-        self.pool("end").append("poehali3")
-        self.pool("end").append("poehali_nu_chto1")
-        self.pool("end").append("poehali_nu_chto2")
-        self.pool("end").append("itak_poehali")
-        self.pool("end").append("i_nachinaem")
+        self.pool("end").append(SND_POEHALI)
