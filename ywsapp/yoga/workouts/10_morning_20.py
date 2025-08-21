@@ -58,7 +58,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         self.wrap_asana(Asanas.plug.Plug())
 
-        self.wrap_asana(Asanas.sarvangasana.Sarvangasana())
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 
