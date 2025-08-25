@@ -44,7 +44,7 @@ class GorkaBase(BaseAsana):
 
         self.pool("float").append("common_delaem_vse_ne_toropias'")
         self.pool("float").append("common1")
-        self.pool("float").append("descr_padattonasana", float_on_start = True)
+        self.pool("float").append("descr_padottonasana", float_on_start = True)
         self.pool("float").append("descr_potjanulis_vpered1", float_on_start = True)
         self.pool("float").append("descr_gorka2", float_on_start = True)
         if metronome_rest:

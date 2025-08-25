@@ -9,7 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
-from snd_pools import *
+from snd_pools import SND_EXHALE, SND_COMPLETION_OTHERS, SND_ZAKONCHILI_DALSHE
 
 
 class Malasana(BaseAsana):
@@ -46,29 +46,25 @@ class Malasana(BaseAsana):
         self.float_sounds()
         self.pool("end").append(SND_EXHALE)
 
-        if not with_complication:
-            self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
-            return
+        if with_complication:
+            self.tasks.append(BaseTask(
+                caption=self.caption + " \n(ладони в пол)",
+                property=self.tm_prepare,
+                metronome=MetronomeRest(),
+                images=["malasana_v_pol"]
+            ))
+            self.pool("name").append("malasana_ladoni_v_pol")
+            self.pool("continue").append("malasana_beriem_sebia_za_piatki")
+            self.pool("end").append("i_tianemsia_lbom_v_pol")
 
-        
-        self.tasks.append(BaseTask(
-            caption=self.caption + " \n(ладони в пол)",
-            property=self.tm_prepare,
-            metronome=MetronomeRest(),
-            images=["malasana_v_pol"]
-        ))
-        self.pool("name").append("malasana_ladoni_v_pol")
-        self.pool("continue").append("malasana_beriem_sebia_za_piatki")
-        self.pool("end").append("i_tianemsia_lbom_v_pol")
-
-        self.tasks.append(BaseTask(
-            caption=self.caption,
-            property=self.tm_floor,
-            metronome=MetronomeWork(),
-            images=self.tasks[-1].images
-        ))
-        self.float_sounds()
-        self.pool("end").append(SND_EXHALE)
+            self.tasks.append(BaseTask(
+                caption=self.caption,
+                property=self.tm_floor,
+                metronome=MetronomeWork(),
+                images=self.tasks[-1].images
+            ))
+            self.float_sounds()
+            self.pool("end").append(SND_EXHALE)
 
         self.tasks.append(BaseTask(
             caption=self.caption + " (выход)",

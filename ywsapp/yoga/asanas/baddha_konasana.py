@@ -20,7 +20,7 @@ class BaddhaKonasana(BaseAsana):
         self.properties.append(IntProperty(caption="прогиб вперёд", short="tm_progib", default= 50 if with_knees else 110 ))
         if with_knees:
             self.properties.append(IntProperty(caption="переход", short="tm_legs_change", default=7))
-            self.properties.append(IntProperty(caption="ноги к себе", short="tm_squared", default=50))
+            self.properties.append(IntProperty(caption="колени", short="tm_squared", default=50))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
 

@@ -26,7 +26,7 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.markatasana.Markatasana())
-        self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(tm_main = 160, with_knees = True))
+        self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = True, tm_main = 160, tm_squared = 80))
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 80))
         
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 50))
@@ -48,6 +48,8 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         #self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
         self.wrap_asana(Asanas.short_poses.Seli())
+
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
 
         #self.wrap_asana(Asanas.plug.Plug())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 110))

@@ -38,6 +38,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
 
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
@@ -47,7 +48,7 @@ class DefaultWorkout(BaseWorkout):
 
         # Переворачиваемся на живот здесь
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
-        self.wrap_asana(Asanas.kobra.KobraWithRotations())
+        self.wrap_asana(Asanas.kobra.KobraWithRotations(tm_main = 60))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 90))
@@ -60,6 +61,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
         self.wrap_asana(Asanas.plug.Plug(tm_main = 80))

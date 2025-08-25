@@ -6,10 +6,10 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import BaseAsana, BaseTask, AsanaLegsStayUp
+from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
-from snd_pools import SND_ZAKONCHILI_DALSHE
+from short_poses import LoshimsiaNaSpinu
 
 
 class Plug(BaseAsana):
@@ -71,27 +71,14 @@ class Plug(BaseAsana):
         self.pool("float").append("common_isportit'_usediem")
         self.pool("float").append("common_pozvonochnik_prinial_predloshennoe_poloshenie_v_progibe", float_on_start = True)
         self.pool("float").append("common_glubokoe_proshivanie_tela")
-        
-    def build(self, workout, _set):
-        if issubclass(type(workout.next_item(self)), AsanaLegsStayUp):
-            self.tasks.append(BaseTask(
-                caption=self.caption + " (выход, ноги подняты)",
-                property=self.tm_exit,
-                metronome=MetronomeRest(),
-                images=["nogi_vverh_ruki_v_storoni"]
-            ))
-            self.pool("continue").append("vernuli_nogi_vverh")
-            self.pool("continue").append("podniali_nogi")
 
-        else:
-            self.tasks.append(BaseTask(
-                caption=self.caption + " (выход)",
-                property=self.tm_exit,
-                metronome=MetronomeRest(),
-                images=self.tasks[-1].images
-            ))
-            self.pool("start").append("i_akkuratno_raskatali_spinu_obratno")
-            self.pool("start").append("plug_i_poluperekatom_vozvrashaemsia_sidia")
+        self.tasks.append(BaseTask(
+            caption=self.caption + " (выход)",
+            property=self.tm_exit,
+            metronome=MetronomeRest(),
+            images=LoshimsiaNaSpinu.IMAGES
+        ))
+        self.pool("start").append("i_akkuratno_raskatali_spinu_obratno")
+        self.pool("start").append("plug_i_poluperekatom_vozvrashaemsia_sidia")
         self.pool("start").append("raskatilis'")
         self.pool("start").append("poluperekatom_vozvrashaemsia")
-        super().build(workout, _set)

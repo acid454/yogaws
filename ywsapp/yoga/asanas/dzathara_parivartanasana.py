@@ -6,14 +6,14 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
-from base import AsanaLegsStayUp, BaseTask
+from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
+from snd_pools import SND_NA_DRUGUJU_STORONU, SND_VERNULIS, SND_COMPLETION_OTHERS, SND_I_DALSHE
 from plug import Plug
-from snd_pools import *
 
 
-class Dzathara_Parivartanasana(AsanaLegsStayUp):
+class Dzathara_Parivartanasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="dzathara_parivartanasana", caption="Джатхара Паривартанасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
@@ -26,8 +26,9 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             caption=self.caption + "\nлевый бок, подготовка",
             property=self.tm_prepare,
             metronome=MetronomeRest(),
-            images=[f"dzathara_parivartanasana_left{x}" for x in range(1,3)]
+            images=["nogi_vverh_ruki_v_storoni"]
         ))
+        self.pool("start").append("podniali_nogi", mandatory = True)
         self.pool("name").append("upr_razvodim_ruki_v_storoni")
         self.pool("continue").append("upr_razvorot_vlevo", mandatory = True)
 
@@ -35,7 +36,7 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             caption=self.caption + "\nлевый бок",
             property=self.tm_main,
             metronome=MetronomeWork(),
-            images=self.tasks[-1].images
+            images=[f"dzathara_parivartanasana_left{x}" for x in range(1,3)]
         ))
         self.dzathara_float_sounds()
 
@@ -62,7 +63,9 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
             metronome=MetronomeRest(),
             images=["nogi_vverh_ruki_v_storoni"]
         ))
-        self.pool("start").append("podniali_nogi")
+        self.pool("start").append(SND_VERNULIS + SND_COMPLETION_OTHERS)
+        self.pool("end").append(SND_I_DALSHE)
+
 
     def dzathara_float_sounds(self):
         self.pool("float").append("descr_dzathara_parivartanasana")
@@ -81,4 +84,4 @@ class Dzathara_Parivartanasana(AsanaLegsStayUp):
     def build(self, workout, _set):
         super().build(workout, _set)
         if not issubclass(type(workout.prev_item(self)), Plug):
-            self.task(self.tm_prepare).pool("start").append("podniali_nogi", mandatory = True)
+            self.task(self.tm_prepare).pool("start").append("vernuli_nogi_vverh", mandatory = True)

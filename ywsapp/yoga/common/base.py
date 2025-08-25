@@ -335,8 +335,3 @@ class AsanaLegForward(BaseAsana):
         if issubclass(type(prev_asana), AsanaLegForward):
             return prev_asana.side == self.side
         return False
-
-
-@dataclass
-class AsanaLegsStayUp(BaseAsana):
-    pass

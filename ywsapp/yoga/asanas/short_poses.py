@@ -80,6 +80,7 @@ class PodnimaemsiaVvreh(BaseAsana):
         self.pool("name").append("podnimaemsia2")
 
 class LoshimsiaNaSpinu(BaseAsana):
+    IMAGES = [f"shavasana{x}" for x in range(1,6)]
     def __init__(self, **kwargs):
         super().__init__(name="loshimsia_na_spinu", caption="Ложимся на спину")
         self.properties.append(IntProperty(caption="время перехода", short="tm_main", default=4))
@@ -89,7 +90,7 @@ class LoshimsiaNaSpinu(BaseAsana):
             caption=self.caption,
             property=self.tm_main,
             metronome=MetronomeRest(),
-            images=[f"shavasana{x}" for x in range(1,6)]
+            images=LoshimsiaNaSpinu.IMAGES
         ))
         
         self.pool("name").append("i_loshimsia_na_spinu")

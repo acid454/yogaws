@@ -65,6 +65,7 @@ class Planka(BaseAsana):
         self.pool("float").append("common_glubokoe_proshivanie_tela")
 
     def build(self, workout, _set):
+        super().build(workout, _set)
         prev_asana = workout.prev_item(self)
         if isinstance(prev_asana, UttanasanaBase):
             self.task(self.tm_prepare).pool("start").clear()
