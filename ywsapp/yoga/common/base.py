@@ -175,7 +175,6 @@ class BaseTask:
             return
 
         from metronomes import MetronomeKapalabhati
-        print(self.metronome)
         if isinstance(self.metronome, MetronomeKapalabhati):
             return
         

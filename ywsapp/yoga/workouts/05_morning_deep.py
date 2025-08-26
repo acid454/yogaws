@@ -44,6 +44,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
 
         
         self.wrap_asana(Asanas.dshanu_shirshasana.DshanuShirshasana())

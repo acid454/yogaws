@@ -6,7 +6,6 @@
 #  Copyright 2025 Dmitry Repnikov <acid454@yoga7>
 #  
 
-import math
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeKapalabhati

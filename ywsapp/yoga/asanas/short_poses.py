@@ -10,7 +10,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeRest, MetronomeWork
-from snd_pools import SND_OPUSTILIS_NA_KOLENI, SND_USHLI_NA_CHETVERENKI, SND_SELI
+from snd_pools import SND_OPUSTILIS_NA_KOLENI, SND_USHLI_NA_CHETVERENKI, SND_SELI, SND_PODNIMAEMSIA
 
 
 class OpustilisNaKoleni(BaseAsana):
@@ -69,15 +69,12 @@ class PodnimaemsiaVvreh(BaseAsana):
             metronome=MetronomeRest(),
             images=["tadasana01", "tadasana02"]
         ))
-        
-        self.pool("name").append("upr_podnimaemsia_vverh1")
-        self.pool("name").append("upr_podnimaemsia_vverh2")
+        self.pool("name").append(SND_PODNIMAEMSIA)
         self.pool("name").append("i_skrugliaja_spinu_vverh1")
         self.pool("name").append("i_skrugliaja_spinu_vverh2")
         self.pool("name").append("i_skrugliaja_spinu_vverh3")
         self.pool("name").append("i_skrugliaja_spinu_vverh4")
-        self.pool("name").append("podnimaemsia1")
-        self.pool("name").append("podnimaemsia2")
+
 
 class LoshimsiaNaSpinu(BaseAsana):
     IMAGES = [f"shavasana{x}" for x in range(1,6)]

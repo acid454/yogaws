@@ -15,7 +15,7 @@ from snd_pools import SND_ZAKONCHILI_DALSHE, SND_NA_DRUGUJU_STORONU
 class Kobra(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="kobra", caption="Кобра")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=5))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
         self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=30))
         self.update_props(kwargs)
 

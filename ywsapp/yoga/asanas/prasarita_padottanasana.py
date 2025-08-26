@@ -21,7 +21,7 @@ class PrasaritaPadottanasana(BaseAsana):
             self.properties.append(IntProperty(caption="наклон к ногам", short="tm_legs", default=30))
         if with_hands:
             self.properties.append(IntProperty(caption="подготовка рук", short="tm_hands_prep", default=5))
-            self.properties.append(IntProperty(caption="подъём рук", short="tm_hands_main", default=30))
+            self.properties.append(IntProperty(caption="подъём рук", short="tm_hands_main", default=45))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=6))
         self.update_props(kwargs)
 

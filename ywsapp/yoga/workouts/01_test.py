@@ -21,15 +21,10 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
-        #self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana(with_knees = False))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(go_down = True, tm_main = 50, tm_down = 50))
-        self.wrap_asana(Asanas.kapotasana.KapotasanaRight(go_down = True, tm_main = 50, tm_down = 50))
-
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(go_down = True, tm_main = 40))
-        self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(go_down = True, tm_main = 40))
-
-        self.wrap_asana(Asanas.short_poses.Seli())
-        self.wrap_asana(Asanas.shavasana.Shavasana(tm_main = 5))
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati())
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
+        
+        self.wrap_asana(Asanas.shavasana.Shavasana())
 
 
 def do_load_workouts():

@@ -72,7 +72,7 @@ class Malasana(BaseAsana):
             metronome=MetronomeRest(),
             images=["malasana_exit"]
         ))
-        self.pool("end").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
+        self.pool("name").append(SND_COMPLETION_OTHERS + SND_ZAKONCHILI_DALSHE)
 
     def float_sounds(self):
         self.pool("float").append("common_dlya_spinu_i_pozvonochnika")

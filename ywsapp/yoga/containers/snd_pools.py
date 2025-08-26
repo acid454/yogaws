@@ -163,6 +163,13 @@ SND_SAGGING = [
     "provisli2"
 ]
 
+SND_PODNIMAEMSIA = [
+    "podnimaemsia1",
+    "podnimaemsia2",
+    "upr_podnimaemsia_vverh1",
+    "upr_podnimaemsia_vverh2"
+]
+
 SND_POTIANULI_RUKU_VPERED = [
     "i_potianuli_ruku_vpered1",
     "i_potianuli_ruku_vpered2",

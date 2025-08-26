@@ -22,9 +22,9 @@ class DefaultWorkout(BaseWorkout):
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(timings = 'slow', cnt = 3))
-        self.wrap_asana(Asanas.kapalabhati.Kapalabhati())
         self.sets.append(SuryaNamaskar(timings = 'fast', cnt = 4))
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati())
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
 
         #self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10, tm_prepare = 5))
         #self.wrap_asana(Asanas.parivritta.ParivrittaLeft())
@@ -49,11 +49,10 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 180))
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
-        
-        self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
-        #self.wrap_asana(Asanas.nakrasana.Nakrasana())
 
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati())
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
+        self.wrap_asana(Asanas.plug.Plug(tm_main = 110))
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 def do_load_workouts():

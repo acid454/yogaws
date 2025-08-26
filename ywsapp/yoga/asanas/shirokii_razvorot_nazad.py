@@ -18,7 +18,7 @@ class ShirokiiRazvorotNazad(BaseAsana):
         super().__init__(self, name="shirokii_razvorot_nazad", caption="Широкий разворот назад")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=5))
         self.properties.append(IntProperty(caption="циклов", short="cycles", default=3))
-        self.properties.append(IntProperty(caption="смена рук", short="tm_swap", default=5))
+        self.properties.append(IntProperty(caption="смена рук", short="tm_swap", default=6))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=14))
         self.update_props(kwargs)
 

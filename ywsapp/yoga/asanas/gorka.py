@@ -42,16 +42,19 @@ class GorkaBase(BaseAsana):
         
         self.gorka_name_snd()
 
-        self.pool("float").append("common_delaem_vse_ne_toropias'")
-        self.pool("float").append("common1")
-        self.pool("float").append("descr_padottonasana", float_on_start = True)
-        self.pool("float").append("descr_potjanulis_vpered1", float_on_start = True)
-        self.pool("float").append("descr_gorka2", float_on_start = True)
+        if self.tm_main.value > self.slow_gorka_time:
+            self.pool("float").append("common_delaem_vse_ne_toropias'")
+            self.pool("float").append("common1")
+            self.pool("float").append("descr_padottonasana", float_on_start = True)
+            self.pool("float").append("descr_potjanulis_vpered1", float_on_start = True)
+            self.pool("float").append("descr_gorka2", float_on_start = True)
         if metronome_rest:
             return
         self.float_sounds()
 
     def float_sounds(self):
+        if self.tm_main.value <= self.slow_gorka_time:
+            return
         self.pool("float").append("common_i_postojat'_podushat'", float_on_start = True)
         self.pool("float").append("common_derzimsia_dushim")
         self.pool("float").append("common_vashna_geometria_i_tochnost")
@@ -75,8 +78,8 @@ class GorkaBase(BaseAsana):
         self.pool("float").append("common_vihodim_iz_asan_plavno")
         self.pool("float").append("common_glubokoe_proshivanie_tela")
         
-        if self.tm_main.value < self.slow_gorka_time:
-            self.pool("float").append(FIKSIRUEM + STOIM, float_on_start = True)
+        #if self.tm_main.value < self.slow_gorka_time:
+        #    self.pool("float").append(FIKSIRUEM + STOIM, float_on_start = True)
     
     def gorka_name_snd(self):
         self.pool("name").append("gorka1")
@@ -115,7 +118,7 @@ class GorkaNormal(GorkaBase):
     def build(self, workout, _set):
         super().build(workout, _set)
         next_asana = workout.next_item(self)
-        if issubclass(type(next_asana), AsanaLegForward):
+        if isinstance(next_asana, AsanaLegForward):
             self.pool("end").clear()
 
 class GorkaWithLegs(GorkaNormal):
@@ -128,7 +131,7 @@ class GorkaWithLegs(GorkaNormal):
     def build(self, workout, _set):
         prev_leg = False
         next_asana = workout.next_item(self)
-        if not issubclass(type(next_asana), AsanaLegForward) or next_asana.side == AsanaLegForward.SIDE_LEFT:
+        if not isinstance(next_asana, AsanaLegForward) or next_asana.side == AsanaLegForward.SIDE_LEFT:
             self.tasks.append(BaseTask(
                 caption=self.caption + "\nлевая нога вверх",
                 property=self.tm_legs,
@@ -142,7 +145,7 @@ class GorkaWithLegs(GorkaNormal):
             self.pool("end").append(SND_RASSLABILIS + SND_EXHALE)
             prev_leg = True
         
-        if not issubclass(type(next_asana), AsanaLegForward) or next_asana.side == AsanaLegForward.SIDE_RIGHT:
+        if not isinstance(next_asana, AsanaLegForward) or next_asana.side == AsanaLegForward.SIDE_RIGHT:
             self.tasks.append(BaseTask(
                 caption=self.caption + "\nправая нога вверх",
                 property=self.tm_legs,

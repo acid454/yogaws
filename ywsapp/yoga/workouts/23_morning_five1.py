@@ -25,16 +25,18 @@ class DefaultWorkout(BaseWorkout):
 
         # 4 asanas * 90 sec * 4 cycles
         for i in range(3):
-             self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 25))
-             self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 45))
-             self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 7, metronome_rest = True))
-             self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 25))
-             self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 45))
+            self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaLeft(tm_main = 25))
+            self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(tm_main = 45))
+            self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 7, metronome_rest = True))
+            self.wrap_asana(Asanas.virabhadrasana.VirabhadrasanaRight(tm_main = 25))
+            self.wrap_asana(Asanas.kapotasana.KapotasanaRight(tm_main = 45))
 
-             self.wrap_asana(Asanas.marichiasana.Marichiasana(tm_main = 40))
-             if i == 1:
-                 self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
-             self.wrap_asana(Asanas.plug.Plug(tm_main = 60))
+            self.wrap_asana(Asanas.marichiasana.Marichiasana(tm_main = 40))
+            if i == 1:
+                self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+            elif i == 2:
+                self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
+            self.wrap_asana(Asanas.plug.Plug(tm_main = 60))
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 

@@ -22,26 +22,22 @@ class DefaultWorkout(BaseWorkout):
     
     def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana(tm_main = 20))
-        self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
-        self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 45))
-
         self.sets.append(SuryaNamaskar(timings = 'fast', cnt = 3))
         
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.shirokii_razvorot_nazad.ShirokiiRazvorotNazad())
         self.wrap_asana(Asanas.markatasana.Markatasana(cycles_count = 5, cycles_twist = 2))
-        self.wrap_asana(Asanas.malasana.Malasana(tm_main = 10))
+        self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 10))
 
         self.sets.append(Sobaki(timings = 'fast', transitions = 'up', cycles_count = 4))
         self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
-        self.wrap_asana(Asanas.kobra.KobraWithRotations())
-        self.wrap_asana(Asanas.gorka.GorkaBase(tm_main = 10, metronome_rest = True))
+        self.wrap_asana(Asanas.kobra.KobraWithRotations(tm_main = 20))
 
-        self.wrap_asana(Asanas.short_poses.Prizhok_k_Rukam())
+        self.wrap_asana(Asanas.short_poses.UshliNaChetverenki())
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.marichiasana.Marichiasana(tm_main = 15))
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
-        self.wrap_asana(Asanas.plug.Plug(tm_main = 10))
+        self.wrap_asana(Asanas.plug.Plug(tm_main = 20))
         self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 15))
 
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 10))
@@ -63,6 +59,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.PodnimaemsiaVvreh())
         self.wrap_asana(Asanas.utkatasana.Utkatasana())
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
 
         # 
         # self.wrap_asana(Asanas.marichiasana.Marichiasana())

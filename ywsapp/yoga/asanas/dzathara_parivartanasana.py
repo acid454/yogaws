@@ -21,6 +21,7 @@ class Dzathara_Parivartanasana(BaseAsana):
         self.properties.append(IntProperty(caption="переход", short="tm_swap", default=17))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=6))
         self.update_props(kwargs)
+        self.preview_img = "dzathara_parivartanasana_right1"
 
         self.tasks.append(BaseTask(
             caption=self.caption + "\nлевый бок, подготовка",
