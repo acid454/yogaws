@@ -7,8 +7,13 @@
 #  
 
 import datetime
+import logging
+import jsons
 from dataclasses import dataclass, field
+from uuid import UUID, uuid4
 from integer_constants import MetronomeTicks
+logger = logging.getLogger("ywsapp")
+
 
 
 @dataclass
@@ -35,6 +40,16 @@ class PropertiesContainer:
             if p.id == _id:
                 return p
         return None
+    
+    def serialize(self):
+        return list(map(lambda x: x.serialize(), self.properties))
+    
+    def deserialize(self, props):
+        for p in props:
+            obj = getattr(self, p['short'], None)
+            if obj is not None:
+                obj.deserialize(p)
+
 
 @dataclass
 class VisibleElement:
@@ -42,9 +57,11 @@ class VisibleElement:
     caption: str = None
     preview_img: str = None
 
+
 @dataclass
 class BaseAsana(PropertiesContainer, VisibleElement):
     name: str = None
+    serializable: bool = False      # Flag for dynamic asanas, that were generated while building sets
     tasks: list = field(default_factory=lambda: [])
     
     def build(self, workout, _set):
@@ -104,13 +121,21 @@ class BaseProperty:
     def value(self, v):
         self._value = v
 
-    def gen_id(self, workout, _set, asana):
+    def gen_id(self, workout, _set, asana = ''):
         self.id = "{workout_id}.{set_id}.{asana_id}.{short}".format(
             workout_id = workout,
             set_id = _set,
             asana_id = asana,
             short = self.short
         )
+    
+    def serialize(self):
+        return jsons.dump(self)
+    
+    def deserialize(self, s):
+        for k in s.keys():
+            if getattr(self, k, None) is not None:
+                setattr(self, k, s[k])
 
 @dataclass
 class SoundPool:
@@ -188,7 +213,7 @@ class BaseTask:
 
 @dataclass
 class BaseSet(PropertiesContainer, VisibleElement):
-    visible: bool = True        # Видно ли название самого сета (вместо входящих в него асан)
+    visible: bool = False      # Видно ли название самого сета (вместо входящих в него асан)
     asanas: list = field(default_factory=lambda: [])
 
     def update_props(self, kwargs):
@@ -203,6 +228,9 @@ class BaseSet(PropertiesContainer, VisibleElement):
         if self.asanas[0].preview_img is None:
             self.asanas[0].preview_img = self.asanas[0].tasks[0].images[0]
         
+        for prp in self.properties:
+            prp.gen_id(workout.name, self.id )
+
         for a in self.asanas:
             a.build(workout, self)
         return False
@@ -212,7 +240,8 @@ class BaseWorkout(PropertiesContainer):
     name: str = "noname"
     caption: str = "Без названия"
     description: str = "Без описания"
-    id: str = None
+    #id: str = None
+    id: UUID = field(default_factory=uuid4)
     #properties: list = field(default_factory=lambda: [])
     sets: list = field(default_factory=lambda: [])
     group: str = None
@@ -222,7 +251,8 @@ class BaseWorkout(PropertiesContainer):
 
     # Добавляем сет, не отображаемый в интерфейсе, с одной асаной
     def wrap_asana(self, asana):
-        self.sets.append(BaseSet(visible=False, asanas=[asana]))
+        asana.serializable = True
+        self.sets.append(BaseSet(asanas=[asana]))
 
     # Возвращаем предыдущий таск или асану (в зависимости от того, что передано через this)
     #  (возможно, в предыдущей асане или даже сете)
@@ -264,6 +294,9 @@ class BaseWorkout(PropertiesContainer):
     # Возвращаем property по id
     def find_property_by_id(self, prop_id):
         for s in self.sets:
+            p = s.get_prop_by_id(prop_id)
+            if p is not None:
+                return p
             for a in s.asanas:
                 p = a.get_prop_by_id(prop_id)
                 if p is not None:
@@ -317,6 +350,38 @@ class BaseWorkout(PropertiesContainer):
         if prop is None:
             return
         prop.value = prop_value
+    
+    # Возвращаем упорядоченный список объектов (сет, асана, свойства) для хранения в БД
+    def items(self):
+        result = []
+        for s in self.sets:
+            result.append({ 'class':s.__class__.__name__, 'props':s.serialize(), 'asanas':[] })
+            for a in filter(lambda x: x.serializable, s.asanas):
+                result[-1]['asanas'].append({ 'class':a.__class__.__name__, 'props':a.serialize() })
+        return result
+    
+    @staticmethod
+    def from_items(items):
+        result = BaseWorkout()
+        from sets import Sets
+        from asanas import Asanas
+
+        logger.debug("Reconstruct workout from items")
+        for s in items:
+            obj = Sets.get_class(s['class'], BaseSet)()
+            obj.deserialize(s['props'])
+            for a in s['asanas']:
+                asana = Asanas.get_class(a['class'])
+                if asana is None:
+                    logger.error(f"WARNING! Unknown asana class while deserializing set {s}: {a}. Will continue.")
+                    continue
+                asana = asana()
+                asana.serializable = True
+                asana.deserialize(a['props'])
+                obj.asanas.append(asana)
+            result.sets.append(obj)
+        return result
+
 
 
 @dataclass

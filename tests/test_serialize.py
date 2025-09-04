@@ -46,11 +46,17 @@ def main(args):
     g = Gorka()
 
     g.properties[0].value = 10
+    print(type(g.properties[0]))
     s = jsons.dump(g)
-    print(s)
+    print(f"{type(s)}: {s}")
+    
     
     x = jsons.load(s, Gorka)
     print(x.caption)
+    print(x.properties)
+    print(type(x.properties[0]))
+    
+    print(jsons.dump(x))
     return 0
 
 if __name__ == '__main__':

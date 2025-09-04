@@ -31,7 +31,7 @@ class SuryaNamaskar(BaseSet):
         {'asana':Asanas.short_poses.PodnimaemsiaVvreh}
     ]
     def __init__(self, timings = 'slow', **kwargs):
-        super().__init__(caption = "Сурья Намаскар" + SuryaNamaskar.SURYA_NAMES[timings])
+        super().__init__(caption = "Сурья Намаскар" + SuryaNamaskar.SURYA_NAMES[timings], visible = True)
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=9))
         self.update_props(kwargs)
         self.timings = timings

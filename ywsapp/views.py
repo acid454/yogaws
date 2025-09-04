@@ -25,7 +25,7 @@ try:
     from django.utils import timezone
     from django.contrib.auth import get_user
     from .forms import UserLoginForm, NewUserForm, UserInfoForm
-    from .models import User, UserWorkoutProps
+    from .models import User
     from django.contrib.auth import authenticate, login, logout
     import uuid
     import json
@@ -37,13 +37,15 @@ try:
 except:
     logger.exception("Exception while loading main view modules:")
 
-
 # GLOBAL VARIABLES still here...
 SOUND_STREAMS = {}
 
 
 def wm_id(request):
-    return request.session.session_key if request.user.id is None else request.user.id
+    #return request.session.session_key if request.user.id is None else request.user.id
+    if request.user.id is None:
+        return request.session.session_key
+    return get_user(request).id
 
 def do_index(request):
     show_registration_form = False
@@ -136,8 +138,10 @@ def logout_view(request):
 
 
 def list_workouts(request):
-    wrks = sorted( WorkoutManager().list_workouts(wm_id(request)), key = lambda v: v['filenm'] )
-    wrks = map(lambda x: jsons.dump(x['default']), wrks)
+    this_user = get_user(request) if request.user.is_authenticated else None
+    wrks = WorkoutManager().list_workouts(wm_id(request))
+    wrks = map(lambda x: jsons.dump(x.build(this_user, x.id)), wrks)
+
 
     result = {}
     for w in wrks:
@@ -165,7 +169,7 @@ def view_workout(request):
         return JsonResponse({}, safe = False, status = 404)
 
     this_user = get_user(request) if request.user.is_authenticated else None
-    result = workout['default']
+    result = workout
 
     try:
         voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
@@ -186,17 +190,17 @@ def get_workout(request):
     workout_id = request.GET.get('id')
     logger.info(f"get workout: {workout_id}")
 
-    workout = WorkoutManager().load_workout(wm_id(request), workout_id)
-    if workout is None:
+    result = WorkoutManager().load_workout(wm_id(request), workout_id)
+    if result is None:
         return JsonResponse({}, safe = False, status = 404)
 
     this_user = get_user(request) if request.user.is_authenticated else None
-    result = workout['default'].build(this_user, workout_id)
+    #result = workout['default'].build(this_user, workout_id)
 
-    if this_user:
-        recs = UserWorkoutProps.objects.filter(user = this_user)
-        for r in recs:
-            result.apply_prop(r.prop_id, r.value)
+    #if this_user:
+    #    recs = UserWorkoutProps.objects.filter(user = this_user)
+    #    for r in recs:
+    #        result.apply_prop(r.prop_id, r.value)
 
     try:
         voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']

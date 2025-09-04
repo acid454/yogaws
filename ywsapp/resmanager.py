@@ -14,6 +14,8 @@ import random
 # It is a PATH MANAGER, not resources!
 class ResourcesManager():
     WORKOUTS_PATH = "workouts"
+    SETS_PATH = "sets"
+    ASANAS_PATH = "asanas"
     SOUND_COMPOSER_EXEC = "sound_composer"
     GLOBAL_PYTHON_PATHS = [ "", "sets", "common", "containers", "asanas" ]
 
@@ -38,6 +40,10 @@ class ResourcesManager():
         self.workout_files_list = list(filter(lambda x: x.endswith(".py"),
                             os.listdir(os.path.join(base_path, 'yoga', ResourcesManager.WORKOUTS_PATH)) ))
         self.sound_composer_exec = os.path.join(base_path, '..', 'scripts', 'sound_composer')
+        self.sets_files_list = list(filter(lambda x: x.endswith(".py"),
+                            os.listdir(os.path.join(base_path, 'yoga', ResourcesManager.SETS_PATH)) ))
+        self.asanas_files_list = list(filter(lambda x: x.endswith(".py"),
+                            os.listdir(os.path.join(base_path, 'yoga', ResourcesManager.ASANAS_PATH)) ))
     
     def main_bg_image(self):
         return self.main_bg_images[random.randrange(len(self.main_bg_images))]
@@ -60,6 +66,11 @@ class ResourcesManager():
     def sound_composer(self):
         return self.sound_composer_exec
     
+    def list_sets_files(self):
+        return self.sets_files_list
+
+    def list_asanas_files(self):
+        return self.asanas_files_list
 
 #=============== Initialize (-create) res manager on import ===============
 _ = ResourcesManager()

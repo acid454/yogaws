@@ -6,17 +6,18 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "yoga_home_traning",
-                             caption = "Домашняя тренировка\nдля всех начинающих",
-                             description = "Непродолжительный комплекс для любого начального уровня подготовки. Прекращение физической деградации.")
-    
+    name: str = "yoga_home_traning"
+    caption: str = "Домашняя тренировка\nдля всех начинающих"
+    description: str = "Непродолжительный комплекс для любого начального уровня подготовки. Прекращение физической деградации."
+
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered(tm_main = 13))

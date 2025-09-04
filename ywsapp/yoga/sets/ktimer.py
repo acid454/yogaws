@@ -13,7 +13,7 @@ from asanas import Asanas
 
 class KTimer(BaseSet):
     def __init__(self, **kwargs):
-        super().__init__(caption="Таймер для упражнений Кегеля")
+        super().__init__(caption="Таймер для упражнений Кегеля", visible = True)
         self.properties.append(IntProperty(caption="количество циклов", short="cnt", default=6))
         self.properties.append(IntProperty(caption="фиксация", short="tm_action", default=2))
         self.properties.append(IntProperty(caption="расслабление", short="tm_relax", default=2))
