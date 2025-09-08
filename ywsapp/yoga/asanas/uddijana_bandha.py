@@ -18,9 +18,9 @@ class UddijanaBandha(BaseAsana):
         super().__init__(name="uddijana_bandha", caption="Уддияна Бандха")
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=16))
         self.properties.append(IntProperty(caption="циклов", short="cycles", default=3))
-        self.properties.append(IntProperty(caption="выдох", short="tm_exhale", default=5))
-        self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=23))
-        self.properties.append(IntProperty(caption="отдых", short="tm_exit", default=10))
+        self.properties.append(IntProperty(caption="выдох", short="tm_exhale", default=10))
+        self.properties.append(IntProperty(caption="фиксация", short="tm_main", default=30))
+        self.properties.append(IntProperty(caption="отдых", short="tm_exit", default=17))
         self.update_props(kwargs)
         
         self.tasks.append(BaseTask(

@@ -9,6 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork
+from snd_pools import SND_POTIANULIS_VPERED
 
 
 class VitjashenieVpered(BaseAsana):
@@ -23,14 +24,7 @@ class VitjashenieVpered(BaseAsana):
             metronome=MetronomeWork(),
             images=["upr_vitjashenie_vpered1", "upr_vitjashenie_vpered2"]))
         
-        self.pool("name").append("upr_potjanulis_vpered1")
-        self.pool("name").append("upr_potjanulis_vpered2")
-        self.pool("name").append("upr_potjanulis_vpered3")
-        self.pool("name").append("upr_potjanulis_vpered4")
-        self.pool("name").append("upr_potjanulis_vpered5")
-        self.pool("name").append("upr_potjanulis_vpered6")
-        self.pool("name").append("upr_potjanulis_vpered7")
-        
+        self.pool("name").append(SND_POTIANULIS_VPERED)
         self.pool("continue").append("descr_potjanulis_vpered1")
         self.pool("continue").append("descr_potjanulis_vpered2")
         self.pool("continue").append("descr_potjanulis_vpered3")

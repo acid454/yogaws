@@ -9,6 +9,7 @@
 from base import BaseSet
 from properties import IntProperty
 from asanas import Asanas
+from snd_pools import SND_POEHALI
 
 
 class HermesGymnastics(BaseSet):
@@ -26,7 +27,7 @@ class HermesGymnastics(BaseSet):
         self.asanas.append(Asanas.breath.Breath(_inhale = False, action_text = "встаём ровно", tm_main = self.tm_prepare.value))
         self.asanas[-1].set_images(["hermes_stand"])
         self.asanas[-1].pool("start").append("begin_vstaem_rovno_ruki_vdol'_tulovisha")
-        self.asanas[-1].pool("end").append("poehali")
+        self.asanas[-1].pool("end").append(SND_POEHALI)
         
         for i in range(self.cnt.value):
             self.asanas.append(Asanas.breath.Breath(_inhale = True, action_text = "вдох", include_sounds = True, tm_main = self.tm_action.value))

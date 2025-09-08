@@ -19,7 +19,7 @@ class SuryaNamaskar(BaseSet):
         {'asana':Asanas.vitjashenie_vverh.VitjashenieVverh, 'slow':9, 'fast':4, 'extra_slow':15},
         {'asana':Asanas.vitjashenie_vpered.VitjashenieVpered, 'slow':9, 'fast':5, 'extra_slow':15 },
         #{'asana':Asanas.uttanasana.UttanasanaWithCompensation, 'slow':(9,6), 'fast':(4,4), 'extra_slow':(30,20)},
-        {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':4, 'extra_slow':30},
+        {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':6, 'extra_slow':30},
         {'asana':Asanas.niznii_upor.NizniiUpor, 'slow':6, 'fast':4, 'extra_slow':12},
         {'asana':Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh, 'slow':11, 'fast':7, 'extra_slow':35},
         {'asana':Asanas.gorka.GorkaBase, 'slow':11, 'fast':7, 'extra_slow':16},
@@ -28,7 +28,7 @@ class SuryaNamaskar(BaseSet):
         {'asana':Asanas.virabhadrasana.VirabhadrasanaRight, 'slow':16, 'fast':12, 'extra_slow':50},
         {'asana':Asanas.gorka.GorkaBase, 'slow':11, 'fast':4, 'extra_slow':30},
         {'asana':Asanas.short_poses.Prizhok_k_Rukam},
-        {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':4, 'extra_slow':35},
+        {'asana':Asanas.uttanasana.Uttanasana, 'slow':9, 'fast':6, 'extra_slow':35},
         {'asana':Asanas.short_poses.PodnimaemsiaVvreh}
     ]
     def __init__(self, timings = 'slow', **kwargs):

@@ -9,7 +9,7 @@
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork
-from snd_pools import *
+from snd_pools import SND_ZAKONCHILI_DALSHE
 
 
 class Perekatu_na_spine(BaseAsana):
@@ -30,5 +30,4 @@ class Perekatu_na_spine(BaseAsana):
         self.pool("float").append("descr_kataemsia_po_spine2")
         self.pool("float").append("descr_kataemsia_po_spine3")
         self.pool("float").append("descr_kataemsia_po_spine4")
-        for i in SND_ZAKONCHILI_DALSHE:
-            self.pool("end").append(i)
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE)

@@ -228,3 +228,13 @@ SND_POEHALI = [
     "itak_poehali",
     "i_nachinaem"
 ]
+
+SND_POTIANULIS_VPERED = [
+    "upr_potjanulis_vpered1",
+    "upr_potjanulis_vpered2",
+    "upr_potjanulis_vpered3",
+    "upr_potjanulis_vpered4",
+    "upr_potjanulis_vpered5",
+    "upr_potjanulis_vpered6",
+    "upr_potjanulis_vpered7"
+]

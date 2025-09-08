@@ -25,6 +25,7 @@ class NizniiUpor(BaseAsana):
         
         self.pool("start").append("ruki_pered_soboi1")
         self.pool("start").append("ruki_pered_soboi2")
+        self.pool("start").append("ruki_pered_soboi_i_stavim")
         self.pool("start").append("ladoni_ruk_pered_soboi1")
         self.pool("start").append("ladoni_ruk_pered_soboi2")
         self.pool("start").append("ladoni_ruk_pered_soboi_sgibaem_nogi")

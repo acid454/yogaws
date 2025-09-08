@@ -10,10 +10,34 @@ import random
 from base import BaseAsana, BaseTask
 from properties import IntProperty
 from metronomes import MetronomeWork, MetronomeRest
-from snd_pools import *
+from snd_pools import SND_ZAKONCHILI_DALSHE, SND_COMPLETION_OTHERS, FIKSIRUEM, NOGI_PERED_SOBOI, SND_MENIAJEM_NOGI
 
 
-class Markatasana(BaseAsana):
+class MarkatasanaBase(BaseAsana):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def setup_float(self, t):
+        t.pool("float").append(None)
+        t.pool("float").append(FIKSIRUEM, float_on_start = True)
+        t.pool("float").append("common_delaem_vse_ne_toropias'")
+        t.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'", float_on_start = True)
+        t.pool("float").append("descr_markatasana_koleni_stremiatsia_opustitsia_na_pol", float_on_start = True)
+        t.pool("float").append("common_mjagkoe_bezobidnoe_uprashnenie_raskrepostit'_pojasnicu")
+        t.pool("float").append("common_delaem_vse_ne_toropias'")
+        t.pool("float").append("common_tianemsia_2x")
+        t.pool("float").append("common_ubedilis'_chto_nam_horosho")
+        t.pool("float").append("common1")
+        t.pool("float").append("common7")
+        t.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
+        t.pool("float").append("common_glubokoe_proshivanie_tela")
+
+    def setup_end_pool(self):
+        self.pool("end").clear()
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS)
+
+
+class Markatasana(MarkatasanaBase):
     def __init__(self, **kwargs):
         super().__init__(name="markatasana", caption="Маркатасана")
         self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=13))
@@ -60,52 +84,31 @@ class Markatasana(BaseAsana):
         # Ignore enter and first cycle tasks
         for t in self.tasks[2:]:
             self.setup_float(t)
-        self.setup_end_pool()
-
-    def setup_float(self, t):
-        t.pool("float").append(None)
-        t.pool("float").append(FIKSIRUEM, float_on_start = True)
-        t.pool("float").append("common_delaem_vse_ne_toropias'")
-        t.pool("float").append("common_potianut'_pojasnichnue_mishzi_zameret'", float_on_start = True)
-        t.pool("float").append("descr_markatasana_koleni_stremiatsia_opustitsia_na_pol", float_on_start = True)
-        t.pool("float").append("common_mjagkoe_bezobidnoe_uprashnenie_raskrepostit'_pojasnicu")
-        t.pool("float").append("common_delaem_vse_ne_toropias'")
-        t.pool("float").append("common_tianemsia_2x")
-        t.pool("float").append("common_ubedilis'_chto_nam_horosho")
-        t.pool("float").append("common1")
-        t.pool("float").append("common7")
-        t.pool("float").append("common_uluchshenie_krovosnabshenia_pozvonochnika")
-        t.pool("float").append("common_glubokoe_proshivanie_tela")
-
-    def setup_end_pool(self):
         self.pool("end").clear()
         self.pool("end").append(SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS)
 
 
-class MarkatasanaWithLegs(Markatasana):
+class MarkatasanaWithLegs(MarkatasanaBase):
     def __init__(self, **kwargs):
-        super().__init__()
-        self.cycles_count.caption = "циклов коленей"
-        self.properties.append(IntProperty(caption="ноги перед собой", short="tm_legs", default=5))
-        self.properties.append(IntProperty(caption="циклов скруток", short="cycles_twist", default=3))
+        super().__init__(name="markatasana_legs", caption="Маркатасана")
+        self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=6))
+        self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=4))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=9))
         self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=2))
         self.update_props(kwargs)
 
-        self.pool("end").clear()
-
-
         self.tasks.append(BaseTask(
             caption=self.caption + " (подготовка)",
-            property=self.tm_legs,
+            property=self.tm_enter,
             metronome=MetronomeRest(),
             images=["markatasana_leg_right_up"]
         ))
-        self.pool("start").append(NOGI_PERED_SOBOI)
-        self.pool("continue").append("enter_markatasana_stavim_nogi")
-        self.pool("end").append("i_potianulis'_vlevo")
+        self.pool("start").append(NOGI_PERED_SOBOI, mandatory = True)
+        self.pool("continue").append("enter_markatasana_stavim_nogi", mandatory = True)
+        self.pool("end").append("i_potianulis'_vlevo", mandatory = True)
 
-        stopi_do_kovrika_rand = random.randint(1, self.cycles_twist.value - 1) + random.randint(0,1)/2
-        for i in range(self.cycles_twist.value):
+        stopi_do_kovrika_rand = random.randint(1, self.cycles_count.value - 1) + random.randint(0,1)/2
+        for i in range(self.cycles_count.value):
             self.tasks.append(BaseTask(
                 caption=self.caption + "\nвлево",
                 property=self.tm_main,
@@ -132,7 +135,8 @@ class MarkatasanaWithLegs(Markatasana):
             self.task_swap_legs()
         
         del self.tasks[-1]
-        self.setup_end_pool()
+        self.pool("end").clear()
+        self.pool("end").append(SND_ZAKONCHILI_DALSHE + SND_COMPLETION_OTHERS)
         
 
     def task_swap_legs(self):

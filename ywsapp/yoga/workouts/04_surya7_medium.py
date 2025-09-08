@@ -69,7 +69,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.Seli())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
-        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha(cycles = 5))
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
         self.wrap_asana(Asanas.plug.Plug(tm_main = 80))

@@ -26,7 +26,9 @@ class DefaultWorkout(BaseWorkout):
 
         self.wrap_asana(Asanas.planka.Planka(tm_main = 40))
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False, tm_main = 70))
-        self.wrap_asana(Asanas.markatasana.Markatasana(cycles_count = 5))
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.sukhasana.Sukhasana())
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs(cycles_count = 3))
         self.wrap_asana(Asanas.perekati_na_spine.Perekatu_na_spine())
         self.wrap_asana(Asanas.most.Most())
 

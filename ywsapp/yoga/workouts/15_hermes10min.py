@@ -23,13 +23,15 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.wrap_asana(Asanas.vitjashenie_vverh.VitjashenieVverh(tm_main = 20))
         self.wrap_asana(Asanas.vitjashenie_vpered.VitjashenieVpered(tm_main = 10))
-        self.wrap_asana(Asanas.uttanasana.UttanasanaWithCompensation(tm_main = 40, tm_compensation = 20))
+        self.wrap_asana(Asanas.uttanasana.Uttanasana(tm_main = 50))
         self.wrap_asana(Asanas.planka.Planka(tm_main = 60))
         self.wrap_asana(Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh(tm_main = 30))
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 30, tm_prepare = 5))
         self.wrap_asana(Asanas.short_poses.Nogi_k_Rukam())
 
         self.sets.append(HermesGymnastics())
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha(cycles = 5))
         
         self.wrap_asana(Asanas.shavasana.Shavasana())
 

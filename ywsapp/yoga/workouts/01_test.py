@@ -21,6 +21,8 @@ class DefaultWorkout(BaseWorkout):
                              description = "Для тестирования асан")
     
 
+        self.wrap_asana(Asanas.sukhasana.Sukhasana())
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati())
         self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
         

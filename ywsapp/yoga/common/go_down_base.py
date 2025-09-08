@@ -20,6 +20,12 @@ class AsanaGoDown:
             images=self.tasks[-1].images            # We made a ref to prev task's images
         ))
         self.pool("start").append("malasana_ladoni_v_pol", mandatory = True)
+        self.pool("start").append("ruki_pered_soboi1")
+        self.pool("start").append("ruki_pered_soboi2")
+        self.pool("start").append("ruki_pered_soboi_i_stavim")
+        self.pool("start").append("ladoni_ruk_pered_soboi1")
+        self.pool("start").append("ladoni_ruk_pered_soboi2")
+        
         self.pool("name").append("i_potianulis'_vniz")
         self.pool("name").append("i_tianemsia_lbom_v_pol")
         self.pool("name").append("upr_vitiagivanie_vniz1")

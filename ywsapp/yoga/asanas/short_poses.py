@@ -120,3 +120,4 @@ class Prizhok_k_Rukam(BaseAsana):
         
         self.pool("name").append("upr_prizhok_k_rukam1")
         self.pool("name").append("upr_prizhok_k_rukam2")
+        self.pool("name").append("upr_prizhok_k_rukam_plavnii")

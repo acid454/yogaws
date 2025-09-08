@@ -23,6 +23,10 @@ class DefaultWorkout(BaseWorkout):
         self.sets.append(SuryaNamaskar(timings = 'extra_slow', cnt = 1))
 
         self.wrap_asana(Asanas.planka.Planka(tm_main = 90))
+        self.wrap_asana(Asanas.short_poses.UshliNaChetverenki())
+        self.wrap_asana(Asanas.malasana.Malasana(with_complication = False))
+        self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.markatasana.MarkatasanaWithLegs())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 210))
         self.wrap_asana(Asanas.padottanasana.PadottanasanaLeft())
         self.wrap_asana(Asanas.parivritta.ParivrittaLeft(tm_main = 50))

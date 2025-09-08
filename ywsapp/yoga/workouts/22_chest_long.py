@@ -42,6 +42,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.stol.Stol())
         self.wrap_asana(Asanas.malasana.Malasana(with_complication = False))
 
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha())
+
 
         self.wrap_asana(Asanas.gorka.GorkaNormal(tm_main = 10))
         self.wrap_asana(Asanas.kapotasana.KapotasanaLeft(go_down = True, tm_main = 50, tm_down = 65))
@@ -66,6 +69,9 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.short_poses.LoshimsiaNaSpinu())
         self.wrap_asana(Asanas.dzathara_parivartanasana.Dzathara_Parivartanasana(tm_main = 90))
         self.wrap_asana(Asanas.plug.Plug(tm_main = 80))
+
+        self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha(cycles = 5))
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 
