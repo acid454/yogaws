@@ -8,7 +8,6 @@
 
 from dataclasses import dataclass
 from base import BaseProperty
-logger = logging.getLogger("ywsapp")
 
 
 @dataclass
