@@ -14,7 +14,7 @@ from snd_pools import SND_POEHALI
 
 class HermesGymnastics(BaseSet):
     def __init__(self, **kwargs):
-        super().__init__(caption="Комплекс упражнений Гермеса Трисмегиста")
+        super().__init__(caption="Комплекс упражнений Гермеса Трисмегиста", visible = True)
         self.properties.append(IntProperty(caption="количество циклов на упражнение", short="cnt", default=4))
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=10))
         self.properties.append(IntProperty(caption="вход", short="tm_action", default=2))

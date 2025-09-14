@@ -17,7 +17,7 @@ class Sobaki(BaseSet):
         {'asana':Asanas.sobaka_mordoi_vverh.SobakaMordoiVverh, 'slow':8, 'fast':7, 'extra_slow':13}
     ]
     def __init__(self, timings = 'slow', first_gorka_tm = None, transitions = None, **kwargs):
-        super().__init__(caption="Переходы Горка - Собака мордой вверх")
+        super().__init__(caption="Переходы Горка - Собака мордой вверх", visible = True)
         self.properties.append(IntProperty(caption="количество циклов", short="cycles_count", default=6))
         self.update_props(kwargs)
         self.timings = timings

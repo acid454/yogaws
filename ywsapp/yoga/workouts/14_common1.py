@@ -6,19 +6,20 @@
 #  Copyright 2023 Dmitry Repnikov <acid454@x220>
 #  
 
+from dataclasses import dataclass
 from base import BaseWorkout
 from asanas import Asanas
 from surya_namaskar import SuryaNamaskar
 from ktimer import KTimerX3
 
 
+@dataclass
 class DefaultWorkout(BaseWorkout):
-    def __init__(self):
-        BaseWorkout.__init__(self,
-                             name = "common1",
-                             caption = "Общая тренировка",
-                             description = "Общая тренировка на растяжку, скрутки и силовую часть")
-    
+    name: str = "common1"
+    caption: str = "Общая тренировка"
+    description: str = "Общая тренировка на растяжку, скрутки и силовую часть"
+
+    def __post_init__(self):
         self.wrap_asana(Asanas.tadasana.Tadasana())
         self.sets.append(SuryaNamaskar(timings = 'extra_slow', cnt = 1))
 

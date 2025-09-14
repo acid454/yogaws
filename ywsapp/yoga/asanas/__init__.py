@@ -7,6 +7,9 @@
 #  https://stackoverflow.com/questions/3155436/getattr-for-static-class-variables
 #
 
+from resmanager import ResourcesManager
+
+
 class AsanasType(type):
     def __getattr__(cls, key):
         # Use non-empty fromlist, to import only last module
@@ -14,4 +17,15 @@ class AsanasType(type):
         return __import__("asanas.%s"%(key), fromlist=[None])
 
 class Asanas(metaclass=AsanasType):
-    pass
+    ASANAS_IMPORTS = {}
+
+    @staticmethod
+    def get_class(name : str):
+        for f in ResourcesManager().list_asanas_files():
+            #print(f"Asanas __init__, processing {f}")
+            if f not in Asanas.ASANAS_IMPORTS.keys():
+                Asanas.ASANAS_IMPORTS[f] = __import__("asanas.%s"%(f[:-3]), fromlist=[None])
+            
+            result = getattr(Asanas.ASANAS_IMPORTS[f], name, None)
+            if result is not None:
+                return result
