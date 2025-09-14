@@ -2,7 +2,7 @@
 
 [ "x$1" != "xdrop" ] && {
     echo "Use [drop] to completely remove and rebuild database"
-} else {
+} || {
     echo "Removing DB cause drop option"
     rm -f db.sqlite3
 }
