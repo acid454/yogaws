@@ -16,9 +16,9 @@ class KapotasanaBase(BaseAsana, AsanaGoDown):
     def __init__(self, _side, _caption, _go_down):
         super().__init__(name="kapotasana_%s"%(_side), caption=_caption)
         self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=13))
-        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=35))
+        self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=50))
         if _go_down:
-            self.properties.append(IntProperty(caption="фиксация лежа", short="tm_down", default=35))
+            self.properties.append(IntProperty(caption="фиксация лежа", short="tm_down", default=50))
             self.properties.append(IntProperty(caption="выход", short="tm_exit", default=4))
 
         self.tasks.append(BaseTask(

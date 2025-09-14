@@ -62,6 +62,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.ushtrasana.Ushtrasana())
 
         self.wrap_asana(Asanas.short_poses.Seli())
+        self.wrap_asana(Asanas.sukhasana.Sukhasana())
         self.wrap_asana(Asanas.baddha_konasana.BaddhaKonasana())
         self.wrap_asana(Asanas.marichiasana.Marichiasana())
         self.wrap_asana(Asanas.pashimotanasana.Pashimotanasana(tm_main = 200))
@@ -71,7 +72,7 @@ class DefaultWorkout(BaseWorkout):
         self.wrap_asana(Asanas.plug.Plug(tm_main = 80))
 
         self.wrap_asana(Asanas.kapalabhati.Kapalabhati(tm_main = 70))
-        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha(cycles = 5))
+        self.wrap_asana(Asanas.uddijana_bandha.UddijanaBandha(cycles = 4))
         self.wrap_asana(Asanas.shavasana.Shavasana())
 
 

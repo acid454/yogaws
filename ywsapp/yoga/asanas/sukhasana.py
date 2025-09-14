@@ -15,10 +15,10 @@ from snd_pools import *
 class Sukhasana(BaseAsana):
     def __init__(self, **kwargs):
         super().__init__(name="sukhasana", caption="Сукхасана")
-        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=8))
-        self.properties.append(IntProperty(caption="вытяжение вперёд", short="tm_main", default=20))
+        self.properties.append(IntProperty(caption="подготовка", short="tm_prepare", default=16))
+        self.properties.append(IntProperty(caption="вытяжение вперёд", short="tm_main", default=30))
         self.properties.append(IntProperty(caption="циклов наклона", short="cycles_count", default=2))
-        self.properties.append(IntProperty(caption="вытяжение вбок", short="tm_side", default=15))
+        self.properties.append(IntProperty(caption="вытяжение вбок", short="tm_side", default=25))
         self.properties.append(IntProperty(caption="выход", short="tm_exit", default=5))
         self.update_props(kwargs)
         

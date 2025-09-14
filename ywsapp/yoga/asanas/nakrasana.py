@@ -33,10 +33,7 @@ class Nakrasana(BaseAsana):
         self.pool("name").append("upr_skrutki_leza")
         self.pool("name").append("upr_skrutki_leza")
 
-        self.pool("continue").append("left_side1", only_actings = VOICE_SIDE_ONLY_ACTING)
-        self.pool("continue").append("left_side2", only_actings = VOICE_SIDE_ONLY_ACTING)
-        self.pool("continue").append("v_levo", only_actings = VOICE_SIDE_ONLY_ACTING)
-
+        self.pool("continue").append(SND_SIDE_LEFT, only_actings = VOICE_SIDE_ONLY_ACTING)
         self.pool("continue").append("enter_nakrasana_left1", overlapse = True)
         self.pool("continue").append("enter_nakrasana_left2", overlapse = True)
         self.pool("continue").append("enter_nakrasana_left3", overlapse = True)

@@ -94,7 +94,7 @@ class MarkatasanaWithLegs(MarkatasanaBase):
         self.properties.append(IntProperty(caption="подготовка", short="tm_enter", default=6))
         self.properties.append(IntProperty(caption="циклов", short="cycles_count", default=4))
         self.properties.append(IntProperty(caption="время фиксации", short="tm_main", default=9))
-        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=2))
+        self.properties.append(IntProperty(caption="смена ног", short="tm_swap", default=4))
         self.update_props(kwargs)
 
         self.tasks.append(BaseTask(

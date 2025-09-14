@@ -39,10 +39,9 @@ class Bakasana(BaseAsana):
             self.pool("continue").append("enter_bakasana1", overlapse = True)
             self.pool("continue").append("enter_bakasana2")
         elif side == 'left':
-            self.pool("continue").append("left_side1", mandatory = True)
-            self.pool("continue").append("left_side2", mandatory = True)
+            self.pool("continue").append(SND_SIDE_LEFT, mandatory = True)
         else:
-            self.pool("continue").append("upr_skrutka_vpravo", mandatory = True)
+            self.pool("continue").append(SND_SIDE_RIGHT + ["upr_skrutka_vpravo"], mandatory = True)
 
 
         self.tasks.append(BaseTask(
