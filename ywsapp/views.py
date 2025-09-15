@@ -169,7 +169,7 @@ def view_workout(request):
         return JsonResponse({}, safe = False, status = 404)
 
     this_user = get_user(request) if request.user.is_authenticated else None
-    result = workout
+    result = workout.build(this_user, workout.id)
 
     try:
         voice_acting = User.objects.filter(username=this_user).values()[0]['voice_acting']
@@ -196,6 +196,7 @@ def get_workout(request):
 
     this_user = get_user(request) if request.user.is_authenticated else None
     #result = workout['default'].build(this_user, workout_id)
+    result = result.build(this_user, result.id)
 
     #if this_user:
     #    recs = UserWorkoutProps.objects.filter(user = this_user)

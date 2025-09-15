@@ -307,7 +307,7 @@ class BaseWorkout(PropertiesContainer):
                     return p
         return None
 
-    def build(self, _user, _id):
+    def _build(self, _user, _id):
         self.id = _id
         self.user = _user
         
@@ -347,6 +347,13 @@ class BaseWorkout(PropertiesContainer):
         if self.total_time_str.startswith("0:"):
             self.total_time_str = self.total_time_str[2:]
         return self
+    
+    def build(self, _user, _id):
+        result = BaseWorkout.from_items(self.items())
+        result.id = self.workout_id
+        result.caption = self.caption
+        result.group = self.group
+        return result._build(_user, _id)
     
     # Находим и применяем значение property
     def apply_prop(self, prop_id, prop_value):
