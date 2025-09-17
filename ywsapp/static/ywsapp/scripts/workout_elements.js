@@ -39,6 +39,9 @@ function do_show_element(e, list, idx, _thumbnails_path) {
         /* prop_table.style.border = "1px solid #000" */
         prop_table.style.width = "100%"
         for (const [prop_idx, prop_descr] of Object.entries(e.properties)) {
+            if (prop_descr.caption === null)
+                continue;
+            
             let tbl_r = document.createElement('tr');
             let tbl_d = document.createElement('td');
 

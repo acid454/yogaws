@@ -7,13 +7,13 @@
 #  
 
 
-SCR_VERSION = "1.0.5"
+SCR_VERSION = "1.0.6"
 
 import logging
 from io import StringIO
 main_log_stream = StringIO()
 logger = logging.getLogger("ywsapp")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler(main_log_stream))
 logger.handlers[-1].setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 logger.info(f"--- starting app, SCR version is {SCR_VERSION} ---")

@@ -17,3 +17,7 @@ class IntProperty(BaseProperty):
     value_min: int = 1
     value_max: int = 6000
 
+@dataclass
+class BoolProperty(BaseProperty):
+    type: str = "bool"
+    default: bool = False
