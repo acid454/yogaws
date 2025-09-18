@@ -42,12 +42,15 @@ class WorkoutManager:
                 
                 self.user_workouts[user_id] = {}
                 for user_workout in recs:
-                    logger.debug(f"USER WORKOUT {user_workout.caption}: {user_workout.items}")
-                    workout = BaseWorkout.from_items(json.loads(user_workout.items))
-                    workout.id = user_workout.workout_id
-                    workout.caption = user_workout.caption
-                    workout.group = user_workout.group
-                    self.user_workouts[user_id][workout.id] = workout
+                    try:
+                        logger.debug(f"USER WORKOUT {user_workout.caption}: {user_workout.items}")
+                        workout = BaseWorkout.from_items(json.loads(user_workout.items))
+                        workout.id = user_workout.workout_id
+                        workout.caption = user_workout.caption
+                        workout.group = user_workout.group
+                        self.user_workouts[user_id][workout.id] = workout
+                    except:
+                        logger.exception(f"exception while loading user workout form DB, skip")
                 
                 # Second, load deafult workout templates, but watch for same id (if workout was saved)
                 for f in sorted(ResourcesManager().workout_files()):
