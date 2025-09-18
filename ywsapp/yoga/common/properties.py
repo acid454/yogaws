@@ -21,3 +21,8 @@ class IntProperty(BaseProperty):
 class BoolProperty(BaseProperty):
     type: str = "bool"
     default: bool = False
+
+@dataclass
+class StrProperty(BaseProperty):
+    type: str = "str"
+    default: str = ''

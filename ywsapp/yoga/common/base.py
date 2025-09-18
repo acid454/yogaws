@@ -42,13 +42,7 @@ class PropertiesContainer:
         return None
     
     def serialize(self):
-        return list(map(lambda x: x.serialize(), self.properties))
-    
-    def deserialize(self, props):
-        for p in props:
-            obj = getattr(self, p['short'], None)
-            if obj is not None:
-                obj.deserialize(p)
+        return dict(map(lambda x: (x.short, x.value), self.properties))
 
 
 @dataclass
@@ -105,7 +99,7 @@ class BaseAsana(PropertiesContainer, VisibleElement):
 @dataclass
 class BaseProperty:
     type: str = None
-    caption: str = "Без названия"
+    caption: str = None
     short: str = None
     default = None
     _value = None
@@ -128,14 +122,7 @@ class BaseProperty:
             asana_id = asana,
             short = self.short
         )
-    
-    def serialize(self):
-        return jsons.dump(self)
-    
-    def deserialize(self, s):
-        for k in s.keys():
-            if getattr(self, k, None) is not None:
-                setattr(self, k, s[k])
+
 
 @dataclass
 class SoundPool:
@@ -349,6 +336,8 @@ class BaseWorkout(PropertiesContainer):
         return self
     
     def build(self, _user, _id):
+        #import pprint
+        #logger.error(f"Building workout {self.caption}:\n{pprint.pformat(self.items())}")
         result = BaseWorkout.from_items(self.items())
         result.id = self.workout_id
         result.caption = self.caption
@@ -379,16 +368,15 @@ class BaseWorkout(PropertiesContainer):
 
         logger.debug("Reconstruct workout from items")
         for s in items:
-            obj = Sets.get_class(s['class'], BaseSet)()
-            obj.deserialize(s['props'])
+            obj = Sets.get_class(s['class'], BaseSet)( **s['props'] )
             for a in s['asanas']:
                 asana = Asanas.get_class(a['class'])
                 if asana is None:
                     logger.error(f"WARNING! Unknown asana class while deserializing set {s}: {a}. Will continue.")
                     continue
-                asana = asana()
+
+                asana = asana( **a['props'] )
                 asana.serializable = True
-                asana.deserialize(a['props'])
                 obj.asanas.append(asana)
             result.sets.append(obj)
         return result
